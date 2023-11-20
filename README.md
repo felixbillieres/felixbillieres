@@ -20,7 +20,7 @@
 
 ## Get in Touch
 
-- 📫 Connect with me on [LinkedIn](www.linkedin.com/in/félix-billières-6b7681263).
+- 📫 Connect with me on [LinkedIn](https://www.linkedin.com/in/f%C3%A9lix-billi%C3%A8res-6b7681263/).
 - 🐦 Add me on [TryHackMe](https://tryhackme.com/p/Lowly).
 - 💻 Check out my projects on [GitHub](https://github.com/FelixBillieres).
 
