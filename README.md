@@ -11,7 +11,6 @@
 
 - 👾 Cybersecurity: I enjoy exploring various aspects of cybersecurity, including network security, malware analysis, and ethical hacking.
 - 🌐 Networking: Understanding the intricacies of network protocols and architectures is a key part of my learning journey.
-- 🛠️ Tools: Proficient in tools commonly used in cybersecurity, such as Wireshark, Snort, and various penetration testing frameworks.
 
 ## What I'm Working On
 
@@ -21,8 +20,8 @@
 
 ## Get in Touch
 
-- 📫 Connect with me on [LinkedIn](https://www.linkedin.com/in/felix-billieres/).
-- 🐦 Follow me on [Twitter](https://twitter.com/FelixBillieres).
+- 📫 Connect with me on [LinkedIn](www.linkedin.com/in/félix-billières-6b7681263).
+- 🐦 Add me on [TryHackMe](https://tryhackme.com/p/Lowly).
 - 💻 Check out my projects on [GitHub](https://github.com/FelixBillieres).
 
 ## Let's Connect!
