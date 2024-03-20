@@ -140,6 +140,8 @@
     * [🥎 FTP](documentation/how-to/ftp.md)
     * [🐲 Hydra](documentation/how-to/hydra.md)
     * [🗺️ SQLMap](documentation/how-to/sqlmap.md)
+    * [🕺 WinRM](documentation/how-to/winrm.md)
+    * [🗺️ CrackMapExec](documentation/how-to/crackmapexec.md)
   * [🔑 CTF Writeups](documentation/ctf-writeups/README.md)
     * [😎 Tryhackme Writeups](documentation/ctf-writeups/tryhackme-writeups/README.md)
       * [😀 Easy](documentation/ctf-writeups/tryhackme-writeups/easy/README.md)
