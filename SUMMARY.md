@@ -77,6 +77,8 @@
         * [🏰 PingCastle](documentation/cybersecurity-documentation/active-directory/post-compromise-enumeration/pingcastle.md)
       * [3️⃣ Post-Compromise Attacks](documentation/cybersecurity-documentation/active-directory/post-compromise-attacks/README.md)
         * [🛳️ Pass Attacks](documentation/cybersecurity-documentation/active-directory/post-compromise-attacks/pass-attacks.md)
+        * [🥸 Pass-the-Hash](documentation/cybersecurity-documentation/active-directory/post-compromise-attacks/pass-the-hash.md)
+        * [🐩 Kerberoasting](documentation/cybersecurity-documentation/active-directory/post-compromise-attacks/kerberoasting.md)
       * [💪 Physical AD Components](documentation/cybersecurity-documentation/active-directory/physical-ad-components.md)
       * [💫 Logical AD Components](documentation/cybersecurity-documentation/active-directory/logical-ad-components.md)
       * [Breaching Active Directory](documentation/cybersecurity-documentation/active-directory/breaching-active-directory.md)
