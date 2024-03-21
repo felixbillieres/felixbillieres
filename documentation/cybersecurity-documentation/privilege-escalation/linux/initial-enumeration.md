@@ -30,6 +30,12 @@ During a penetration test or security audit, gaining a solid understanding of th
 
 * Lists all running processes, providing insights into active applications.
 
+#### `7. ss -lntp`
+
+* list listening network sockets along with their associated processes on a Linux system.
+
+
+
 ### User Enumeration
 
 #### 7. `whoami`

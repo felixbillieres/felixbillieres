@@ -1,4 +1,4 @@
-# Log Analysis
+# 🌟 Log Analysis
 
 ### Types of Logs
 
