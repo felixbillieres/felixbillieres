@@ -159,6 +159,7 @@
       * [🔑 Access](documentation/ctf-writeups/active-directory-and-network/access.md)
       * [🐭 Monteverde](documentation/ctf-writeups/active-directory-and-network/monteverde.md)
       * [👁️ Shibboleth](documentation/ctf-writeups/active-directory-and-network/shibboleth.md)
+      * [🐕‍🦺 Attacking Kerberos](documentation/ctf-writeups/active-directory-and-network/attacking-kerberos.md)
     * [📦 HackTheBox](documentation/ctf-writeups/hackthebox/README.md)
       * [🤠 Intro to Dante](documentation/ctf-writeups/hackthebox/intro-to-dante/README.md)
         * [🏸 OpenAdmin](documentation/ctf-writeups/hackthebox/intro-to-dante/openadmin.md)
