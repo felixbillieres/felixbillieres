@@ -4,6 +4,8 @@
 
 CrackMapExec (CME) is a powerful penetration testing tool used by security professionals and red teamers to assess the security of Windows networks. It's designed to automate various tasks related to reconnaissance, exploitation, and post-exploitation on Windows networks, making it an essential tool in the arsenal of ethical hackers and security researchers.
 
+{% embed url="https://cheatsheet.haax.fr/windows-systems/exploitation/crackmapexec/" %}
+
 **Key Features:**
 
 1. **SMB Enumeration**: CME can enumerate SMB (Server Message Block) shares, users, groups, and domains within a Windows network. This allows testers to identify potential attack vectors and assess the network's security posture.
