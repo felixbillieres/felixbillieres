@@ -12,7 +12,7 @@ One well-known example of a Potato Attack is the "Print Spooler Service" exploit
 
 Potato Attacks typically involve manipulating Windows services or components that run with elevated privileges, exploiting misconfigurations or vulnerabilities to execute arbitrary code with higher privileges than the attacker initially possessed.
 
-<figure><img src="../../../../.gitbook/assets/image (27).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (27) (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -22,7 +22,7 @@ token =cookies for your computer, allows access to system/network without creden
 
 there is delegate tokens and impersonate tokens&#x20;
 
-<figure><img src="../../../../.gitbook/assets/image (28).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (28) (1).png" alt=""><figcaption></figcaption></figure>
 
 impersonate token in meterpreter&#x20;
 
@@ -84,7 +84,7 @@ LSADump::LSA /patch
 
 {% embed url="https://book.hacktricks.xyz/windows-hardening/stealing-credentials/credentials-mimikatz" %}
 
-<figure><img src="../../../../.gitbook/assets/image (30).png" alt=""><figcaption><p>very sensitive hashes to create golden tickets</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (30) (1).png" alt=""><figcaption><p>very sensitive hashes to create golden tickets</p></figcaption></figure>
 
 {% embed url="https://blog.3or.de/mimikatz-deep-dive-on-lsadumplsa-patch-and-inject" %}
 
@@ -96,7 +96,7 @@ If we owned a machine, we can run the&#x20;
 whoami /priv
 ```
 
-<figure><img src="../../../../.gitbook/assets/image (31).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (31) (1).png" alt=""><figcaption></figcaption></figure>
 
 there are some bad privileges that would make it possible for us to use impersonation like&#x20;
 
