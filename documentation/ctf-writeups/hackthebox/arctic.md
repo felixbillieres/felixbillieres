@@ -4,7 +4,7 @@ description: https://app.hackthebox.com/machines/9
 
 # 🧊 Arctic
 
-<figure><img src="../../../.gitbook/assets/image (686).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (686) (1).png" alt=""><figcaption></figcaption></figure>
 
 After a Nmap →
 

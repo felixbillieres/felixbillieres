@@ -1,6 +1,6 @@
 # 🚰 Pivoting
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (686).png" alt=""><figcaption></figcaption></figure>
 
 ### Enumeration for pivoting:
 
@@ -53,7 +53,7 @@ static binaries are easy to find for both [Linux](https://github.com/andrew-d/st
 
 if you are attempting to get a shell on a target that does not have a direct connection back to your attacking computer, you could use socat to set up a relay on the currently compromised machine. This listens for the reverse shell from the target and then forwards it immediately back to the attacking box:
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 Before using socat, it will usually be necessary to download a binary for it, then upload it to the box.
 

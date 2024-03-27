@@ -28,7 +28,7 @@ Rubeus can both brute force passwords as well as password spray user accounts. W
 Rubeus.exe brute /password:Password1 /noticket
 ```
 
-<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Kerberoasting w/ Rubeus & Impacket
 
