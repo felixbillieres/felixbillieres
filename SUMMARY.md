@@ -196,7 +196,7 @@
       * [🎶 SecNotes](documentation/ctf-writeups/hackthebox/secnotes.md)
       * [😳 Headless](documentation/ctf-writeups/hackthebox/headless.md)
       * [🧊 Arctic](documentation/ctf-writeups/hackthebox/arctic.md)
-      * [Sniper](documentation/ctf-writeups/hackthebox/sniper.md)
+      * [🔫 Sniper](documentation/ctf-writeups/hackthebox/sniper.md)
   * [🔢 Cryptography](documentation/cryptography/README.md)
     * [👀 Introduction to CryptoHack](documentation/cryptography/introduction-to-cryptohack.md)
   * [🕵️‍♂️ Sherlocks](documentation/sherlocks/README.md)
