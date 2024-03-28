@@ -197,6 +197,7 @@
       * [😳 Headless](documentation/ctf-writeups/hackthebox/headless.md)
       * [🧊 Arctic](documentation/ctf-writeups/hackthebox/arctic.md)
       * [🔫 Sniper](documentation/ctf-writeups/hackthebox/sniper.md)
+      * [Legacy](documentation/ctf-writeups/hackthebox/legacy.md)
   * [🔢 Cryptography](documentation/cryptography/README.md)
     * [👀 Introduction to CryptoHack](documentation/cryptography/introduction-to-cryptohack.md)
   * [🕵️‍♂️ Sherlocks](documentation/sherlocks/README.md)
