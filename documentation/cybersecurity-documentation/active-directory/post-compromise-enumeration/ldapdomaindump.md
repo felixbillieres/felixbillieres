@@ -13,3 +13,9 @@ sudo ldapdomaindump ldaps://172.16.91.129 -u 'MARVEL\fcastle' -p Passw0rd
 ```
 
 <figure><img src="../../../../.gitbook/assets/image (181).png" alt=""><figcaption></figcaption></figure>
+
+and now you have plenty of informations about the domain and possibly clear text credentials if msiconfigured:
+
+<figure><img src="../../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>

@@ -200,6 +200,7 @@
       * [🔫 Sniper](documentation/ctf-writeups/hackthebox/sniper.md)
       * [🦵 Legacy](documentation/ctf-writeups/hackthebox/legacy.md)
       * [🏦 Bank](documentation/ctf-writeups/hackthebox/bank.md)
+      * [🍿 Popcorn](documentation/ctf-writeups/hackthebox/popcorn.md)
   * [🔢 Cryptography](documentation/cryptography/README.md)
     * [👀 Introduction to CryptoHack](documentation/cryptography/introduction-to-cryptohack.md)
   * [🕵️‍♂️ Sherlocks](documentation/sherlocks/README.md)
