@@ -2,7 +2,7 @@
 description: https://app.hackthebox.com/machines/357
 ---
 
-# Intelligence
+# 🧠 Intelligence
 
 <figure><img src="../../../.gitbook/assets/image (662).png" alt=""><figcaption></figcaption></figure>
 
