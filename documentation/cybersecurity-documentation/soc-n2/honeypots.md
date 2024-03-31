@@ -50,8 +50,8 @@ By default, Cowrie will only expose SSH. This means adversaries will only be abl
 
 Defending against these attacks is relatively simple in most cases as they can be defeated by only allowing public-key authentication or by using strong passwords.
 
-{% content-ref url="../../how-to/hydra.md" %}
-[hydra.md](../../how-to/hydra.md)
+{% content-ref url="../../../interacting-with-protocols-and-tools/tools/hydra.md" %}
+[hydra.md](../../../interacting-with-protocols-and-tools/tools/hydra.md)
 {% endcontent-ref %}
 
 ### Typical Post Exploitation Activity

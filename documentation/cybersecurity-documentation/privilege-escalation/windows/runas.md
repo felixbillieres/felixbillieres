@@ -1,5 +1,5 @@
 # 👟 RunAs
 
-{% content-ref url="../../../ctf-writeups/active-directory-and-network/access.md" %}
-[access.md](../../../ctf-writeups/active-directory-and-network/access.md)
+{% content-ref url="../../../../capture-the-flags/active-directory-and-network/access.md" %}
+[access.md](../../../../capture-the-flags/active-directory-and-network/access.md)
 {% endcontent-ref %}
