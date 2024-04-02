@@ -316,3 +316,16 @@ polkdit exploit:[https://github.com/bcoles/kernel-exploits/tree/master/CVE-2018-
 
 {% embed url="https://0xdf.gitlab.io/2019/01/08/htb-mischief-more-root.html" %}
 
+Redoing my autoroute:
+
+<figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+closest try i had:&#x20;
+
+<figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+sudo version tried
+
+<figure><img src=".gitbook/assets/Capture d’écran du 2024-04-02 11-08-33.png" alt=""><figcaption></figcaption></figure>

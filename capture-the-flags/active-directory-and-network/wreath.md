@@ -4,7 +4,7 @@ description: https://tryhackme.com/r/room/wreath
 
 # 🔧 Wreath
 
-<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 After some enumeration on the system, i found that the server version was Miniserv 1.890 Webmin httpd, and there was an known CVE: CVE-2019-15107
 
@@ -12,9 +12,9 @@ After some enumeration on the system, i found that the server version was Minise
 ./CVE-2019-15107.py 10.200.84.200
 ```
 
-<figure><img src="../../../.gitbook/assets/image (695).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (695).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (696).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (696).png" alt=""><figcaption></figcaption></figure>
 
 so we're in as root, we can go and look at the hashes in /etc/shadow:
 
@@ -28,7 +28,7 @@ We are not able to crack the hash, but we remember we have ssh enabled, let's tr
 
 in `/root/.ssh/id_rsa` you find a private key, copy paste it on your local machine ->
 
-<figure><img src="../../../.gitbook/assets/image (697).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (697).png" alt=""><figcaption></figcaption></figure>
 
 and connect via the key:&#x20;
 
@@ -36,7 +36,7 @@ and connect via the key:&#x20;
 ssh root@thomaswreath.thm -i sshkeywreath
 ```
 
-<figure><img src="../../../.gitbook/assets/image (698).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (698).png" alt=""><figcaption></figcaption></figure>
 
 I'll put the ssh key here if the session is terminated:
 
