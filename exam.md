@@ -227,6 +227,92 @@ the @demo.iredmail.org made me remember the mail.thepastamentors.com
 
 so let's try one last thing:
 
-giovanni@mail.thepastamentors.com
+giovanni@thepastamentors.com
 
-ferruccio@mail.thepastamentors.com
+ferruccio@thepastamentors.com
+
+<figure><img src=".gitbook/assets/image (775).png" alt=""><figcaption><p>dashboard?checknew</p></figcaption></figure>
+
+after a bruteforce, i finally found the password:&#x20;
+
+<figure><img src=".gitbook/assets/image (776).png" alt=""><figcaption></figcaption></figure>
+
+all the passwords are TCMpnpt2024!
+
+in the roundcube mail of giovanni i found this key:
+
+<figure><img src=".gitbook/assets/image (777).png" alt=""><figcaption><p>from user Luigi Plumbman</p></figcaption></figure>
+
+we discover what seems to be an admin: postmaster@thepastamentors.com
+
+ssh2john then rockyou:
+
+<figure><img src=".gitbook/assets/image (778).png" alt=""><figcaption></figcaption></figure>
+
+while looking at the mails i also find a mario user (that was deleted according to root user):
+
+<figure><img src=".gitbook/assets/image (779).png" alt=""><figcaption></figcaption></figure>
+
+we also encounter a root user
+
+<figure><img src=".gitbook/assets/image (781).png" alt=""><figcaption></figcaption></figure>
+
+while enumerating i find these
+
+<figure><img src=".gitbook/assets/Capture d’écran du 2024-03-31 23-41-43.png" alt=""><figcaption><p>P@55w0rd!</p></figcaption></figure>
+
+we are in the external part of the pentest:
+
+```
+ssh -i sshkey adminuser@10.10.155.5
+Password1
+```
+
+after connecting i need to pivot to internal network:&#x20;
+
+```
+openssl rsa -in sshkey -out ~/.ssh/pivot
+```
+
+<figure><img src=".gitbook/assets/image (782).png" alt=""><figcaption></figcaption></figure>
+
+```
+sshuttle -r adminuser@10.10.155.5 10.10.10.0/24 --ssh-cmd "ssh -i ~/.ssh/pivot"
+```
+
+<figure><img src=".gitbook/assets/image (783).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src=".gitbook/assets/Capture d’écran du 2024-04-01 11-05-25.png" alt=""><figcaption></figcaption></figure>
+
+We can see that the eth1 is linked to the internal network
+
+**Kernel: Linux 4.15.0-197-generic**
+
+and version of sudo:&#x20;
+
+```
+sudo -V | grep "Sudo ver" | grep "1\.[01234567]\.[0-9]\+\|1\.8\.1[0-9]\*\|1\.8\.2[01234567]"
+```
+
+**Sudo version 1.8.21p2**
+
+i transfer linpeas on distant machine with the command:
+
+```
+scp -i sshkey /home/kali/exam/linpeas.sh adminuser@10.10.10.5:/home/adminuser/
+```
+
+via the kernel version:
+
+```
+https://github.com/jas502n/CVE-2019-13272/blob/master/CVE-2019-13272.c
+```
+
+<figure><img src=".gitbook/assets/image (784).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src=".gitbook/assets/image (785).png" alt=""><figcaption></figcaption></figure>
+
+polkdit exploit:[https://github.com/bcoles/kernel-exploits/tree/master/CVE-2018-18955](https://github.com/bcoles/kernel-exploits/tree/master/CVE-2018-18955)
+
+{% embed url="https://0xdf.gitlab.io/2019/01/08/htb-mischief-more-root.html" %}
+
