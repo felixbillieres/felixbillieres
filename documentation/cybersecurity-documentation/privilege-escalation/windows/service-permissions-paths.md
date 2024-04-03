@@ -40,7 +40,7 @@ accesschk64.exe -uwcv Everyone *
 accesschk64.exe -wuvc daclsvc
 ```
 
-<figure><img src="../../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 we got read write for everyone as we can see
 
@@ -54,7 +54,7 @@ sc qc daclsvc
 2. **qc**: This is an abbreviation for "queryconfig". It instructs `sc` to display the configuration information for the specified service.
 3. **daclsvc**: This is the name of the service for which you want to query the configuration information. In this case, it refers to a service named "daclsvc". Services in Windows are background processes that can be automatically started when the system boots or on demand.
 
-<figure><img src="../../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can see the binary path name, but since we have change\_config enabled we can modify this
 
