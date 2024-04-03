@@ -2,8 +2,8 @@
 
 Nice page about token impersonation with example:
 
-{% content-ref url="../../../documentation/cybersecurity-documentation/privilege-escalation/windows/impersonation-and-potato-attacks.md" %}
-[impersonation-and-potato-attacks.md](../../../documentation/cybersecurity-documentation/privilege-escalation/windows/impersonation-and-potato-attacks.md)
+{% content-ref url="../../../still-sorting-out/documentation/cybersecurity-documentation/privilege-escalation/windows/impersonation-and-potato-attacks.md" %}
+[impersonation-and-potato-attacks.md](../../../still-sorting-out/documentation/cybersecurity-documentation/privilege-escalation/windows/impersonation-and-potato-attacks.md)
 {% endcontent-ref %}
 
 <figure><img src="../../../.gitbook/assets/image (21) (1).png" alt=""><figcaption></figcaption></figure>

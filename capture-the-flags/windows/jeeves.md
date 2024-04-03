@@ -62,8 +62,8 @@ then, fire up the payload and get your shell:
 
 Now is the perfect moment to look at our previous documentation:
 
-{% content-ref url="../../documentation/cybersecurity-documentation/privilege-escalation/windows/impersonation-and-potato-attacks.md" %}
-[impersonation-and-potato-attacks.md](../../documentation/cybersecurity-documentation/privilege-escalation/windows/impersonation-and-potato-attacks.md)
+{% content-ref url="../../still-sorting-out/documentation/cybersecurity-documentation/privilege-escalation/windows/impersonation-and-potato-attacks.md" %}
+[impersonation-and-potato-attacks.md](../../still-sorting-out/documentation/cybersecurity-documentation/privilege-escalation/windows/impersonation-and-potato-attacks.md)
 {% endcontent-ref %}
 
 ```
