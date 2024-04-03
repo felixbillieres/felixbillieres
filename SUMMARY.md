@@ -11,6 +11,7 @@
     * [🎊 Gaining Shell with SMB](active-directory/attacking-vectors/initial-attack-vectors/gaining-shell-with-smb.md)
     * [6️⃣ IPv6 Attacks](active-directory/attacking-vectors/initial-attack-vectors/ipv6-attacks.md)
     * [🍃 Passback Attacks](active-directory/attacking-vectors/initial-attack-vectors/passback-attacks.md)
+    * [🚘 PreAuth User Enumeration](active-directory/attacking-vectors/initial-attack-vectors/preauth-user-enumeration.md)
   * [2️⃣ Post-Compromise Enumeration](active-directory/attacking-vectors/post-compromise-enumeration/README.md)
     * [📻 ldapdomaindump](active-directory/attacking-vectors/post-compromise-enumeration/ldapdomaindump.md)
     * [🐩 Bloodhound](active-directory/attacking-vectors/post-compromise-enumeration/bloodhound.md)
@@ -91,6 +92,7 @@
   * [Mantis](capture-the-flags/active-directory-and-network/mantis.md)
   * [⌛ Timelapse](capture-the-flags/active-directory-and-network/timelapse.md)
   * [🏦 Red Team Capstone Challenge](capture-the-flags/active-directory-and-network/red-team-capstone-challenge.md)
+  * [🥊 Jab](capture-the-flags/active-directory-and-network/jab.md)
 
 ## 🛡️ Blue Team
 
