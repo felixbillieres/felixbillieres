@@ -49,6 +49,7 @@
   * [🗺️ SQLMap](interacting-with-protocols-and-tools/tools/sqlmap.md)
   * [🐲 Hydra](interacting-with-protocols-and-tools/tools/hydra.md)
   * [📩 Searchsploit](interacting-with-protocols-and-tools/tools/searchsploit.md)
+  * [🎂 Huge list of tools](interacting-with-protocols-and-tools/tools/huge-list-of-tools.md)
 
 ## 🏳️ Capture The Flags
 
@@ -74,6 +75,7 @@
   * [🔑 Keeper](capture-the-flags/linux/keeper.md)
   * [🏸 OpenAdmin](capture-the-flags/linux/openadmin.md)
   * [🪒 Sense](capture-the-flags/linux/sense.md)
+  * [🐼 RedPanda](capture-the-flags/linux/redpanda.md)
 * [🕸️ Active Directory & Network](capture-the-flags/active-directory-and-network/README.md)
   * [🤼 Forest](capture-the-flags/active-directory-and-network/forest.md)
   * [🪟 Attacktive Directory](capture-the-flags/active-directory-and-network/attacktive-directory.md)
@@ -100,6 +102,7 @@
   * [📛 Threat Hunting](blue-team/soc-n2/threat-hunting.md)
   * [🍯 Honeypots](blue-team/soc-n2/honeypots.md)
   * [🟩 Splunk: Exploring SPL](blue-team/soc-n2/splunk-exploring-spl.md)
+  * [📈 Advanced ELK Queries](blue-team/soc-n2/advanced-elk-queries.md)
 
 ## 👨‍🏭 Still sorting out
 
@@ -167,7 +170,6 @@
       * [🤳 Credential Stuffing and Password Spraying](still-sorting-out/documentation/cybersecurity-documentation/exploitation-basics/credential-stuffing-and-password-spraying.md)
     * [🤯 Exploit Development](still-sorting-out/documentation/cybersecurity-documentation/exploit-development/README.md)
       * [🌊 Buffer Overflow](still-sorting-out/documentation/cybersecurity-documentation/exploit-development/buffer-overflow.md)
-    * [📈 Advanced ELK Queries](still-sorting-out/documentation/cybersecurity-documentation/advanced-elk-queries.md)
     * [🔍 OSINT](still-sorting-out/documentation/cybersecurity-documentation/osint/README.md)
       * [🫑 Sock Puppets](still-sorting-out/documentation/cybersecurity-documentation/osint/sock-puppets.md)
       * [☎️ Search Engine OSINT](still-sorting-out/documentation/cybersecurity-documentation/osint/search-engine-osint.md)
@@ -186,7 +188,8 @@
       * [🏉 Social Media OSINT](still-sorting-out/documentation/cybersecurity-documentation/osint/social-media-osint.md)
       * [🎒 Website OSINT](still-sorting-out/documentation/cybersecurity-documentation/osint/website-osint.md)
     * [🕸️ Web Application](still-sorting-out/documentation/cybersecurity-documentation/web-application/README.md)
-      * [😛 SQL Injection](still-sorting-out/documentation/cybersecurity-documentation/web-application/sql-injection.md)
+      * [😛 SQL Injection](still-sorting-out/documentation/cybersecurity-documentation/web-application/sql-injection/README.md)
+        * [🟧 Portswigger labs](still-sorting-out/documentation/cybersecurity-documentation/web-application/sql-injection/portswigger-labs.md)
       * [🔽 XSS Injection](still-sorting-out/documentation/cybersecurity-documentation/web-application/xss-injection.md)
       * [💉 CSRF](still-sorting-out/documentation/cybersecurity-documentation/web-application/csrf.md)
       * [♻️ Command injections](still-sorting-out/documentation/cybersecurity-documentation/web-application/command-injections.md)
@@ -222,3 +225,7 @@
   * [Chals](still-sorting-out/documentation/chals/README.md)
     * [App-script](still-sorting-out/documentation/chals/app-script/README.md)
       * [Bash System 1](still-sorting-out/documentation/chals/app-script/bash-system-1.md)
+
+## Group 1
+
+* [Page 1](group-1/page-1.md)

