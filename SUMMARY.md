@@ -50,6 +50,7 @@
   * [🗺️ SQLMap](interacting-with-protocols-and-tools/tools/sqlmap.md)
   * [🐲 Hydra](interacting-with-protocols-and-tools/tools/hydra.md)
   * [📩 Searchsploit](interacting-with-protocols-and-tools/tools/searchsploit.md)
+  * [🌭 Kerbrute](interacting-with-protocols-and-tools/tools/kerbrute.md)
   * [🎂 Huge list of tools](interacting-with-protocols-and-tools/tools/huge-list-of-tools.md)
 
 ## 🏳️ Capture The Flags
