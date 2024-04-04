@@ -34,7 +34,8 @@
   * [💫 Logical AD Components](active-directory/ad-in-theory/logical-ad-components.md)
   * [💪 Physical AD Components](active-directory/ad-in-theory/physical-ad-components.md)
 * [🏧 Practical THM Path](active-directory/practical-thm-path/README.md)
-  * [Breaching Active Directory](active-directory/practical-thm-path/breaching-active-directory.md)
+  * [👾 Breaching Active Directory](active-directory/practical-thm-path/breaching-active-directory.md)
+  * [🧑‍🍳 Enumerating Active Directory](active-directory/practical-thm-path/enumerating-active-directory.md)
 
 ## 🧑‍🏫 Interacting With Protocols & Tools
 
