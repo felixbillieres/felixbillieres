@@ -237,3 +237,7 @@
   * [Chals](still-sorting-out/documentation/chals/README.md)
     * [App-script](still-sorting-out/documentation/chals/app-script/README.md)
       * [Bash System 1](still-sorting-out/documentation/chals/app-script/bash-system-1.md)
+
+## ☁️ Azure & Cloud
+
+* [👺 Azure](azure-and-cloud/azure.md)
