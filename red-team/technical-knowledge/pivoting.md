@@ -1,6 +1,6 @@
 # 🚰 Pivoting
 
-<figure><img src="../../../../.gitbook/assets/image (686).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (686).png" alt=""><figcaption></figcaption></figure>
 
 ### Moving Through the Network
 
@@ -8,7 +8,7 @@ Suppose we got our first compromise on the target network by using a phishing ca
 
 Marketing workstations will typically be limited through firewall policies to access any critical services on the network
 
-<figure><img src="../../../../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (8) (1).png" alt=""><figcaption></figcaption></figure>
 
 The simplest way would be to use standard administrative protocols like WinRM, RDP, VNC or SSH to connect to other machines around the network.
 
@@ -27,7 +27,7 @@ It allows an administrator user to run commands remotely on any PC where he has 
 2. Connect to the service control manager to create and run a service named PSEXESVC and associate the service binary with `C:\Windows\psexesvc.exe`.
 3. Create some named pipes to handle stdin/stdout/stderr.
 
-<figure><img src="../../../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
 
 ```shell-session
 psexec64.exe \\MACHINE_IP -u Administrator -p Mypass123 -i cmd.exe
@@ -40,8 +40,8 @@ psexec64.exe \\MACHINE_IP -u Administrator -p Mypass123 -i cmd.exe
 
 it's web-based protocol used to send Powershell commands to Windows hosts remotely.
 
-{% content-ref url="../../../../interacting-with-protocols-and-tools/tools/winrm.md" %}
-[winrm.md](../../../../interacting-with-protocols-and-tools/tools/winrm.md)
+{% content-ref url="../../interacting-with-protocols-and-tools/tools/winrm.md" %}
+[winrm.md](../../interacting-with-protocols-and-tools/tools/winrm.md)
 {% endcontent-ref %}
 
 ```shell-session
@@ -81,11 +81,11 @@ Windows services can also be leveraged to run arbitrary commands since they exec
 
 A connection attempt will be made using DCE/RPC. The client will first connect to the Endpoint Mapper (EPM) at port 135, which serves as a catalogue of available RPC endpoints and request information on the SVCCTL service program. The EPM will then respond with the IP and port to connect to SVCCTL, which is usually a dynamic port in the range of 49152-65535.
 
-<figure><img src="../../../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
 
 If the latter connection fails, sc will try to reach SVCCTL through SMB named pipes, either on port 445 (SMB) or 139 (SMB over NetBIOS).
 
-<figure><img src="../../../../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
 
 We can create and start a service named "THMservice" using the following commands:
 
@@ -151,7 +151,7 @@ static binaries are easy to find for both [Linux](https://github.com/andrew-d/st
 
 if you are attempting to get a shell on a target that does not have a direct connection back to your attacking computer, you could use socat to set up a relay on the currently compromised machine. This listens for the reverse shell from the target and then forwards it immediately back to the attacking box:
 
-<figure><img src="../../../../.gitbook/assets/image (1) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 Before using socat, it will usually be necessary to download a binary for it, then upload it to the box.
 

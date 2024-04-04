@@ -128,8 +128,8 @@ playing with the input, we can easily find the query to print all:
 
 now let's use the column tricks I learned in the sql documentation:
 
-{% content-ref url="../../still-sorting-out/documentation/cybersecurity-documentation/web-application/sql-injection/" %}
-[sql-injection](../../still-sorting-out/documentation/cybersecurity-documentation/web-application/sql-injection/)
+{% content-ref url="../../red-team/technical-knowledge/web-application/sql-injection/" %}
+[sql-injection](../../red-team/technical-knowledge/web-application/sql-injection/)
 {% endcontent-ref %}
 
 damn first try :joy:

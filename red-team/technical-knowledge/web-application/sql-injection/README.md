@@ -26,7 +26,7 @@ SQL Injection is an attack technique where an attacker inserts malicious SQL cod
 
 
 
-<figure><img src="../../../../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (4) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### **2. Types of SQL Injection**
 
@@ -56,11 +56,11 @@ SELECT * FROM users WHERE username = 'admin' AND SUBSTRING(password, 1, 1) = 'a'
 
 ### --UNION <a href="#lecture_heading" id="lecture_heading"></a>
 
-<figure><img src="../../../../../.gitbook/assets/image (352).png" alt=""><figcaption><p>our playground for this lab</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (352).png" alt=""><figcaption><p>our playground for this lab</p></figcaption></figure>
 
 So we know there is a user Jeremy, let's try to test out how strict is the db and how verbose it is:
 
-<figure><img src="../../../../../.gitbook/assets/image (353).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (353).png" alt=""><figcaption></figcaption></figure>
 
 **Basic Input Testing:**
 
@@ -69,7 +69,7 @@ So we know there is a user Jeremy, let's try to test out how strict is the db an
 
 Let's test out if we can retrieve more infos:
 
-<figure><img src="../../../../../.gitbook/assets/image (354).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (354).png" alt=""><figcaption></figcaption></figure>
 
 **SQL Injection Testing:**
 
@@ -78,18 +78,18 @@ Let's test out if we can retrieve more infos:
 
 We can also pull some infos and learn more about other tables with UNION statement. Let's say we want to know how many columns are in the table:
 
-<figure><img src="../../../../../.gitbook/assets/image (355).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (355).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../../../.gitbook/assets/image (356).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (356).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../../../.gitbook/assets/image (357).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (357).png" alt=""><figcaption></figcaption></figure>
 
 **UNION Statements for Information Gathering:**
 
 * Employing the `UNION` statement allows us to retrieve information from other tables.
 * For example, by using `jeremy' union select null,null,null#`, we determine that there are 3 columns being selected.
 
-<figure><img src="../../../../../.gitbook/assets/image (358).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (358).png" alt=""><figcaption></figcaption></figure>
 
 **Extracting Specific Information:**
 
@@ -99,7 +99,7 @@ Now let's see all the tables that exist in the database
 
 `jeremy' union select null,null,table_name from information_schema.tables#`
 
-<figure><img src="../../../../../.gitbook/assets/image (345).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (345).png" alt=""><figcaption></figcaption></figure>
 
 * `jeremy'`: Closing single quote to end the original string.
 * `union select null, null, table_name`: Adds a new SELECT statement to the original query. It selects the `table_name` column from the `information_schema.tables` table, using `NULL` as placeholders for the other columns.
@@ -119,7 +119,7 @@ This query is used to retrieve the names of all columns across all tables in the
 
 Now we want to find the username/password of jeremy
 
-<figure><img src="../../../../../.gitbook/assets/image (346).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (346).png" alt=""><figcaption></figcaption></figure>
 
 explanation:&#x20;
 
@@ -145,11 +145,11 @@ Let's start by adding a scope to our  burp suite so we don't get pollution from 
 
 
 
-<figure><img src="../../../../../.gitbook/assets/image (347).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (347).png" alt=""><figcaption></figcaption></figure>
 
 now we log in to jeremy's account and capture the request:
 
-<figure><img src="../../../../../.gitbook/assets/image (348).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (348).png" alt=""><figcaption></figcaption></figure>
 
 So now let's try to play around with an SQL injection `' or 1=1#`
 
@@ -157,7 +157,7 @@ but be careful, we need to encode like this (you can use ctrl+u):
 
 `username=jeremy'+or+1%3d1%23&password=jeremy`
 
-<figure><img src="../../../../../.gitbook/assets/image (349).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (349).png" alt=""><figcaption></figcaption></figure>
 
 1. **`username=jeremy'`:**
    * This is the original username provided in the input field.
@@ -190,7 +190,7 @@ Let's try to automate the SQL injection process using SQLMap:
 
 in a .txt file, copy and paste the raw request from burp and save it:
 
-<figure><img src="../../../../../.gitbook/assets/image (350).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (350).png" alt=""><figcaption></figcaption></figure>
 
 (don't do like me, remove the encoded request, come back to &#x20;
 
@@ -275,19 +275,19 @@ let's try 8
 
 success
 
-<figure><img src="../../../../../.gitbook/assets/image (275).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (275).png" alt=""><figcaption></figcaption></figure>
 
 So the SQL versions are often 8.X.X so it's not dumb to think that next character is going to be a `.` :
 
-<figure><img src="../../../../../.gitbook/assets/image (276).png" alt=""><figcaption><p>success!</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (276).png" alt=""><figcaption><p>success!</p></figcaption></figure>
 
 Let's start over and over until we have full version:
 
-<figure><img src="../../../../../.gitbook/assets/image (277).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (277).png" alt=""><figcaption></figcaption></figure>
 
 so here we have an error message, we test the 5 strings and it errored out on the last 0, now we just have to go 1,2,3,4 until we get our correct content length:
 
-<figure><img src="../../../../../.gitbook/assets/image (278).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (278).png" alt=""><figcaption></figcaption></figure>
 
 Success! version of SQL is 8.0.3 &#x20;
 
@@ -307,7 +307,7 @@ So with a CRTL+i we send our request to intruder to automate the bruteforce:
 
 select the letter to put in a variable and  then click the add button
 
-<figure><img src="../../../../../.gitbook/assets/image (279).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (279).png" alt=""><figcaption></figcaption></figure>
 
 our variable would be the 'p'
 
@@ -315,13 +315,13 @@ then go in the payload section, click enter letters a to z and add them (manuall
 
 start the attack
 
-<figure><img src="../../../../../.gitbook/assets/image (280).png" alt=""><figcaption><p>z is the first letter </p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (280).png" alt=""><figcaption><p>z is the first letter </p></figcaption></figure>
 
 While checking the content length of all the letters we now see that z is the only one that gives us a good length.
 
 Let's try using SQLMap now&#x20;
 
-<figure><img src="../../../../../.gitbook/assets/image (281).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (281).png" alt=""><figcaption></figcaption></figure>
 
 paste the '1' request in the file '2' and run it using command line 3
 
@@ -368,21 +368,21 @@ Table: injection0x02
 
 ### Challenge
 
-<figure><img src="../../../../../.gitbook/assets/image (263).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (263).png" alt=""><figcaption></figcaption></figure>
 
 We have this basic website that we are going to test out, let's start by seeing what it allows and what it does not:
 
-<figure><img src="../../../../../.gitbook/assets/image (264).png" alt=""><figcaption><p>Name of a product well written</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (264).png" alt=""><figcaption><p>Name of a product well written</p></figcaption></figure>
 
-<figure><img src="../../../../../.gitbook/assets/image (265).png" alt=""><figcaption><p>Very case sensitive it breaks easily </p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (265).png" alt=""><figcaption><p>Very case sensitive it breaks easily </p></figcaption></figure>
 
-<figure><img src="../../../../../.gitbook/assets/image (266).png" alt=""><figcaption><p>We found the SQLI input</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (266).png" alt=""><figcaption><p>We found the SQLI input</p></figcaption></figure>
 
-<figure><img src="../../../../../.gitbook/assets/image (267).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (267).png" alt=""><figcaption></figcaption></figure>
 
 We are going to try using UNION to find out how many columns there are in this table or in the query being called using `null`
 
-<figure><img src="../../../../../.gitbook/assets/image (268).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (268).png" alt=""><figcaption></figcaption></figure>
 
 Hooray, now it's going to be easy -->
 
@@ -390,27 +390,27 @@ Hooray, now it's going to be easy -->
 Senpai Knife Set' union select null,null,null,table_name from information_schema.tables#
 ```
 
-<figure><img src="../../../../../.gitbook/assets/image (269).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (269).png" alt=""><figcaption></figcaption></figure>
 
 it printed out every table so we just have to pull the one that is interesting for us:
 
-<figure><img src="../../../../../.gitbook/assets/image (270).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (270).png" alt=""><figcaption></figcaption></figure>
 
 ```
 Senpai Knife Set' union select null,null,null,username from injection0x03_users#
 ```
 
-<figure><img src="../../../../../.gitbook/assets/image (271).png" alt=""><figcaption><p><span data-gb-custom-inline data-tag="emoji" data-code="1f389">🎉</span></p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (271).png" alt=""><figcaption><p><span data-gb-custom-inline data-tag="emoji" data-code="1f389">🎉</span></p></figcaption></figure>
 
 ```
 Senpai Knife Set' union select null,null,null,password from injection0x03_users#
 ```
 
-<figure><img src="../../../../../.gitbook/assets/image (272).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (272).png" alt=""><figcaption></figcaption></figure>
 
 Username and Password busted, now let's try using automated tools:
 
-<figure><img src="../../../../../.gitbook/assets/image (273).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (273).png" alt=""><figcaption></figcaption></figure>
 
 Make a request on the website, capture the packet on burp and copy paste it in a .txt file                                                                                                           &#x20;
 
@@ -419,6 +419,6 @@ Make a request on the website, capture the packet on burp and copy paste it in a
 └─# sqlmap -r req4.txt -T injection0x03_users --dump
 ```
 
-<figure><img src="../../../../../.gitbook/assets/image (274).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (274).png" alt=""><figcaption></figcaption></figure>
 
 Success SQLI! next is XSS :clap:

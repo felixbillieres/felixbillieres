@@ -4,7 +4,7 @@ description: https://tryhackme.com/r/room/wreath
 
 # 🔧 Wreath
 
-<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 After some enumeration on the system, i found that the server version was Miniserv 1.890 Webmin httpd, and there was an known CVE: CVE-2019-15107
 

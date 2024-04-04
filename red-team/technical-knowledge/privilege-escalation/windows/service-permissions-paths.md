@@ -4,7 +4,7 @@
 
 first open this file in a cmd and type:
 
-<figure><img src="../../../../../.gitbook/assets/image (615).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (615).png" alt=""><figcaption></figcaption></figure>
 
 ```
 powershell -ep bypass
@@ -32,15 +32,15 @@ accesschk64.exe -uwcv Everyone *
 3. **Everyone**: This is a placeholder representing the user or group whose permissions are being checked. In this case, it refers to the "Everyone" group, which includes all user accounts, even those without explicit permission.
 4. **\***: This wildcard character is used to specify the resource or object for which permissions are being checked. When used with `accesschk`, it typically means to check permissions for all objects that match the specified criteria. In this context, `*` could refer to all files, directories, registry keys, or other securable objects in the system.
 
-<figure><img src="../../../../../.gitbook/assets/image (616).png" alt=""><figcaption><p>Manual method</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (616).png" alt=""><figcaption><p>Manual method</p></figcaption></figure>
 
-<figure><img src="../../../../../.gitbook/assets/image (617).png" alt=""><figcaption><p>Automatic method</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (617).png" alt=""><figcaption><p>Automatic method</p></figcaption></figure>
 
 ```
 accesschk64.exe -wuvc daclsvc
 ```
 
-<figure><img src="../../../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 we got read write for everyone as we can see
 
@@ -54,7 +54,7 @@ sc qc daclsvc
 2. **qc**: This is an abbreviation for "queryconfig". It instructs `sc` to display the configuration information for the specified service.
 3. **daclsvc**: This is the name of the service for which you want to query the configuration information. In this case, it refers to a service named "daclsvc". Services in Windows are background processes that can be automatically started when the system boots or on demand.
 
-<figure><img src="../../../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can see the binary path name, but since we have change\_config enabled we can modify this
 
@@ -70,4 +70,4 @@ sc start daclsvc
 net localgroup administrators 
 ```
 
-<figure><img src="../../../../../.gitbook/assets/2024-03-19_14-49.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/2024-03-19_14-49.png" alt=""><figcaption></figcaption></figure>
