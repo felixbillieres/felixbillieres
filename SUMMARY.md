@@ -80,6 +80,7 @@
   * [🪒 Sense](capture-the-flags/linux/sense.md)
   * [🐼 RedPanda](capture-the-flags/linux/redpanda.md)
   * [🐱 Jerry](capture-the-flags/linux/jerry.md)
+  * [💻 PC](capture-the-flags/linux/pc.md)
 * [🕸️ Active Directory & Network](capture-the-flags/active-directory-and-network/README.md)
   * [🤼 Forest](capture-the-flags/active-directory-and-network/forest.md)
   * [🪟 Attacktive Directory](capture-the-flags/active-directory-and-network/attacktive-directory.md)
