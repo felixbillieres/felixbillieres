@@ -30,7 +30,8 @@
     * [🎟️ Golden Ticket Attacks](active-directory/attacking-vectors/compromised-the-domain-now-what/golden-ticket-attacks.md)
   * [5️⃣ Post Exploitation](active-directory/attacking-vectors/post-exploitation.md)
 * [🔬 AD in theory](active-directory/ad-in-theory/README.md)
-  * [📨 interact with AD](active-directory/ad-in-theory/interact-with-ad.md)
+  * [📨 interact with AD](active-directory/ad-in-theory/interact-with-ad/README.md)
+    * [⛈️ Questions about AD](active-directory/ad-in-theory/interact-with-ad/questions-about-ad.md)
   * [💫 Logical AD Components](active-directory/ad-in-theory/logical-ad-components.md)
   * [💪 Physical AD Components](active-directory/ad-in-theory/physical-ad-components.md)
 * [🏧 Practical THM Path](active-directory/practical-thm-path/README.md)
@@ -244,3 +245,7 @@
 ## ☁️ Azure & Cloud
 
 * [👺 Azure](azure-and-cloud/azure.md)
+
+## 🏫 Portswigger Academy
+
+* [🈯 Server-side vulnerabilities](portswigger-academy/server-side-vulnerabilities.md)
