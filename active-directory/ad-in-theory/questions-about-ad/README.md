@@ -4,6 +4,53 @@ description: À apprendre par cœur
 
 # ⛈️ Questions about AD
 
+### Game Plan, 4 week AD rush
+
+Week 1: Understanding the Basics
+
+* Milestone 1 (End of Week 1):
+  * Have a general understanding of the following sections:
+    * Domains
+    * Trusts
+    * Users
+    * Groups
+    * Computers
+    * Authentication
+    * Authorization
+  * Be able to explain the basic concepts of each section.
+
+Week 2: Deepening Knowledge
+
+* Milestone 2 (End of Week 2):
+  * Have a detailed understanding of the following sections:
+    * Trust types
+    * Trust key
+    * User properties
+    * Important groups
+    * Windows computers connection
+    * NTLM
+    * ACLs
+  * Be able to describe the processes and mechanisms involved in each section.
+
+Week 3: Mastering Advanced Concepts
+
+* Milestone 3 (End of Week 3):
+  * Have mastery over the following sections:
+    * Trust transitivity
+    * How to query the database?
+    * Kerberos
+    * Kerberos Delegation
+    * Powershell remoting
+    * SSH tunneling
+  * Be able to explain advanced concepts and apply them to specific scenarios.
+
+Week 4: Review and Consolidation
+
+* Milestone 4 (End of Week 4):
+  * Review all articles and sections to consolidate knowledge.
+  * Practice exercises or simulations to test your understanding.
+  * Be capable of explaining each article in detail and answering specific questions on each topic.
+
 <figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption><p>Stay Hard</p></figcaption></figure>
 
 **What is an AD?**
@@ -194,3 +241,101 @@ POKEMON$
 
 * It's good to know that you can have a normal user that finishes with a $, but when a trust is established, an associated user object is created in each domain to store the trust key. The name of the user is the NetBIOS name of the other domain, finished in $
 * For example, in case of the trust between the domains FOO and BAR, the FOO domain would store the trust key in the BAR$ user, and the BAR domain would store it in the FOO$ user.
+
+### Groups
+
+**What are groups?**
+
+* Rather than managing each of the users file permissions, you put them in groups  to handle the policy of all the users in a same group. the groups are stored in the domain database. And, in the same way, they can be identified by the `SamAccountName or the SID`
+
+```
+Get-ADGroup -Filter * | select SamAccountName
+```
+
+**Explain Administrative groups:**
+
+* There are many [default groups](https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/active-directory-security-groups#default-security-groups) defined for different roles in the domain/forest. As attacker, one of the most juicy groups is the [Domain Admins](https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/active-directory-security-groups#bkmk-domainadmins) group, that gives administrator privileges to its members in the domain
+
+```
+Get-ADGroup "Domain Admins" -Properties members,memberof
+```
+
+**Other interesting groups:**
+
+* The [Enterprise Admins](https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/active-directory-security-groups#bkmk-entadmins) group, which provides administrator privileges in all the forest. It's a group that only exists in the root domain of the forest, but is added by default to the [Administrators](https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/active-directory-security-groups#administrators) group of the all the domains in the forest. There is also the the `Domain Admins` group that is added to the `Administrators` group of the domain, as well as the `Administrators` groups of the domain computers.
+
+```
+                        .------------------------.
+                        |     contoso.local      |
+       .-------------------------------------------------------------.
+       |                                                             |
+       |                   .----------------.                        |  
+       |               .-->| Administrators |<-.   .->Administrators |
+       |               |   '----------------'  |   |     ____        | 
+       |               |    .---------------.  |   |    |    |       |
+       |               |    | Domain Admins |>-'---'    |____|       |
+       |               |    '---------------'           /::::/       |
+       |               |   .-------------------.                     |
+       |               '--<| Enterprise Admins |                     |
+       |                   '-------------------'                     |
+       |                             v v                             |
+       '-----------------------------|-|-----------------------------'  
+                           |         | |      |                         
+                           |         | |      |                         
+                 .---------'         | |      '-----------.             
+                 |                   v v                  |             
+.----------------------------------. | | .----------------------------------.
+|        it.contoso.local          | | | |        hr.contoso.local          |
+|----------------------------------| | | |----------------------------------|
+|                                  | v v |                                  |
+|        .----------------.        | | | |        .----------------.        |
+|     .->| Administrators |<---------' '--------->| Administrators |<-.     |
+|     |  '----------------'        |     |        '----------------'  |     |
+|     |  .---------------.         |     |        .---------------.   |     |
+|     '-<| Domain Admins |         |     |        | Domain Admins |>--'     |
+|        '---------------'         |     |        '---------------'         |
+|                |                 |     |                |                 |
+|        .-------'---------.       |     |        .-------'---------.       |
+|        |                 |       |     |        |                 |       |
+|        v                 v       |     |        v                 v       |
+| Administrators    Administrators |     | Administrators    Administrators |
+|       ____              ____     |     |      ____              ____      |
+|      |    |            |    |    |     |     |    |            |    |     |
+|      |____|            |____|    |     |     |____|            |____|     |
+|      /::::/            /::::/    |     |     /::::/            /::::/     |
+'----------------------------------'     '----------------------------------'
+```
+
+* other [important groups](https://adsecurity.org/?p=3700) to be taken into account
+
+**What are different Group Scopes?**
+
+* There are 3 different groups based on their scope:
+  * **Universal** groups can include members from any domain within a forest or trusted forests and grant permissions within the same forest or trusted forests. The Enterprise Admins group is an example of a Universal group.
+  * **Global** groups can include members only from the same domain and grant permissions within domains of the same forest or trusting domains or forests. The Domain Admins group is an example of a Global group.
+  * **DomainLocal** groups can include members from the domain or any trusted domain and grant permissions only within their domains. The Administrators group is an example of a DomainLocal group.
+
+### Computers <a href="#computers" id="computers"></a>
+
+**Different types of Computers within a domain:**
+
+* **Domain Controllers**: The central servers that manage the domain. They are Windows Server machines.
+* **Workstations**: The personal computers used by people every day. These machines are usually Windows 10 or 7 machines.
+* **Servers**: The computers that offers services such as webs, files or databases. They are usually Linux or Windows Server machines.
+
+**What is a domain controller?**
+
+* The domain controller is the **central server of a domain**, that is running the [Active Directory Domain Service](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview) (AD DS). It keeps the domain DB stored in ths ntds.dit file.
+
+**What is Domain database dumping?**
+
+* When we become domain admin, in order to read sensitive files like krbtgt user creds or create Golden tickets, we can dump the DB of the DC&#x20;
+* One way of doing this is [dumping the NTDS.dit file](https://www.ired.team/offensive-security/credential-access-and-credential-dumping/ntds.dit-enumeration#no-credentials-ntdsutil) locally with [ntdsutil](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc753343\(v=ws.11\)) or [vssadmin](https://docs.microsoft.com/en-gb/windows-server/administration/windows-commands/vssadmin) or remote with the [impacket secretsdump.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/secretsdump.py) script.
+
+```
+secretsdump.py 'contoso.local/Administrator@192.168.100.2' -just-dc-user krbtgt
+```
+
+**How to discover Windows computers in a domain or network?**
+
+* We can scan the network and perform a NetBIOS scan by using a tool like [nbtscan](http://www.unixwiz.net/tools/nbtscan.html) or nmap [nbtstat](https://nmap.org/nsedoc/scripts/nbstat.html) script.
