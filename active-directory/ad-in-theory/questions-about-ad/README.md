@@ -51,7 +51,7 @@ Week 4: Review and Consolidation
   * Practice exercises or simulations to test your understanding.
   * Be capable of explaining each article in detail and answering specific questions on each topic.
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption><p>Stay Hard</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (35).png" alt=""><figcaption><p>Stay Hard</p></figcaption></figure>
 
 **What is an AD?**
 

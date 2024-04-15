@@ -38,6 +38,13 @@
   * [👾 Breaching Active Directory](active-directory/practical-thm-path/breaching-active-directory.md)
   * [🧑‍🍳 Enumerating Active Directory](active-directory/practical-thm-path/enumerating-active-directory.md)
 
+## 🏫 Portswigger Academy
+
+* [🈯 Server-side vulnerabilities](portswigger-academy/server-side-vulnerabilities.md)
+* [😋 Path traversal](portswigger-academy/path-traversal.md)
+* [🐔 Clickjacking](portswigger-academy/clickjacking.md)
+* [🕌 SQL injection](portswigger-academy/sql-injection.md)
+
 ## 🧑‍🏫 Interacting With Protocols & Tools
 
 * [🤖 Protocols](interacting-with-protocols-and-tools/protocols/README.md)
@@ -245,7 +252,3 @@
 ## ☁️ Azure & Cloud
 
 * [👺 Azure](azure-and-cloud/azure.md)
-
-## 🏫 Portswigger Academy
-
-* [🈯 Server-side vulnerabilities](portswigger-academy/server-side-vulnerabilities.md)

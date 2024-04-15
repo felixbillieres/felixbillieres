@@ -1,26 +1,26 @@
 # 🦹 Heist
 
-<figure><img src="../../../.gitbook/assets/image (465).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (465).png" alt=""><figcaption></figcaption></figure>
 
 First we're redirected to this page:
 
-<figure><img src="../../../.gitbook/assets/image (33).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (33) (1).png" alt=""><figcaption></figcaption></figure>
 
 it's a login page but there is login as guest button that leads us to this page. Let's click on attachments&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (467).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (467).png" alt=""><figcaption></figcaption></figure>
 
 If we download the attachment we go on this page
 
-<figure><img src="../../../.gitbook/assets/image (468).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (468).png" alt=""><figcaption></figcaption></figure>
 
 thanks to hash type, i see the pattern "$1$" and see that its probably:
 
-<figure><img src="../../../.gitbook/assets/image (470).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (470).png" alt=""><figcaption></figcaption></figure>
 
 So i can try to use hash cat with mode = 500 or john this way ->
 
-<figure><img src="../../../.gitbook/assets/image (469).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (469).png" alt=""><figcaption></figcaption></figure>
 
 we find this "stealthagent" result
 
@@ -28,7 +28,7 @@ and after a quick google search with an online decoder we found that the other t
 
 that we decode online to find this password:
 
-<figure><img src="../../../.gitbook/assets/image (34).png" alt=""><figcaption><p>Q4)sJu\Y8qz*A3?d</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (34) (1).png" alt=""><figcaption><p>Q4)sJu\Y8qz*A3?d</p></figcaption></figure>
 
 after getting all those credentials, we could try to enumerate SMB shares like this:
 
@@ -36,7 +36,7 @@ after getting all those credentials, we could try to enumerate SMB shares like t
 smbclient --list //heist.htb/ -U 'hazard'
 ```
 
-<figure><img src="../../../.gitbook/assets/image (35).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (35) (1).png" alt=""><figcaption></figcaption></figure>
 
 but noting too interesting, so then a possible way to go is to use lookupsid.py from impacket to enumerate users:
 
@@ -46,7 +46,7 @@ lookupsid.py hazard:stealth1agent@heist.htb
 
 The `lookupsid.py` script is specifically designed to query the Security Identifier (SID) of a given user or group in a Windows Active Directory environment. SIDs are unique identifiers assigned to each security principal (user, group, computer) in Windows domains. By querying SIDs, security analysts and penetration testers can gather valuable information about users and groups within the domain, aiding in privilege escalation, lateral movement, and other attack vectors.
 
-<figure><img src="../../../.gitbook/assets/image (36).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (36).png" alt=""><figcaption></figcaption></figure>
 
 after a bit of fooling around, let's use evil-winrm to connect via chase:
 
@@ -54,11 +54,11 @@ after a bit of fooling around, let's use evil-winrm to connect via chase:
 evil-winrm -i heist.htb -u chase -p 'Q4)sJu\Y8qz*A3?d'
 ```
 
-<figure><img src="../../../.gitbook/assets/image (37).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (37).png" alt=""><figcaption></figcaption></figure>
 
 then go and pick up the user flag:
 
-<figure><img src="../../../.gitbook/assets/image (38).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (38).png" alt=""><figcaption></figcaption></figure>
 
 after a bit of enumeration we go and see this path:
 
@@ -69,7 +69,7 @@ _**C:\Users\Chase\AppData\Roaming\\**_
 
 with the "ps" command we see Firefox running:
 
-<figure><img src="../../../.gitbook/assets/image (565).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (565).png" alt=""><figcaption></figcaption></figure>
 
 
 
@@ -92,7 +92,7 @@ download it on your local machine and use the upload command by evilwinrm to upl
 upload Procdump/procdump64.exe
 ```
 
-<figure><img src="../../../.gitbook/assets/image (566).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (566).png" alt=""><figcaption></figcaption></figure>
 
 * **procdump64.exe**:
   * **Purpose**: Procdump is a utility developed by Sysinternals (now owned by Microsoft) that is used for creating crash dump files of processes based on various triggers.
@@ -101,7 +101,7 @@ upload Procdump/procdump64.exe
 
 to use it, take the ID of one of the processes and put in an argument:&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (568).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (568).png" alt=""><figcaption></figcaption></figure>
 
 ```
 .\procdump64.exe -accepteula -ma 6428
@@ -111,13 +111,13 @@ to use it, take the ID of one of the processes and put in an argument:&#x20;
 * `-ma`: This option specifies the type of dump to create. In this case, `-ma` stands for "Full Memory Dump." This option instructs Procdump to create a complete memory dump of the specified process.
 * `6428`: This is the Process ID (PID) of the target process. The command tells Procdump to monitor and create a memory dump of the process with the PID 6428.
 
-<figure><img src="../../../.gitbook/assets/image (569).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (569).png" alt=""><figcaption></figcaption></figure>
 
 then download the strings file and upload it:
 
 {% embed url="https://learn.microsoft.com/en-us/sysinternals/downloads/strings" %}
 
-<figure><img src="../../../.gitbook/assets/image (567).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (567).png" alt=""><figcaption></figcaption></figure>
 
 * **strings64.exe**:
   * **Purpose**: Strings is a command-line utility used to extract readable strings from binary files. It is particularly useful for extracting human-readable text from executables, libraries, or other binary files.
@@ -132,7 +132,7 @@ The goal of using the `strings` command on a `.dmp` (memory dump) file is to ext
 cmd /c "strings64.exe -accepteula firefox.exe_240315_191748.dmp > dumpfirefox.txt"
 ```
 
-<figure><img src="../../../.gitbook/assets/image (570).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (570).png" alt=""><figcaption></figcaption></figure>
 
 1. **`cmd /c`**: This part of the command is calling the Windows Command Prompt (`cmd.exe`) and using the `/c` option, which tells it to execute the command that follows and then terminate. It's essentially used to run a single command within the Command Prompt.
 2. **`"strings64.exe -accepteula firefox.exe_240315_191748.dmp > dumpfirefox.txt"`**: This is the command that will be executed within the Command Prompt. Let's break it down further:
@@ -153,7 +153,7 @@ findstr "MOZ_CRASHREPORTER_RESTART_ARG_1" "C:/Windows/System32/spool/drivers/col
 
 When you execute this command, `findstr` will search through the contents of the `dumpfirefox.txt` file for any lines that contain the text `"MOZ_CRASHREPORTER_RESTART_ARG_1"`. If it finds any matches, it will print those lines to the console.
 
-<figure><img src="../../../.gitbook/assets/image (571).png" alt=""><figcaption><p>4dD!5}x/re8]FBuZ</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (571).png" alt=""><figcaption><p>4dD!5}x/re8]FBuZ</p></figcaption></figure>
 
 You can also play around with the args like using "password="
 
@@ -161,7 +161,7 @@ You can also play around with the args like using "password="
 findstr "password=" "C:/Windows/System32/spool/drivers/color/dumpfirefox.txt"
 ```
 
-<figure><img src="../../../.gitbook/assets/image (572).png" alt=""><figcaption><p>4dD!5}x/re8]FBuZ</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (572).png" alt=""><figcaption><p>4dD!5}x/re8]FBuZ</p></figcaption></figure>
 
 and now on a local session ->
 
@@ -169,9 +169,9 @@ and now on a local session ->
 evil-winrm -i heist.htb -u administrator -p '4dD!5}x/re8]FBuZ'
 ```
 
-<figure><img src="../../../.gitbook/assets/image (573).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (573).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (574).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (574).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (575).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (575).png" alt=""><figcaption></figcaption></figure>
 
