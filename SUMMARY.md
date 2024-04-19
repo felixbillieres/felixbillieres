@@ -45,6 +45,7 @@
 * [🐔 Clickjacking](portswigger-academy/clickjacking.md)
 * [🕌 SQL injection](portswigger-academy/sql-injection.md)
 * [📑 File Upload vulnerabilities](portswigger-academy/file-upload-vulnerabilities.md)
+* [😙 API Testing](portswigger-academy/api-testing.md)
 
 ## 🧑‍🏫 Interacting With Protocols & Tools
 
