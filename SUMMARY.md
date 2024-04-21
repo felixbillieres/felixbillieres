@@ -44,6 +44,7 @@
 * [😋 Path traversal](portswigger-academy/path-traversal.md)
 * [🐔 Clickjacking](portswigger-academy/clickjacking.md)
 * [🕌 SQL injection](portswigger-academy/sql-injection.md)
+* [🙅 NoSQL injection](portswigger-academy/nosql-injection.md)
 * [📑 File Upload vulnerabilities](portswigger-academy/file-upload-vulnerabilities.md)
 * [😙 API Testing](portswigger-academy/api-testing.md)
 
