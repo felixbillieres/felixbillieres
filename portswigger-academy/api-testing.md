@@ -25,6 +25,24 @@ So we can access a different endpoint by modifying the request:
 
 <figure><img src="../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
-Right-click and copy the URL in the "show response in browser"
+<figure><img src="../.gitbook/assets/pic.png" alt=""><figcaption></figcaption></figure>
 
-(problems with CA cert, will come back later)
+And we are able to access what seems to be possible requests to the API
+
+if we click on delete, there is a popup that queries for us:
+
+<figure><img src="../.gitbook/assets/deletecarlos.png" alt=""><figcaption></figcaption></figure>
+
+Or we could've done it through the Burp interface with a DELETE /api/user/carlos req
+
+#### Identifying API endpoints
+
+The HTTP method specifies the action to be performed on a resource. For example:
+
+```
+GET - Retrieves data from a resource.
+PATCH - Applies partial changes to a resource.
+OPTIONS - Retrieves information on the types of request methods that can be used on a resource.
+```
+
+### Lab: Finding and exploiting an unused API endpoint
