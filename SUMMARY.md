@@ -47,6 +47,7 @@
 * [🙅 NoSQL injection](portswigger-academy/nosql-injection.md)
 * [📑 File Upload vulnerabilities](portswigger-academy/file-upload-vulnerabilities.md)
 * [😙 API Testing](portswigger-academy/api-testing.md)
+* [🥐 Cross-site request forgery (CSRF)](portswigger-academy/cross-site-request-forgery-csrf.md)
 
 ## 📽️ Programming
 
@@ -193,6 +194,9 @@
       * [👆 Untitled](red-team/technical-knowledge/web-application/attacking-login-portals/untitled.md)
     * [🐝 OWASP Top 10](red-team/technical-knowledge/web-application/owasp-top-10.md)
   * [🧛‍♂️ Stabilize & Elevate a shell](red-team/technical-knowledge/stabilize-and-elevate-a-shell.md)
+  * [🥟 Forensics](red-team/technical-knowledge/forensics/README.md)
+    * [➰ Incident Response and Forensics](red-team/technical-knowledge/forensics/incident-response-and-forensics/README.md)
+      * [🏐 Volatility](red-team/technical-knowledge/forensics/incident-response-and-forensics/volatility.md)
 * [📚 Theoretical Knowledge](red-team/theoretical-knowledge/README.md)
   * [🏈 Network Security Evasion](red-team/theoretical-knowledge/network-security-evasion.md)
   * [🎠 Common Pentest Findings](red-team/theoretical-knowledge/common-pentest-findings.md)

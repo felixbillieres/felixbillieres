@@ -425,7 +425,7 @@ dc01
     * From Linux, you can [use freerdp to perform a Pass-The-Hash with RDP](https://www.kali.org/blog/passing-hash-remote-desktop/)
     * And from Windows you can [inject a NT hash or Kerberos ticket with mimikatz or Rubeus and then use `mstsc.exe /restrictedadmin`](https://shellz.club/pass-the-hash-with-rdp-in-2019/)
 
-<figure><img src="../../../.gitbook/assets/image (9) (1) (1) (1).png" alt=""><figcaption><p>Restricted admin enabled</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (9) (1) (1) (1) (1).png" alt=""><figcaption><p>Restricted admin enabled</p></figcaption></figure>
 
 #### **Windows computers credentials**
 
