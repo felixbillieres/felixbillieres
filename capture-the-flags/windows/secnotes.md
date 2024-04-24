@@ -74,23 +74,23 @@ put shell.php
 put nc.exe
 ```
 
-<figure><img src="../../.gitbook/assets/image (13) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (13) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Using the `put` command to upload a reverse shell and your netcat executable to an SMB share on the target system, you're creating a foothold on the target system. Even if your initial access is lost, you can regain access through the uploaded tools and i'll be able to call netcat and so trigger my reverse shell to obtain a shell ->
 
 So now i need to trigger my shell.php file, after some looking around i found where were stored the files:
 
-<figure><img src="../../.gitbook/assets/image (14) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (14) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 So i simply request: [http://10.129.163.46:8808/shell.php](http://10.129.163.46:8808/shell.php)
 
 and get a shell:
 
-<figure><img src="../../.gitbook/assets/image (15) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (15) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 and go and grab the flag:
 
-<figure><img src="../../.gitbook/assets/image (16) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (16) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 For the elevation let's dive into subsystems:
 
@@ -102,7 +102,7 @@ first we saw that we needed to locate bash.exe, you can use a recursive search t
 where /R c:\windows bash.exe
 ```
 
-<figure><img src="../../.gitbook/assets/image (17) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (17) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 same for wsl.exe:
 
@@ -110,15 +110,15 @@ same for wsl.exe:
 where /R c:\windows wsl.exe
 ```
 
-<figure><img src="../../.gitbook/assets/image (18) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (18) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 quick explanation on why we're doing this:
 
-<figure><img src="../../.gitbook/assets/image (19) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (19) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 after trying to get a bash shell by triggering bash.exe, we get some useful infos:
 
-<figure><img src="../../.gitbook/assets/image (21) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (21) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We are root but on a linux machine of secnotes, so not really what we are looking for
 

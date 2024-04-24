@@ -252,7 +252,7 @@ If the `password` field exists, you'd expect the response to be identical to the
 
 ### Lab: Exploiting NoSQL injection to extract data
 
-<figure><img src="../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (21).png" alt=""><figcaption></figcaption></figure>
 
 We start by injecting a simple payload to see what columns exist
 
