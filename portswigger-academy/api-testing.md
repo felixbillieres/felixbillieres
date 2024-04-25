@@ -1,6 +1,6 @@
 # 😙 API Testing
 
-<figure><img src="../.gitbook/assets/image (2) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We need to start by identifying API endpoints.
 
@@ -15,15 +15,15 @@ The API endpoint for this request is `/api/books`
 
 We start by connecting with the credentials then modify the email address and capture the request:
 
-<figure><img src="../.gitbook/assets/image (3) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can't access carlos by abusing the path:
 
-<figure><img src="../.gitbook/assets/image (4) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 So we can access a different endpoint by modifying the request:
 
-<figure><img src="../.gitbook/assets/image (5) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 <figure><img src="../.gitbook/assets/pic.png" alt=""><figcaption></figcaption></figure>
 
@@ -49,19 +49,19 @@ OPTIONS - Retrieves information on the types of request methods that can be used
 
 First we find the API endpoint:
 
-<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
 
 I then throw in a little sniper attack with several HHTP verbs:
 
 {% embed url="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods" %}
 
-<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can see the PATCH method has a different length
 
 We send it to repeater and trigger an error:
 
-<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 So we add a Content-Type:
 
@@ -73,19 +73,19 @@ Content-Type: application/json
 }
 ```
 
-<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 So we add the price parameter in our request:
 
-<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 We forward the req and refresh the page:
 
-<figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 And we can order our jacket:
 
-<figure><img src="../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Fuzzing to find hidden endpoints
 
@@ -125,10 +125,130 @@ Interesting stuff about testing vulns: [https://portswigger.net/web-security/lea
 
 We first find the endpoint and the JSON related:
 
-<figure><img src="../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
 
 We copy and paste all the JSON in the request area and change some stuff
 
-<figure><img src="../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (8) (1).png" alt=""><figcaption></figcaption></figure>
 
 And then forward the req and it solves the lab
+
+#### Testing for server-side parameter pollution in the query string
+
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+To test for server-side parameter pollution in the query string, place query syntax characters like `#`, `&`, and `=` in your input and observe how the application responds.
+
+Let's say we have this req:
+
+```
+GET /userSearch?name=peter&back=/home
+```
+
+And the server queries the internal API with the following request:
+
+```
+GET /users/search?name=peter&publicProfile=true
+```
+
+We can use a URL-encoded `#` character to attempt to truncate the server-side request.
+
+For example:
+
+```
+GET /userSearch?name=peter%23foo&back=/home
+```
+
+{% hint style="info" %}
+It's essential that we URL-encode the `#` character. Otherwise the front-end application will interpret it as a fragment identifier and it won't be passed to the internal API.
+{% endhint %}
+
+It could lead to truncating the `publicProfile=true` part
+
+#### Injecting invalid parameters
+
+Using the same method, we could try to inject other parameters using the & character:
+
+```
+GET /userSearch?name=peter%26foo=xyz&back=/home
+```
+
+It would lead to the following req to the API:
+
+```
+GET /users/search?name=peter&foo=xyz&publicProfile=true
+```
+
+if the response is unchanged this may indicate that the parameter was successfully injected but ignored by the application.
+
+#### Injecting valid parameters
+
+Following this logic we could try to inject real parameters like an email parameter:
+
+```
+GET /userSearch?name=peter%26email=foo&back=/home    
+```
+
+which would lead to the following:
+
+```
+GET /users/search?name=peter&email=foo&publicProfile=true
+```
+
+#### Overriding existing parameters
+
+Still following the rabbit hole, the parameters we have in our query can be overwritten to our advantage:
+
+```
+GET /userSearch?name=peter%26name=carlos&back=/home
+```
+
+req to the API:
+
+```
+GET /users/search?name=peter&name=carlos&publicProfile=true
+```
+
+It will depend on how the application processes the second parameter.
+
+If you're able to override the original parameter, you may be able to conduct an exploit. For example, you could add `name=administrator` to the request.
+
+### Lab: Exploiting server-side parameter pollution in a query string
+
+the /forgot-password seemed interesting:
+
+<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+i try to add the # URL encoded to test out the query, we see the "field not specified" so let's try to input with a "field" variable:
+
+<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+The query seems to work but the fields are not hitting any real values
+
+Unfortunately we need to send to intruder but I do not have Pro version
+
+So this is the remaining steps:
+
+<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+
+Ok so this seems to work
+
+We also found the following field in the /static/js/forgotPassword.js req
+
+<figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+
+So we can try this req:
+
+```
+username=administrator%26field=reset_token%23
+```
+
+Will continue later
+
+***
+
+{% embed url="https://portswigger.net/web-security/learning-paths/api-testing/api-testing-testing-for-server-side-parameter-pollution-in-rest-paths/api-testing/server-side-parameter-pollution/testing-for-server-side-parameter-pollution-in-rest-paths" %}
+
+{% embed url="https://portswigger.net/web-security/learning-paths/api-testing/api-testing-testing-for-server-side-parameter-pollution-in-structured-data-formats/api-testing/server-side-parameter-pollution/testing-for-server-side-parameter-pollution-in-structured-data-formats" %}
