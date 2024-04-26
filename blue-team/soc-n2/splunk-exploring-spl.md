@@ -22,7 +22,7 @@ _How many Events are returned when searching for Event ID 1 AND User as James?_
 
 _How many events are observed with Destination IP 172.18.39.6 AND destination Port 135?_
 
-<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 _What is the Source IP with highest count returned with this Search query? Search Query: index=windowslogs Hostname="Salena.Adam" DestinationIp="172.18.38.5"_
 

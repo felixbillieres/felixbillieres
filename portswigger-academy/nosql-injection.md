@@ -146,7 +146,7 @@ output:
 Gifts%27%7C%7C1%7C%7C%27
 ```
 
-<figure><img src="../.gitbook/assets/image (5) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### NoSQL operator injection
 

@@ -22,7 +22,7 @@ we also are able to pull some possible usernames:
 
 I also find at the end of the page some possible backend technologies that could be our entry point&#x20;
 
-<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 wfuzz -u http://shibboleth.htb -H "Host: FUZZ.shibboleth.htb" -w /usr/share/SecLists/Discovery/DNS/subdomains-top1million-5000.txt --hw 26
@@ -232,7 +232,7 @@ the command `cat zabbix_server.conf | grep -v "^#" | grep .` is used to display 
 
 `grep .`: The `grep` command is used again to search for and filter lines in the input. The `.` character is used as a pattern to match any non-empty line. This command filters out the blank lines, so that only the lines that contain text are displayed.
 
-<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>bloooarskybluh</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>bloooarskybluh</p></figcaption></figure>
 
 We found credentials -> let's try to connect to the mysql interface:
 

@@ -23,7 +23,7 @@ We can't access carlos by abusing the path:
 
 So we can access a different endpoint by modifying the request:
 
-<figure><img src="../.gitbook/assets/image (5) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 <figure><img src="../.gitbook/assets/pic.png" alt=""><figcaption></figcaption></figure>
 
@@ -81,7 +81,7 @@ So we add the price parameter in our request:
 
 We forward the req and refresh the page:
 
-<figure><img src="../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 And we can order our jacket:
 
@@ -135,7 +135,7 @@ And then forward the req and it solves the lab
 
 #### Testing for server-side parameter pollution in the query string
 
-<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
 
 To test for server-side parameter pollution in the query string, place query syntax characters like `#`, `&`, and `=` in your input and observe how the application responds.
 
@@ -237,7 +237,7 @@ Ok so this seems to work
 
 We also found the following field in the /static/js/forgotPassword.js req
 
-<figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 So we can try this req:
 

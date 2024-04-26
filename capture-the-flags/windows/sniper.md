@@ -28,7 +28,7 @@ In the "our service" page, we find a dropdown menu for the languages linked to a
 
 If we try and go fetch a file in a subdirectory:
 
-<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 http://10.129.229.6/blog/?lang=/windows/system32/drivers/etc/hosts

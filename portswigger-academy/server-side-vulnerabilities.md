@@ -36,7 +36,7 @@ and I am able to see the passwd file:
 
 Access control is the application of constraints on who or what is authorized to perform actions or access resources.
 
-<figure><img src="../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 if a non-administrative user can gain access to an admin page where they can delete user accounts, then this is vertical privilege escalation.
 
@@ -212,7 +212,7 @@ the catch here is even if we connected and are requested a verif code, we are in
 
 It's a web security vulnerability that allows an attacker to cause the server-side application to make requests to an unintended location.
 
-<figure><img src="../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Lab: Basic SSRF against the local server
 

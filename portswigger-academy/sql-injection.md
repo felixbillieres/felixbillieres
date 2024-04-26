@@ -448,7 +448,7 @@ you may be able to bypass these filters by encoding or escaping characters in th
 
 We start by looking at the "check stock" request:
 
-<figure><img src="../.gitbook/assets/image (5) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We check the unicode character of U to perform sqli:
 

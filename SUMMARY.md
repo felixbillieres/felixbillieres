@@ -40,6 +40,7 @@
 
 ## 🏫 Portswigger Academy
 
+* [🕸️ Web Security Academy Learning Paths](portswigger-academy/web-security-academy-learning-paths.md)
 * [😋 Path traversal](portswigger-academy/path-traversal.md)
 * [🐔 Clickjacking](portswigger-academy/clickjacking.md)
 * [🕌 SQL injection](portswigger-academy/sql-injection.md)
@@ -52,6 +53,7 @@
 * [😙 API Testing](portswigger-academy/api-testing.md)
 * [🙅 NoSQL injection](portswigger-academy/nosql-injection.md)
 * [🏎️ Race conditions](portswigger-academy/race-conditions.md)
+* [Web LLM attacks](portswigger-academy/web-llm-attacks.md)
 
 ## 📽️ Programming
 
