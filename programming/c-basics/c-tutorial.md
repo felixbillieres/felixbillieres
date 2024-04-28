@@ -303,7 +303,7 @@ int main(){
 }  //le pourcentage est de 75.60
 ```
 
-#### C Constants
+### C Constants
 
 If we do not want anyone to be able to change a variable we can use the `const` keyword.
 
@@ -324,7 +324,7 @@ const int minutesPerHour;
 minutesPerHour = 60; // error 
 ```
 
-#### C Operators
+### C Operators
 
 Operators are used to perform operations on variables and values.
 
@@ -344,7 +344,7 @@ Logical operators:
 
 <figure><img src="../../.gitbook/assets/image (863).png" alt=""><figcaption></figcaption></figure>
 
-#### C Booleans
+### C Booleans
 
 Good to know we must import booleans:
 
@@ -395,7 +395,7 @@ int main(){
 
 <figure><img src="../../.gitbook/assets/image (864).png" alt=""><figcaption></figcaption></figure>
 
-#### C If ... Else
+### C If ... Else
 
 Combined to the conditions we just saw, we can add conditional statements:
 
@@ -451,3 +451,156 @@ int main(){
 /*Access Granted
 Access denied*/
 ```
+
+### C Switch
+
+The `switch` statement selects one of many code blocks to be executed:
+
+```
+switch (expression) {
+  case x:
+    // code block
+    break;
+  case y:
+    // code block
+    break;
+  default:
+    // code block
+}
+```
+
+Quick little switch condition to see the mood today:
+
+```
+#include <stdio.h>
+
+int main(){
+  int mood = 3;
+  
+  switch(mood){
+    case 1:
+      printf("I am happy");
+      break;
+    case 2:
+      printf("I am sad");
+      break;
+    case 3:
+      printf("I am grinding");
+  }
+  return 0;
+}
+// Output "I am grinding"
+```
+
+if the mood variable has some chances of not being in our switch case, we can add a default case that specifies some code to run if there is no case match:
+
+<pre><code><strong>...
+</strong><strong>case 2:
+</strong>      printf("I am sad");
+      break;
+    case 3:
+      printf("I am grinding");
+    default:
+      printf("none of them");
+  }
+  return 0;
+}
+// Output for mood > 3 --> "none of them"
+</code></pre>
+
+### C While Loop
+
+Loops can execute a block of code as long as a specified condition is reached.
+
+```
+#include <stdio.h>
+
+int main(){
+  int mood = 12;
+  int i = 0;
+  
+  while(i<mood){
+    printf("%d is not yet equal to %d\n", i, mood);
+    i++;
+  }
+  return 0;
+}
+```
+
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+Another variable of the while loop is the do/while loop:
+
+```
+#include <stdio.h>
+
+int main(){
+  int mood = 12;
+  int i = 0;
+  
+  do{
+    printf("%d is not yet equal to %d\n", i, mood);
+    i++;
+  }
+    while(i < mood);
+  return 0;
+}
+```
+
+### C For Loop
+
+If we know how many occurrences we want to have, we can use the for loop that takes 3 expressions
+
+**Expression 1** is executed (one time) before the execution of the code block.
+
+**Expression 2** defines the condition for executing the code block.
+
+**Expression 3** is executed (every time) after the code block has been executed.
+
+```
+#include <stdio.h>
+
+int main(){
+  int mood = 4;
+  
+  for(int i = 0; i < mood; i++){
+    printf("is %d equal to %d?\n", i, mood);
+  }
+  return 0;
+}
+```
+
+<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+We can also play with nested loops, but it will multiply by the number of occurrences of the first loop:
+
+```
+#include <stdio.h>
+
+int main(){
+  int mood = 4;
+  int nested_loop=2;
+  
+  for(int i = 0; i < mood; i++){
+    printf("is %d equal to %d?\n", i, mood);
+    for(int b =0; b < nested_loop; b++){
+      printf("the nested number %d is not equal to %d\n", b, nested_loop);
+    }
+  }
+  return 0;
+}
+```
+
+<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+## C Break and Continue
+
+The `break` statement can also be used to jump out of a **loop**.
+
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+
+The `continue` statement breaks one iteration (in the loop), if a specified condition occurs, and continues with the next iteration in the loop.
+
+<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+
+## C Arrays

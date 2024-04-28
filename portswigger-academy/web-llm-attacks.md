@@ -1,4 +1,4 @@
-# Web LLM attacks
+# 🤖 Web LLM attacks
 
 Large Language Models (LLMs) are AI algorithms that can process user inputs and create plausible responses by predicting sequences of words.
 

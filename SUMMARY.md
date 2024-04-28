@@ -53,7 +53,8 @@
 * [😙 API Testing](portswigger-academy/api-testing.md)
 * [🙅 NoSQL injection](portswigger-academy/nosql-injection.md)
 * [🏎️ Race conditions](portswigger-academy/race-conditions.md)
-* [Web LLM attacks](portswigger-academy/web-llm-attacks.md)
+* [🤖 Web LLM attacks](portswigger-academy/web-llm-attacks.md)
+* [Authentication vulnerabilities](portswigger-academy/authentication-vulnerabilities.md)
 
 ## 📽️ Programming
 
@@ -204,6 +205,7 @@
   * [🥟 Forensics](red-team/technical-knowledge/forensics/README.md)
     * [➰ Incident Response and Forensics](red-team/technical-knowledge/forensics/incident-response-and-forensics/README.md)
       * [🏐 Volatility](red-team/technical-knowledge/forensics/incident-response-and-forensics/volatility.md)
+      * [👨‍🚒 Autopsy](red-team/technical-knowledge/forensics/incident-response-and-forensics/autopsy.md)
 * [📚 Theoretical Knowledge](red-team/theoretical-knowledge/README.md)
   * [🏈 Network Security Evasion](red-team/theoretical-knowledge/network-security-evasion.md)
   * [🎠 Common Pentest Findings](red-team/theoretical-knowledge/common-pentest-findings.md)
@@ -271,3 +273,8 @@
 ## ☁️ Azure & Cloud
 
 * [👺 Azure](azure-and-cloud/azure.md)
+
+## 🐲 OSCP Prep
+
+* [🔂 @TJ\_Null’s OSCP Prep](oscp-prep/tj\_nulls-oscp-prep.md)
+* [Page](oscp-prep/page.md)
