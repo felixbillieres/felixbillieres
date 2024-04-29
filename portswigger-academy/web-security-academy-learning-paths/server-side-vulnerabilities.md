@@ -18,25 +18,25 @@ https://insecure-website.com/loadImage?filename=../../../etc/passwd
 
 I go on a product page:
 
-<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 i see where the image is fetched from:
 
-<figure><img src="../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 I capture a request when loading the image and modify the path to go and fetch another file:
 
-<figure><img src="../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 and I am able to see the passwd file:
 
-<figure><img src="../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Access Control
 
 Access control is the application of constraints on who or what is authorized to perform actions or access resources.
 
-<figure><img src="../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 if a non-administrative user can gain access to an admin page where they can delete user accounts, then this is vertical privilege escalation.
 
@@ -44,15 +44,15 @@ if a non-administrative user can gain access to an admin page where they can del
 
 looking at the website:
 
-<figure><img src="../.gitbook/assets/image (6) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (6) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 after enumeration, or a gobuster we find a /robots.txt:
 
-<figure><img src="../.gitbook/assets/image (7) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 we then go on the admin panel and are able to delete users:
 
-<figure><img src="../.gitbook/assets/image (8) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (8) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 If the application uses "security by obscurity", or more complex URL's it might not be discoverable by  gobuster or directory bruteforce like:
 
@@ -79,11 +79,11 @@ However, the application might still leak the URL to users. The URL might be dis
 
 We get a new website, i go and check the source code immediately:
 
-<figure><img src="../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 and bingo:
 
-<figure><img src="../.gitbook/assets/image (10) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Parameter-based access control methods
 
@@ -106,11 +106,11 @@ i connect with the given credentials wiener:peter and go to the given admin pane
 
 we see he cookies:
 
-<figure><img src="../.gitbook/assets/image (802).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (802).png" alt=""><figcaption></figcaption></figure>
 
 We modify the value to true and refresh the page:
 
-<figure><img src="../.gitbook/assets/image (803).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (803).png" alt=""><figcaption></figcaption></figure>
 
 bingo
 
@@ -126,27 +126,27 @@ we could change the admin id to 124 and maybe access to another users panel
 
 ### Lab: User ID controlled by request parameter, with unpredictable user IDs
 
-<figure><img src="../.gitbook/assets/image (804).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (804).png" alt=""><figcaption></figcaption></figure>
 
 we connect:
 
-<figure><img src="../.gitbook/assets/image (805).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (805).png" alt=""><figcaption></figcaption></figure>
 
 while looking around we find an article written by carlos:
 
-<figure><img src="../.gitbook/assets/image (822).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (822).png" alt=""><figcaption></figcaption></figure>
 
 when clicking on the name, we see the url change:
 
-<figure><img src="../.gitbook/assets/image (823).png" alt=""><figcaption><p>2c732f45-bd3b-4ae8-9fe3-5f6bd75219c2</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (823).png" alt=""><figcaption><p>2c732f45-bd3b-4ae8-9fe3-5f6bd75219c2</p></figcaption></figure>
 
 and on our space we can see that the page is based on our ID:
 
-<figure><img src="../.gitbook/assets/image (824).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (824).png" alt=""><figcaption></figcaption></figure>
 
 so what if we change the values ->
 
-<figure><img src="../.gitbook/assets/image (825).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (825).png" alt=""><figcaption></figcaption></figure>
 
 we get the value of carlos and are able to solve the lab
 
@@ -154,23 +154,23 @@ we get the value of carlos and are able to solve the lab
 
 after connecting with the given creds, we immediatly see :thumbsup:
 
-<figure><img src="../.gitbook/assets/image (826).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (826).png" alt=""><figcaption></figcaption></figure>
 
 the "id=wiener" seems to be the way to go, let's modify it->
 
-<figure><img src="../.gitbook/assets/image (827).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (827).png" alt=""><figcaption></figcaption></figure>
 
 we are able to see to the admin page and extract the password if we look at the source code ->
 
 we are then able to connect to the admin account and delete user carlos:
 
-<figure><img src="../.gitbook/assets/image (828).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (828).png" alt=""><figcaption></figcaption></figure>
 
 #### Authentication vulnerabilities
 
 Authentication vulnerabilities can allow attackers to gain access to sensitive data and functionality.
 
-<figure><img src="../.gitbook/assets/image (829).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (829).png" alt=""><figcaption></figcaption></figure>
 
 ### Lab: Username enumeration via different responses
 
@@ -180,91 +180,91 @@ We stick to sniper attack by only selecting usernames and throw in the attack to
 
 all of the status codes are 200 but one of the Length is not the same:
 
-<figure><img src="../.gitbook/assets/image (830).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (830).png" alt=""><figcaption></figcaption></figure>
 
 let's try with users ads
 
-<figure><img src="../.gitbook/assets/image (831).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (831).png" alt=""><figcaption></figcaption></figure>
 
 we put the password as the target of this new sniper attack and launch the attack with the wordlist ->
 
-<figure><img src="../.gitbook/assets/image (12) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (12) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 we just have to wait and pick up a response code or length and lab is solved
 
 ### Lab: 2FA simple bypass
 
-<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Ok so when i connect to my account, i am able to see the verification code and login
 
-<figure><img src="../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>my-account?id=wiener</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>my-account?id=wiener</p></figcaption></figure>
 
 i then try to connect with carlos account cred:
 
-<figure><img src="../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 the catch here is even if we connected and are requested a verif code, we are in fact already logged in and if I were to replace the URL with the expected URL after inputting the 2FA code, i'll have access to everything:
 
-<figure><img src="../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Server-side request forgery
 
 It's a web security vulnerability that allows an attacker to cause the server-side application to make requests to an unintended location.
 
-<figure><img src="../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Lab: Basic SSRF against the local server
 
 We do not have any creds, while looking on the website we see this odd button:
 
-<figure><img src="../.gitbook/assets/image (6) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (6) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 we also see we can't access admin panel except for a few conditions:
 
-<figure><img src="../.gitbook/assets/image (7) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 we capture it:
 
-<figure><img src="../.gitbook/assets/image (8) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (8) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 when we capture the request:
 
-<figure><img src="../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We modify the api request to do a loopback:
 
-<figure><img src="../.gitbook/assets/image (10) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 and in the source code we see the url we need to access to delete user carlos:
 
-<figure><img src="../.gitbook/assets/image (11) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (11) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 we then request this URL via the API and solve the lab:
 
-<figure><img src="../.gitbook/assets/image (12) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (12) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Lab: Basic SSRF against another back-end system
 
 We start by capturing the request:
 
-<figure><img src="../.gitbook/assets/image (13) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (13) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 according to the exercise i have to find an admin panel on a network so i start by making a request to /admin:8080 but put the network in a sniper attack position:
 
-<figure><img src="../.gitbook/assets/image (15) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (15) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 we finally find the url that gives us a status code 200:
 
-<figure><img src="../.gitbook/assets/image (17) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (17) (1).png" alt=""><figcaption></figcaption></figure>
 
 and when we request the admin control panel we get a 200:
 
-<figure><img src="../.gitbook/assets/image (18) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (18) (1).png" alt=""><figcaption></figcaption></figure>
 
 in the source code we see the delete carlos request:
 
-<figure><img src="../.gitbook/assets/image (19) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (19) (1).png" alt=""><figcaption></figcaption></figure>
 
 So we just request it through the stockAPI and lab solved :thumbsup:
 
@@ -276,15 +276,15 @@ File upload vulnerabilities are when a web server allows users to upload files t
 
 we start by uploading an image to the server:
 
-<figure><img src="../.gitbook/assets/image (20) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (20) (1).png" alt=""><figcaption></figcaption></figure>
 
 We see this ouput in the burp request:
 
-<figure><img src="../.gitbook/assets/image (21) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (21) (1).png" alt=""><figcaption></figcaption></figure>
 
 We have to modify a few things to read content:
 
-<figure><img src="../.gitbook/assets/image (22).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (22).png" alt=""><figcaption></figcaption></figure>
 
 ### Lab: Web shell upload via Content-Type restriction bypass
 
@@ -292,7 +292,7 @@ we start by uploading an image FP.png and putting our malicious php code in it -
 
 and everything works:
 
-<figure><img src="../.gitbook/assets/image (23).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (23).png" alt=""><figcaption></figcaption></figure>
 
 #### OS command injection
 
@@ -304,7 +304,7 @@ We start by going on a product and checking the stock and sending it to burp:
 
 sending it to repeater and pipe whoami the storeID parameter:
 
-<figure><img src="../.gitbook/assets/image (24).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (24).png" alt=""><figcaption></figcaption></figure>
 
 and find the user just like that
 
@@ -318,7 +318,7 @@ In some situations, an attacker can escalate a SQL injection attack to compromis
 
 We simply input 'OR 1=1-- - in the category section:
 
-<figure><img src="../.gitbook/assets/image (25).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (25).png" alt=""><figcaption></figcaption></figure>
 
 ### Lab: SQL injection vulnerability allowing login bypass
 
@@ -326,6 +326,6 @@ This one was straightforward
 
 just had to input in the username field: wiener'0R 1=1-- -
 
-<figure><img src="../.gitbook/assets/image (26).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (26).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (27).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (27).png" alt=""><figcaption></figcaption></figure>

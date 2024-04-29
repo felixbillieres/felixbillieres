@@ -40,21 +40,21 @@
 
 ## 🏫 Portswigger Academy
 
-* [🕸️ Web Security Academy Learning Paths](portswigger-academy/web-security-academy-learning-paths.md)
-* [😋 Path traversal](portswigger-academy/path-traversal.md)
-* [🐔 Clickjacking](portswigger-academy/clickjacking.md)
-* [🕌 SQL injection](portswigger-academy/sql-injection.md)
-* [📑 File Upload vulnerabilities](portswigger-academy/file-upload-vulnerabilities.md)
-* [🥐 Cross-site request forgery (CSRF)](portswigger-academy/cross-site-request-forgery-csrf.md)
-* [🎌 Cross-site scripting](portswigger-academy/cross-site-scripting/README.md)
-  * [⚰️ DOM-based XSS](portswigger-academy/cross-site-scripting/dom-based-xss.md)
-  * [🪞 Reflected XSS](portswigger-academy/cross-site-scripting/reflected-xss.md)
-* [🈯 Server-side vulnerabilities](portswigger-academy/server-side-vulnerabilities.md)
-* [😙 API Testing](portswigger-academy/api-testing.md)
-* [🙅 NoSQL injection](portswigger-academy/nosql-injection.md)
-* [🏎️ Race conditions](portswigger-academy/race-conditions.md)
-* [🤖 Web LLM attacks](portswigger-academy/web-llm-attacks.md)
-* [Authentication vulnerabilities](portswigger-academy/authentication-vulnerabilities.md)
+* [🕸️ Web Security Academy Learning Paths](portswigger-academy/web-security-academy-learning-paths/README.md)
+  * [😋 Path traversal](portswigger-academy/web-security-academy-learning-paths/path-traversal.md)
+  * [🐔 Clickjacking](portswigger-academy/web-security-academy-learning-paths/clickjacking.md)
+  * [🕌 SQL injection](portswigger-academy/web-security-academy-learning-paths/sql-injection.md)
+  * [📑 File Upload vulnerabilities](portswigger-academy/web-security-academy-learning-paths/file-upload-vulnerabilities.md)
+  * [🥐 Cross-site request forgery (CSRF)](portswigger-academy/web-security-academy-learning-paths/cross-site-request-forgery-csrf.md)
+  * [🎌 Cross-site scripting](portswigger-academy/web-security-academy-learning-paths/cross-site-scripting/README.md)
+    * [⚰️ DOM-based XSS](portswigger-academy/web-security-academy-learning-paths/cross-site-scripting/dom-based-xss.md)
+    * [🪞 Reflected XSS](portswigger-academy/web-security-academy-learning-paths/cross-site-scripting/reflected-xss.md)
+  * [🈯 Server-side vulnerabilities](portswigger-academy/web-security-academy-learning-paths/server-side-vulnerabilities.md)
+  * [😙 API Testing](portswigger-academy/web-security-academy-learning-paths/api-testing.md)
+  * [🙅 NoSQL injection](portswigger-academy/web-security-academy-learning-paths/nosql-injection.md)
+  * [🏎️ Race conditions](portswigger-academy/web-security-academy-learning-paths/race-conditions.md)
+  * [🤖 Web LLM attacks](portswigger-academy/web-security-academy-learning-paths/web-llm-attacks.md)
+  * [Authentication vulnerabilities](portswigger-academy/web-security-academy-learning-paths/authentication-vulnerabilities.md)
 
 ## 📽️ Programming
 
@@ -212,6 +212,13 @@
   * [✍️ Legal Documents and Report Writing](red-team/theoretical-knowledge/legal-documents-and-report-writing.md)
   * [🐡 Wireless Penetration Testing](red-team/theoretical-knowledge/wireless-penetration-testing.md)
 
+## 🐲 OSCP Prep
+
+* [🔂 @TJ\_Null’s OSCP Prep](oscp-prep/tj\_nulls-oscp-prep/README.md)
+  * [🤬 More Challenging than OSCP](oscp-prep/tj\_nulls-oscp-prep/more-challenging-than-oscp/README.md)
+    * [🧑‍✈️ Blackfield](oscp-prep/tj\_nulls-oscp-prep/more-challenging-than-oscp/blackfield.md)
+  * [Page 1](oscp-prep/tj\_nulls-oscp-prep/page-1.md)
+
 ## 👨‍🏭 Still sorting out
 
 * [📚 Documentation](still-sorting-out/documentation/README.md)
@@ -273,8 +280,3 @@
 ## ☁️ Azure & Cloud
 
 * [👺 Azure](azure-and-cloud/azure.md)
-
-## 🐲 OSCP Prep
-
-* [🔂 @TJ\_Null’s OSCP Prep](oscp-prep/tj\_nulls-oscp-prep.md)
-* [Page](oscp-prep/page.md)

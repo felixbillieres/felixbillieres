@@ -2,7 +2,7 @@
 
 When the XSS context is text between HTML tags, you need to introduce some new HTML tags designed to trigger execution of JavaScript.
 
-<figure><img src="../../.gitbook/assets/image (868).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (868).png" alt=""><figcaption></figcaption></figure>
 
 Some useful ways of executing JavaScript are:
 
@@ -16,7 +16,7 @@ This one was pretty straightforward:
 <script>alert(1)</script>
 ```
 
-<figure><img src="../../.gitbook/assets/image (866).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (866).png" alt=""><figcaption></figcaption></figure>
 
 ### Lab: [Stored XSS](https://portswigger.net/web-security/cross-site-scripting/stored) into HTML context with nothing encoded
 
@@ -30,7 +30,7 @@ We find a message input and decide to inject the same payload:
 
 Once we send the message, we can refresh the page and see our XSS:
 
-<figure><img src="../../.gitbook/assets/image (867).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (867).png" alt=""><figcaption></figcaption></figure>
 
 ### Lab: [Reflected XSS](https://portswigger.net/web-security/cross-site-scripting/reflected) into HTML context with most tags and attributes blocked
 
@@ -42,29 +42,29 @@ we try injecting this:
 <img src=1 onerror=print()>
 ```
 
-<figure><img src="../../.gitbook/assets/image (869).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (869).png" alt=""><figcaption></figcaption></figure>
 
 but we get a "tag not allowed" message
 
 Now a very interesting technique, we capture the req, remove the payload and put <> in it, select in between and add 2 payloads like this:
 
-<figure><img src="../../.gitbook/assets/image (870).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (870).png" alt=""><figcaption></figcaption></figure>
 
 We go on the cheat sheet and copy the tags:
 
 {% embed url="https://portswigger.net/web-security/cross-site-scripting/cheat-sheet" %}
 
-<figure><img src="../../.gitbook/assets/image (871).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (871).png" alt=""><figcaption></figcaption></figure>
 
 after launching the attack with the intruder, we quickly see that the "body" is the good tag:
 
 &#x20;
 
-<figure><img src="../../.gitbook/assets/image (872).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (872).png" alt=""><figcaption></figcaption></figure>
 
 So we go on the positions tab and add the following tag and create a new intruder payload position just before the =:
 
-<figure><img src="../../.gitbook/assets/image (873).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (873).png" alt=""><figcaption></figcaption></figure>
 
 Then go back to the cheat sheet, copy all events and start again with the attack:
 
@@ -72,7 +72,7 @@ Then go back to the cheat sheet, copy all events and start again with the attack
 
 There are a few events that triggered a 200 response:
 
-<figure><img src="../../.gitbook/assets/image (874).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (874).png" alt=""><figcaption></figcaption></figure>
 
 ```
 <iframe src="https://0a71007c048e9ed581f89ddd006100c9.web-security-academy.net/?search=%22%3E%3Cbody%20onresize=print()%3E" onload=this.style.width='100px'>
@@ -84,7 +84,7 @@ There are a few events that triggered a 200 response:
 
 We then go to the exploit server, store and exploit this payload in the body and complete the lab just like this:
 
-<figure><img src="../../.gitbook/assets/image (876).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (876).png" alt=""><figcaption></figcaption></figure>
 
 ### Lab: [Reflected XSS](https://portswigger.net/web-security/cross-site-scripting/reflected) into HTML context with all tags blocked except custom ones
 
@@ -94,7 +94,7 @@ So we go on the same methodology as earlier:
 
 We copy and paste all of the tags and use intruder to find the perfect one:
 
-<figure><img src="../../.gitbook/assets/image (877).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (877).png" alt=""><figcaption></figcaption></figure>
 
 So i first hop on hacktricks:
 

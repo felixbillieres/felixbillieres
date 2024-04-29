@@ -17,25 +17,25 @@ We already did some File uploads in the&#x20;
 
 We start by uploading our php payload and capturing the request:
 
-<figure><img src="../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We saw that we were able to upload the PHP file, but it was as a txt file, the folder must filter out the PHP files, so let's save the PHP file in another directory. If we do a filename ../webshell.php it cuts the ../ but if we encode it to ..%2fwebshell.php it seems to work:
 
-<figure><img src="../.gitbook/assets/image (6) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (6) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 so we see when encoding it saves the shell in another directory ->
 
 so i took te req and forwarded it, on the page it showed:
 
-<figure><img src="../.gitbook/assets/image (7) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 and now we go back on repeater, and we get the file:
 
-<figure><img src="../.gitbook/assets/image (8) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (8) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Lab: Web shell upload via extension blacklist bypass
 
-<figure><img src="../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 <?php echo file_get_contents('/home/carlos/secret'); ?>
@@ -43,7 +43,7 @@ and now we go back on repeater, and we get the file:
 
 This payload will enable us to read the content of the secret file, now let's upload our picture and the request ->
 
-<figure><img src="../.gitbook/assets/image (845).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (845).png" alt=""><figcaption></figcaption></figure>
 
 and with the following request we are able to GET our image:
 
@@ -53,11 +53,11 @@ GET /files/avatars/image.png
 
 if we try to run a php payload ->
 
-<figure><img src="../.gitbook/assets/image (846).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (846).png" alt=""><figcaption></figcaption></figure>
 
 and if we look at the pretty output:
 
-<figure><img src="../.gitbook/assets/image (847).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (847).png" alt=""><figcaption></figcaption></figure>
 
 We can see on this website that .htaccess files are not very secure:
 
@@ -65,7 +65,7 @@ We can see on this website that .htaccess files are not very secure:
 
 So we are going to rename the file .htaccess and change the content:
 
-<figure><img src="../.gitbook/assets/image (848).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (848).png" alt=""><figcaption></figcaption></figure>
 
 ```
 AddType application/x-httpd-php .shell
@@ -77,7 +77,7 @@ AddType application/x-httpd-php .shell
 
 And now we take the query back in time and make our malicious file:
 
-<figure><img src="../.gitbook/assets/image (849).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (849).png" alt=""><figcaption></figcaption></figure>
 
 #### Other techniques to bypass file extension blacklist:
 
@@ -94,11 +94,11 @@ And now we take the query back in time and make our malicious file:
 
 So for the chal we can easily guess it's one of those, and indeed it was:
 
-<figure><img src="../.gitbook/assets/image (850).png" alt=""><figcaption><p>FP.php%00.jpg</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (850).png" alt=""><figcaption><p>FP.php%00.jpg</p></figcaption></figure>
 
 And we can now make a GET to the file:
 
-<figure><img src="../.gitbook/assets/image (851).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (851).png" alt=""><figcaption></figcaption></figure>
 
 #### Flawed validation of the file's contents
 

