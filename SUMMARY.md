@@ -54,7 +54,7 @@
   * [🙅 NoSQL injection](portswigger-academy/web-security-academy-learning-paths/nosql-injection.md)
   * [🏎️ Race conditions](portswigger-academy/web-security-academy-learning-paths/race-conditions.md)
   * [🤖 Web LLM attacks](portswigger-academy/web-security-academy-learning-paths/web-llm-attacks.md)
-  * [Authentication vulnerabilities](portswigger-academy/web-security-academy-learning-paths/authentication-vulnerabilities.md)
+  * [😵‍💫 Authentication vulnerabilities](portswigger-academy/web-security-academy-learning-paths/authentication-vulnerabilities.md)
 
 ## 📽️ Programming
 
@@ -217,7 +217,6 @@
 * [🔂 @TJ\_Null’s OSCP Prep](oscp-prep/tj\_nulls-oscp-prep/README.md)
   * [🤬 More Challenging than OSCP](oscp-prep/tj\_nulls-oscp-prep/more-challenging-than-oscp/README.md)
     * [🧑‍✈️ Blackfield](oscp-prep/tj\_nulls-oscp-prep/more-challenging-than-oscp/blackfield.md)
-  * [Page 1](oscp-prep/tj\_nulls-oscp-prep/page-1.md)
 
 ## 👨‍🏭 Still sorting out
 

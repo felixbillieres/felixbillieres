@@ -1,6 +1,6 @@
 # 🔂 @TJ\_Null’s OSCP Prep
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
 
 {% embed url="https://systemweakness.com/tj-nulls-htb-list-cd40887cabe1" %}
 

