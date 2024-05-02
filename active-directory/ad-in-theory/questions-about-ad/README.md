@@ -447,3 +447,34 @@ dc01
   * **Auto-logon password:** If windows [auto-logon is enabled](https://keithga.wordpress.com/2013/12/19/sysinternals-autologon-and-securely-encrypting-passwords/), the password can be stored in the LSA secrets. The other alternative is that it is saved in `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon` registry key under the key `DefaulUserName`.
   * **DPAPI master keys:** The [data protection API](https://docs.microsoft.com/en-us/dotnet/standard/security/how-to-use-data-protection) (DPAPI) is used to allow users encrypt sensible data without need to worry about cryptographic keys. If you are able to retrieve the master keys, then you [can decrypt users data](https://book.hacktricks.xyz/windows/windows-local-privilege-escalation/dpapi-extracting-passwords).
 
+**How to dump registry credentials:**
+
+To get the credentials from the SECURITY and SAM hives, we can read them from memory by using mimikatz.
+
+execute `token::elevate` to acquire a `SYSTEM` session to read the credentials.&#x20;
+
+`privilege::debug` if required to enable the SeDebugPrivilege.
+
+other commands:
+
+* `lsadump::secrets`: Get the LSA secrets.
+* `lsadump::cache`: Retrieve the cached domain logons.
+* `lsadump::sam`: Fetch the local account credentials.
+
+We can also save a copy of the hive files with [reg save](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/reg-save) command, move them to our machine, and finally to get the content with [impacket secretsdump](https://github.com/SecureAuthCorp/impacket/blob/master/examples/secretsdump.py) script or mimikatz.
+
+#### Linux computers <a href="#linux-computers" id="linux-computers"></a>
+
+**How to discover linux machines on a network?:**
+
+Since Linux computers don't have any characteristic port opened by default, however many Linux machines are used as servers that are remotely administrate. In order to administrate Linux computers, usually the [SSH](https://zer1t0.gitlab.io/posts/attacking\_ad/#SSH) protocol is used. The SSH server service listens in the port 22
+
+Moreover, older Linux machines may have [Telnet](https://en.wikipedia.org/wiki/Telnet) enabled on port 23.
+
+**where to find linux computer credentials**
+
+Linux machines usually have a Kerberos client that is configured with the domain computer account. You can find the credentials in the keytab (`/etc/krb5.keytab)`or specified in the [Kerberos configuration file](https://web.mit.edu/kerberos/krb5-1.12/doc/admin/conf\_files/krb5\_conf.html) in `/etc/krb5.conf.`
+
+You can use the keys stored to [ask for a Kerberos ticket](https://www.tarlogic.com/en/blog/how-to-attack-kerberos/) an impersonate the user.
+
+{% embed url="https://book.hacktricks.xyz/linux-hardening/privilege-escalation/linux-active-directory#ccache-ticket-reuse-from-keytab" %}
