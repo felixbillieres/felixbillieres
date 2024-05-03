@@ -527,7 +527,7 @@ int main(){
 }
 ```
 
-<figure><img src="../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Another variable of the while loop is the do/while loop:
 
@@ -570,7 +570,7 @@ int main(){
 }
 ```
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can also play with nested loops, but it will multiply by the number of occurrences of the first loop:
 
@@ -591,16 +591,214 @@ int main(){
 }
 ```
 
-<figure><img src="../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## C Break and Continue
 
 The `break` statement can also be used to jump out of a **loop**.
 
-<figure><img src="../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The `continue` statement breaks one iteration (in the loop), if a specified condition occurs, and continues with the next iteration in the loop.
 
-<figure><img src="../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## C Arrays
+
+
+
+## C Strings
+
+here is the syntax for a string in C:
+
+```
+ char greetings[] = "Hello World!";
+```
+
+for the printf output we need the format specifier `%s` for strings and `%c` format specifier to print a **single character**.
+
+If we wanted to modify a single character in a string, we would refer to the index like in an array since strings are quite litterally char arrays, and we would use single quotes for the assignment:
+
+```
+char greetings[] = "Hello World!";
+greetings[0] = 'J';
+printf("%s", greetings);
+// Outputs Jello World! instead of Hello World!
+```
+
+You can use the for loop just like any other way we learnt earlier:
+
+```
+char felix[] = "Felix";
+
+  for(int i = 0; i < 5; i++){
+    printf("%c is the %dth letter of my name\n", felix[i], i+1);
+  }
+```
+
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+another interestig way of printing out strings is to use {} and single quotes:
+
+```
+  char felix[] = {'f','e','l','i','x'};
+  printf("%s is my name", felix);
+```
+
+<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+and to finish the size of a string is pretty straightforward:
+
+```
+char felix[] = {'f','e','l','i','x'};
+
+printf("%s is my name\n", felix);
+printf("the number of chars of my name is %d", sizeof(felix));
+```
+
+<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+If we want to print out " or ' or \ (special chars)in our strings without it breaking the function we need to put escape characters:
+
+```
+char txt[] = "We are the so-called "Vikings" from the north.";
+//error
+char txt[] = "We are the so-called \"Vikings\" from the north.";
+//no error
+```
+
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+
+**String functions:**
+
+We can perform some interesting stuff on strings if we include `<string.h>` header file in our program ->
+
+first we need to know the difference between strlen() and sizeof()
+
+`sizeof` and `strlen` behaves differently, as `sizeof` also includes the `\0` character when counting:
+
+```
+char alphabet[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+printf("%d", strlen(alphabet));   // 26
+printf("%d", sizeof(alphabet));   // 27
+```
+
+and sizeof() will return the memory size in bytes and not the length as we understand it:
+
+```
+char alphabet[50] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+printf("%d", strlen(alphabet));   // 26
+printf("%d", sizeof(alphabet));   // 50
+```
+
+If we want to concatenate strings, we can use the strcat() function but we need to be aware of buffer overflow:
+
+<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+
+In C, when you declare an array of characters like `char string1[12]`, you're allocating space for 12 characters, including the null terminator `'\0'`. However, when you initialize `string1` with `"hello"`, it already consumes 6 characters (5 for "hello" and 1 for `'\0'`). So, `string1` has only 6 characters left before reaching its maximum capacity.
+
+**Copy strings:**
+
+we need to use the strcpy() function if we want to assign the value of one string to another
+
+```
+char string1[6] = "hello";
+char string2[6];
+  
+strcpy(string2, string1);
+printf("%s", string2);
+```
+
+{% hint style="info" %}
+notice how while using strcpy we put the var that we want to assign something to in first
+{% endhint %}
+
+**Compare strings:**
+
+If we want to compare 2 strings, we need to use the strcmp() function:
+
+the output is either ->
+
+0 == equal
+
+!0 == not equal
+
+```
+char string1[6] = "hello";
+  char string2[6] = "hello";
+  char string3[6] = "hel";
+  
+  printf("%d\n", strcmp(string1, string2)); //0
+  printf("%d", strcmp(string1, string3)); //108
+```
+
+<figure><img src="../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+
+## C User Input
+
+To capture user input, we need to use the scanf() function:
+
+```
+int myNum;
+
+// Ask the user to type a number
+printf("Type a number: \n");
+
+// Get and save the number the user types
+scanf("%d", &myNum);
+
+// Output the number the user typed
+printf("Your number is: %d", myNum);
+```
+
+Like this:
+
+```
+int myage;
+printf("enter your age:\n");
+scanf("%d", &myage);
+printf("your age is %d", myage);
+```
+
+and for multiple inputs:
+
+```
+  int myage;
+  char myname[10];
+  printf("enter your age:\n");
+  printf("enter your name:\n");
+
+  scanf("%d", &myage);
+  scanf("%s", &myname);
+  printf("your age is %d and your name is %s", myage, myname);
+```
+
+{% hint style="info" %}
+scanf() considers space chars as escape chars so if you were to write your name "John Doe" it would ouput only John
+{% endhint %}
+
+Use the `scanf()` function to get a single word as input, and use `fgets()` for multiple words.&#x20;
+
+fgets() takes the following parameters: the name of the string variable, `sizeof`(_string\_name_), and `stdin`:
+
+```
+char fullName[30];
+
+printf("Type your full name: \n");
+fgets(fullName, sizeof(fullName), stdin);
+
+printf("Hello %s", fullName);
+```
+
+## C Memory Address
+
+To access memory addresses in C you have to put a & before the variable:
+
+```
+int myAge = 43;
+printf("%p", &myAge); // Outputs 0x7ffe5367e044
+```
+
+the memory address is in hexadecimal form

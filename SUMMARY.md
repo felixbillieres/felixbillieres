@@ -128,6 +128,7 @@
   * [☢️ Active](capture-the-flags/active-directory-and-network/active.md)
   * [🔑 Access](capture-the-flags/active-directory-and-network/access.md)
   * [🐭 Monteverde](capture-the-flags/active-directory-and-network/monteverde.md)
+  * [⚖️ Fuse](capture-the-flags/active-directory-and-network/fuse.md)
   * [👁️ Shibboleth](capture-the-flags/active-directory-and-network/shibboleth.md)
   * [🐕‍🦺 Attacking Kerberos](capture-the-flags/active-directory-and-network/attacking-kerberos.md)
   * [▶️ StreamIO](capture-the-flags/active-directory-and-network/streamio.md)
@@ -135,7 +136,6 @@
   * [🧠 Intelligence](capture-the-flags/active-directory-and-network/intelligence.md)
   * [Mantis](capture-the-flags/active-directory-and-network/mantis.md)
   * [⌛ Timelapse](capture-the-flags/active-directory-and-network/timelapse.md)
-  * [🏦 Red Team Capstone Challenge](capture-the-flags/active-directory-and-network/red-team-capstone-challenge.md)
   * [🥊 Jab](capture-the-flags/active-directory-and-network/jab.md)
 
 ## 🛡️ Blue Team
@@ -217,6 +217,7 @@
 * [🔂 @TJ\_Null’s OSCP Prep](oscp-prep/tj\_nulls-oscp-prep/README.md)
   * [🤬 More Challenging than OSCP](oscp-prep/tj\_nulls-oscp-prep/more-challenging-than-oscp/README.md)
     * [🧑‍✈️ Blackfield](oscp-prep/tj\_nulls-oscp-prep/more-challenging-than-oscp/blackfield.md)
+    * [🐶 Cerberus](oscp-prep/tj\_nulls-oscp-prep/more-challenging-than-oscp/cerberus.md)
 
 ## 👨‍🏭 Still sorting out
 
