@@ -802,3 +802,93 @@ printf("%p", &myAge); // Outputs 0x7ffe5367e044
 ```
 
 the memory address is in hexadecimal form
+
+## C Pointers
+
+A **pointer** is a variable that **stores** the **memory address** of another variable as its value.
+
+A **pointer variable** **points** to a **data type** (like `int`) of the same type, and is created with the `*` operator.
+
+```
+int myAge = 43;     // An int variable
+int* ptr = &myAge;  // A pointer variable, with the name ptr, that stores the address of myAge
+
+// Output the value of myAge (43)
+printf("%d\n", myAge);
+
+// Output the memory address of myAge (0x7ffe5367e044)
+printf("%p\n", &myAge);
+
+// Output the memory address of myAge with the pointer (0x7ffe5367e044)
+printf("%p\n", ptr);
+```
+
+you can dereference a pointer by calling it with a \* character before ->
+
+```
+int myAge = 43;     // Variable declaration
+int* ptr = &myAge;  // Pointer declaration
+
+// Reference: Output the memory address of myAge with the pointer (0x7ffe5367e044)
+printf("%p\n", ptr);
+
+// Dereference: Output the value of myAge with the pointer (43)
+printf("%d\n", *ptr);
+```
+
+You can also declare pointers thes 2 ways in C:
+
+```
+int* myNum;
+int *myNum;
+```
+
+#### Pointers & Arrays
+
+let's say we have the following array:
+
+```
+int myNumbers[4] = {25, 50, 75, 100};
+```
+
+<figure><img src="../../.gitbook/assets/image (964).png" alt=""><figcaption></figcaption></figure>
+
+Note that the last number of each of the elements' memory address is different, with an addition of 4.
+
+It is because the size of an `int` type is typically 4 bytes ->
+
+<figure><img src="../../.gitbook/assets/image (965).png" alt=""><figcaption></figcaption></figure>
+
+In c, the name of the array is a direct pointer to the first element of the array
+
+The **memory address** of the **first element** is the same as the **name of the array**:
+
+```
+int myNumbers[4] = {25, 50, 75, 100};
+
+// Get the memory address of the myNumbers array
+printf("%p\n", myNumbers);
+
+// Get the memory address of the first array element
+printf("%p\n", &myNumbers[0]);
+
+//0x7ffe70f9d8f0
+//0x7ffe70f9d8f0
+```
+
+So if we want to access to an element of the array through a pointer, we have to take the array (which points to the first element) and add 1,2,3... ->
+
+```
+int myNumbers[4] = {25, 50, 75, 100};
+
+// Get the value of the first element in myNumbers
+printf("%d", *myNumbers); //25
+
+// Get the value of the second element in myNumbers
+printf("%d\n", *(myNumbers + 1)); //50
+
+// Get the value of the third element in myNumbers
+printf("%d", *(myNumbers + 2)); //75
+```
+
+<figure><img src="../../.gitbook/assets/image (966).png" alt=""><figcaption><p>or through a loop</p></figcaption></figure>
