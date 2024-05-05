@@ -215,6 +215,8 @@
 
 ## 🐲 OSCP Prep
 
+* [📈 Endgames](oscp-prep/endgames/README.md)
+  * [✈️ Ascension](oscp-prep/endgames/ascension.md)
 * [🔂 @TJ\_Null’s OSCP Prep](oscp-prep/tj\_nulls-oscp-prep/README.md)
   * [🤬 More Challenging than OSCP](oscp-prep/tj\_nulls-oscp-prep/more-challenging-than-oscp/README.md)
     * [🧑‍✈️ Blackfield](oscp-prep/tj\_nulls-oscp-prep/more-challenging-than-oscp/blackfield.md)

