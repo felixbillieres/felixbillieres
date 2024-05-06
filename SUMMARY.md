@@ -61,6 +61,7 @@
 * [🛃 C Basics](programming/c-basics/README.md)
   * [🆘 C Tutorial](programming/c-basics/c-tutorial.md)
   * [👾 C Functions](programming/c-basics/c-functions.md)
+  * [📁 C Files](programming/c-basics/c-files.md)
 * [🐍 Python Basics](programming/python-basics/README.md)
   * [🔠 Strings](programming/python-basics/strings.md)
   * [➕ Math](programming/python-basics/math.md)
