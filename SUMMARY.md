@@ -212,6 +212,8 @@
   * [🎠 Common Pentest Findings](red-team/theoretical-knowledge/common-pentest-findings.md)
   * [✍️ Legal Documents and Report Writing](red-team/theoretical-knowledge/legal-documents-and-report-writing.md)
   * [🐡 Wireless Penetration Testing](red-team/theoretical-knowledge/wireless-penetration-testing.md)
+* [🍎 Tryhackme Offensive Pentesting](red-team/tryhackme-offensive-pentesting/README.md)
+  * [Buffer Overflow Exploitation](red-team/tryhackme-offensive-pentesting/buffer-overflow-exploitation.md)
 
 ## 🐲 OSCP Prep
 
@@ -267,7 +269,7 @@
       * [🎪 Antivirus Evasion](still-sorting-out/documentation/cybersecurity-documentation/red-teaming/antivirus-evasion.md)
     * [👿 DevSecOps](still-sorting-out/documentation/cybersecurity-documentation/devsecops/README.md)
       * [🗞️ Pipeline Automation](still-sorting-out/documentation/cybersecurity-documentation/devsecops/pipeline-automation.md)
-      * [CI/CD and Build Security](still-sorting-out/documentation/cybersecurity-documentation/devsecops/ci-cd-and-build-security.md)
+      * [💿 CI/CD and Build Security](still-sorting-out/documentation/cybersecurity-documentation/devsecops/ci-cd-and-build-security.md)
       * [👨‍🎤 Container Security](still-sorting-out/documentation/cybersecurity-documentation/devsecops/container-security/README.md)
         * [🐳 Docker](still-sorting-out/documentation/cybersecurity-documentation/devsecops/container-security/docker.md)
         * [⚓ Kubernetes](still-sorting-out/documentation/cybersecurity-documentation/devsecops/container-security/kubernetes.md)

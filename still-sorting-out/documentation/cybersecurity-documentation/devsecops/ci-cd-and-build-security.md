@@ -1,4 +1,4 @@
-# CI/CD and Build Security
+# 💿 CI/CD and Build Security
 
 CI/CD stands for Continuous Integration and Continuous Delivery/Continuous Deployment. Build security, in the context of CI/CD, refers to the practices and measures taken to ensure the security of the software build process.
 
@@ -102,3 +102,4 @@ deploy-prod:
     - echo "Deployment complete! Navigate to http://localhost:8081/ to test!"
   environment: production
 ```
+

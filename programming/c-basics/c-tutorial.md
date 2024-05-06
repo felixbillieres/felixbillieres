@@ -892,3 +892,128 @@ printf("%d", *(myNumbers + 2)); //75
 ```
 
 <figure><img src="../../.gitbook/assets/image (966).png" alt=""><figcaption><p>or through a loop</p></figcaption></figure>
+
+Arrays are used to store multiple values in a single variable, instead of declaring separate variables for each value.
+
+We first define the data type (like `int`) and specify the name of the array followed by&#x20;
+
+**square brackets \[]**
+
+```
+int myNumbers[] = {25, 50, 75, 100};
+```
+
+To access an array element, refer to its **index number:**
+
+```
+int myNumbers[] = {25, 50, 75, 100};
+printf("%d", myNumbers[0]);
+
+// Outputs 25
+```
+
+Now if we wanted to change the value assigned to a array value:
+
+```
+int myNumbers[] = {25, 50, 75, 100};
+myNumbers[0] = 33;
+
+printf("%d", myNumbers[0]);
+
+// Now outputs 33 instead of 25
+```
+
+And finally, we could use the for loop to iterate through an array:
+
+```
+int myNumbers[] = {25, 50, 75, 100};
+int i;
+
+for (i = 0; i < 4; i++) {
+  printf("%d\n", myNumbers[i]);
+}
+```
+
+Now if we wanted to know the **size of** an array:
+
+```
+int myNumbers[] = {10, 25, 50, 75, 100};
+printf("%lu", sizeof(myNumbers)); // Prints 20
+```
+
+the output is equal to 20 because the output refers to the size of bytes and since an int is usually equal to 4 bytes, 4x5=20
+
+if we wanted to output the size as we think of it (the number of variables in the array):
+
+```
+int myNumbers[] = {10, 25, 50, 75, 100};
+int length = sizeof(myNumbers) / sizeof(myNumbers[0]);
+
+printf("%d", length);  // Prints 5
+```
+
+* `sizeof(myNumbers)` gives the total size in bytes of the `myNumbers` array. Since `myNumbers` is an array of integers (`int`), and there are five integers in the array, the total size would be `5 * sizeof(int)`.
+* `sizeof(myNumbers[0])` gives the size in bytes of the first element of the `myNumbers` array, which is an integer (`int`).
+* By dividing the total size of the array (`sizeof(myNumbers)`) by the size of a single element (`sizeof(myNumbers[0])`), we get the number of elements in the array.
+
+We can make our for loop better by specifying the length of our array in the for loop:
+
+```
+int myNumbers[] = {25, 50, 75, 100};
+int length = sizeof(myNumbers) / sizeof(myNumbers[0]);
+int i;
+
+for (i = 0; i < length; i++) {
+  printf("%d\n", myNumbers[i]);
+}
+```
+
+A real life example of a program that calculates the average of different users:
+
+<pre><code>#include &#x3C;stdio.h>
+
+int main(){
+  int age[] = {22,23,15,90};
+
+  int length = sizeof(age) / sizeof(age[0]);
+  int value =0;
+  for(int i = 0; i &#x3C; length; i++){
+    value += age[i];
+  }
+  int finalMoyenne = value / length;
+  printf("le total des ages reunis est %d\n", value);
+  printf("La moyenne est de %d", finalMoyenne);
+  return 0;
+}
+//le total des ages reunis est 150
+<strong>//La moyenne est de 37
+</strong></code></pre>
+
+another useful thing good to know is multi dimensional arrays:
+
+lets create a 2D array:
+
+```
+int matrix[2][3] = { {1, 4, 2}, {3, 6, 8} };
+```
+
+<figure><img src="../../.gitbook/assets/image (994).png" alt=""><figcaption></figcaption></figure>
+
+To access the values of the array, you first specify the which row you want then which column:
+
+```
+int matrix[2][3] = { {1, 4, 2}, {3, 6, 8} };
+
+printf("%d", matrix[0][2]);  // Outputs 2, row number 0 and element 2 in that row
+```
+
+if you want to change the value of an element in the array it's the same, you first choose the row, then the element in the row:
+
+```
+  int twoDarray[2][3] = {{1,2,3},{4,5,6}};
+  printf("%d\n", twoDarray[0][2]);
+  twoDarray[0][2] = 4;
+  printf("%d\n", twoDarray[0][2]);
+//3
+//4
+```
