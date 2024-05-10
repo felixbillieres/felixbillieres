@@ -478,3 +478,70 @@ Linux machines usually have a Kerberos client that is configured with the domain
 You can use the keys stored to [ask for a Kerberos ticket](https://www.tarlogic.com/en/blog/how-to-attack-kerberos/) an impersonate the user.
 
 {% embed url="https://book.hacktricks.xyz/linux-hardening/privilege-escalation/linux-active-directory#ccache-ticket-reuse-from-keytab" %}
+
+**What can you say about linux kerberos tickets?**
+
+* in order to be identified within the system, the linux machines has kerberos client configured  within the computer account. You can find the creds usaully in the `/etc/krb5.keytab` OR `/etc/krb.conf` file and you can display it using `klist` command
+* the next step would be to impersonate the user in the domain since, when authentificated, a kerberos ticket is retrieved under the `/tmp` directory in files with the format `krb5cc_%{uid}` . it is also possible that tickets are stored in the [Linux kernel keys](https://man7.org/linux/man-pages/man7/keyrings.7.html) instead of files, but you can grab them and convert to files by using [tickey](https://github.com/TarlogicSecurity/tickey).
+
+**Where are stored the ssh private keys?**
+
+* usually they are stored in the .ssh directory in a file called `id_rsa`
+* In case the private key doesn't require a passphrase for using it, then you may can use it to connect to another machines in the domain with this syntax:
+
+```
+$ ssh -i id_ed25519_foo_key foo@db.contoso.local
+```
+
+{% embed url="https://robertholdsworthsecurity.medium.com/how-to-crack-an-ssh-private-key-passphrase-ab7dd1583178" %}
+
+* a place worth looking is the bash history located in the `.bash_history` file of the user directory to find some credentials or command history
+
+### Services <a href="#services" id="services"></a>
+
+**What is the difference between active directory service and computer service?**
+
+A windows or linux machine service could be understood as a background process running like a task (ex: database) but it is not obliged for a service to be listening on a port:
+
+<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+it could simply be a service that for example checks for updates on the system
+
+on the other hand, active directory services are identifieres that indicates what remote services are or can be available (listening on a port) on a machine. Not all the remote services are registered in the domain database, however, the registration is required for those services that need to authenticate domain users through Kerberos.
+
+* each active directory service stores those informations:
+  * The **user** that runs the computer service.
+  * The [service class](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc772815\(v=ws.10\)#service-principal-names), that indicates what kind of service is, for example web servers are registered like www class.
+  * The **machine** where the service is hosted.
+
+Since all services dont require to be executed and are stored in AD database, it's good to know that old services can lead to account takeover using kerberoast&#x20;
+
+### Database <a href="#database" id="database"></a>
+
+So we know the basics of the database of the domain and some objects stored in it like users, groups etc..
+
+**Can you go more in depth on classes and maybe subclasses?**
+
+We know that there is the [User class](https://docs.microsoft.com/en-us/windows/win32/adschema/c-user), the [Computer class](https://docs.microsoft.com/en-us/windows/win32/adschema/c-computer) or the [Group class](https://docs.microsoft.com/en-us/windows/win32/adschema/c-group).
+
+But a class can have a **subclasse** that allows to inherit propreties. For example, the Computer class is a subclass of User class, therefore the computer objects can have the same properties of the user objects ,like `SAMAccountName`, and some new custom properties,
+
+<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+All the classes are subclasses of the [Top](https://docs.microsoft.com/en-us/windows/win32/adschema/c-top) class & many of the most relevant classes when performing a pentest, like User and Group, are attached to [Security-Principal](https://docs.microsoft.com/en-us/windows/win32/adschema/c-securityprincipal) auxiliary class, the class that defines the `SAMAccountName` and `SID` properties.
+
+**What do you know about properties of a class?**&#x20;
+
+Usually, properties are stored as a string value like _name_ or something else. There are some properties that contain sensitive data that are marked as [confidential properties](https://docs.microsoft.com/en-us/troubleshoot/windows-server/windows-security/mark-attribute-as-confidential)
+
+for example, the [UserPassword](https://docs.microsoft.com/en-us/openspecs/windows\_protocols/ms-adts/f3adda9f-89e1-4340-a3f2-1f0a6249f1f8) and [UnicodePwd](https://docs.microsoft.com/en-us/openspecs/windows\_protocols/ms-ada3/71e64720-be27-463f-9cc5-117f4bc849e1) propreties cannot be read, only written. When a [password change](https://docs.microsoft.com/en-US/troubleshoot/windows/win32/change-windows-active-directory-user-password) is required, these properties can be written in order to modify the user password.
+
+Only authorized users can retrieve the confidential properties.&#x20;
+
+There are some properties that require to meet certain conditions before being written.
+
+**Define principals in active directory?**
+
+In Active Directory, a **principal is a security entity**. The most common **principals are users, groups and computers**.
+
+{% embed url="https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-principals" %}

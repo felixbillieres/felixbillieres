@@ -1,6 +1,6 @@
 # Table of contents
 
-* [🤫 Whoami](README.md)
+* [❓ Whoami](README.md)
 
 ## 🌳 Active directory
 
@@ -55,6 +55,7 @@
   * [🏎️ Race conditions](portswigger-academy/web-security-academy-learning-paths/race-conditions.md)
   * [🤖 Web LLM attacks](portswigger-academy/web-security-academy-learning-paths/web-llm-attacks.md)
   * [😵‍💫 Authentication vulnerabilities](portswigger-academy/web-security-academy-learning-paths/authentication-vulnerabilities.md)
+  * [🧦 WebSockets](portswigger-academy/web-security-academy-learning-paths/websockets.md)
 
 ## 📽️ Programming
 

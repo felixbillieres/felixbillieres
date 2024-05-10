@@ -645,7 +645,7 @@ another interestig way of printing out strings is to use {} and single quotes:
   printf("%s is my name", felix);
 ```
 
-<figure><img src="../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 and to finish the size of a string is pretty straightforward:
 
@@ -656,7 +656,7 @@ printf("%s is my name\n", felix);
 printf("the number of chars of my name is %d", sizeof(felix));
 ```
 
-<figure><img src="../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 If we want to print out " or ' or \ (special chars)in our strings without it breaking the function we need to put escape characters:
 

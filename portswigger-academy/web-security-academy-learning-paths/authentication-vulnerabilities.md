@@ -34,11 +34,11 @@ In the intruder output we see nothing that seems off so we're going to look it a
 
 we look at the response and see the error message:
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 We could imagine that our valid user maybe has another error so we're going to use the grep match option:
 
-<figure><img src="../../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 this will flag the response that contains this error message and so, will NOT flag the user that does not have this error:
 

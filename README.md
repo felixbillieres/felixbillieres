@@ -1,4 +1,4 @@
-# 🤫 Whoami
+# ❓ Whoami
 
 ## Hey there! 👋 I'm Félix Billières
 
@@ -21,7 +21,7 @@ Let's connect and learn together! Feel free to reach out if you share similar in
 
 ### :house:Support Me
 
-Hey there! 👋 If you appreciate my work and want to support my journey in cybersecurity, any contribution is highly appreciated.
+👋 If you appreciate my work and want to support my journey in cybersecurity with certification participation, any contribution is highly appreciated.
 
 #### Financial Support
 
