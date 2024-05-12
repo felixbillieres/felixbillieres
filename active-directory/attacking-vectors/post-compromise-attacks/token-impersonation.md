@@ -22,7 +22,7 @@ Impersonation, on the other hand, refers to the process of a user or service pre
 
 We can now impersonate this user
 
-<figure><img src="../../../.gitbook/assets/image (18) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (18) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Attempt to dump hashes as non-Domain Admin with mimikatz->
 

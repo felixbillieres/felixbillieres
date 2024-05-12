@@ -636,7 +636,7 @@ char felix[] = "Felix";
   }
 ```
 
-<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 another interestig way of printing out strings is to use {} and single quotes:
 
@@ -645,7 +645,7 @@ another interestig way of printing out strings is to use {} and single quotes:
   printf("%s is my name", felix);
 ```
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 and to finish the size of a string is pretty straightforward:
 
@@ -656,7 +656,7 @@ printf("%s is my name\n", felix);
 printf("the number of chars of my name is %d", sizeof(felix));
 ```
 
-<figure><img src="../../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 If we want to print out " or ' or \ (special chars)in our strings without it breaking the function we need to put escape characters:
 
@@ -667,7 +667,7 @@ char txt[] = "We are the so-called \"Vikings\" from the north.";
 //no error
 ```
 
-<figure><img src="../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 **String functions:**
 
@@ -693,9 +693,9 @@ printf("%d", sizeof(alphabet));   // 50
 
 If we want to concatenate strings, we can use the strcat() function but we need to be aware of buffer overflow:
 
-<figure><img src="../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 In C, when you declare an array of characters like `char string1[12]`, you're allocating space for 12 characters, including the null terminator `'\0'`. However, when you initialize `string1` with `"hello"`, it already consumes 6 characters (5 for "hello" and 1 for `'\0'`). So, `string1` has only 6 characters left before reaching its maximum capacity.
 
@@ -734,7 +734,7 @@ char string1[6] = "hello";
   printf("%d", strcmp(string1, string3)); //108
 ```
 
-<figure><img src="../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## C User Input
 

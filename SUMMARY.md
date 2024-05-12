@@ -56,6 +56,8 @@
   * [🤖 Web LLM attacks](portswigger-academy/web-security-academy-learning-paths/web-llm-attacks.md)
   * [😵‍💫 Authentication vulnerabilities](portswigger-academy/web-security-academy-learning-paths/authentication-vulnerabilities.md)
   * [🧦 WebSockets](portswigger-academy/web-security-academy-learning-paths/websockets.md)
+  * [🫁 Server-side request forgery (SSRF)](portswigger-academy/web-security-academy-learning-paths/server-side-request-forgery-ssrf.md)
+  * [🐊 Prototype pollution](portswigger-academy/web-security-academy-learning-paths/prototype-pollution.md)
 
 ## 📽️ Programming
 

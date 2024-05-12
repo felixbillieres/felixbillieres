@@ -188,7 +188,7 @@ let's try with users ads
 
 we put the password as the target of this new sniper attack and launch the attack with the wordlist ->
 
-<figure><img src="../../.gitbook/assets/image (12) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (12) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 we just have to wait and pick up a response code or length and lab is solved
 
@@ -242,29 +242,29 @@ and in the source code we see the url we need to access to delete user carlos:
 
 we then request this URL via the API and solve the lab:
 
-<figure><img src="../../.gitbook/assets/image (12) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (12) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Lab: Basic SSRF against another back-end system
 
 We start by capturing the request:
 
-<figure><img src="../../.gitbook/assets/image (13) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (13) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 according to the exercise i have to find an admin panel on a network so i start by making a request to /admin:8080 but put the network in a sniper attack position:
 
-<figure><img src="../../.gitbook/assets/image (15) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (15) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 we finally find the url that gives us a status code 200:
 
-<figure><img src="../../.gitbook/assets/image (17) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (17) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 and when we request the admin control panel we get a 200:
 
-<figure><img src="../../.gitbook/assets/image (18) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (18) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 in the source code we see the delete carlos request:
 
-<figure><img src="../../.gitbook/assets/image (19) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (19) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 So we just request it through the stockAPI and lab solved :thumbsup:
 
@@ -276,7 +276,7 @@ File upload vulnerabilities are when a web server allows users to upload files t
 
 we start by uploading an image to the server:
 
-<figure><img src="../../.gitbook/assets/image (20) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (20) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We see this ouput in the burp request:
 
