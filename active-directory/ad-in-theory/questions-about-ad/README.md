@@ -545,3 +545,43 @@ There are some properties that require to meet certain conditions before being w
 In Active Directory, a **principal is a security entity**. The most common **principals are users, groups and computers**.
 
 {% embed url="https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-principals" %}
+
+**What are 3 kinds of SIDs in active directory?**
+
+**Domain SID:** used to identify the domain, as well as the base for SIDs of the domain principals.
+
+**Principal SID:** used to identify principals. It is compose by the domain SID and a principal RID
+
+[**Well-known SIDs**](https://docs.microsoft.com/en-us/troubleshoot/windows-server/identity/security-identifiers-in-windows) that identify abstract entities for special situations. Some of them are:
+
+* **Authenticated Users**
+* **Principal Self**
+* **Administrator**
+* **Domain Admins**
+
+**What are Distinguished Names?**
+
+The distinguished name is like a path that indicates the object position in the database hierarchy
+
+It's used to identify objects in the db and reference objects (ex. the members of a group are referenced by its `DistinguishedName`.)
+
+It's composed by:
+
+* Domain Component (DC) -> for `it.domain.com` the DC part will be `DC=it,DC=domain,DC=com`.
+* [Organizational Unit](https://en.wikipedia.org/wiki/Active\_Directory#Organizational\_units) (OU)
+* Common Name (CN) -> in `CN=Administrator,CN=Users,DC=contoso,DC=local`, the `CN=Users` identifies the Users container.
+
+**What does the term Partitions refer to in AD databases?**
+
+The databases are divided by partitions:
+
+* **Domain**: Stores the domain objects.
+* **Configuration**: Stores configuration of the domain, such as the `HOST` service alias or `Well-known` SIDs that we have seen before.
+* **Schema**: Stores the definition of the classes and properties used by the database.
+* **Domain DNS Zones**: Stores the DNS records of the domain and subdomains.
+* **Forest DNS Zones**: Stores the DNS records of the rest of the forest, including parent domains.
+
+**How would you define Global Catalog?**
+
+To speed up searches through objects in other domains, some domain controllers have a read-only partitions with a subset of objects of other domains. These Domains Controllers can be called [Global Catalogs](https://docs.microsoft.com/pt-pt/previous-versions/windows/server/cc737410\(v=ws.10\)#domain-controller-and-global-catalog-server-structure)
+
