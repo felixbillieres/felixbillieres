@@ -28,11 +28,11 @@ when we connect with the credentials it fills in an error, good news
 
 We try with some more SQLi patterns and end up having database infos leaked within the dashboard :
 
-<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>'OR 1 OR'</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>'OR 1 OR'</p></figcaption></figure>
 
 {% embed url="https://book.hacktricks.xyz/pentesting-web/sql-injection" %}
 
-<figure><img src="../../.gitbook/assets/image (10) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We find what seems to be credentials for an SMB share?
 
@@ -44,7 +44,7 @@ psexec.py tyler:'92g!mA8BGjOirkL%OG*&'@10.129.227.170
 
 It did not work :
 
-<figure><img src="../../.gitbook/assets/image (11) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (11) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 So let's go manually with passwd **92g!mA8BGjOirkL%OG\*&**
 
@@ -52,7 +52,7 @@ So let's go manually with passwd **92g!mA8BGjOirkL%OG\*&**
 smbclient \\\\10.129.227.170\\new-site -U tyler
 ```
 
-<figure><img src="../../.gitbook/assets/image (12) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (12) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 now create a file called 'shell.php'
 
@@ -74,23 +74,23 @@ put shell.php
 put nc.exe
 ```
 
-<figure><img src="../../.gitbook/assets/image (13) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (13) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Using the `put` command to upload a reverse shell and your netcat executable to an SMB share on the target system, you're creating a foothold on the target system. Even if your initial access is lost, you can regain access through the uploaded tools and i'll be able to call netcat and so trigger my reverse shell to obtain a shell ->
 
 So now i need to trigger my shell.php file, after some looking around i found where were stored the files:
 
-<figure><img src="../../.gitbook/assets/image (14) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (14) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 So i simply request: [http://10.129.163.46:8808/shell.php](http://10.129.163.46:8808/shell.php)
 
 and get a shell:
 
-<figure><img src="../../.gitbook/assets/image (15) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (15) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 and go and grab the flag:
 
-<figure><img src="../../.gitbook/assets/image (16) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (16) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 For the elevation let's dive into subsystems:
 
@@ -102,7 +102,7 @@ first we saw that we needed to locate bash.exe, you can use a recursive search t
 where /R c:\windows bash.exe
 ```
 
-<figure><img src="../../.gitbook/assets/image (17) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (17) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 same for wsl.exe:
 

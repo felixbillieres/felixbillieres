@@ -49,7 +49,7 @@ OPTIONS - Retrieves information on the types of request methods that can be used
 
 First we find the API endpoint:
 
-<figure><img src="../../.gitbook/assets/image (16) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (16) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 I then throw in a little sniper attack with several HHTP verbs:
 

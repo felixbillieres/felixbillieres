@@ -139,9 +139,11 @@
   * [▶️ StreamIO](capture-the-flags/active-directory-and-network/streamio.md)
   * [🔧 Wreath](capture-the-flags/active-directory-and-network/wreath.md)
   * [🧠 Intelligence](capture-the-flags/active-directory-and-network/intelligence.md)
-  * [Mantis](capture-the-flags/active-directory-and-network/mantis.md)
+  * [🍏 Mantis](capture-the-flags/active-directory-and-network/mantis.md)
   * [⌛ Timelapse](capture-the-flags/active-directory-and-network/timelapse.md)
   * [🥊 Jab](capture-the-flags/active-directory-and-network/jab.md)
+  * [👻 HOLO (thm)](capture-the-flags/active-directory-and-network/holo-thm.md)
+  * [🐟 Resolute](capture-the-flags/active-directory-and-network/resolute.md)
 
 ## 🛡️ Blue Team
 

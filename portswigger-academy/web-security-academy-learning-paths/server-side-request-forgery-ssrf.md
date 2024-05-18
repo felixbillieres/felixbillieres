@@ -2,7 +2,7 @@
 
 Server-side request forgery is a web security vulnerability that allows an attacker to cause the server-side application to make requests to an unintended location.
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
 
 Let's say we have a _check stock_ option on the website that makes this request:
 
@@ -22,7 +22,7 @@ It would fetch the content of admin and return it to the user if misconfigured b
 
 There is a check stock on all the different products, if we capture a request we get this:
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We change the request to :
 
@@ -30,11 +30,11 @@ We change the request to :
 http://localhost/admin
 ```
 
-<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption><p>don't forget to URL encode it</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1).png" alt=""><figcaption><p>don't forget to URL encode it</p></figcaption></figure>
 
 and in the response we have access to the admin panel of the application and the request needed to delete a user:
 
-<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 To achieve this challenge, the final request will be:
 
@@ -48,19 +48,19 @@ If the IP address is a non-routable private IP address, we could think that, sin
 
 ### Lab: Basic SSRF against another back-end system
 
-<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 So we fetch the request and send it to intruder:
 
 I'll cheat a bit and say we probably have the same request in the first exercise for this exercise:
 
-<figure><img src="../../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
 
 We launch the attack and wait:
 
-<figure><img src="../../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (8) (1).png" alt=""><figcaption></figcaption></figure>
 
 <pre><code><strong>stockApi=http%3a//192.168.0.49%3a8080/admin/delete%3fusername%3dcarlos
 </strong></code></pre>
@@ -91,15 +91,15 @@ To bypass the fact that some applications block `127.0.0.1` and `localhost`, or 
 
 So we start by capturing the request of the check stock button and try to input a localhost bypass but fail:
 
-<figure><img src="../../.gitbook/assets/image (9).png" alt=""><figcaption><p>note: URL encoded</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1).png" alt=""><figcaption><p>note: URL encoded</p></figcaption></figure>
 
 Ok so we are able to bypass the input restriction with the shortened version of 127.0.0.1:
 
-<figure><img src="../../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (11) (1).png" alt=""><figcaption></figcaption></figure>
 
 but /admin did not work, so i tried encoding a few times and it worked:
 
-<figure><img src="../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10) (1).png" alt=""><figcaption></figcaption></figure>
 
 1. **Encoded URL**: `http%3a//127.1/%2561dmin`
    * `%3a` represents the colon character `:` in URL encoding.
@@ -109,11 +109,11 @@ but /admin did not work, so i tried encoding a few times and it worked:
 
 So now i simply look at the admin page and look for the Carlos delete user button and send the request to solve the lab:
 
-<figure><img src="../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (12) (1).png" alt=""><figcaption></figcaption></figure>
 
 **Open redirection vulnerability**
 
-<figure><img src="../../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (13) (1).png" alt=""><figcaption></figcaption></figure>
 
 Open redirection vulnerability occurs when a web application redirects users to a URL specified by user-supplied input, without proper validation. Attackers can exploit this vulnerability to redirect users to malicious websites, phishing pages, or other harmful destinations.
 
@@ -143,19 +143,19 @@ This SSRF exploit works because the application first validates that the supplie
 
 I got a bit stuck on the initial foothold of the machine, then I saw this odd "next item" button that could mean a redirection to another page:
 
-<figure><img src="../../.gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (14) (1).png" alt=""><figcaption></figcaption></figure>
 
 Okay, so I found this redirection error:
 
-<figure><img src="../../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (15) (1).png" alt=""><figcaption></figcaption></figure>
 
 It seems to redirect just fine so we go back on the check stock API and throw in the inital payload to access the admin page:
 
-<figure><img src="../../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (16) (1).png" alt=""><figcaption></figcaption></figure>
 
 And we're able to access the page to delete user:
 
-<figure><img src="../../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (17) (1).png" alt=""><figcaption></figcaption></figure>
 
 **How to find blind SSRF?**
 

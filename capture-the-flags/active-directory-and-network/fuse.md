@@ -4,11 +4,11 @@ description: https://app.hackthebox.com/machines/Fuse
 
 # ⚖️ Fuse
 
-<figure><img src="../../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 We first start by scanning the ports and adding everything to /etc/hosts
 
-<figure><img src="../../.gitbook/assets/image (8) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (8) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 on port 80 we find this page:
 

