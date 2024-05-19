@@ -585,3 +585,42 @@ The databases are divided by partitions:
 
 To speed up searches through objects in other domains, some domain controllers have a read-only partitions with a subset of objects of other domains. These Domains Controllers can be called [Global Catalogs](https://docs.microsoft.com/pt-pt/previous-versions/windows/server/cc737410\(v=ws.10\)#domain-controller-and-global-catalog-server-structure)
 
+**Explain querying with LDAP & ADWS**
+
+To be able to interract with the domain controller database and it's data, we wan use different protocoles/services ->
+
+**LDAP** allows to filter objects, interact and edit them in the db via a query syntax and you can go more in depth and retrieve propreties from the objects you interract with like the name (can check out more on [LDAP wiki](https://ldapwiki.com/)). We can pretty much interract with anything that is not highly sensitive. When enumerating active directory, ldap is a go to, you can use [ldapsearch](https://linux.die.net/man/1/ldapsearch) and [ldapmodify](https://linux.die.net/man/1/ldapmodify) tools (on linux). since we can modify objects we could imagine adding a user.
+
+On the other hand there is **ADWS** (Active Directory Web Services), it also manipulates domain objects but it's based on [SOAP](https://en.wikipedia.org/wiki/SOAP) messages. It works very well with LDAP and is compatible with LDAP filters. So much that when used, the DC internally uses LDAP reqs to retrieve results
+
+**Other protocols worth to know**
+
+* The [DNS](https://en.wikipedia.org/wiki/Domain\_Name\_System) protocol
+* The [SAMR](https://docs.microsoft.com/en-us/openspecs/windows\_protocols/MS-SAMR/4df07fab-1bbc-452f-8e92-7853a3c7e380) (Security Account Manager Remote) protocol
+* The [DRSR](https://docs.microsoft.com/en-us/openspecs/windows\_protocols/ms-drsr/f977faaa-673e-4f66-b9bf-48c640241d47) (Directory Replication Service Remote) protocol
+* The [Kerberos](https://www.tarlogic.com/en/blog/how-kerberos-works/) authentication protocol
+* The [Netlogon](https://docs.microsoft.com/en-us/openspecs/windows\_protocols/ms-nrpc/ff8f970f-3e37-40f7-bd4b-af7336e4792f) protocol
+
+## Security
+
+the 3 main topics in the security realm of Active Directory are:
+
+**Address resolution; Authentication and Authentication**
+
+### Address resolution <a href="#address-resolution" id="address-resolution"></a>
+
+**What are some dangers related to misconfigured address resolution?**
+
+The main danger is if a user or program can be tricked into connecting to an erroneous machine. Some common attacks are :
+
+* Person-in-The-Middle (PitM) where the attacker interecpts the communication of the user and maybe interract with it if not encrypted
+* [NTLM Relay](https://en.hackndo.com/ntlm-relay/) attack, using NTLM authentification from a victim and redirect it to a malicious server&#x20;
+* [NTLM crack](https://0xdf.gitlab.io/2019/01/13/getting-net-ntlm-hases-from-windows.html) attack where the attacker just tries to crack the NTLM hash
+
+**What are the 3 trypes of addresses that need to be resolved?**
+
+**MAC address ->** unique identifier of each computer in the world. Sends messages via the ethernet protocol (can be altered with spoofing)
+
+**IP address ->** used by the IP protocol on the internet layer. Allows communication via different computers in a same network (can read more about IP address attribution with [DHCP](https://zer1t0.gitlab.io/posts/attacking\_ad/#dhcp) or static IPs)
+
+**Hostnames ->** Just like websites and DNS, Hostnames help us memorize and interract with computers with human-friendly names like `computerOfFelix` rather than just an IP that is hard to remember
