@@ -17,7 +17,7 @@ We already did some File uploads in the&#x20;
 
 We start by uploading our php payload and capturing the request:
 
-<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We saw that we were able to upload the PHP file, but it was as a txt file, the folder must filter out the PHP files, so let's save the PHP file in another directory. If we do a filename ../webshell.php it cuts the ../ but if we encode it to ..%2fwebshell.php it seems to work:
 

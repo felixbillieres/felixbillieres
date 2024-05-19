@@ -14,7 +14,7 @@ strings crackme2
 
 I find the secret password:&#x20;
 
-<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 and with a quick&#x20;
 
@@ -29,11 +29,11 @@ You find the flag
 
 for this one, i just ran `strings crackme3` and found something that popped ->
 
-<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 This looks like a base64 encoded message →
 
-<figure><img src="../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 Indeed, it is :smile:
 
@@ -111,3 +111,40 @@ if we run the following command we will be able to access various memory parts o
 And after displaying a few addresses that are not valuable, I find the one that we are looking for:&#x20;
 
 <figure><img src="../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+
+### Crackme5 <a href="#ab1c" id="ab1c"></a>
+
+Ok so first we can see what the program does ->
+
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+Using info functions, we find some interesting functions ->
+
+<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+So now we create a breakpoint with the memory of the strncmp@plt function  ->
+
+```
+b *0x0000000000400560
+```
+
+We then run test ->
+
+<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+and when we show the registers and output, the values of Rex and rcx ->
+
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+
+`x/s` tells GDB to examine the memory at the specified address and interpret it as a null-terminated string
+
+**Output:** `0x7fffffffdef0: "OfdlDSA|3tXb32~X3tX@sX`4tXtz\377\177"\`
+
+* This output indicates that at memory address `0x7fffffffdef0`, GDB found a sequence of characters that form the string `"OfdlDSA|3tXb32~X3tX@sX`4tXtz\377\177"\`.
+* This string includes printable ASCII characters, and it ends with non-printable characters represented by escape sequences: `\377` (octal for 255) and `\177` (octal for 127).
+
+### Crackme6 <a href="#ab1c" id="ab1c"></a>
+
+<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+
+Ok so no important information without digging but since it says source, we might need ghidra ->&#x20;
