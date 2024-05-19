@@ -1,6 +1,6 @@
 # 😵‍💫 Authentication vulnerabilities
 
-<figure><img src="../../.gitbook/assets/image (8) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (8) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 There are 3 main type of authentication:
 
@@ -10,19 +10,19 @@ There are 3 main type of authentication:
 
 It's crucial to know the difference between **authentication and authorization**
 
-<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Lab: Username enumeration via different responses
 
 We first start by taking the given list and triggering all the usernames so we can bypass the cluster bomb that will take very long without the pro version:&#x20;
 
-<figure><img src="../../.gitbook/assets/image (12) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (12) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We get user ads with a response way different from the rest, let's go on that road ->
 
 We then trigger the list of password with username ads and see that the good password gives us a 302 response →
 
-<figure><img src="../../.gitbook/assets/image (11) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (11) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Lab: Username enumeration via subtly different responses
 
@@ -38,19 +38,19 @@ we look at the response and see the error message:
 
 We could imagine that our valid user maybe has another error so we're going to use the grep match option:
 
-<figure><img src="../../.gitbook/assets/image (2) (1) (1) (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1) (2) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 this will flag the response that contains this error message and so, will NOT flag the user that does not have this error:
 
 and bingo:
 
-<figure><img src="../../.gitbook/assets/image (3) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (1) (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 the **ao** user does not have our magic flag ->
 
 we can see there is a dot missing:
 
-<figure><img src="../../.gitbook/assets/image (4) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (1) (1) (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 So we do the same thing and filter out the error message without the dot ->
 

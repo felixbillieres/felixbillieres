@@ -4,7 +4,7 @@ description: https://www.w3schools.com/c/c_functions.php
 
 # 👾 C Functions
 
-<figure><img src="../../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 ## C Functions
 
@@ -38,11 +38,11 @@ returnType functionName(parameter1, parameter2, parameter3) {
 
 and define the variable once we call our function:
 
-<figure><img src="../../.gitbook/assets/image (2) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can also have multiple args with different value types:
 
-<figure><img src="../../.gitbook/assets/image (3) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 You can also use arrays through functions:
 

@@ -23,7 +23,7 @@ We can't access carlos by abusing the path:
 
 So we can access a different endpoint by modifying the request:
 
-<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 <figure><img src="../../.gitbook/assets/pic.png" alt=""><figcaption></figcaption></figure>
 
@@ -55,7 +55,7 @@ I then throw in a little sniper attack with several HHTP verbs:
 
 {% embed url="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods" %}
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can see the PATCH method has a different length
 
@@ -81,11 +81,11 @@ So we add the price parameter in our request:
 
 We forward the req and refresh the page:
 
-<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 And we can order our jacket:
 
-<figure><img src="../../.gitbook/assets/image (6) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (6) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Fuzzing to find hidden endpoints
 
@@ -125,17 +125,17 @@ Interesting stuff about testing vulns: [https://portswigger.net/web-security/lea
 
 We first find the endpoint and the JSON related:
 
-<figure><img src="../../.gitbook/assets/image (7) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We copy and paste all the JSON in the request area and change some stuff
 
-<figure><img src="../../.gitbook/assets/image (8) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (8) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 And then forward the req and it solves the lab
 
 #### Testing for server-side parameter pollution in the query string
 
-<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 To test for server-side parameter pollution in the query string, place query syntax characters like `#`, `&`, and `=` in your input and observe how the application responds.
 
@@ -217,7 +217,7 @@ If you're able to override the original parameter, you may be able to conduct an
 
 the /forgot-password seemed interesting:
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 i try to add the # URL encoded to test out the query, we see the "field not specified" so let's try to input with a "field" variable:
 
@@ -237,7 +237,7 @@ Ok so this seems to work
 
 We also found the following field in the /static/js/forgotPassword.js req
 
-<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 So we can try this req:
 

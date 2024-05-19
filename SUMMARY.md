@@ -144,6 +144,8 @@
   * [🥊 Jab](capture-the-flags/active-directory-and-network/jab.md)
   * [👻 HOLO (thm)](capture-the-flags/active-directory-and-network/holo-thm.md)
   * [🐟 Resolute](capture-the-flags/active-directory-and-network/resolute.md)
+* [0️⃣ Assembly -> Reverse](capture-the-flags/assembly-greater-than-reverse/README.md)
+  * [⏪ Reversing ELF](capture-the-flags/assembly-greater-than-reverse/reversing-elf.md)
 
 ## 🛡️ Blue Team
 
@@ -179,7 +181,6 @@
       * [☑️ Checklist](red-team/technical-knowledge/privilege-escalation/windows/checklist.md)
       * [📻 Initial Enumeration](red-team/technical-knowledge/privilege-escalation/windows/initial-enumeration.md)
       * [🚜 Kernel Exploits](red-team/technical-knowledge/privilege-escalation/windows/kernel-exploits.md)
-      * [↔️ Passwords and Port Forwarding](red-team/technical-knowledge/privilege-escalation/windows/passwords-and-port-forwarding.md)
       * [🏃‍♂️ Autoruns](red-team/technical-knowledge/privilege-escalation/windows/autoruns.md)
       * [💽 AlwaysInstallElevated](red-team/technical-knowledge/privilege-escalation/windows/alwaysinstallelevated.md)
       * [🚞 regsvc](red-team/technical-knowledge/privilege-escalation/windows/regsvc.md)
@@ -218,8 +219,6 @@
   * [🎠 Common Pentest Findings](red-team/theoretical-knowledge/common-pentest-findings.md)
   * [✍️ Legal Documents and Report Writing](red-team/theoretical-knowledge/legal-documents-and-report-writing.md)
   * [🐡 Wireless Penetration Testing](red-team/theoretical-knowledge/wireless-penetration-testing.md)
-* [🍎 Tryhackme Offensive Pentesting](red-team/tryhackme-offensive-pentesting/README.md)
-  * [Buffer Overflow Exploitation](red-team/tryhackme-offensive-pentesting/buffer-overflow-exploitation.md)
 
 ## 🐲 OSCP Prep
 

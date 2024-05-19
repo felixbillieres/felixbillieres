@@ -527,7 +527,7 @@ int main(){
 }
 ```
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Another variable of the while loop is the do/while loop:
 
@@ -570,7 +570,7 @@ int main(){
 }
 ```
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can also play with nested loops, but it will multiply by the number of occurrences of the first loop:
 
@@ -636,7 +636,7 @@ char felix[] = "Felix";
   }
 ```
 
-<figure><img src="../../.gitbook/assets/image (4) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 another interestig way of printing out strings is to use {} and single quotes:
 
@@ -656,7 +656,7 @@ printf("%s is my name\n", felix);
 printf("the number of chars of my name is %d", sizeof(felix));
 ```
 
-<figure><img src="../../.gitbook/assets/image (2) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1) (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 If we want to print out " or ' or \ (special chars)in our strings without it breaking the function we need to put escape characters:
 
@@ -667,7 +667,7 @@ char txt[] = "We are the so-called \"Vikings\" from the north.";
 //no error
 ```
 
-<figure><img src="../../.gitbook/assets/image (3) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 **String functions:**
 
@@ -693,7 +693,7 @@ printf("%d", sizeof(alphabet));   // 50
 
 If we want to concatenate strings, we can use the strcat() function but we need to be aware of buffer overflow:
 
-<figure><img src="../../.gitbook/assets/image (4) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 <figure><img src="../../.gitbook/assets/image (5) (1) (2).png" alt=""><figcaption></figcaption></figure>
 

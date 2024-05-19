@@ -50,7 +50,7 @@ we would generate a reverse shell with meterpreter and save it on our system as 
 
 Let's move this windows\_dll.c file to our local machine
 
-<figure><img src="../../../../.gitbook/assets/image (12) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (12) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 There is a problem with the documentation, so escalation will not be possible, you already are able to spot any missing DLLs to escalate privilege so here is some documentation to pursue the attack:
 
