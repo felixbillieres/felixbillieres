@@ -112,6 +112,7 @@
   * [🐱 Chatterbox](capture-the-flags/windows/chatterbox.md)
   * [🐦 Nest](capture-the-flags/windows/nest.md)
   * [☄️ Return](capture-the-flags/windows/return.md)
+  * [🧑‍⚖️ Authority](capture-the-flags/windows/authority.md)
 * [🐉 Linux](capture-the-flags/linux/README.md)
   * [🏦 Bank](capture-the-flags/linux/bank.md)
   * [😳 Headless](capture-the-flags/linux/headless.md)
