@@ -617,10 +617,24 @@ The main danger is if a user or program can be tricked into connecting to an err
 * [NTLM Relay](https://en.hackndo.com/ntlm-relay/) attack, using NTLM authentification from a victim and redirect it to a malicious server&#x20;
 * [NTLM crack](https://0xdf.gitlab.io/2019/01/13/getting-net-ntlm-hases-from-windows.html) attack where the attacker just tries to crack the NTLM hash
 
-**What are the 3 trypes of addresses that need to be resolved?**
+**What are the 3 types of addresses that need to be resolved?**
 
 **MAC address ->** unique identifier of each computer in the world. Sends messages via the ethernet protocol (can be altered with spoofing)
 
 **IP address ->** used by the IP protocol on the internet layer. Allows communication via different computers in a same network (can read more about IP address attribution with [DHCP](https://zer1t0.gitlab.io/posts/attacking\_ad/#dhcp) or static IPs)
 
 **Hostnames ->** Just like websites and DNS, Hostnames help us memorize and interract with computers with human-friendly names like `computerOfFelix` rather than just an IP that is hard to remember
+
+**What are some vital processes for computers when it comes to finding the correct address to comunicate?**
+
+**Hostname-IP resolution**
+
+* to map a hostname to it's ip, computers can ask ask central server for hostname resolution which is used by DNS or they can send broadcast request asking all the computers to identify themselves (used by netBIOS, LLMNR, mDNS)
+
+**IP-MAC resolution**
+
+* &#x20;Once we find an IP, we can broadcast to all to tell the network card of the computer to identify itself by asking for the MAC address related to the IP using the ARP protocol
+
+**IP configuration**
+
+* Either it's done manually or dynamically using DHCP, we need to configure the IP of a computer. The danger if done dynamically is that the computer is not configured and asks blindly to the DHCP server using broadcast and can be tricked if an attacker has a fake DNS server
