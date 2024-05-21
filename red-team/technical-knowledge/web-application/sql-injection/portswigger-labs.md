@@ -8,7 +8,7 @@ When the user selects a category, the application carries out a SQL query like t
 SELECT * FROM products WHERE category = 'Gifts' AND released = 1
 ```
 
-<figure><img src="../../../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 to bypass the `released = 1` and so see all the gifts even if they are not released:
 

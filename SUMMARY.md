@@ -150,6 +150,11 @@
   * [🐟 Resolute](capture-the-flags/active-directory-and-network/resolute.md)
 * [0️⃣ Assembly -> Reverse](capture-the-flags/assembly-greater-than-reverse/README.md)
   * [⏪ Reversing ELF](capture-the-flags/assembly-greater-than-reverse/reversing-elf.md)
+* [🥟 Forensics](capture-the-flags/forensics/README.md)
+  * [➰ Incident Response and Forensics](capture-the-flags/forensics/incident-response-and-forensics/README.md)
+    * [🏐 Volatility](capture-the-flags/forensics/incident-response-and-forensics/volatility.md)
+    * [👨‍🚒 Autopsy](capture-the-flags/forensics/incident-response-and-forensics/autopsy.md)
+  * [🪟 Windows User Activity Analysis](capture-the-flags/forensics/windows-user-activity-analysis.md)
 
 ## 🛡️ Blue Team
 
@@ -214,10 +219,6 @@
       * [👆 Untitled](red-team/technical-knowledge/web-application/attacking-login-portals/untitled.md)
     * [🐝 OWASP Top 10](red-team/technical-knowledge/web-application/owasp-top-10.md)
   * [🧛‍♂️ Stabilize & Elevate a shell](red-team/technical-knowledge/stabilize-and-elevate-a-shell.md)
-  * [🥟 Forensics](red-team/technical-knowledge/forensics/README.md)
-    * [➰ Incident Response and Forensics](red-team/technical-knowledge/forensics/incident-response-and-forensics/README.md)
-      * [🏐 Volatility](red-team/technical-knowledge/forensics/incident-response-and-forensics/volatility.md)
-      * [👨‍🚒 Autopsy](red-team/technical-knowledge/forensics/incident-response-and-forensics/autopsy.md)
 * [📚 Theoretical Knowledge](red-team/theoretical-knowledge/README.md)
   * [🏈 Network Security Evasion](red-team/theoretical-knowledge/network-security-evasion.md)
   * [🎠 Common Pentest Findings](red-team/theoretical-knowledge/common-pentest-findings.md)
