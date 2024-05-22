@@ -8,7 +8,7 @@ description: https://tryhackme.com/r/room/hololive
 
 So first I look at the network
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 then I scan the range that is given to us:
 

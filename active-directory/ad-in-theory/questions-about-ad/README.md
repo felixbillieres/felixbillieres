@@ -526,7 +526,7 @@ We know that there is the [User class](https://docs.microsoft.com/en-us/windows/
 
 But a class can have a **subclasse** that allows to inherit propreties. For example, the Computer class is a subclass of User class, therefore the computer objects can have the same properties of the user objects ,like `SAMAccountName`, and some new custom properties,
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 All the classes are subclasses of the [Top](https://docs.microsoft.com/en-us/windows/win32/adschema/c-top) class & many of the most relevant classes when performing a pentest, like User and Group, are attached to [Security-Principal](https://docs.microsoft.com/en-us/windows/win32/adschema/c-securityprincipal) auxiliary class, the class that defines the `SAMAccountName` and `SID` properties.
 
@@ -763,3 +763,13 @@ With the `www.contoso.com` IP address, the DNS server needs to communicate with 
 **Explain DNS exfiltration:**
 
 <figure><img src="../../../.gitbook/assets/image (1040).png" alt=""><figcaption></figcaption></figure>
+
+Let's say we have a server that is isolated and has no internet access, but it can perform DNS queries. If the local DNS performs requests to other DNS servers on the internet, it can be abused: let's say i have the DNS server `malicious.com` , every query made to be or other subdomains will reach my server. An attacker could query a subdomain like `felix.malicious.com` and technically, the query should go through the parent domain, thus, retrivieng informations. (attacker can use a tool like [iodine](https://github.com/yarrick/iodine) or [dnscat2](https://github.com/iagox86/dnscat2))
+
+**How can DNS zone transfer be dangerous?**
+
+We know that zone transfer replicates all DNS server records. If misconfigured, anyone could perform zone transfers
+
+<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+If just one DC allows to perform the zone transfer whereas the rest of DCs refuse the zone transfer, the misconfigured DCcould lead to anyone being able to perform zone transfers, thus recolecting all the DNS information without require any credentials.
