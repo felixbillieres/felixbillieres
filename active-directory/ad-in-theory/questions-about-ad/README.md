@@ -638,3 +638,40 @@ The main danger is if a user or program can be tricked into connecting to an err
 **IP configuration**
 
 * Either it's done manually or dynamically using DHCP, we need to configure the IP of a computer. The danger if done dynamically is that the computer is not configured and asks blindly to the DHCP server using broadcast and can be tricked if an attacker has a fake DNS server
+
+**What is ARP?**
+
+[ARP](https://en.wikipedia.org/wiki/Address\_Resolution\_Protocol) (Address Resolution Protocol) allows to map the relation between the IP address of a computer and its MAC (Media Access Control) address.
+
+the client machine sends t broadcast ARP request to the local network, asking for the one that has the target IP address. Then the computer with that IP should respond identifying its MAC. Finally the client sends the application packets to that Ethernet address.
+
+```
+                                                   .---.
+                                                  /   /|
+                                                 .---. |
+                                       .-------> |   | '
+                                       |         |   |/ 
+                                       |         '---'  
+   .---.                               |
+  /   /|                               |           .---.
+ .---. |    1) Who is 192.168.1.5?     |          /   /|
+ |   | ' >-------->>-------------------.-------> .---. |
+ |   |/                                |         |   | '
+ '---'   <---------.                   |         |   |/ 
+                   |                   |         '---'  
+                   |                   |
+                   |                   |           .---.
+                   |                   |          /   /|
+                   |                   '-------> .---. |
+                   |                             |   | '
+                   '-<<------------------------< |   |/ 
+                     2)  I am 192.168.1.5        '---'  
+                      (MAC 01:02:03:04:05:06)
+```
+
+**Explain ARP Spoofing**
+
+An attacker could try to respond to all ARP requests to impersonate other computers. To add a layer of security, rather than sending ARP requests every time they communicate, computers keep the old responses in their ARP cache to reduce the number of requests needed.
+
+**Explain how DHCP works**
+
