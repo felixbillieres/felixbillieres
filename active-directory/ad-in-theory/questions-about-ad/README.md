@@ -260,7 +260,7 @@ Get-ADGroup -Filter * | select SamAccountName
 Get-ADGroup "Domain Admins" -Properties members,memberof
 ```
 
-**Other interesting groups:**
+**What are other interesting groups:**
 
 * The [Enterprise Admins](https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/active-directory-security-groups#bkmk-entadmins) group, which provides administrator privileges in all the forest. It's a group that only exists in the root domain of the forest, but is added by default to the [Administrators](https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/active-directory-security-groups#administrators) group of the all the domains in the forest. There is also the the `Domain Admins` group that is added to the `Administrators` group of the domain, as well as the `Administrators` groups of the domain computers.
 
@@ -675,3 +675,91 @@ An attacker could try to respond to all ARP requests to impersonate other comput
 
 **Explain how DHCP works**
 
+DHCP helps configure dynamic IP addresses to the computers of a network. When new to a network, the foreign computer will look for the DHCP server to get a config that allows them to interract with the network, it works in 4 steps:
+
+\-> Broadcast from the client to the server to find DHCP server
+
+\-> Server responds to request with valid IP
+
+\-> client receives IP and sends message to server to request it
+
+\-> Server confirms client can use the IP and config params like IP renewal time
+
+```
+client        server
+    |             |
+    |  discovery  |
+    | ----------> |
+    |             |
+    |    offer    |
+    | <---------- |
+    |             |
+    |   request   |
+    | ----------> |
+    |             |
+    | acknowledge |
+    | <---------- |
+    |             |
+```
+
+**What is a Rogue DHCP server**
+
+A rogue DHCP server is a device on a network that, without permission, gives out IP addresses and network settings to devices, which can cause network problems and security risks. Therefore the perfect tool for an attacker could create a rogue DHCP server in order to set a custom configuration in the clients and redirect them to fake computers or domains controlled by the attacker
+
+**Explain DHCP Starvation attack:**
+
+It's a DOS attack where a fake client requests all the available IPs the DHCP server has to offer and make it impossible for legitimate users to obtain an IP:
+
+```
+$ dhcpstarv -i enp7s0
+08:03:09 11/30/20: got address 192.168.100.7 for 00:16:36:99:be:21 from 192.168.100.2
+08:03:09 11/30/20: got address 192.168.100.8 for 00:16:36:25:1f:1d from 192.168.100.2
+08:03:09 11/30/20: got address 192.168.100.9 for 00:16:36:c7:79:f2 from 192.168.100.2
+```
+
+#### DNS <a href="#dns" id="dns"></a>
+
+**What is DNS?**
+
+DNS is a protocol that resolves DNS names of a computer to it's address (port 53). (it can also be used with mapping an IP to its name or resolving the aliases for a name)
+
+```
+    client                     DNS server
+    .---.   A elFelixio.oscp?     .---.
+   /   /| ------------------>  /   /|
+  .---. |                     .---. |
+  |   | '   185.199.111.153   |   | '
+  |   |/  <------------------ |   |/ 
+  '---'                       '---'
+```
+
+**What are DNS zones?**
+
+DNS is hierarchical, each zone keeps record for it's domain and the subdomains attached to it. Let's take 2 zones for example:
+
+_Zone contoso.com_
+
+```
+contoso.com
+mail.contoso.com
+www.contoso.com
+```
+
+_Zone internal.contoso.com_
+
+```
+internal.contoso.com
+it.internal.contoso.com
+admin.internal.contoso.com
+hr.internal.contoso.com
+```
+
+Those are 2 independent zones, it makes it easier to keep track. The DNS server will comunicate with those zones in order to privide information to other zones
+
+{% hint style="info" %}
+With the `www.contoso.com` IP address, the DNS server needs to communicate with contoso authoritative DNS server, that manages the contoso.com zone, in order to retrieve this information.
+{% endhint %}
+
+**Explain DNS exfiltration:**
+
+<figure><img src="../../../.gitbook/assets/image (1040).png" alt=""><figcaption></figcaption></figure>

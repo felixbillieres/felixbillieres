@@ -149,6 +149,7 @@
   * [🥊 Jab](capture-the-flags/active-directory-and-network/jab.md)
   * [👻 HOLO (thm)](capture-the-flags/active-directory-and-network/holo-thm.md)
   * [🐟 Resolute](capture-the-flags/active-directory-and-network/resolute.md)
+  * [🎣 Reel](capture-the-flags/active-directory-and-network/reel.md)
 * [0️⃣ Assembly -> Reverse](capture-the-flags/assembly-greater-than-reverse/README.md)
   * [⏪ Reversing ELF](capture-the-flags/assembly-greater-than-reverse/reversing-elf.md)
 * [🥟 Forensics](red-team/technical-knowledge/forensics/README.md)
