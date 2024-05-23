@@ -38,6 +38,7 @@
 * [🏧 Practical THM Path](active-directory/practical-thm-path/README.md)
   * [👾 Breaching Active Directory](active-directory/practical-thm-path/breaching-active-directory.md)
   * [🧑‍🍳 Enumerating Active Directory](active-directory/practical-thm-path/enumerating-active-directory.md)
+  * [🌋 Lateral Movement and Pivoting](active-directory/practical-thm-path/lateral-movement-and-pivoting.md)
 
 ## 🏫 Portswigger Academy
 
