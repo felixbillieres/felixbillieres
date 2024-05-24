@@ -526,7 +526,7 @@ We know that there is the [User class](https://docs.microsoft.com/en-us/windows/
 
 But a class can have a **subclasse** that allows to inherit propreties. For example, the Computer class is a subclass of User class, therefore the computer objects can have the same properties of the user objects ,like `SAMAccountName`, and some new custom properties,
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 All the classes are subclasses of the [Top](https://docs.microsoft.com/en-us/windows/win32/adschema/c-top) class & many of the most relevant classes when performing a pentest, like User and Group, are attached to [Security-Principal](https://docs.microsoft.com/en-us/windows/win32/adschema/c-securityprincipal) auxiliary class, the class that defines the `SAMAccountName` and `SID` properties.
 
@@ -773,3 +773,77 @@ We know that zone transfer replicates all DNS server records. If misconfigured, 
 <figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
 If just one DC allows to perform the zone transfer whereas the rest of DCs refuse the zone transfer, the misconfigured DCcould lead to anyone being able to perform zone transfers, thus recolecting all the DNS information without require any credentials.
+
+#### **What to do if zone transfers aren't allowed?**
+
+Since DNS records are stored in the AD database, we can read it using LDAP as any domain user to then dump all the DNS records, we can use [adidnsdump](https://github.com/dirkjanm/adidnsdump) to do so and it will save the output un _records.csv_ file
+
+**What is ADIDNS?**
+
+{% embed url="https://www.thehacker.recipes/ad/movement/mitm-and-coerced-authentications/adidns-spoofing" %}
+
+**ADIDNS** is the Active Directory's implementation of DNS. In this setup, the role of the DNS server is assumed by the Domain Controller (DC). This is because the Active Directory database contains the DNS names of the computers within the domain as well as other DNS records. This integration allows for seamless name resolution and management of DNS entries within the Active Directory environment.
+
+**What are DNS dynamic updates?**
+
+Dynamic updates allows clients to create/modify/delete DNS records. Since any user can create a DNS record, the user that created the record becomes the owner of this record, thus, only authorized users of a certain record can update of modify/delete the record&#x20;
+
+**How Could be abuse Dynamic updates?**
+
+{% embed url="https://www.netspi.com/blog/technical-blog/network-penetration-testing/exploiting-adidns/" %}
+
+{% embed url="https://www.netspi.com/blog/technical-blog/network-penetration-testing/adidns-revisited/" %}
+
+Since DNS records are stored in the Active Directory database, they can be created/modify/deleted by using LDAP.
+
+Registering a wildcard record (\*) could be interesting since it's used to specify a default IP address that is used to resolve those queries that doesn't match any other record. It could lead to [perform PitM attacks](https://blog.netspi.com/exploiting-adidns/) if it is used to point to a computer controlled by us.
+
+#### What is NETBIOS?
+
+[NetBIOS](https://en.wikipedia.org/wiki/NetBIOS) (Network Basic Input/Output System) helps applications in the same LAN (Local Area Network) communicate between them. Howerever it was not able to communicate them on different networks so this led to the creation of NBT protocol (NetBIOS over TCP/IP) to make NetBIOS work over TCP and UDP protocols and allow applications that used NetBIOS to communicate over internet.
+
+#### What are the 3 services used by NETBIOS?
+
+* **NetBIOS Datagram Service ->** used as transport layer for application protocols that requires a connectionless communication.
+* **NetBIOS Session Service ->** used as transport for connected-oriented communications
+* **NetBIOS Name Service ->** This one is very interesting for pentesting, it allows to:&#x20;
+  * Resolve NetBIOS name to an IP address
+  * Known the status of a NetBIOS node
+  * Register/Release a NetBIOS name
+
+#### What is the NBNS protocol and how does it work?
+
+The NBNS was implemented as [WINS](https://web.archive.org/web/20031010135027/http://www.neohapsis.com:80/resources/wins.htm#sec4sub4sub4) (Windows Internet Name Service). In a network, each Windows computer has a WINS database that stores the available network resources, netbios and domain name.
+
+So in order to resolve a NetBIOS name we can query using the WINS server or If this is not possible, then the query can be sent to the IP broadcast address, waiting for the answer from the target computer (but dangerous since anyone can respond, this is used by [responder.py](https://github.com/lgandx/Responder))
+
+#### What is LLMNR?
+
+{% content-ref url="../../attacking-vectors/initial-attack-vectors/llmnr-poisoning.md" %}
+[llmnr-poisoning.md](../../attacking-vectors/initial-attack-vectors/llmnr-poisoning.md)
+{% endcontent-ref %}
+
+LLMNR is a descentralized application protocol that allows to resolve hostnames in the same local network. A common vuln with LLMNR is it is used to resolve names in local link by sending A DNS querie that anyone could repond to, responder.py also abuses this feature
+
+#### What is mDNS?
+
+[mDNS](https://en.wikipedia.org/wiki/Multicast\_DNS) (multicast DNS) is a descentralized application protocol, similar to LLMNR that allows to resolve names in local networks
+
+#### What is WPAD?
+
+The [WPAD](https://en.wikipedia.org/wiki/Web\_Proxy\_Auto-Discovery\_Protocol) (Web Proxy Auto-Discovery) is a protocol for browsers to get dynamically a file that indicates the proxies they should use.
+
+<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+**What is the difference between those protocols?**
+
+While they all perform name resolution, the primary difference lies in their order of preference for resolving names:
+
+1. **DNS (Domain Name System)**
+2. **mDNS (Multicast DNS)**
+3. **LLMNR (Link-Local Multicast Name Resolution)**
+4. **NBNS (NetBIOS Name Service)**
+
+Each protocol has a specific context and method for resolving names, which dictates its usage priority in network communications.
+
+### Authentication <a href="#authentication" id="authentication"></a>
