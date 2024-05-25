@@ -526,7 +526,7 @@ We know that there is the [User class](https://docs.microsoft.com/en-us/windows/
 
 But a class can have a **subclasse** that allows to inherit propreties. For example, the Computer class is a subclass of User class, therefore the computer objects can have the same properties of the user objects ,like `SAMAccountName`, and some new custom properties,
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 All the classes are subclasses of the [Top](https://docs.microsoft.com/en-us/windows/win32/adschema/c-top) class & many of the most relevant classes when performing a pentest, like User and Group, are attached to [Security-Principal](https://docs.microsoft.com/en-us/windows/win32/adschema/c-securityprincipal) auxiliary class, the class that defines the `SAMAccountName` and `SID` properties.
 
@@ -819,8 +819,8 @@ So in order to resolve a NetBIOS name we can query using the WINS server or If t
 
 #### What is LLMNR?
 
-{% content-ref url="../../attacking-vectors/initial-attack-vectors/llmnr-poisoning.md" %}
-[llmnr-poisoning.md](../../attacking-vectors/initial-attack-vectors/llmnr-poisoning.md)
+{% content-ref url="../../attacking-vectors/methodology/initial-attack-vectors/llmnr-poisoning.md" %}
+[llmnr-poisoning.md](../../attacking-vectors/methodology/initial-attack-vectors/llmnr-poisoning.md)
 {% endcontent-ref %}
 
 LLMNR is a descentralized application protocol that allows to resolve hostnames in the same local network. A common vuln with LLMNR is it is used to resolve names in local link by sending A DNS querie that anyone could repond to, responder.py also abuses this feature
@@ -833,7 +833,7 @@ LLMNR is a descentralized application protocol that allows to resolve hostnames 
 
 The [WPAD](https://en.wikipedia.org/wiki/Web\_Proxy\_Auto-Discovery\_Protocol) (Web Proxy Auto-Discovery) is a protocol for browsers to get dynamically a file that indicates the proxies they should use.
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 
 **What is the difference between those protocols?**
 

@@ -263,8 +263,8 @@ Nmap done: 1 IP address (1 host up) scanned in 65.56 seconds
 
 We see port 88 open, we can fire up pre-auth:
 
-{% content-ref url="../../active-directory/attacking-vectors/initial-attack-vectors/preauth-user-enumeration.md" %}
-[preauth-user-enumeration.md](../../active-directory/attacking-vectors/initial-attack-vectors/preauth-user-enumeration.md)
+{% content-ref url="../../active-directory/attacking-vectors/methodology/initial-attack-vectors/preauth-user-enumeration.md" %}
+[preauth-user-enumeration.md](../../active-directory/attacking-vectors/methodology/initial-attack-vectors/preauth-user-enumeration.md)
 {% endcontent-ref %}
 
 ```
