@@ -61,5 +61,10 @@ After pivoting in the target machine through ssh, I launch responder and wait fo
 
 We get a hit, now we copy and paste the hash in a file and hop on hashcat ->
 
-Looking back at the questions, we had to crack the hash of an account that starts with letter B so i relaunched responder and waited for a bit and did just what i did before
+Looking back at the questions, we had to crack the hash of an account that starts with letter B so I relaunched responder and waited for a bit and did just what I did before
 
+```
+hashcat -m 5600 hash.txt /usr/share/wordlists/rockyou.txt
+```
+
+<figure><img src="../../../.gitbook/assets/image (1051).png" alt=""><figcaption></figcaption></figure>
