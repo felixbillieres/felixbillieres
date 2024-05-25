@@ -22,7 +22,7 @@ Since Zerologon is a very dangerous exploit that can cause damage to a DC, it's 
 
 <figure><img src="../../.gitbook/assets/image (1042).png" alt=""><figcaption></figcaption></figure>
 
-But if we ever need to try this attack, here are the steps ->
+But if we ever need to try this attack, here are the steps →
 
 If the target is vulnerable, we just need to throw in the following command:
 

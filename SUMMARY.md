@@ -43,26 +43,40 @@
   * [🧑‍🍳 Enumerating Active Directory](active-directory/practical-thm-path/enumerating-active-directory.md)
   * [🌋 Lateral Movement and Pivoting](active-directory/practical-thm-path/lateral-movement-and-pivoting.md)
 
-## 🏫 Portswigger Academy
+## 🏫 Certification Prep
 
-* [🕸️ Web Security Academy Learning Paths](portswigger-academy/web-security-academy-learning-paths/README.md)
-  * [😋 Path traversal](portswigger-academy/web-security-academy-learning-paths/path-traversal.md)
-  * [🐔 Clickjacking](portswigger-academy/web-security-academy-learning-paths/clickjacking.md)
-  * [🕌 SQL injection](portswigger-academy/web-security-academy-learning-paths/sql-injection.md)
-  * [📑 File Upload vulnerabilities](portswigger-academy/web-security-academy-learning-paths/file-upload-vulnerabilities.md)
-  * [🥐 Cross-site request forgery (CSRF)](portswigger-academy/web-security-academy-learning-paths/cross-site-request-forgery-csrf.md)
-  * [🎌 Cross-site scripting](portswigger-academy/web-security-academy-learning-paths/cross-site-scripting/README.md)
-    * [⚰️ DOM-based XSS](portswigger-academy/web-security-academy-learning-paths/cross-site-scripting/dom-based-xss.md)
-    * [🪞 Reflected XSS](portswigger-academy/web-security-academy-learning-paths/cross-site-scripting/reflected-xss.md)
-  * [🈯 Server-side vulnerabilities](portswigger-academy/web-security-academy-learning-paths/server-side-vulnerabilities.md)
-  * [😙 API Testing](portswigger-academy/web-security-academy-learning-paths/api-testing.md)
-  * [🙅 NoSQL injection](portswigger-academy/web-security-academy-learning-paths/nosql-injection.md)
-  * [🏎️ Race conditions](portswigger-academy/web-security-academy-learning-paths/race-conditions.md)
-  * [🤖 Web LLM attacks](portswigger-academy/web-security-academy-learning-paths/web-llm-attacks.md)
-  * [😵‍💫 Authentication vulnerabilities](portswigger-academy/web-security-academy-learning-paths/authentication-vulnerabilities.md)
-  * [🧦 WebSockets](portswigger-academy/web-security-academy-learning-paths/websockets.md)
-  * [🫁 Server-side request forgery (SSRF)](portswigger-academy/web-security-academy-learning-paths/server-side-request-forgery-ssrf.md)
-  * [🐊 Prototype pollution](portswigger-academy/web-security-academy-learning-paths/prototype-pollution.md)
+* [🕸️ BSCP](certification-prep/bscp/README.md)
+  * [😋 Path traversal](certification-prep/bscp/path-traversal.md)
+  * [🐔 Clickjacking](certification-prep/bscp/clickjacking.md)
+  * [🕌 SQL injection](certification-prep/bscp/sql-injection.md)
+  * [📑 File Upload vulnerabilities](certification-prep/bscp/file-upload-vulnerabilities.md)
+  * [🥐 Cross-site request forgery (CSRF)](certification-prep/bscp/cross-site-request-forgery-csrf.md)
+  * [🎌 Cross-site scripting](certification-prep/bscp/cross-site-scripting/README.md)
+    * [⚰️ DOM-based XSS](certification-prep/bscp/cross-site-scripting/dom-based-xss.md)
+    * [🪞 Reflected XSS](certification-prep/bscp/cross-site-scripting/reflected-xss.md)
+  * [🈯 Server-side vulnerabilities](certification-prep/bscp/server-side-vulnerabilities.md)
+  * [😙 API Testing](certification-prep/bscp/api-testing.md)
+  * [🙅 NoSQL injection](certification-prep/bscp/nosql-injection.md)
+  * [🏎️ Race conditions](certification-prep/bscp/race-conditions.md)
+  * [🤖 Web LLM attacks](certification-prep/bscp/web-llm-attacks.md)
+  * [😵‍💫 Authentication vulnerabilities](certification-prep/bscp/authentication-vulnerabilities.md)
+  * [🧦 WebSockets](certification-prep/bscp/websockets.md)
+  * [🫁 Server-side request forgery (SSRF)](certification-prep/bscp/server-side-request-forgery-ssrf.md)
+  * [🐊 Prototype pollution](certification-prep/bscp/prototype-pollution.md)
+* [🌟 OSCP](certification-prep/oscp/README.md)
+  * [🔂 @TJ\_Null’s OSCP Prep](certification-prep/oscp/tj\_nulls-oscp-prep/README.md)
+    * [🤬 More Challenging than OSCP](certification-prep/oscp/tj\_nulls-oscp-prep/more-challenging-than-oscp/README.md)
+      * [🧑‍✈️ Blackfield](certification-prep/oscp/tj\_nulls-oscp-prep/more-challenging-than-oscp/blackfield.md)
+      * [🐶 Cerberus](certification-prep/oscp/tj\_nulls-oscp-prep/more-challenging-than-oscp/cerberus.md)
+  * [📈 Endgames](certification-prep/oscp/endgames/README.md)
+    * [✈️ Ascension](certification-prep/oscp/endgames/ascension.md)
+* [📤 CPTS](certification-prep/cpts/README.md)
+  * [⚒️ ToolKit](certification-prep/cpts/toolkit.md)
+  * [🤠 Active Directory Enumeration & Attacks](certification-prep/cpts/active-directory-enumeration-and-attacks/README.md)
+    * [🦹‍♂️ Initial Enumeration](certification-prep/cpts/active-directory-enumeration-and-attacks/initial-enumeration.md)
+* [☁️ CRTP](certification-prep/crtp.md)
+* [🕷️ CBBH](certification-prep/cbbh.md)
+* [🔵 CDSA](certification-prep/cdsa.md)
 
 ## 📽️ Programming
 
@@ -86,23 +100,6 @@
   * [🍷 Reading and Writing Files](programming/python-basics/reading-and-writing-files.md)
   * [🏗️ Classes and Objects](programming/python-basics/classes-and-objects.md)
   * [🥐 Simple Port Scanner](programming/python-basics/simple-port-scanner.md)
-
-## 🧑‍🏫 Interacting With Protocols & Tools
-
-* [🤖 Protocols](interacting-with-protocols-and-tools/protocols/README.md)
-  * [⛱️ SMB](interacting-with-protocols-and-tools/protocols/smb.md)
-  * [🎷 RDP](interacting-with-protocols-and-tools/protocols/rdp.md)
-  * [🔑 SSH](interacting-with-protocols-and-tools/protocols/ssh.md)
-  * [3️⃣ POP3](interacting-with-protocols-and-tools/protocols/pop3.md)
-  * [🥎 FTP](interacting-with-protocols-and-tools/protocols/ftp.md)
-* [😎 Tools](interacting-with-protocols-and-tools/tools/README.md)
-  * [🗺️ CrackMapExec](interacting-with-protocols-and-tools/tools/crackmapexec.md)
-  * [🕺 WinRM](interacting-with-protocols-and-tools/tools/winrm.md)
-  * [🗺️ SQLMap](interacting-with-protocols-and-tools/tools/sqlmap.md)
-  * [🐲 Hydra](interacting-with-protocols-and-tools/tools/hydra.md)
-  * [📩 Searchsploit](interacting-with-protocols-and-tools/tools/searchsploit.md)
-  * [🌭 Kerbrute](interacting-with-protocols-and-tools/tools/kerbrute.md)
-  * [🎂 Huge list of tools](interacting-with-protocols-and-tools/tools/huge-list-of-tools.md)
 
 ## 🏳️ Capture The Flags
 
@@ -161,6 +158,23 @@
     * [🏐 Volatility](red-team/technical-knowledge/forensics/incident-response-and-forensics/volatility.md)
     * [👨‍🚒 Autopsy](red-team/technical-knowledge/forensics/incident-response-and-forensics/autopsy.md)
   * [🪟 Windows User Activity Analysis](capture-the-flags/forensics/windows-user-activity-analysis.md)
+
+## 🧑‍🏫 Interacting With Protocols & Tools
+
+* [🤖 Protocols](interacting-with-protocols-and-tools/protocols/README.md)
+  * [⛱️ SMB](interacting-with-protocols-and-tools/protocols/smb.md)
+  * [🎷 RDP](interacting-with-protocols-and-tools/protocols/rdp.md)
+  * [🔑 SSH](interacting-with-protocols-and-tools/protocols/ssh.md)
+  * [3️⃣ POP3](interacting-with-protocols-and-tools/protocols/pop3.md)
+  * [🥎 FTP](interacting-with-protocols-and-tools/protocols/ftp.md)
+* [😎 Tools](interacting-with-protocols-and-tools/tools/README.md)
+  * [🗺️ CrackMapExec](interacting-with-protocols-and-tools/tools/crackmapexec.md)
+  * [🕺 WinRM](interacting-with-protocols-and-tools/tools/winrm.md)
+  * [🗺️ SQLMap](interacting-with-protocols-and-tools/tools/sqlmap.md)
+  * [🐲 Hydra](interacting-with-protocols-and-tools/tools/hydra.md)
+  * [📩 Searchsploit](interacting-with-protocols-and-tools/tools/searchsploit.md)
+  * [🌭 Kerbrute](interacting-with-protocols-and-tools/tools/kerbrute.md)
+  * [🎂 Huge list of tools](interacting-with-protocols-and-tools/tools/huge-list-of-tools.md)
 
 ## 🛡️ Blue Team
 
@@ -231,15 +245,6 @@
   * [✍️ Legal Documents and Report Writing](red-team/theoretical-knowledge/legal-documents-and-report-writing.md)
   * [🐡 Wireless Penetration Testing](red-team/theoretical-knowledge/wireless-penetration-testing.md)
 
-## 🐲 OSCP Prep
-
-* [📈 Endgames](oscp-prep/endgames/README.md)
-  * [✈️ Ascension](oscp-prep/endgames/ascension.md)
-* [🔂 @TJ\_Null’s OSCP Prep](oscp-prep/tj\_nulls-oscp-prep/README.md)
-  * [🤬 More Challenging than OSCP](oscp-prep/tj\_nulls-oscp-prep/more-challenging-than-oscp/README.md)
-    * [🧑‍✈️ Blackfield](oscp-prep/tj\_nulls-oscp-prep/more-challenging-than-oscp/blackfield.md)
-    * [🐶 Cerberus](oscp-prep/tj\_nulls-oscp-prep/more-challenging-than-oscp/cerberus.md)
-
 ## 👨‍🏭 Still sorting out
 
 * [📚 Documentation](still-sorting-out/documentation/README.md)
@@ -297,7 +302,3 @@
   * [Chals](still-sorting-out/documentation/chals/README.md)
     * [App-script](still-sorting-out/documentation/chals/app-script/README.md)
       * [Bash System 1](still-sorting-out/documentation/chals/app-script/bash-system-1.md)
-
-## ☁️ Azure & Cloud
-
-* [👺 Azure](azure-and-cloud/azure.md)

