@@ -97,3 +97,4 @@ and the rest is up to us with some fun commands like:
 hashdump
 ```
 
+In a normal environment, the firewall will block our DLL so we would need to do some AV bypass and could potentially obfuscate our DLL.
