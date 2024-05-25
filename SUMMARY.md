@@ -32,6 +32,7 @@
     * [5️⃣ Post Exploitation](active-directory/attacking-vectors/methodology/post-exploitation/README.md)
       * [🔋 Post-Exploitation Basics (THM)](active-directory/attacking-vectors/methodology/post-exploitation/post-exploitation-basics-thm.md)
   * [🧙‍♀️ Abusing ZeroLogon](active-directory/attacking-vectors/abusing-zerologon.md)
+  * [‼️ Abusing PrintNightmare](active-directory/attacking-vectors/abusing-printnightmare.md)
 * [🔬 AD in theory](active-directory/ad-in-theory/README.md)
   * [⛈️ Questions about AD](active-directory/ad-in-theory/questions-about-ad/README.md)
     * [🥖 French Version des questions AD](active-directory/ad-in-theory/questions-about-ad/french-version-des-questions-ad.md)
