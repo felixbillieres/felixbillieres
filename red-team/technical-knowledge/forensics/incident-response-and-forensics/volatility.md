@@ -4,7 +4,7 @@ description: https://tryhackme.com/r/room/volatility
 
 # 🏐 Volatility
 
-<figure><img src="../../../../.gitbook/assets/image (11) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (11) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Five different plugins within Volatility allow you to dump processes and network connections:
 
