@@ -75,6 +75,8 @@
   * [🤠 Active Directory Enumeration & Attacks](certification-prep/cpts/active-directory-enumeration-and-attacks/README.md)
     * [🦹‍♂️ Initial Enumeration](certification-prep/cpts/active-directory-enumeration-and-attacks/initial-enumeration.md)
     * [👃 Sniffing out a Foothold](certification-prep/cpts/active-directory-enumeration-and-attacks/sniffing-out-a-foothold.md)
+    * [👀 Sighting In, Hunting For A User](certification-prep/cpts/active-directory-enumeration-and-attacks/sighting-in-hunting-for-a-user.md)
+    * [🗣️ Spray Responsibly](certification-prep/cpts/active-directory-enumeration-and-attacks/spray-responsibly.md)
 * [☁️ CRTP](certification-prep/crtp.md)
 * [🕷️ CBBH](certification-prep/cbbh.md)
 * [🔵 CDSA](certification-prep/cdsa.md)

