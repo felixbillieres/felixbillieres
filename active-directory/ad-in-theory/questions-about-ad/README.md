@@ -847,3 +847,207 @@ While they all perform name resolution, the primary difference lies in their ord
 Each protocol has a specific context and method for resolving names, which dictates its usage priority in network communications.
 
 ### Authentication <a href="#authentication" id="authentication"></a>
+
+In Active Directory there are two network authentication protocols available: [NTLM](https://zer1t0.gitlab.io/posts/attacking\_ad/#ntlm) and [Kerberos](https://zer1t0.gitlab.io/posts/attacking\_ad/#kerberos).
+
+Kerberos is the preferred option to auth domain users but only NTLM can be used to auth local computer users&#x20;
+
+**What are Windows SSPs?**
+
+SSPs (Security Support Provider), are implemented as dynamic link libraries (DLLs) that are loaded into processes that require security services.
+
+In an Active Directory environment, SSPs are crucial for:
+
+* **User Authentication**: Ensuring that users can securely log in to the network and access resources based on their permissions.
+* **Service Authentication**: Verifying the identity of services and applications to prevent unauthorized access and ensure secure communication.
+* **Secure Communication**: Protecting data transmitted over the network through encryption and integrity checks.
+* **Interoperability**: Supporting different protocols and ensuring compatibility across various systems and applications within the network.
+
+**Give me some names of different SSPs**
+
+* **Kerberos SSP**
+  * The [Kerberos SSP](https://docs.microsoft.com/en-us/windows/win32/secauthn/microsoft-kerberos) (kerberos.dll) manages the Kerberos authentication.
+* **NTLM SSP**
+  * &#x20;The [NTLMSSP](https://docs.microsoft.com/en-us/windows/win32/secauthn/microsoft-ntlm) (msv1\_0.dll) manages NTLM authentication.
+* **Negotiate SSP**
+  * The [Negotiate](https://docs.microsoft.com/en-us/windows/win32/secauthn/microsoft-negotiate) SSP (secur32.dll) is an intermediary SSP that manages the [SPNEGO](https://zer1t0.gitlab.io/posts/attacking\_ad/#spnego) negotiation and delegates the authentication to Kerberos SSP or NTLM SSP
+
+```
+                                             Kerberos
+                                         .-------------------------.
+                                         |      kerberos.dll       |
+                                         |-------------------------|
+                                         .---           .----      |
+                   Negotiate       .---> | GSS-API ---> | Kerberos |
+                 .-------------.   |     '---           '----      |
+                 | secur32.dll |   |     |                         |
+                 |-------------|   |     '-------------------------'
+ .---------.     .---          |   |
+ |  user   |---->| GSS-API ----|>--|
+ | program |     '---          |   |         NTLM
+ '---------'     |             |   |     .-------------------------.
+                 '-------------'   |     |       msv1_0.dll        |
+                                   |     |-------------------------|
+                                   |     .---           .----      |
+                                   '---> | GSS-API ---> | NTLM     |
+                                         '---           '----      |
+                                         |                         |
+                                         '-------------------------'
+
+```
+
+* **Digest SSP**
+  * The [Digest](https://docs.microsoft.com/en-us/windows/win32/secauthn/microsoft-digest-ssp) (wdigest.dll) implements the Digest Access protocol. This is the SSP that caches the plaintext password in old operating systems that can be retrieved by mimikatz.
+* **Secure Channel SSP**
+  * The [Secure Channel](https://docs.microsoft.com/en-us/windows/win32/secauthn/secure-channel) (schannel.dll) provide encrypted communications.
+* **Cred SSP**
+  * The [CredSSP](https://docs.microsoft.com/en-us/windows/win32/secauthn/credential-security-support-provider) (credssp.dll) creates a TLS channel, authenticates the client through negotiate SSP, and finally allows the client to send the user full credentials to the server. It is used by [RDP](https://zer1t0.gitlab.io/posts/attacking\_ad/#rdp).
+
+#### **What is SPNEGO?**
+
+SPNEGO, or Simple and Protected GSSAPI Negotiation Mechanism, is a standard protocol used for negotiating security mechanisms, it ensures that the most appropriate and secure authentication protocol is used for each connection. Its ability to seamlessly switch between protocols like Kerberos and NTLM
+
+#### What is NTLM?
+
+[NTLM](http://davenport.sourceforge.net/ntlm.html) (NT LAN Manager) is an authentication protocol that can be used by Windows services in order to verify the identity of the client. It's good to know that NTLM is not an isolated protocol that generates network traffic, but must be used embebed in an application protocol, such as [SMB](https://zer1t0.gitlab.io/posts/attacking\_ad/#smb), [LDAP](https://zer1t0.gitlab.io/posts/attacking\_ad/#ldap) or [HTTP](https://zer1t0.gitlab.io/posts/attacking\_ad/#http).
+
+#### What are the 3 stages of NTLM connection?
+
+NEGOTIATE, CHALLENGE and AUTHENTICATE.
+
+```
+client               server
+  |                    |
+  |                    |
+  |     NEGOTIATE      |
+  | -----------------> |
+  |                    |
+  |     CHALLENGE      |
+  | <----------------- |
+  |                    |
+  |    AUTHENTICATE    |
+  | -----------------> |
+  |                    |
+  |    application     |
+  |      messages      |
+  | -----------------> |
+  | <----------------- |
+  | -----------------> |
+  |                    |
+```
+
+#### How does NTLM work more in detail?
+
+* Firstly, the client sends a NEGOTIATE message to the server. It indicates security options, like the NTLM version to use.
+* The server generates a challenge by calling the NTLM SSP, and sends it to the client within a CHALLENGE message. Also confirms the negotiated options and sends information about its computer name and version and domain name.
+* The client receives the challenge and calculates a response by using the client key (NT hash). If it is required, it also creates a session key and encrypts it with a key, known as session base key, derivated from NT hash and sends the response and session key back to the server.
+* Finally, the server verifies that the challenge response is correct and sends a session key
+
+```
+                         client               server
+                           |                    |
+ AcquireCredentialsHandle  |                    |
+           |               |                    |
+           v               |                    |
+ InitializeSecurityContext |                    |
+           |               |     NEGOTIATE      |
+           '-------------> | -----------------> | ----------.
+                           |     - flags        |           |
+                           |                    |           v
+                           |                    | AcceptSecurityContext
+                           |                    |           |
+                           |                    |       challenge
+                           |     CHALLENGE      |           |
+           .-------------- | <----------------- | <---------'
+           |               |   - flags          |
+       challenge           |   - challenge      |
+           |               |   - server info    |
+           v               |                    |
+ InitializeSecurityContext |                    |
+       |       |           |                    |
+    session  response      |                    |
+      key      |           |    AUTHENTICATE    |
+       '-------'---------> | -----------------> | ------.--------.
+                           |   - response       |       |        |
+                           |   - session key    |       |        |
+                           |     (encrypted)    |   response  session
+                           |   - attributes     |       |       key
+                           |     + client info  |       |        |
+                           |     + flags        |       v        v
+                           |   - MIC            | AcceptSecurityContext
+                           |                    |           |
+                           |                    |           v
+                           |                    |           OK
+                           |                    |
+```
+
+#### What is the difference between NTLMv1 and NTLMv2?
+
+In [NTLMv1](https://docs.microsoft.com/en-us/openspecs/windows\_protocols/ms-nlmp/464551a8-9fc4-428e-b3d3-bc5bfb2e73a5), the NTLM response (NTLMv1 hash) to the server challenge is calculated by using the NT hash to encrypt the server challenge with the DES algorithm. The session key is also encrypted with the NT hash directly.
+
+However, in [NTLMv2](https://docs.microsoft.com/en-us/openspecs/windows\_protocols/ms-nlmp/5e550938-91d4-459f-b67d-75d70009e3f3) more data is taken into to protect the integrity of the AUTHENTICATE message
+
+NTLMv2 concatenates all the additional data and applies an HMAC to calculate the NTLM response, known as NTLMv2 hash.
+
+#### How does **NTLM interract in Active Directory?**
+
+It's good to remember that the NT hash is stored in the Active Directory [database](https://zer1t0.gitlab.io/posts/attacking\_ad/#database), located in the [Domain Controllers](https://zer1t0.gitlab.io/posts/attacking\_ad/#domain-controllers)
+
+in order to verify the AUTHENTICATE message for a domain account, the target machine will send a request to the DC asking it to verify the client response to the challenge. The DC verifies this response and returns the necessary information to the machine
+
+```
+client            server                          DC
+    |                 |                              |
+    |                 |                              |
+    |    NEGOTIATE    |                              |
+    | --------------> |                              |
+    |                 |                              |
+    |    CHALLENGE    |                              |
+    | <-------------- |                              |
+    |                 |                              |
+    |   AUTHENTICATE  |  NetrLogonSamLogonWithFlags  |
+    | --------------> | ---------------------------> |
+    |                 |                              |
+    |                 |        ValidationInfo        |
+    |                 | <--------------------------- |
+    |                 |                              |
+    |   application   |                              |
+    |    messages     |                              |
+    | --------------> |                              |
+    |                 |                              |
+    | <-------------- |                              |
+    |                 |                              |
+    | --------------> |                              |
+    |                 |                              |
+```
+
+It can also be used for machines in other domains, it must ask to the DC to verify the AUTHENTICATE message, and the DC in turn must send the AUTHENTICATE message to the DC of the user account domain (by using a [trust](https://zer1t0.gitlab.io/posts/attacking\_ad/#trusts))
+
+```
+  client            server                          DC                      DC
+ (it.foo.com)     (foo.com)                      (foo.com)         (it.foo.com)
+    |                 |                              |                       |
+    |                 |                              |                       |
+    |    NEGOTIATE    |                              |                       |
+    | --------------> |                              |                       |
+    |                 |                              |                       |
+    |    CHALLENGE    |                              |                       |
+    | <-------------- |                              |                       |
+    |                 |                              |                       |
+    |   AUTHENTICATE  |  NetrLogonSamLogonWithFlags  |  NetrLogonSamLogonEx  |
+    | --------------> | ---------------------------> | --------------------> |
+    |                 |                              |                       |
+    |                 |      ValidationInfo          |    ValidationInfo     |
+    |                 | <--------------------------- | <-------------------- |
+    |                 |                              |                       |
+    |   application   |                              |                       |
+    |    messages     |                              |                       |
+    | --------------> |                              |                       |
+    |                 |                              |                       |
+    | <-------------- |                              |                       |
+    |                 |                              |                       |
+    | --------------> |                              |                       |
+    |                 |                              |                       |
+```
+
+#### How do we force NTLM authentication over Kerberos?
