@@ -453,3 +453,122 @@ Some useful cmdlets:
 | `Get-DomainForeignGroupMember`      | Enumerates groups with users outside of the group's domain and returns each foreign member |
 | `Get-DomainTrustMapping`            | Will enumerate all trusts for the current domain and any others seen.                      |
 
+**Domain User Information**
+
+If we want to grab information about a specific user, `mmorgan`
+
+```powershell-session
+Get-DomainUser -Identity mmorgan -Domain inlanefreight.local | Select-Object -Property name,samaccountname,description,memberof,whencreated,pwdlastset,lastlogontimestamp,accountexpires,admincount,userprincipalname,serviceprincipalname,useraccountcontrol
+```
+
+**Recursive Group Membership**
+
+I we want to recursivly find any groups that are part of a target group (nested group membership) to list out the members of those groups. For example, the output below shows that the `Secadmins` group is part of the `Domain Admins` group through nested group membership.
+
+```powershell-session
+PS C:\htb>  Get-DomainGroupMember -Identity "Domain Admins" -Recurse
+
+GroupDomain             : INLANEFREIGHT.LOCAL
+GroupName               : Domain Admins
+GroupDistinguishedName  : CN=Domain Admins,CN=Users,DC=INLANEFREIGHT,DC=LOCAL
+MemberDomain            : INLANEFREIGHT.LOCAL
+MemberName              : svc_qualys
+MemberDistinguishedName : CN=svc_qualys,OU=Service Accounts,OU=Corp,DC=INLANEFREIGHT,DC=LOCAL
+MemberObjectClass       : user
+MemberSID               : S-1-5-21-3842939050-3880317879-2865463114-5613
+
+GroupDomain             : INLANEFREIGHT.LOCAL
+GroupName               : Domain Admins
+GroupDistinguishedName  : CN=Domain Admins,CN=Users,DC=INLANEFREIGHT,DC=LOCAL
+MemberDomain            : INLANEFREIGHT.LOCAL
+MemberName              : sp-admin
+MemberDistinguishedName : CN=Sharepoint Admin,OU=Service Accounts,OU=Corp,DC=INLANEFREIGHT,DC=LOCAL
+MemberObjectClass       : user
+MemberSID               : S-1-5-21-3842939050-3880317879-2865463114-5228
+
+GroupDomain             : INLANEFREIGHT.LOCAL
+GroupName               : Secadmins
+GroupDistinguishedName  : CN=Secadmins,OU=Security Groups,OU=Corp,DC=INLANEFREIGHT,DC=LOCAL
+MemberDomain            : INLANEFREIGHT.LOCAL
+MemberName              : spong1990
+MemberDistinguishedName : CN=Maggie
+                          Jablonski,OU=Operations,OU=Logistics-HK,OU=Employees,OU=Corp,DC=INLANEFREIGHT,DC=LOCAL
+MemberObjectClass       : user
+MemberSID               : S-1-5-21-3842939050-3880317879-2865463114-1965
+```
+
+This could later help for potential elevation of privileges
+
+**Trust Enumeration**
+
+```powershell-session
+PS C:\htb> Get-DomainTrustMapping
+```
+
+**Testing for Local Admin Access**
+
+```powershell-session
+PS C:\htb> Test-AdminAccess -ComputerName ACADEMY-EA-MS01
+```
+
+**Finding Users With SPN Set**
+
+```powershell-session
+PS C:\htb> Get-DomainUser -SPN -Properties samaccountname,ServicePrincipalName
+```
+
+### SharpView
+
+Let's use SharView to enumerate information about a specific user, such as the user `forend`
+
+```powershell-session
+PS C:\htb> .\SharpView.exe Get-DomainUser -Identity forend
+
+[Get-DomainSearcher] search base: LDAP://ACADEMY-EA-DC01.INLANEFREIGHT.LOCAL/DC=INLANEFREIGHT,DC=LOCAL
+[Get-DomainUser] filter string: (&(samAccountType=805306368)(|(samAccountName=forend)))
+objectsid                      : {S-1-5-21-3842939050-3880317879-2865463114-5614}
+samaccounttype                 : USER_OBJECT
+objectguid                     : 53264142-082a-4cb8-8714-8158b4974f3b
+useraccountcontrol             : NORMAL_ACCOUNT
+[...]
+```
+
+### Snaffler
+
+[Snaffler](https://github.com/SnaffCon/Snaffler) is a tool that can help us acquire credentials or other sensitive data in an Active Directory environment.
+
+It's used the following way:
+
+```bash
+Snaffler.exe -s -d inlanefreight.local -o snaffler.log -v data
+```
+
+We may find passwords, SSH keys, configuration files, or other data that can be used to further our access.
+
+### BloodHound
+
+We'll start by running the SharpHound.exe collector
+
+```powershell-session
+PS C:\htb> .\SharpHound.exe -c All --zipfilename ILFREIGHT
+```
+
+Next, we can exfiltrate the dataset to our own VM or ingest it into the BloodHound GUI tool
+
+#### Practical Example
+
+_Using Bloodhound, determine how many Kerberoastable accounts exist within the INLANEFREIGHT domain. (Submit the number as the answer)_
+
+```
+Get-ADUser -Filter {ServicePrincipalName -ne "$null"} -Properties ServicePrincipalName
+```
+
+_What PowerView function allows us to test if a user has administrative access to a local or remote host?_
+
+<figure><img src="../../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+_Run Snaffler and hunt for a readable web config file. What is the name of the user in the connection string within the file?_
+
+_What is the password for the database user?_
+
+<figure><img src="../../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
