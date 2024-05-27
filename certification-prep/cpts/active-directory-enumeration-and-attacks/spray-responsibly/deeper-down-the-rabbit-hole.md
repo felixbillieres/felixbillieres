@@ -316,3 +316,140 @@ sudo crackmapexec smb 172.16.5.5 -u forend -p Klmcargo2 --groups | grep Interns
 ```
 
 <figure><img src="../../../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+
+## Credentialed Enumeration - from Windows
+
+In this section we are going to use some tools such as SharpHound/BloodHound, PowerView/SharpView, Grouper2, Snaffler, and some built-in tools useful for AD enumeration.
+
+### ActiveDirectory PowerShell Module
+
+The ActiveDirectory PowerShell module is a group of PowerShell cmdlets for administering an Active Directory environment from the command line. there are 147 different cmdlets at the time of writing
+
+The [Get-Module](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/get-module?view=powershell-7.2) cmdlet will list all available modules. This is a great way to see if anything like Git or custom administrator scripts are installed. If the module is not loaded, run `Import-Module ActiveDirectory` to load it for use.
+
+**Discover Modules**
+
+```powershell-session
+PS C:\htb> Get-Module
+
+ModuleType Version    Name                                ExportedCommands
+---------- -------    ----                                ----------------
+Manifest   3.1.0.0    Microsoft.PowerShell.Utility        {Add-Member, Add-Type, Clear-Variable, Compare-Object...}
+Script     2.0.0      PSReadline                          {Get-PSReadLineKeyHandler, Get-PSReadLineOption, Remove-PS...
+```
+
+**Load ActiveDirectory Module**
+
+```powershell-session
+PS C:\htb> Import-Module ActiveDirectory
+PS C:\htb> Get-Module
+
+ModuleType Version    Name                                ExportedCommands
+---------- -------    ----                                ----------------
+Manifest   1.0.1.0    ActiveDirectory                     {Add-ADCentralAccessPolicyMember, Add-ADComputerServiceAcc...
+Manifest   3.1.0.0    Microsoft.PowerShell.Utility        {Add-Member, Add-Type, Clear-Variable, Compare-Object...}
+Script     2.0.0      PSReadline                          {Get-PSReadLineKeyHandler, Get-PSReadLineOption, Remove-PS...  
+```
+
+#### Get Domain Info
+
+```powershell-session
+PS C:\htb> Get-ADDomain
+
+AllowedDNSSuffixes                 : {}
+ChildDomains                       : {LOGISTICS.INLANEFREIGHT.LOCAL}
+ComputersContainer                 : CN=Computers,DC=INLANEFREIGHT,DC=LOCAL
+[...]
+```
+
+**Get-ADUser**
+
+This will get us a listing of accounts that may be susceptible to a Kerberoasting attack
+
+```powershell-session
+PS C:\htb> Get-ADUser -Filter {ServicePrincipalName -ne "$null"} -Properties ServicePrincipalName
+```
+
+**Checking For Trust Relationships**
+
+```powershell-session
+PS C:\htb> Get-ADTrust -Filter *
+
+Direction               : BiDirectional
+DisallowTransivity      : False
+DistinguishedName       : CN=LOGISTICS.INLANEFREIGHT.LOCAL,CN=System,DC=INLANEFREIGHT,DC=LOCAL
+[...]
+```
+
+This will be useful later on when looking to take advantage of child-to-parent trust relationships and attacking across forest trusts.
+
+**Group Enumeration**
+
+```powershell-session
+PS C:\htb> Get-ADGroup -Filter * | select name
+```
+
+And to get more detailed information about a particular group ->
+
+```powershell-session
+Get-ADGroup -Identity "Backup Operators"
+```
+
+Now we can get even more specific by getting a member listing using the [Get-ADGroupMember](https://docs.microsoft.com/en-us/powershell/module/activedirectory/get-adgroupmember?view=windowsserver2022-ps) cmdlet.
+
+```powershell-session
+PS C:\htb> Get-ADGroupMember -Identity "Backup Operators"
+
+distinguishedName : CN=BACKUPAGENT,OU=Service Accounts,OU=Corp,DC=INLANEFREIGHT,DC=LOCAL
+name              : BACKUPAGENT
+objectClass       : user
+objectGUID        : 2ec53e98-3a64-4706-be23-1d824ff61bed
+SamAccountName    : backupagent
+SID               : S-1-5-21-3842939050-3880317879-2865463114-5220
+```
+
+We can see that one account, `backupagent`, belongs to this group.
+
+### PowerView
+
+Useful documentation about Powerview: [Active Directory PowerView module](https://academy.hackthebox.com/course/preview/active-directory-powerview)
+
+Some useful cmdlets:
+
+| **Command**                         | **Description**                                                                            |
+| ----------------------------------- | ------------------------------------------------------------------------------------------ |
+| `Export-PowerViewCSV`               | Append results to a CSV file                                                               |
+| `ConvertTo-SID`                     | Convert a User or group name to its SID value                                              |
+| `Get-DomainSPNTicket`               | Requests the Kerberos ticket for a specified Service Principal Name (SPN) account          |
+| **Domain/LDAP Functions:**          |                                                                                            |
+| `Get-Domain`                        | Will return the AD object for the current (or specified) domain                            |
+| `Get-DomainController`              | Return a list of the Domain Controllers for the specified domain                           |
+| `Get-DomainUser`                    | Will return all users or specific user objects in AD                                       |
+| `Get-DomainComputer`                | Will return all computers or specific computer objects in AD                               |
+| `Get-DomainGroup`                   | Will return all groups or specific group objects in AD                                     |
+| `Get-DomainOU`                      | Search for all or specific OU objects in AD                                                |
+| `Find-InterestingDomainAcl`         | Finds object ACLs in the domain with modification rights set to non-built in objects       |
+| `Get-DomainGroupMember`             | Will return the members of a specific domain group                                         |
+| `Get-DomainFileServer`              | Returns a list of servers likely functioning as file servers                               |
+| `Get-DomainDFSShare`                | Returns a list of all distributed file systems for the current (or specified) domain       |
+| **GPO Functions:**                  |                                                                                            |
+| `Get-DomainGPO`                     | Will return all GPOs or specific GPO objects in AD                                         |
+| `Get-DomainPolicy`                  | Returns the default domain policy or the domain controller policy for the current domain   |
+| **Computer Enumeration Functions:** |                                                                                            |
+| `Get-NetLocalGroup`                 | Enumerates local groups on the local or a remote machine                                   |
+| `Get-NetLocalGroupMember`           | Enumerates members of a specific local group                                               |
+| `Get-NetShare`                      | Returns open shares on the local (or a remote) machine                                     |
+| `Get-NetSession`                    | Will return session information for the local (or a remote) machine                        |
+| `Test-AdminAccess`                  | Tests if the current user has administrative access to the local (or a remote) machine     |
+| **Threaded 'Meta'-Functions:**      |                                                                                            |
+| `Find-DomainUserLocation`           | Finds machines where specific users are logged in                                          |
+| `Find-DomainShare`                  | Finds reachable shares on domain machines                                                  |
+| `Find-InterestingDomainShareFile`   | Searches for files matching specific criteria on readable shares in the domain             |
+| `Find-LocalAdminAccess`             | Find machines on the local domain where the current user has local administrator access    |
+| **Domain Trust Functions:**         |                                                                                            |
+| `Get-DomainTrust`                   | Returns domain trusts for the current domain or a specified domain                         |
+| `Get-ForestTrust`                   | Returns all forest trusts for the current forest or a specified forest                     |
+| `Get-DomainForeignUser`             | Enumerates users who are in groups outside of the user's domain                            |
+| `Get-DomainForeignGroupMember`      | Enumerates groups with users outside of the group's domain and returns each foreign member |
+| `Get-DomainTrustMapping`            | Will enumerate all trusts for the current domain and any others seen.                      |
+
