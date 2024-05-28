@@ -36,12 +36,12 @@
 * [🔬 AD in theory](active-directory/ad-in-theory/README.md)
   * [⛈️ Questions about AD](active-directory/ad-in-theory/questions-about-ad/README.md)
     * [🥖 French Version des questions AD](active-directory/ad-in-theory/questions-about-ad/french-version-des-questions-ad.md)
-  * [💫 Logical AD Components](active-directory/ad-in-theory/logical-ad-components.md)
-  * [💪 Physical AD Components](active-directory/ad-in-theory/physical-ad-components.md)
 * [🏧 Practical THM Path](active-directory/practical-thm-path/README.md)
   * [👾 Breaching Active Directory](active-directory/practical-thm-path/breaching-active-directory.md)
   * [🧑‍🍳 Enumerating Active Directory](active-directory/practical-thm-path/enumerating-active-directory.md)
   * [🌋 Lateral Movement and Pivoting](active-directory/practical-thm-path/lateral-movement-and-pivoting.md)
+  * [💪 Physical AD Components](active-directory/practical-thm-path/physical-ad-components.md)
+  * [💫 Logical AD Components](active-directory/practical-thm-path/logical-ad-components.md)
 
 ## 🏫 Certification Prep
 
