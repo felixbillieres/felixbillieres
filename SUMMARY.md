@@ -78,6 +78,7 @@
     * [👀 Sighting In, Hunting For A User](certification-prep/cpts/active-directory-enumeration-and-attacks/sighting-in-hunting-for-a-user.md)
     * [🗣️ Spray Responsibly](certification-prep/cpts/active-directory-enumeration-and-attacks/spray-responsibly/README.md)
       * [🐇 Deeper Down the Rabbit Hole](certification-prep/cpts/active-directory-enumeration-and-attacks/spray-responsibly/deeper-down-the-rabbit-hole.md)
+    * [🐕‍🦺 Kerberoasting](certification-prep/cpts/active-directory-enumeration-and-attacks/kerberoasting.md)
 * [☁️ CRTP](certification-prep/crtp.md)
 * [🕷️ CBBH](certification-prep/cbbh.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
