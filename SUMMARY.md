@@ -72,6 +72,7 @@
     * [✈️ Ascension](certification-prep/oscp/endgames/ascension.md)
 * [📤 CPTS](certification-prep/cpts/README.md)
   * [⚒️ ToolKit](certification-prep/cpts/toolkit.md)
+  * [📁 File Transfers](certification-prep/cpts/file-transfers.md)
   * [🤠 Active Directory Enumeration & Attacks](certification-prep/cpts/active-directory-enumeration-and-attacks/README.md)
     * [🦹‍♂️ Initial Enumeration](certification-prep/cpts/active-directory-enumeration-and-attacks/initial-enumeration.md)
     * [👃 Sniffing out a Foothold](certification-prep/cpts/active-directory-enumeration-and-attacks/sniffing-out-a-foothold.md)

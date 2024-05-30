@@ -1154,3 +1154,6 @@ It's goof to know that NTLMv1 hashes are faster to crack than NTLMv2 hashes sinc
 
 #### Kerberos <a href="#kerberos" id="kerberos"></a>
 
+#### What arguments do we need to request a ticket?
+
+We have to specify the the SPN
