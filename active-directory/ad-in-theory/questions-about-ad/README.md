@@ -1152,7 +1152,7 @@ you can also find examples of hash cracking here
 
 It's good to know that NTLMv1 hashes are faster to crack than NTLMv2 hashes since they are created with weaker algorithms.
 
-#### Kerberos <a href="#kerberos" id="kerberos"></a>
+### Kerberos <a href="#kerberos" id="kerberos"></a>
 
 #### Whart are kerberos principal types?
 
