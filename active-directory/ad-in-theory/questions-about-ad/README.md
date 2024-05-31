@@ -526,7 +526,7 @@ We know that there is the [User class](https://docs.microsoft.com/en-us/windows/
 
 But a class can have a **subclasse** that allows to inherit propreties. For example, the Computer class is a subclass of User class, therefore the computer objects can have the same properties of the user objects ,like `SAMAccountName`, and some new custom properties,
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 All the classes are subclasses of the [Top](https://docs.microsoft.com/en-us/windows/win32/adschema/c-top) class & many of the most relevant classes when performing a pentest, like User and Group, are attached to [Security-Principal](https://docs.microsoft.com/en-us/windows/win32/adschema/c-securityprincipal) auxiliary class, the class that defines the `SAMAccountName` and `SID` properties.
 
@@ -833,7 +833,7 @@ LLMNR is a descentralized application protocol that allows to resolve hostnames 
 
 The [WPAD](https://en.wikipedia.org/wiki/Web\_Proxy\_Auto-Discovery\_Protocol) (Web Proxy Auto-Discovery) is a protocol for browsers to get dynamically a file that indicates the proxies they should use.
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 **What is the difference between those protocols?**
 
@@ -1150,10 +1150,60 @@ Then we could crack the hash using hashcat and the mode 5600
 you can also find examples of hash cracking here
 {% endembed %}
 
-It's goof to know that NTLMv1 hashes are faster to crack than NTLMv2 hashes since they are created with weaker algorithms.
+It's good to know that NTLMv1 hashes are faster to crack than NTLMv2 hashes since they are created with weaker algorithms.
 
 #### Kerberos <a href="#kerberos" id="kerberos"></a>
 
-#### What arguments do we need to request a ticket?
+#### Whart are kerberos principal types?
 
-We have to specify the the SPN
+A principal is a unique identity to which Kerberos can assign tickets. Principals typically represent users, services, or hosts within the Kerberos realm. There are three principal types that can be used to request for a service: **NT-SRV-INST, NT-SRV-HST or NT-SRV-XHST**
+
+#### What is a ticket in kerberos?
+
+[Tickets](https://tools.ietf.org/html/rfc4120#section-5.3) are structures partially encrypted that contain:
+
+* The target principal (usually a service) for which the ticket applies
+* Information related to the client, such as the name and domain
+* A key to establish secure channels between the client and the service
+* Timestamps to determine the period in which the ticket is valid
+
+#### What is the PAC in active directory?
+
+The Privileged Attribute Certificate (PAC) is an extension to Kerberos service tickets that holds information about the user and their privileges. It is added by a domain controller in an Active Directory domain when the user authenticates.
+
+#### What informations does the PAC contain?
+
+The PAC includes informations about the client:
+
+* domain name and [SID](https://zer1t0.gitlab.io/posts/attacking\_ad/#sid)
+* The username and user [RID](https://docs.microsoft.com/en-us/openspecs/windows\_protocols/ms-pac/f2ef15b6-1e9b-48b5-bf0b-019f061d41c8#gt\_df3d0b61-56cd-4dac-9402-982f1fedc41c)
+* The [RIDs](https://docs.microsoft.com/en-us/openspecs/windows\_protocols/ms-pac/f2ef15b6-1e9b-48b5-bf0b-019f061d41c8#gt\_df3d0b61-56cd-4dac-9402-982f1fedc41c) (GroupIds) of those domain groups to which the user belongs.
+* other [SIDs](https://docs.microsoft.com/en-us/openspecs/windows\_protocols/ms-dtyp/78eb9013-1c3a-4970-ad1f-2b1dad588a25) (ExtraSids) of non-domain groups, that can be applied for inter-domain authentications
+
+And also [several signatures](https://docs.microsoft.com/en-us/openspecs/windows\_protocols/ms-pac/6e95edd3-af93-41d4-8303-6c7955297315) used to verify the integrity of the PAC and ticket data:
+
+* [Server signature](https://docs.microsoft.com/en-us/openspecs/windows\_protocols/ms-pac/a194aa34-81bd-46a0-a931-2e05b87d1098) (created with the same key used to encrypt the ticket)
+* [KDC signature](https://docs.microsoft.com/en-us/openspecs/windows\_protocols/ms-pac/3122bf00-ea87-4c3f-92a0-91c0a99f5eec): A signature of the Server signature created with the KDC key. This could be used to check that the PAC was created by the KDC and prevent [Silver ticket](https://zer1t0.gitlab.io/posts/attacking\_ad/#golden-silver-ticket) attacks, but is not checked.
+* [Ticket signature](https://docs.microsoft.com/en-us/openspecs/windows\_protocols/ms-pac/76c10ef5-de76-44bf-b208-0d8750fc2edd): A signature of the ticket content created with the KDC key. This signature was recently introduced to prevent the [Bronze bit attack](https://blog.netspi.com/cve-2020-17049-kerberos-bronze-bit-theory/).
+
+{% embed url="https://www.lepide.com/blog/what-is-privileged-attribute-certificate-pac/" %}
+
+#### What are the 3 actors Kerberos uses to authenticate users against services
+
+* **The client,** it's the user that recieves the ticket and gains access to a service in the domain
+* The **service or Application server,** that is the machine that offers the sevice a user wants to access
+* The **KDC** (Key Distribution Center), the entity that has access to the databse required to authenticate users&#x20;
+
+#### What are the 2 types of tickets?
+
+**STs** (Service tickets), that a client presents to a AP/service/principal in order to get access to it. The KDC issues the STs for clients that request for them.
+
+We need to be aware that TGSs are not STs, according to [rfc4120](https://datatracker.ietf.org/doc/html/rfc4120/) the TGS refers to the service that provides the service tickets.
+
+The other type of ticket is the **TGT**. In order to get a ST from the KDC, we need to present our TGT.
+
+TGTs are encrypted with the key of the `krbtgt` account of the domain, known as the KDC key. Therefore, if you can retrieve the key of the `krbtgt` (stored in the [domain database](https://zer1t0.gitlab.io/posts/attacking\_ad/#domain-database-dumping)), you could create custom TGTs known as [Golden tickets](https://zer1t0.gitlab.io/posts/attacking\_ad/#golden-silver-ticket).
+
+#### How are tickets issued?
+
+<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
