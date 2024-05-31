@@ -4,7 +4,7 @@ description: https://tryhackme.com/r/room/volatility
 
 # 🏐 Volatility
 
-<figure><img src="../../../../.gitbook/assets/image (11) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (11) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Five different plugins within Volatility allow you to dump processes and network connections:
 
@@ -49,11 +49,11 @@ _**What process can be considered suspicious in Case 001?**_
 python3 vol.py -f /Scenarios/Investigations/Investigation- 1.vmem windows.psscan
 ```
 
-<figure><img src="../../../../.gitbook/assets/image (12) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (12) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 _**What is the parent process of the suspicious process in Case 001?**_
 
-<figure><img src="../../../../.gitbook/assets/image (13) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (13) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 python3 vol.py -f /Scenarios/Investigations/Investigation-1.vmem -o /home/thmanalyst windows.memmap.Memmap — pid 1640 — dump
@@ -71,7 +71,7 @@ And then&#x20;
 strings /home/thmanalyst/*.dmp | grep -i "user-agent"
 ```
 
-<figure><img src="../../../../.gitbook/assets/image (14) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (14) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 _**Was Chase Bank one of the suspicious bank domains found in Case 001? (Y/N)**_
 
@@ -79,7 +79,7 @@ _**Was Chase Bank one of the suspicious bank domains found in Case 001? (Y/N)**_
 strings /home/thmanalyst/*.dmp | grep -i "chase"
 ```
 
-<figure><img src="../../../../.gitbook/assets/image (15) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (15) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 _**What suspicious process is running at PID 740 in Case 002?**_
 
@@ -87,7 +87,7 @@ _**What suspicious process is running at PID 740 in Case 002?**_
  python3 vol.py -f /Scenarios/Investigations/Investigation-2.raw -o /home/thmanalyst windows.psscan
 ```
 
-<figure><img src="../../../../.gitbook/assets/image (16) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (16) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 _**What is the full path of the suspicious binary in PID 740 in Case 002?**_
 

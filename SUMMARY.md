@@ -80,7 +80,11 @@
     * [🗣️ Spray Responsibly](certification-prep/cpts/active-directory-enumeration-and-attacks/spray-responsibly/README.md)
       * [🐇 Deeper Down the Rabbit Hole](certification-prep/cpts/active-directory-enumeration-and-attacks/spray-responsibly/deeper-down-the-rabbit-hole.md)
     * [🐕‍🦺 Kerberoasting](certification-prep/cpts/active-directory-enumeration-and-attacks/kerberoasting.md)
-* [☁️ CRTP](certification-prep/crtp.md)
+* [🔴 CRTP](certification-prep/crtp/README.md)
+  * [🌭 List users, computers, domain, and enterprise admins](certification-prep/crtp/list-users-computers-domain-and-enterprise-admins.md)
+  * [😸 List OUs,Computers in OU, GPOs](certification-prep/crtp/list-ous-computers-in-ou-gpos.md)
+  * [📼 Enum ACLs](certification-prep/crtp/enum-acls.md)
+  * [🌲 Enum Domain in forest, map & identify trusts, external trusts](certification-prep/crtp/enum-domain-in-forest-map-and-identify-trusts-external-trusts.md)
 * [🕷️ CBBH](certification-prep/cbbh.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
