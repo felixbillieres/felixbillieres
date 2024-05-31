@@ -212,6 +212,7 @@
       * [🛸 SUID](red-team/technical-knowledge/privilege-escalation/linux/suid.md)
       * [⌛ Cron & Timers](red-team/technical-knowledge/privilege-escalation/linux/cron-and-timers.md)
       * [👩‍🏫 NFS Root Squashing](red-team/technical-knowledge/privilege-escalation/linux/nfs-root-squashing.md)
+      * [💀 Sudo Killer](red-team/technical-knowledge/privilege-escalation/linux/sudo-killer.md)
     * [👨‍🌾 Windows](red-team/technical-knowledge/privilege-escalation/windows/README.md)
       * [☑️ Checklist](red-team/technical-knowledge/privilege-escalation/windows/checklist.md)
       * [📻 Initial Enumeration](red-team/technical-knowledge/privilege-escalation/windows/initial-enumeration.md)
