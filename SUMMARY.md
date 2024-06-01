@@ -85,6 +85,7 @@
   * [😸 List OUs,Computers in OU, GPOs](certification-prep/crtp/list-ous-computers-in-ou-gpos.md)
   * [📼 Enum ACLs](certification-prep/crtp/enum-acls.md)
   * [🌲 Enum Domain in forest, map & identify trusts, external trusts](certification-prep/crtp/enum-domain-in-forest-map-and-identify-trusts-external-trusts.md)
+  * [🆙 Elevate Privileges](certification-prep/crtp/elevate-privileges.md)
 * [🕷️ CBBH](certification-prep/cbbh.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 

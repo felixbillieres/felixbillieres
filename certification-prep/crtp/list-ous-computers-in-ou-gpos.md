@@ -42,7 +42,7 @@ If for some reason we needed to list the GPOs on the StudenMachines OU, we would
 (Get-DomainOU -Identity StudentMachines).gplink
 ```
 
-<figure><img src="../../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (13) (1).png" alt=""><figcaption></figcaption></figure>
 
 Then we can use this information for the following command ->
 
@@ -50,7 +50,7 @@ Then we can use this information for the following command ->
 Get-DomainGPO -Identity '{7478F170-6A0C-490C-B355-9E4618BC785D}'
 ```
 
-<figure><img src="../../.gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (14) (1).png" alt=""><figcaption></figcaption></figure>
 
 Since the length for the GUIDs are static, we can do those 2 commands and become a one-liner master just like this ->
 
@@ -58,4 +58,4 @@ Since the length for the GUIDs are static, we can do those 2 commands and become
 Get-DomainGPO -Identity (Get-DomainOU -Identity StudentMachines).gplink.substring(11,(Get-DomainOU -Identity StudentMachines).gplink.length-72)
 ```
 
-<figure><img src="../../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (15) (1).png" alt=""><figcaption></figcaption></figure>
