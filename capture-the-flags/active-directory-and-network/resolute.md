@@ -98,7 +98,7 @@ What we also need to do is enumerate SMB as an authd user ->
 smbmap -d megabank.local -u melanie -p 'Welcome123!' -H 10.129.218.158
 ```
 
-<figure><img src="../../.gitbook/assets/image (10) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Now we enumerate the session, we don't find anything in the home dir so we ho at root and run ls -force
 
@@ -113,11 +113,11 @@ The command `ls -force` as written appears to be a mix of Unix/Linux and PowerSh
 
 We find the interesting file:
 
-<figure><img src="../../.gitbook/assets/image (11) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (11) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We continue our rabbit hole ->
 
-<figure><img src="../../.gitbook/assets/image (12) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>PowerShell_transcript.RESOLUTE.OJuoBGhU.20191203063201.txt</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (12) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>PowerShell_transcript.RESOLUTE.OJuoBGhU.20191203063201.txt</p></figcaption></figure>
 
 We look at the content of the file and we can see the creds for the ryan user:
 

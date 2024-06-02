@@ -4,7 +4,7 @@ description: https://tryhackme.com/r/room/volatility
 
 # 🏐 Volatility
 
-<figure><img src="../../../../.gitbook/assets/image (11) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (11) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Five different plugins within Volatility allow you to dump processes and network connections:
 
@@ -49,7 +49,7 @@ _**What process can be considered suspicious in Case 001?**_
 python3 vol.py -f /Scenarios/Investigations/Investigation- 1.vmem windows.psscan
 ```
 
-<figure><img src="../../../../.gitbook/assets/image (12) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (12) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 _**What is the parent process of the suspicious process in Case 001?**_
 
