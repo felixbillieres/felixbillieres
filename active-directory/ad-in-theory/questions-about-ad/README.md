@@ -1207,3 +1207,9 @@ TGTs are encrypted with the key of the `krbtgt` account of the domain, known as 
 #### How are tickets issued?
 
 <figure><img src="../../../.gitbook/assets/image (16) (1).png" alt=""><figcaption></figcaption></figure>
+
+#### What are some kerberos services related to kerberos on port 88 and 464
+
+The DC listens Kerberos in the port 88/TCP and 88/UDP.
+
+Another service called kpasswd can be found in the port 464/TCP and 464/UDP of the DCs.
