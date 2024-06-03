@@ -4,6 +4,10 @@ description: À apprendre par cœur
 
 # ⛈️ Questions about AD
 
+{% hint style="info" %}
+All this documentation was made possible thanks to this Website that goes way deeper in everything listed below, i tried to make it shorter and question-based but for the technical guys here you can go and check out : [https://zer1t0.gitlab.io/posts/attacking\_ad/](https://zer1t0.gitlab.io/posts/attacking\_ad/)
+{% endhint %}
+
 ### Game Plan, 4 week AD rush
 
 Week 1: Understanding the Basics
@@ -563,7 +567,7 @@ In Active Directory, a **principal is a security entity**. The most common **pri
 
 The distinguished name is like a path that indicates the object position in the database hierarchy
 
-It's used to identify objects in the db and reference objects (ex. the members of a group are referenced by its `DistinguishedName`.)
+It's used to identify objects in the db and reference objects (ex. the members of a group are referenced by its `DistinguishedName`.
 
 It's composed by:
 
@@ -1255,4 +1259,70 @@ We could use tools such as [impacket GetNPUsers.py](https://github.com/SecureAut
 
 <figure><img src="../../../.gitbook/assets/image (1077).png" alt=""><figcaption></figcaption></figure>
 
-**What is Pass the Key/Over Pass the Hash?**
+**Explain Pass the Key/Over Pass the Hash.**
+
+{% embed url="https://book.hacktricks.xyz/windows-hardening/active-directory-methodology/over-pass-the-hash-pass-the-key" %}
+
+To request a TGT we don't need a password but a Kerberos key, if we can steal a key we can request a TGT as the user.
+
+On windows the Kerberos keys are cached in the lsass process, and them can be retrieved by using the [mimikatz sekurlsa::ekeys](https://github.com/gentilkiwi/mimikatz/wiki/module-\~-sekurlsa#ekeys) command. Also you can [dump the lsass process](https://www.c0d3xpl0it.com/2016/04/extracting-clear-text-passwords-using-procdump-and-mimikatz.html) with tools like [procdump](https://docs.microsoft.com/en-us/sysinternals/downloads/procdump), [sqldumper or others](https://lolbas-project.github.io/#/dump), and extract the keys offline with mimikatz.
+
+On Linux, the Kerberos keys are stored in [keytab](https://web.mit.edu/kerberos/krb5-devel/doc/basic/keytab\_def.html) files. The keytab file can be usually found in `/etc/krb5.keytab`, or in the value specified by the environment variables `KRB5_KTNAME` or `KRB5_CLIENT_KTNAME`, or specified in the [Kerberos configuration file](https://web.mit.edu/kerberos/krb5-1.12/doc/admin/conf\_files/krb5\_conf.html) in `/etc/krb5.conf`.
+
+When the keytab is located, we can copy and/or list its keys with [klist](https://web.mit.edu/kerberos/krb5-1.12/doc/user/user\_commands/klist.html) or [cerbero](https://gitlab.com/Zer1t0/cerbero/#list)
+
+With the keys, we can request a TGT (With windows) in Windows by using [Rubeus asktgt](https://github.com/GhostPack/Rubeus#asktgt)
+
+Or (on linux) using the key directly with the [impacket getTGT.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/getTGT.py) script or [cerbero ask](https://gitlab.com/Zer1t0/cerbero#ask) command
+
+The Kerberos tickets have two formats: **ccache and krb**. The ccache is the one used by Linux and krb format is used in Windows. We can convert tickets to one format to another by using the [ticket\_converter.py](https://github.com/Zer1t0/ticket\_converter) script or [cerbero convert](https://gitlab.com/Zer1t0/cerbero#convert)
+
+#### What is **Pass the Ticket?**
+
+The Pass the Ticket technique consists on steal a ticket and the associated session key and use them to impersonate the user in order to access to resources or services.
+
+**What are Golden/Silver tickets?**
+
+In Active Directory, the Kerberos TGTs are encrypted with the `krbtgt` account keys. In case of knowing the keys, custom TGTs, known as [Golden Tickets](https://en.hackndo.com/kerberos-silver-golden-tickets/#golden-ticket), can be created.
+
+To get the `krbtgt` keys, you need to access to the Active Directory database. You can do this by performing a remote [dcsync attack](https://adsecurity.org/?p=1729), with [mimikatz lsadump::dsync](https://github.com/gentilkiwi/mimikatz/wiki/module-\~-lsadump#dcsync) command or the [impacket secretsdump.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/secretsdump.py) script, or by [dumping the NTDS.dit file](https://www.ired.team/offensive-security/credential-access-and-credential-dumping/ntds.dit-enumeration#no-credentials-ntdsutil) locally with [ntdsutil](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc753343\(v=ws.11\)) or [vssadmin](https://docs.microsoft.com/en-gb/windows-server/administration/windows-commands/vssadmin).
+
+{% embed url="https://felix-billieres.gitbook.io/felix-billieres/active-directory/attacking-vectors/methodology/compromised-the-domain-now-what/golden-ticket-attacks" %}
+
+#### How does kerberos work with services accross domains?
+
+A KDC (DC) only can issue STs for the services in its domain. So accros domains we have to ask for a ST to the external domain DC, and for that we require a TGT for that server. The TGT for an external KDC, known as **inter-realm TGT,** is issued by our KDC when we ask for a ST for a service in another domain.
+
+here is the schema:
+
+```
+  KDC foo.com                                                    KDC bar.com
+    .---.                                                          .---.
+   /   /|                       .---4) TGS-REQ (TGT bar)------->  /   /|
+  .---. |                       |    + SPN: HTTP\srvbar          .---. |
+  |   | '                       |    + TGT client > bar.com      |   | '
+  |   |/                        |                                |   |/ 
+  '---'                         |   .--5) TGS-REP--------------< '---'
+  v  ^                          |   | + ST client > HTTP/srvbar
+  |  |                          |   |
+  |  |                          ^   v                                   .---.
+  |  '-2) TGS-REQ (TGT foo)--<  _____                                  /   /|
+  |   + SPN: HTTP\srvbar       |     | <----------1) SPNEGO---------> .---. |
+  |   + TGT client > foo.com   |_____|                                |   | '
+  |                            /:::::/ >----6) AP-REQ---------------> |   |/
+  '--3) TGS-REP--------------> client     + ST client > HTTP/srvbar   '---'  
+    + TGT client > bar.com    (foo.com)                               srvbar
+                                                                    (bar.com)
+```
+
+**Can you tell me more about Inter-realm TGTs?**
+
+{% embed url="https://book.hacktricks.xyz/windows-hardening/active-directory-methodology#forest-privilege-escalation-domain-trusts" %}
+
+This TGT is exactly like a normal one, except that it is encrypted with the inter-realm trust key, which is a secret key that allows to both sides of a trust to comunicate between them.
+
+You can get the inter-realm trust key, you just need [to dump the domain database](https://zer1t0.gitlab.io/posts/attacking\_ad/#domain-database-dumping).
+
+Finally, once you get the trust key, to [create a inter-realm ticket](https://adsecurity.org/?p=1588), you can use the [mimikatz kerberos::golden](https://github.com/gentilkiwi/mimikatz/wiki/module-\~-kerberos#golden--silver) command or the [impacket ticketer.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/ticketer.py) script. Then you can use it as any ticket.
+
+**Kerberos Delegation**
