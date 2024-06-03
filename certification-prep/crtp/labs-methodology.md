@@ -627,6 +627,14 @@ Find-DomainUserLocation
 
 ![](https://i.imgur.com/mgNGQFW.png)
 
+{% embed url="https://pswalia2u.medium.com/ad-enumeration-b2303ba8671c" %}
+Find-DomainUserLocation help
+{% endembed %}
+
+{% hint style="info" %}
+&#x20;Find-DomainUserLocation is designed to find computers where a user, typically a domain admin, has an active session and has local administrative access via PowerShell Remoting. This is useful for determining where administrative privileges can be utilized over the network.
+{% endhint %}
+
 * Great! There is a domain admin session on dcorp-mgmt server
 
 > **Note** -: If you don't get result within 4 minutes hit the **Enter** key on your keyboard twice you should see output, hence, keep waiting till something comes up

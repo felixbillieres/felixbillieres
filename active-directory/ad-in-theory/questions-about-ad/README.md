@@ -1212,4 +1212,47 @@ TGTs are encrypted with the key of the `krbtgt` account of the domain, known as 
 
 The DC listens Kerberos in the port 88/TCP and 88/UDP.
 
-Another service called kpasswd can be found in the port 464/TCP and 464/UDP of the DCs.
+Another service called kpasswd can be found in the port 464/TCP and 464/UDP of the DCs that allows to change the password of the users in the domain
+
+#### What happens to the Kerberos keys when you change your password?
+
+By changing the password, the user changes the Kerberos keys used for encrypting the Kerberos messages and tickets.
+
+#### Basic Attacks
+
+{% embed url="https://gist.github.com/TarlogicSecurity/2f221924fef8c14a1d8e29f3cb5c5c4a" fullWidth="true" %}
+
+#### What are some Kerberos erros related to Brute Force?
+
+* KDC\_ERR\_PREAUTH\_FAILED: Incorrect password
+* KDC\_ERR\_C\_PRINCIPAL\_UNKNOWN: Invalid username
+* KDC\_ERR\_WRONG\_REALM: Invalid domain
+* KDC\_ERR\_CLIENT\_REVOKED: Disabled/Blocked user
+
+#### What are some tools used for kerberos bruteforce?
+
+[Rubeus brute](https://github.com/GhostPack/Rubeus#brute), [kerbrute (Go)](https://github.com/ropnop/kerbrute), [kerbrute (Python)](https://github.com/TarlogicSecurity/kerbrute) or [cerbero](https://github.com/Zer1t0/cerbero#brute)
+
+#### What is kerberoasting?
+
+{% embed url="https://felix-billieres.gitbook.io/felix-billieres/certification-prep/cpts/active-directory-enumeration-and-attacks/kerberoasting" %}
+
+<figure><img src="../../../.gitbook/assets/image (1075).png" alt=""><figcaption></figcaption></figure>
+
+Most services are registered in machine accounts, which have auto-generated passwords of [120 characters that changes every month](https://adsecurity.org/?p=280) so cracking = impossible. But some services are assigned to regular user so the ST is encrypted with their personal password that is (normally) not 120 chars, so, far more crackable
+
+The [Kerberoast attack](https://en.hackndo.com/kerberoasting/) consist on requests STs for the services of regular user accounts and try to crack them to get the user passwords. Usually, the users that have services also have privileges, so these are juicy accounts.
+
+For this attack we can use [impacket GetUserSPNs.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetUserSPNs.py) script, the [Rubeus kerberoast](https://github.com/GhostPack/Rubeus#kerberoast) command, or the [Invoke-Kerberoast.ps1](https://github.com/EmpireProject/Empire/blob/master/data/module\_source/credentials/Invoke-Kerberoast.ps1) script
+
+**What is ASREProasting?**
+
+Asreproasting tool from the goat: [https://github.com/Yaxxine7/ASRepCatcher/](https://github.com/Yaxxine7/ASRepCatcher/)
+
+When Kerberos pre-authentication is disabled, anyone can impersonate those accounts by sending a AS-REQ message, and an [AS-REP response](https://tools.ietf.org/html/rfc4120#section-5.4.2) will be returned from the KDC
+
+We could use tools such as [impacket GetNPUsers.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetNPUsers.py) script, the [Rubeus asreproast](https://github.com/GhostPack/Rubeus#asreproast) command or the [ASREPRoast.ps1](https://github.com/HarmJ0y/ASREPRoast) script then crack the hash locally
+
+<figure><img src="../../../.gitbook/assets/image (1077).png" alt=""><figcaption></figcaption></figure>
+
+**What is Pass the Key/Over Pass the Hash?**
