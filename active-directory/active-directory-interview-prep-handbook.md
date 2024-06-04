@@ -5,12 +5,16 @@ description: À apprendre par cœur
 # 🧠 Active Directory: Interview Prep Handbook
 
 {% hint style="info" %}
-All this documentation was made possible thanks to this Website that goes way deeper in everything listed below, i tried to make it shorter and question-based but for the technical guys here you can go and check out : [https://zer1t0.gitlab.io/posts/attacking\_ad/](https://zer1t0.gitlab.io/posts/attacking\_ad/)
+All this documentation was made possible thanks to this Website that goes way deeper in everything listed below, I tried to make it shorter and question-based but for the technical guys here you can go and check out : [https://zer1t0.gitlab.io/posts/attacking\_ad/](https://zer1t0.gitlab.io/posts/attacking\_ad/)
+{% endhint %}
+
+{% hint style="warning" %}
+Disclaimer: English is not my native language, so there may be grammar mistakes in this document. Additionally, as I'm not a cybersecurity professional, there might be technical inaccuracies present. If you notice any mistakes or have suggestions for improvement, please don't hesitate to reach out. I'm committed to promptly fixing any errors to enhance the quality of the document.
 {% endhint %}
 
 ### Game Plan, 4 week AD rush
 
-Week 1: Understanding the Basics
+**Week 1: Understanding the Basics**
 
 * Milestone 1 (End of Week 1):
   * Have a general understanding of the following sections:
@@ -23,7 +27,7 @@ Week 1: Understanding the Basics
     * Authorization
   * Be able to explain the basic concepts of each section.
 
-Week 2: Deepening Knowledge
+**Week 2: Deepening Knowledge**
 
 * Milestone 2 (End of Week 2):
   * Have a detailed understanding of the following sections:
@@ -36,7 +40,7 @@ Week 2: Deepening Knowledge
     * ACLs
   * Be able to describe the processes and mechanisms involved in each section.
 
-Week 3: Mastering Advanced Concepts
+**Week 3: Mastering Advanced Concepts**
 
 * Milestone 3 (End of Week 3):
   * Have mastery over the following sections:
@@ -48,14 +52,14 @@ Week 3: Mastering Advanced Concepts
     * SSH tunneling
   * Be able to explain advanced concepts and apply them to specific scenarios.
 
-Week 4: Review and Consolidation
+**Week 4: Review and Consolidation**
 
 * Milestone 4 (End of Week 4):
   * Review all articles and sections to consolidate knowledge.
   * Practice exercises or simulations to test your understanding.
   * Be capable of explaining each article in detail and answering specific questions on each topic.
 
-<figure><img src="../.gitbook/assets/image (35).png" alt=""><figcaption><p>Stay Hard</p></figcaption></figure>
+***
 
 **What is an Active Directory?**
 
