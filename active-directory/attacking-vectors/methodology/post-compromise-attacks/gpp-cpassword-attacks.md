@@ -14,8 +14,8 @@ It was patched a long time ago but it's still good to try because if the older f
 
 Nice CTF on the subject :
 
-{% content-ref url="../../../../capture-the-flags/active-directory-and-network/active.md" %}
-[active.md](../../../../capture-the-flags/active-directory-and-network/active.md)
+{% content-ref url="../../../../capture-the-flags/active-directory-and-networks/active.md" %}
+[active.md](../../../../capture-the-flags/active-directory-and-networks/active.md)
 {% endcontent-ref %}
 
 We can also use metasploit:

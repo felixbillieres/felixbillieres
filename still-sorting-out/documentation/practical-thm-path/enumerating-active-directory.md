@@ -4,7 +4,7 @@ description: https://tryhackme.com/r/room/adenumeration
 
 # 🧑‍🍳 Enumerating Active Directory
 
-<figure><img src="../../.gitbook/assets/image (793).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (793).png" alt=""><figcaption></figcaption></figure>
 
 Found AD credentials but nowhere to log in with them? Runas is the tool.
 
@@ -29,4 +29,4 @@ When we provide the **hostname**, network authentication will attempt first to p
 
 Now that we have injected our AD credentials into memory, with the /**netonly** option, all network communication will use these injected credentials for authentication. This includes all network communications of applications executed from that command prompt window.
 
-<figure><img src="../../.gitbook/assets/image (794).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (794).png" alt=""><figcaption></figcaption></figure>

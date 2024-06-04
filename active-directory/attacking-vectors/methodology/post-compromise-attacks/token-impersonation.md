@@ -71,6 +71,6 @@ It would look something like this:
 
 Example in this box:
 
-{% content-ref url="../../../../capture-the-flags/active-directory-and-network/sauna.md" %}
-[sauna.md](../../../../capture-the-flags/active-directory-and-network/sauna.md)
+{% content-ref url="../../../../capture-the-flags/active-directory-and-networks/sauna.md" %}
+[sauna.md](../../../../capture-the-flags/active-directory-and-networks/sauna.md)
 {% endcontent-ref %}

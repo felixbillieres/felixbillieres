@@ -1,2 +1,0 @@
-# 🔬 AD in theory
-

@@ -2,7 +2,7 @@
 description: À apprendre par cœur
 ---
 
-# ⛈️ Questions about AD
+# 🧠 Active Directory: Interview Prep Handbook
 
 {% hint style="info" %}
 All this documentation was made possible thanks to this Website that goes way deeper in everything listed below, i tried to make it shorter and question-based but for the technical guys here you can go and check out : [https://zer1t0.gitlab.io/posts/attacking\_ad/](https://zer1t0.gitlab.io/posts/attacking\_ad/)
@@ -55,9 +55,9 @@ Week 4: Review and Consolidation
   * Practice exercises or simulations to test your understanding.
   * Be capable of explaining each article in detail and answering specific questions on each topic.
 
-<figure><img src="../../../.gitbook/assets/image (35).png" alt=""><figcaption><p>Stay Hard</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (35).png" alt=""><figcaption><p>Stay Hard</p></figcaption></figure>
 
-**What is an AD?**
+**What is an Active Directory?**
 
 * It's a system that allows to manage a set of Computers & Users connected in the same network from a central server&#x20;
 
@@ -80,7 +80,7 @@ $env:USERDNSDOMAIN
 
 **What is a NetBIOS name?**
 
-* facilitates communication between computers on a local area network (LAN). Every domain can have it's NetBIOS name. In the logs, you can identify users with `CONTOSO\Administrator`, where the first part is the NetBIOS name and the second one is the username.
+* It facilitates communication between computers on a local area network (LAN). Every domain can have it's NetBIOS name. In the logs, you can identify users with `CONTOSO\Administrator`, where the first part is the NetBIOS name and the second one is the username.
 
 **What is a Forest?**
 
@@ -416,8 +416,8 @@ dc01
 
 * From a Linux machine you can use [evil-winrm](https://github.com/Hackplayers/evil-winrm).
 
-{% content-ref url="../../../interacting-with-protocols-and-tools/tools/winrm.md" %}
-[winrm.md](../../../interacting-with-protocols-and-tools/tools/winrm.md)
+{% content-ref url="../interacting-with-protocols-and-tools/tools/winrm.md" %}
+[winrm.md](../interacting-with-protocols-and-tools/tools/winrm.md)
 {% endcontent-ref %}
 
 #### How to connect with RDP
@@ -429,7 +429,7 @@ dc01
     * From Linux, you can [use freerdp to perform a Pass-The-Hash with RDP](https://www.kali.org/blog/passing-hash-remote-desktop/)
     * And from Windows you can [inject a NT hash or Kerberos ticket with mimikatz or Rubeus and then use `mstsc.exe /restrictedadmin`](https://shellz.club/pass-the-hash-with-rdp-in-2019/)
 
-<figure><img src="../../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>Restricted admin enabled</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>Restricted admin enabled</p></figcaption></figure>
 
 #### **Windows computers credentials**
 
@@ -507,7 +507,7 @@ $ ssh -i id_ed25519_foo_key foo@db.contoso.local
 
 A windows or linux machine service could be understood as a background process running like a task (ex: database) but it is not obliged for a service to be listening on a port:
 
-<figure><img src="../../../.gitbook/assets/image (20).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (20).png" alt=""><figcaption></figcaption></figure>
 
 it could simply be a service that for example checks for updates on the system
 
@@ -530,7 +530,7 @@ We know that there is the [User class](https://docs.microsoft.com/en-us/windows/
 
 But a class can have a **subclasse** that allows to inherit propreties. For example, the Computer class is a subclass of User class, therefore the computer objects can have the same properties of the user objects ,like `SAMAccountName`, and some new custom properties,
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 All the classes are subclasses of the [Top](https://docs.microsoft.com/en-us/windows/win32/adschema/c-top) class & many of the most relevant classes when performing a pentest, like User and Group, are attached to [Security-Principal](https://docs.microsoft.com/en-us/windows/win32/adschema/c-securityprincipal) auxiliary class, the class that defines the `SAMAccountName` and `SID` properties.
 
@@ -766,7 +766,7 @@ With the `www.contoso.com` IP address, the DNS server needs to communicate with 
 
 **Explain DNS exfiltration:**
 
-<figure><img src="../../../.gitbook/assets/image (1040).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1040).png" alt=""><figcaption></figcaption></figure>
 
 Let's say we have a server that is isolated and has no internet access, but it can perform DNS queries. If the local DNS performs requests to other DNS servers on the internet, it can be abused: let's say i have the DNS server `malicious.com` , every query made to be or other subdomains will reach my server. An attacker could query a subdomain like `felix.malicious.com` and technically, the query should go through the parent domain, thus, retrivieng informations. (attacker can use a tool like [iodine](https://github.com/yarrick/iodine) or [dnscat2](https://github.com/iagox86/dnscat2))
 
@@ -774,7 +774,7 @@ Let's say we have a server that is isolated and has no internet access, but it c
 
 We know that zone transfer replicates all DNS server records. If misconfigured, anyone could perform zone transfers
 
-<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 If just one DC allows to perform the zone transfer whereas the rest of DCs refuse the zone transfer, the misconfigured DCcould lead to anyone being able to perform zone transfers, thus recolecting all the DNS information without require any credentials.
 
@@ -823,8 +823,8 @@ So in order to resolve a NetBIOS name we can query using the WINS server or If t
 
 #### What is LLMNR?
 
-{% content-ref url="../../attacking-vectors/methodology/initial-attack-vectors/llmnr-poisoning.md" %}
-[llmnr-poisoning.md](../../attacking-vectors/methodology/initial-attack-vectors/llmnr-poisoning.md)
+{% content-ref url="attacking-vectors/methodology/initial-attack-vectors/llmnr-poisoning.md" %}
+[llmnr-poisoning.md](attacking-vectors/methodology/initial-attack-vectors/llmnr-poisoning.md)
 {% endcontent-ref %}
 
 LLMNR is a descentralized application protocol that allows to resolve hostnames in the same local network. A common vuln with LLMNR is it is used to resolve names in local link by sending A DNS querie that anyone could repond to, responder.py also abuses this feature
@@ -837,7 +837,7 @@ LLMNR is a descentralized application protocol that allows to resolve hostnames 
 
 The [WPAD](https://en.wikipedia.org/wiki/Web\_Proxy\_Auto-Discovery\_Protocol) (Web Proxy Auto-Discovery) is a protocol for browsers to get dynamically a file that indicates the proxies they should use.
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 **What is the difference between those protocols?**
 
@@ -1078,8 +1078,8 @@ We also need to remember that in active directory, authentication works by verif
 
 Since NTLM calculates the NTLM hash and the session key based on the NT hash, we can use this hash to athenticate and impersonate the user even without cleartext password
 
-{% content-ref url="../../attacking-vectors/methodology/post-compromise-attacks/pass-the-hash.md" %}
-[pass-the-hash.md](../../attacking-vectors/methodology/post-compromise-attacks/pass-the-hash.md)
+{% content-ref url="attacking-vectors/methodology/post-compromise-attacks/pass-the-hash.md" %}
+[pass-the-hash.md](attacking-vectors/methodology/post-compromise-attacks/pass-the-hash.md)
 {% endcontent-ref %}
 
 On a linux host we could use impacket that accepts the hashes as parameter:
@@ -1148,7 +1148,7 @@ You can find some examples here&#x20;
 
 Then we could crack the hash using hashcat and the mode 5600
 
-<figure><img src="../../../.gitbook/assets/image (1054).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1054).png" alt=""><figcaption></figcaption></figure>
 
 {% embed url="https://felix-billieres.gitbook.io/felix-billieres/certification-prep/cpts/active-directory-enumeration-and-attacks/sniffing-out-a-foothold#using-responder" %}
 you can also find examples of hash cracking here
@@ -1210,7 +1210,7 @@ TGTs are encrypted with the key of the `krbtgt` account of the domain, known as 
 
 #### How are tickets issued?
 
-<figure><img src="../../../.gitbook/assets/image (16) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (16) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### What are some kerberos services related to kerberos on port 88 and 464
 
@@ -1241,7 +1241,7 @@ By changing the password, the user changes the Kerberos keys used for encrypting
 
 {% embed url="https://felix-billieres.gitbook.io/felix-billieres/certification-prep/cpts/active-directory-enumeration-and-attacks/kerberoasting" %}
 
-<figure><img src="../../../.gitbook/assets/image (1075).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1075).png" alt=""><figcaption></figcaption></figure>
 
 Most services are registered in machine accounts, which have auto-generated passwords of [120 characters that changes every month](https://adsecurity.org/?p=280) so cracking = impossible. But some services are assigned to regular user so the ST is encrypted with their personal password that is (normally) not 120 chars, so, far more crackable
 
@@ -1257,7 +1257,7 @@ When Kerberos pre-authentication is disabled, anyone can impersonate those accou
 
 We could use tools such as [impacket GetNPUsers.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/GetNPUsers.py) script, the [Rubeus asreproast](https://github.com/GhostPack/Rubeus#asreproast) command or the [ASREPRoast.ps1](https://github.com/HarmJ0y/ASREPRoast) script then crack the hash locally
 
-<figure><img src="../../../.gitbook/assets/image (1077).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1077).png" alt=""><figcaption></figcaption></figure>
 
 **Explain Pass the Key/Over Pass the Hash.**
 
@@ -1331,7 +1331,7 @@ Finally, once you get the trust key, to [create a inter-realm ticket](https://ad
 
 Let's say we are a user on a website. When we make a request the webserver goes and fetch the document we're looking for but how does it know what we own on the file server. The delegation will make it possible for the web server to "impersonate" the user and athenticate as the user to go and fetch the ressources. The file server will think that it's the user that directly made the request:
 
-<figure><img src="../../../.gitbook/assets/image (1078).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1078).png" alt=""><figcaption></figcaption></figure>
 
 #### What's the difference between Contstrained and **Unconstrained Delegation?**
 
@@ -1407,8 +1407,8 @@ From a pentester POV it's an interesting protocol since shares can contain valua
 
 Shares are like folders that a machine shares in order to be accessed by other computers/users in the network.
 
-{% content-ref url="../../../interacting-with-protocols-and-tools/protocols/smb.md" %}
-[smb.md](../../../interacting-with-protocols-and-tools/protocols/smb.md)
+{% content-ref url="../interacting-with-protocols-and-tools/protocols/smb.md" %}
+[smb.md](../interacting-with-protocols-and-tools/protocols/smb.md)
 {% endcontent-ref %}
 
 #### What do you know about HTTP in an active directory context?
@@ -1429,8 +1429,8 @@ Windows Remote Management (WinRM) is a protocol used for remote management of Wi
 
 WinRM enables administrators to perform remote management tasks, such as running scripts, accessing event logs, and managing services on remote systems within an AD domain.
 
-{% content-ref url="../../../interacting-with-protocols-and-tools/tools/winrm.md" %}
-[winrm.md](../../../interacting-with-protocols-and-tools/tools/winrm.md)
+{% content-ref url="../interacting-with-protocols-and-tools/tools/winrm.md" %}
+[winrm.md](../interacting-with-protocols-and-tools/tools/winrm.md)
 {% endcontent-ref %}
 
 #### What can you say about SSH?
@@ -1451,4 +1451,4 @@ Dynamic Port Forwarding
 
 * The goal of Dynamic port forwarding is to Create a SOCKS proxy that routes multiple connections through an SSH tunnel. The goal is to securely tunnel traffic from various applications through a single SSH connection. Imagine You want to route your web traffic through an SSH server to browse securely. After executing the command, configuring your web browser to use `localhost:8080` as a SOCKS proxy will route its traffic through the SSH server.
 
-<figure><img src="../../../.gitbook/assets/image (1079).png" alt=""><figcaption><p>For now, it is all. More will be added soon after OSCP, stay tuned.</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1079).png" alt=""><figcaption><p>For now, it is all. More will be added soon after OSCP, stay tuned.</p></figcaption></figure>
