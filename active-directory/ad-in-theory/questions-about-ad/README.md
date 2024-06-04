@@ -1354,3 +1354,101 @@ In order to logon users, both locally and remotely, Windows defines different ty
 5. **NetworkCleartext Logon**: A NetworkCleartext logon is a type of logon that occurs when a system or device connects to a network using a username and password in plain text. This type of logon is considered insecure as it transmits sensitive information, such as passwords, in an unencrypted format.
 6. **NewCredentials Logon**: A NewCredentials logon is a type of logon that occurs when a user logs on to a system or network using a new set of credentials, such as a new username and password. This type of logon is often used for authentication and authorization purposes, such as when a user changes their password or when a new user is added to a system.
 7. **RemoteInteractive Logon**: A RemoteInteractive logon is a type of logon that occurs when a user logs on to a system or network remotely using a username and password, often through a remote desktop protocol (RDP) or virtual private network (VPN). This type of logon allows the user to interact with the system as if they were physically present at the system.
+
+### Authorization <a href="#authorization" id="authorization"></a>
+
+We are now athenticated on the domain. Now technically the domain, service or programs must be aware of our permissions and can decide thanks to those if we can have access to certain objects ->
+
+#### What are security descriptors?
+
+Security descriptors are associated to each object in the Active Directory. It's checked when we have to verify if a user has access to a certain object of the Active Directory. It is stored in a [binary format](https://www.gabescode.com/active-directory/2019/07/25/nt-security-descriptors.html), but it can also be translated to a [Security Descriptor String Format](https://docs.microsoft.com/en-us/windows/win32/secauthz/security-descriptor-string-format).
+
+#### What is the difference between ACLs and ACEs?
+
+{% embed url="https://book.hacktricks.xyz/v/fr/windows-hardening/windows-local-privilege-escalation/acls-dacls-sacls-aces" %}
+
+* **ACLs (Access Control Lists)**: These are lists that specify the permissions granted or denied to different users and groups for a particular object. They define who can access the object and what actions they can perform.
+* **ACEs (Access Control Entries)**: These are individual entries within an ACL. Each ACE defines the permissions for a specific user or group. Multiple ACEs make up the ACL for an object.
+
+ACLs provide the overall permission structure for an object, and ACEs define the specific permissions for each user or group within that structure.
+
+#### Privileges <a href="#privileges" id="privileges"></a>
+
+#### What are some dangers of misconfigured privileges?
+
+In AD, [some privileges can be also abused](https://adsecurity.org/?p=3700) and lead to malicious actions like the **SeBackupPrivilege that** allows to read any file of a domain controller, in order to backup it, which could be used to read the domain database.
+
+**SeDebugPrivilege** which allows to debug any process in the machine, so we could inject code in any process, which could lead to privilege escalation or **SeRestorePrivilege** that allows to write any file on the domain controller from a backup. This could allow an attacker to modify the database of the domain.
+
+Here is an interesting article with POCs about privilege abuse: [https://github.com/hatRiot/token-priv/blob/master/abusing\_token\_eop\_1.0.txt](https://github.com/hatRiot/token-priv/blob/master/abusing\_token\_eop\_1.0.txt)
+
+### Group Policy <a href="#group-policy" id="group-policy"></a>
+
+#### What are Group policies?
+
+The [Group Policy](https://adsecurity.org/?p=2716) is a mechanism that allows to apply a set of rules/actions to the Active Directory network users and computers. In order to define the rules, you can create Group Policy Objects (GPOs). Each GPO defines a series of policies that can be applied to specific machines of the domains.
+
+#### What are some actions you can make through Group policies?
+
+* Disable NTLM
+* Require password complexity
+* Execute an scheduled or immediate task
+* Create local users in computers
+* Set a default wallpaper
+* Synchronize files with OneDrive
+
+### Communication Protocols <a href="#communication-protocols" id="communication-protocols"></a>
+
+#### What do you know about SMB?
+
+[SMB](https://en.wikipedia.org/wiki/Server\_Message\_Block#SMB\_/\_CIFS\_/\_SMB1) (Server Message Block) is a protocol used to share files and communicate between machines on  **port 445**
+
+From a pentester POV it's an interesting protocol since shares can contain valuable informations.
+
+Shares are like folders that a machine shares in order to be accessed by other computers/users in the network.
+
+{% content-ref url="../../../interacting-with-protocols-and-tools/protocols/smb.md" %}
+[smb.md](../../../interacting-with-protocols-and-tools/protocols/smb.md)
+{% endcontent-ref %}
+
+#### What do you know about HTTP in an active directory context?
+
+HTTP is the protocol of the web.&#x20;
+
+It is used as transport protocol by many other application protocols that are present in a Active Directory domain like [WinRM](https://zer1t0.gitlab.io/posts/attacking\_ad/#winrm) (and thus [Powershell Remoting](https://zer1t0.gitlab.io/posts/attacking\_ad/#powershell-remoting)), [RPC](https://zer1t0.gitlab.io/posts/attacking\_ad/#rpc) or [ADWS](https://zer1t0.gitlab.io/posts/attacking\_ad/#adws) (Active Directory Web Services).
+
+HTTP supports authentication with both NTLM and Kerberos. This is important from a security perspective since it implies that HTTP connections are susceptible of suffering from Kerberos Delegation or [NTLM Relay](https://en.hackndo.com/ntlm-relay/#what-can-be-relayed) attacks.
+
+#### What can you say about RPC?
+
+Remote Procedure Call (RPC) is a protocol used in Active Directory (AD) for communication between client and server systems, as well as between different services within the AD infrastructure. RPC allows a program on one computer to execute code on a remote system, facilitating various functions and services essential to AD operations.
+
+#### What can you say about WinRM
+
+Windows Remote Management (WinRM) is a protocol used for remote management of Windows-based systems, including those within an Active Directory (AD) environment. WinRM is based on the Web Services-Management (WS-Man) protocol, which provides a standard way for systems to interact with each other over a network.
+
+WinRM enables administrators to perform remote management tasks, such as running scripts, accessing event logs, and managing services on remote systems within an AD domain.
+
+{% content-ref url="../../../interacting-with-protocols-and-tools/tools/winrm.md" %}
+[winrm.md](../../../interacting-with-protocols-and-tools/tools/winrm.md)
+{% endcontent-ref %}
+
+#### What can you say about SSH?
+
+SSH (Secure Shell) is a protocol used for accessing and managing Unix systems like Linux. Even if it is not related with Active Directory directly, usually many Linux machines deployed in a domain could be accessed through SSH. It allows the user get a shell on a remote system, transfer files (with the [scp](https://linux.die.net/man/1/scp) utility) and establishing SSH tunnels.
+
+#### What are 3 types of port forwarding with SSH?
+
+Local Port Forwarding
+
+* The goal of local port forwarding is ccessing a service running on a remote server as if it were running locally. Imagine you want to access a web server running on `remote_host`'s port 80 through your local port 8080. After performing the port forwarding, accessing `http://localhost:8080` in your browser would connect to `remote_host`'s web server.
+
+Remote Port Forwarding
+
+* The goal of remote port forwarding is to Redirect a remote port to a local destination and allowing access to a local service from a remote server. Imagine You want a remote user to access a web server running on your local machine's port 8080. After executing the command, accessing `http://ssh_server:8080` would connect to your local machine's web server.
+
+Dynamic Port Forwarding
+
+* The goal of Dynamic port forwarding is to Create a SOCKS proxy that routes multiple connections through an SSH tunnel. The goal is to securely tunnel traffic from various applications through a single SSH connection. Imagine You want to route your web traffic through an SSH server to browse securely. After executing the command, configuring your web browser to use `localhost:8080` as a SOCKS proxy will route its traffic through the SSH server.
+
+<figure><img src="../../../.gitbook/assets/image (1079).png" alt=""><figcaption><p>For now, it is all. More will be added soon after OSCP, stay tuned.</p></figcaption></figure>

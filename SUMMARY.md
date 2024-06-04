@@ -63,13 +63,6 @@
   * [🧦 WebSockets](certification-prep/bscp/websockets.md)
   * [🫁 Server-side request forgery (SSRF)](certification-prep/bscp/server-side-request-forgery-ssrf.md)
   * [🐊 Prototype pollution](certification-prep/bscp/prototype-pollution.md)
-* [🌟 OSCP](certification-prep/oscp/README.md)
-  * [🔂 @TJ\_Null’s OSCP Prep](certification-prep/oscp/tj\_nulls-oscp-prep/README.md)
-    * [🤬 More Challenging than OSCP](certification-prep/oscp/tj\_nulls-oscp-prep/more-challenging-than-oscp/README.md)
-      * [🧑‍✈️ Blackfield](certification-prep/oscp/tj\_nulls-oscp-prep/more-challenging-than-oscp/blackfield.md)
-      * [🐶 Cerberus](certification-prep/oscp/tj\_nulls-oscp-prep/more-challenging-than-oscp/cerberus.md)
-  * [📈 Endgames](certification-prep/oscp/endgames/README.md)
-    * [✈️ Ascension](certification-prep/oscp/endgames/ascension.md)
 * [📤 CPTS](certification-prep/cpts/README.md)
   * [⚒️ ToolKit](certification-prep/cpts/toolkit.md)
   * [📁 File Transfers](certification-prep/cpts/file-transfers.md)
@@ -91,6 +84,13 @@
   * [🪜 Domain admin session in target domain -> escalate privileges](certification-prep/crtp/domain-admin-session-in-target-domain-greater-than-escalate-privileges.md)
 * [🕷️ CBBH](certification-prep/cbbh.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
+* [🌟 OSCP](certification-prep/oscp/README.md)
+  * [🔂 @TJ\_Null’s OSCP Prep](certification-prep/oscp/tj\_nulls-oscp-prep/README.md)
+    * [🤬 More Challenging than OSCP](certification-prep/oscp/tj\_nulls-oscp-prep/more-challenging-than-oscp/README.md)
+      * [🧑‍✈️ Blackfield](certification-prep/oscp/tj\_nulls-oscp-prep/more-challenging-than-oscp/blackfield.md)
+      * [🐶 Cerberus](certification-prep/oscp/tj\_nulls-oscp-prep/more-challenging-than-oscp/cerberus.md)
+  * [📈 Endgames](certification-prep/oscp/endgames/README.md)
+    * [✈️ Ascension](certification-prep/oscp/endgames/ascension.md)
 
 ## 📽️ Programming
 
