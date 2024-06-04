@@ -1326,3 +1326,31 @@ You can get the inter-realm trust key, you just need [to dump the domain databas
 Finally, once you get the trust key, to [create a inter-realm ticket](https://adsecurity.org/?p=1588), you can use the [mimikatz kerberos::golden](https://github.com/gentilkiwi/mimikatz/wiki/module-\~-kerberos#golden--silver) command or the [impacket ticketer.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/ticketer.py) script. Then you can use it as any ticket.
 
 **Kerberos Delegation**
+
+**Can you explain kerberos delegation?**
+
+Let's say we are a user on a website. When we make a request the webserver goes and fetch the document we're looking for but how does it know what we own on the file server. The delegation will make it possible for the web server to "impersonate" the user and athenticate as the user to go and fetch the ressources. The file server will think that it's the user that directly made the request:
+
+<figure><img src="../../../.gitbook/assets/image (1078).png" alt=""><figcaption></figcaption></figure>
+
+#### What's the difference between Contstrained and **Unconstrained Delegation?**
+
+In [Kerberos Unconstrained Delegation](https://adsecurity.org/?p=1667) the service can impersonate the client user since this sends its own TGT to the service. Then, the service can use the user TGT (without any constrain) to ask for new STs for other services in behalf of the client.
+
+To create a more secure way of delegation, Microsoft develop two Kerberos extensions known as [Service for User](https://docs.microsoft.com/en-us/openspecs/windows\_protocols/ms-sfu/3bff5864-8135-400e-bdd9-33b552051d94) (S4U). By using these extensions, services can be restricted to only perform delegation against a set of allowed third-services, and no user TGT is required, preventing it from being stored on the service server. This is known as constrained delegation.
+
+### Logon types <a href="#logon-types" id="logon-types"></a>
+
+#### Explain why there are different logon types.
+
+In order to logon users, both locally and remotely, Windows defines different types of logons. It's good to know not every logons can be used by any user and [many logons cache credentials in the lsass process](https://docs.microsoft.com/en-us/windows-server/identity/securing-privileged-access/reference-tools-logon-types) , or even in the LSA secrets. That can be interestin as a pentester to recover that.
+
+#### Can you explain the different logon types?
+
+1. **Interactive Logon**: An interactive logon occurs when a user logs on to a system or network using a username and password, usually through a graphical user interface (GUI) or command-line interface (CLI). This type of logon allows the user to interact with the system, access files, and perform tasks.
+2. **Network Logon**: A network logon is a type of logon that occurs when a system or device connects to a network using a username and password. This type of logon allows the system or device to access network resources, such as shared folders, printers, or internet connectivity.
+3. **Batch Logon**: A batch logon is a type of logon that occurs when a program or script runs on a system using a username and password. This type of logon is often used for automated tasks, such as batch processing, data backups, or system maintenance.
+4. **Service Logon**: A service logon is a type of logon that occurs when a system service or daemon starts up and runs under a specific username and password. This type of logon allows the service to perform its intended function, such as providing network services, managing system resources, or running background processes.
+5. **NetworkCleartext Logon**: A NetworkCleartext logon is a type of logon that occurs when a system or device connects to a network using a username and password in plain text. This type of logon is considered insecure as it transmits sensitive information, such as passwords, in an unencrypted format.
+6. **NewCredentials Logon**: A NewCredentials logon is a type of logon that occurs when a user logs on to a system or network using a new set of credentials, such as a new username and password. This type of logon is often used for authentication and authorization purposes, such as when a user changes their password or when a new user is added to a system.
+7. **RemoteInteractive Logon**: A RemoteInteractive logon is a type of logon that occurs when a user logs on to a system or network remotely using a username and password, often through a remote desktop protocol (RDP) or virtual private network (VPN). This type of logon allows the user to interact with the system as if they were physically present at the system.
