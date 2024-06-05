@@ -30,6 +30,8 @@ Get-ForestDomain | %{Get-DomainTrust -Domain $_.Name} | ?{$_.TrustAttributes -eq
 
 <figure><img src="../../.gitbook/assets/image (1061).png" alt=""><figcaption></figcaption></figure>
 
+<figure><img src="../../.gitbook/assets/image (1082).png" alt=""><figcaption><p>So eurocorp.local is indeed a external domain</p></figcaption></figure>
+
 * **`Get-ForestDomain`**:
   * This cmdlet retrieves all domains in the current Active Directory forest.
   * The output is a collection of domain objects.
@@ -68,24 +70,7 @@ Get-ForestDomain -Forest eurocorp.local | %{Get-DomainTrust -Domain $_.Name}
 
 But there is an error because PowerView attempted to list trusts even for eu.eurocorp.local. Because external trust is non-transitive it was not possible!
 
-```
-PS C:\AD\Tools>Get-ForestDomain -Forest eurocorp.local | %{Get-DomainTrust -Domain $_.Name} 
-SourceName : eurocorp.local
-TargetName : eu.eurocorp.local
-TrustType : WINDOWS_ACTIVE_DIRECTORY
-TrustAttributes : WITHIN_FOREST
-TrustDirection : Bidirectional 
-WhenCreated : 11/12/2022 5:49:08 AM
-WhenChanged : 3/3/2023 10:15:16 AM
-SourceName : eurocorp.local
-TargetName : dollarcorp.moneycorp.local
-TrustType : WINDOWS_ACTIVE_DIRECTORY
-TrustAttributes : FILTER_SIDS
-TrustDirection : Bidirectional
-WhenCreated : 11/12/2022 8:15:23 AM
-WhenChanged : 2/24/2023 9:10:52 AM
-Exception calling "FindAll" with "0" argument(s): "A referral was returned from the server.
-```
+<figure><img src="../../.gitbook/assets/image (1083).png" alt=""><figcaption></figcaption></figure>
 
 <figure><img src="../../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 

@@ -1,5 +1,15 @@
 # 🆙 Elevate Privileges & gain a shell
 
+Task&#x20;
+
+• Exploit a service on dcorp-studentx and elevate privileges to local administrator.&#x20;
+
+• Identify a machine in the domain where studentx has local administrative access.&#x20;
+
+• Using privileges of a user on Jenkins on 172.16.3.11:8080, get admin privileges on 172.16.3.11 - the dcorp-ci server.
+
+***
+
 For this path we'll use Powerup from PowerSploit module to check for any privilege escalation path. But we could also use WinPEAS.
 
 ```
@@ -23,6 +33,10 @@ Invoke-ServiceAbuse -Name 'AbyssWebServer' -UserName 'dcorp\student613' -Verbose
 
 Now we are part of the local administrator group. If we just logoff and logon again, and we have local administrator privileges.
 
+He's where we are in our enumeration according a guy on discord:
+
+> you're local admin on the studentvm machine, then you use the Find-PSRemotingLocalAdminAccess to discover you have rights to connect to dcorp-adminsrv (via winrs or PSRemoting)
+
 Next, a good thing to do could be to identify a machine in the domain where the user student613 has local administrative access. For this we can use `Find-PSRemotingLocalAdminAccess.ps1`
 
 <figure><img src="../../.gitbook/assets/image (12) (1).png" alt=""><figcaption></figcaption></figure>
@@ -41,7 +55,17 @@ set computername
 * `-r:dcorp-adminsrv`: Specifies the remote machine to connect to. In this case, `dcorp-adminsrv`.
 * `cmd`: Launches the command prompt (`cmd.exe`) on the remote machine.
 
-Knowing all of this; let's try to have fun with a jenkins server without admin access. To do so, we need to have privileges to Configure builds
+<figure><img src="../../.gitbook/assets/image (1084).png" alt=""><figcaption></figcaption></figure>
+
+So we were able to get a shell on dcorp-adminsrv
+
+&#x20;
+
+<figure><img src="../../.gitbook/assets/image (1085).png" alt=""><figcaption></figcaption></figure>
+
+***
+
+Now let's try to have fun with a jenkins server without admin access. To do so, we need to have privileges to Configure builds
 
 We start by going to our Jenkins “People” page:
 

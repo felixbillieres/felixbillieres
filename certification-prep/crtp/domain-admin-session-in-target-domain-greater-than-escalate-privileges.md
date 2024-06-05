@@ -69,3 +69,6 @@ And unexpectedly it worked without any problems ->
 
 <figure><img src="../../.gitbook/assets/image (7).png" alt=""><figcaption><p>*ThisisBlasphemyThisisMadness!! // 6366243a657a4ea04e406f1abc27f1ada358ccd0138ec5ca2835067719dc7011</p></figcaption></figure>
 
+Now with these credentials, we are going to go and perform Over pass the hash and use svcadmin's creds. On the student VM we're going to run an elevated shell and try to bypass potential detection:
+
+<figure><img src="../../.gitbook/assets/image (1080).png" alt=""><figcaption></figcaption></figure>

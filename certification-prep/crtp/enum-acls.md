@@ -14,6 +14,8 @@ Get-DomainObjectAcl -Identity "Domain Admins" -ResolveGUIDs -Verbose
 
 Next is we want to check for modify rights/permissions for a specific user we can use FindInterestingDomainACL
 
+Understanding which users have modify rights in your AD is critical for security auditing. Modify permissions can allow users to make significant changes, such as altering user accounts, groups, or policies, which can affect the entire domain.
+
 For the user “student613” I would use the following:
 
 ```
@@ -21,6 +23,10 @@ Find-InterestingDomainAcl -ResolveGUIDs | ?{$_.IdentityReferenceName -match "stu
 ```
 
 But unfortunately we don't find anything but if we try to specify a group instead of a user ->
+
+<figure><img src="../../.gitbook/assets/image (1081).png" alt=""><figcaption></figcaption></figure>
+
+Since we're a member of the RDP  Users group, let's check that out
 
 ```
 Find-InterestingDomainAcl -ResolveGUIDs | ?{$_.IdentityReferenceName -match "RDPUsers"}
