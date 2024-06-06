@@ -108,3 +108,47 @@ _**Process of this attack:**_
 2. After port forwarding we use SafetyKatz to get svcadmin credentials
 3. We use Rubeus to perform over pass the hash to forge a TGT
 4. We succesfully forge the ticket and we can access the domain controller
+
+***
+
+For the next task, we need to escalate to domain admin using derivative local admin. Let’s find out the machines on which we have local admin privileges. On a PowerShell session started using Invisi-Shell, enter the following command.
+
+After running the following command,
+
+```
+. C:\AD\Tools\Find-PSRemotingLocalAdminAccess.ps1				
+Find-PSRemotingLocalAdminAccess			
+```
+
+We see that we have local admin on the dcorp-adminsrv. You will notice that any attempt to run Loader.exe (**to run SafetKatz from memory**) results in error 'This program is blocked by group policy.'
+
+This could be because of an application allolist on dcorp-adminsrv and we drop into a Constrained Language Mode (CLM) when using PSRemoting.
+
+Let's check if Applocker is configured on dcorp-adminsrv by querying registry keys.
+
+```
+winrs -r:dcorp-adminsrv cmd
+reg query HKLM\Software\Policies\Microsoft\Windows\SRPV2
+```
+
+<figure><img src="../../.gitbook/assets/image (1093).png" alt=""><figcaption></figcaption></figure>
+
+Looks like Applocker is configured. After going through the policies, we can understand that Microsoft Signed binaries and scripts are allowed for all the users but nothing else. However, this particular rule is overly permissive!
+
+```
+reg query HKLM\Software\Policies\Microsoft\Windows\SRPV2\Script\06dce67b-934c-454f-a263-2515c8796a5d
+```
+
+<figure><img src="../../.gitbook/assets/image (1094).png" alt=""><figcaption></figcaption></figure>
+
+So everyone can run scripts from the C:\ProgramFiles folder
+
+We could've checked that with the following command:
+
+```
+$ExecutionContext.SessionState.LanguageMode
+Get-AppLockerPolicy -Effective | select -ExpandProperty RuleCollections
+```
+
+<figure><img src="../../.gitbook/assets/image (1095).png" alt=""><figcaption></figcaption></figure>
+
