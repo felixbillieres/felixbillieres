@@ -34,6 +34,17 @@ Find-DomainUserLocation
 
 We can see that there is a domain admin session on dcorp-mgmt server!
 
+<figure><img src="../../.gitbook/assets/image (1088).png" alt=""><figcaption></figcaption></figure>
+
+This means in the network we're going to go through this path:
+
+<figure><img src="../../.gitbook/assets/image (1087).png" alt=""><figcaption></figcaption></figure>
+
+* The user `svcadmin` is logged into the server `dcorp-mgmt.dollarcorp.moneycorp.local`.
+* This user has domain admin privileges, which means they have high-level administrative access to the domain `dcorp`
+
+**Abuse with Winrs**
+
 Now, we have to check if we can execute commands on dcorp-mgmt server and if the winrm port is open:
 
 `winrs` (Windows Remote Shell) is a command-line tool that allows you to execute commands on remote Windows machines. It is similar to SSH for Windows systems.
@@ -42,7 +53,11 @@ Now, we have to check if we can execute commands on dcorp-mgmt server and if the
 winrs -r:dcorp-mgmt set computername;set username
 ```
 
-Now we need to copy the Loader.exe to dcorp-mgmt:
+So we see that we can execute code on the dcorp-mgmt machine:
+
+<figure><img src="../../.gitbook/assets/image (1089).png" alt=""><figcaption><p>Now we need to abuse the machine</p></figcaption></figure>
+
+First we need to copy the Loader.exe to dcorp-mgmt:
 
 First we copy it to our reverse shell then we load it on the target machine ->
 
@@ -72,3 +87,24 @@ And unexpectedly it worked without any problems ->
 Now with these credentials, we are going to go and perform Over pass the hash and use svcadmin's creds. On the student VM we're going to run an elevated shell and try to bypass potential detection:
 
 <figure><img src="../../.gitbook/assets/image (1080).png" alt=""><figcaption></figcaption></figure>
+
+And now we run the Rubeus command with %Pwn% as _asktgt_ command
+
+```
+C:\AD\Tools\Loader.exe -path C:\AD\Tools\Rubeus.exe -args %Pwn% /user:svcadmin /aes256:6366243a657a4ea04e406f1abc27f1ada358ccd0138ec5ca2835067719dc7011 /opsec /createnetonly:C:\Windows\System32\cmd.exe /show /ptt
+```
+
+<figure><img src="../../.gitbook/assets/image (1090).png" alt=""><figcaption></figcaption></figure>
+
+We can see that %Pwn% was interpreted as asktgt, we succesfully got our TGT and it poped a shell (on the right) and we were able to execute code on domain controller
+
+<figure><img src="../../.gitbook/assets/image (1092).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (1091).png" alt=""><figcaption></figcaption></figure>
+
+_**Process of this attack:**_
+
+1. We load Loader.exe to dcorp-mgmt via our jenkins shell (dcorp-ci)
+2. After port forwarding we use SafetyKatz to get svcadmin credentials
+3. We use Rubeus to perform over pass the hash to forge a TGT
+4. We succesfully forge the ticket and we can access the domain controller
