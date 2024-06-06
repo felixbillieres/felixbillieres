@@ -1,5 +1,10 @@
 # 🛀 Service Permissions (Paths)
 
+### Definitions
+
+* **Service Path**: When Windows starts up or runs certain programs, it often uses "services" to do so. Each service has a specific path that tells Windows where to find the program it needs to run.
+* **Quoted vs. Unquoted**: If the service path is "quoted" (enclosed in quotation marks), it tells Windows exactly where to find the program, even if there are spaces in the path. For example: `"C:\Program Files\My Service\service.exe"`. If the service path is "unquoted" (not enclosed in quotation marks), Windows might get confused about where the program is located if there are spaces in the path. For example: `C:\Program Files\My Service\service.exe`.
+
 ### Escalation via Binary Paths <a href="#lecture_heading" id="lecture_heading"></a>
 
 first open this file in a cmd and type:
@@ -25,7 +30,7 @@ accesschk64.exe -uwcv Everyone *
 
 1. **accesschk64.exe**: This is an executable file, specifically for 64-bit Windows systems, that is part of the Sysinternals suite of tools developed by Microsoft. The `accesschk` tool is used to view the effective permissions for files, directories, registry keys, or other securable objects in Windows. In this case, `accesschk64.exe` specifically refers to the 64-bit version of the `accesschk` tool.
 2. **-uwcv**: These are command-line options or switches that modify the behavior of the `accesschk64.exe` tool. Here's what each of them does:
-   * `-u`: Specifies that the output should display user account names associated with the permissions.
+   * `-u`: Specifies that the output should display user account names associated with the permissions but no errors, just positive finds.
    * `-w`: Specifies that the output should display only objects for which the specified user has write access.
    * `-c`: Specifies that the output should include containers, such as directories or registry keys, in addition to objects directly specified.
    * `-v`: Specifies that the output should be verbose, providing additional information about the permissions.
@@ -35,6 +40,10 @@ accesschk64.exe -uwcv Everyone *
 <figure><img src="../../../../.gitbook/assets/image (616).png" alt=""><figcaption><p>Manual method</p></figcaption></figure>
 
 <figure><img src="../../../../.gitbook/assets/image (617).png" alt=""><figcaption><p>Automatic method</p></figcaption></figure>
+
+We can also see that we can restart the service, very important! We could add something malicious and then restart it to gain more privileges, for example.
+
+Now we're goinf to run access check on the service itself to try and get more informations about what's happening
 
 ```
 accesschk64.exe -wuvc daclsvc
@@ -71,3 +80,35 @@ net localgroup administrators
 ```
 
 <figure><img src="../../../../.gitbook/assets/2024-03-19_14-49.png" alt=""><figcaption></figcaption></figure>
+
+So we're now in the Administrators group
+
+### &#x20; Escalation via Unquoted Service Paths <a href="#lecture_heading" id="lecture_heading"></a>
+
+<figure><img src="../../../../.gitbook/assets/image (1096).png" alt=""><figcaption></figcaption></figure>
+
+An attacker can exploit an unquoted service path by creating a malicious program with a name that Windows might mistakenly run instead of the intended service. For example, if the path is unquoted, Windows might interpret `C:\Program Files\My Service\service.exe` as trying to run a program at `C:\Program.exe` or `C:\Program Files\My.exe` instead of the correct `service.exe`.
+
+So after running PowerUp and starting the InvokeAllchecks command, we search for the unquoted path section:
+
+<figure><img src="../../../../.gitbook/assets/image (1097).png" alt=""><figcaption></figcaption></figure>
+
+So we can see the service _**Unquotedsvc**_ that has an unquoted service path with many spaces.
+
+Now we are going to look at the service more in depth with the Registry Editor (regedit). It provides a tree structure that users can navigate to find specific keys and values. These keys and values are organized in a manner similar to folders and files on a hard drive.
+
+It's good to know that the Windows Registry is a hierarchical database that stores low-level settings for the operating system and for applications that opt to use the registry.
+
+The registry contains configuration settings for the operating system, hardware devices, user preferences, and installed software. Editing the registry can change how Windows or certain applications behave.
+
+So let's look for unquotedsvc in the registry editor:
+
+<figure><img src="../../../../.gitbook/assets/image (1098).png" alt=""><figcaption></figcaption></figure>
+
+So what this means is, when the unquotedsvc service will start, it will load all those file from start to bottom
+
+What could happen here would be that Windows can misinterpret the path and try to execute a different executable than the intended one. Here are the possible interpretations:
+
+* `C:\Program.exe`
+* `C:\Program Files\My.exe`
+* `C:\Program Files\My Service\service.exe` (the intended executable)
