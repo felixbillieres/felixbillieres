@@ -81,6 +81,7 @@
   * [🆙 Elevate Privileges & gain a shell](certification-prep/crtp/elevate-privileges-and-gain-a-shell.md)
   * [🐩 BloodHound, Identify Paths](certification-prep/crtp/bloodhound-identify-paths.md)
   * [🪜 Domain admin session in target domain -> escalate privileges](certification-prep/crtp/domain-admin-session-in-target-domain-greater-than-escalate-privileges.md)
+  * [🎟️ Extract secrets from DC, Create and use Golden Tickets](certification-prep/crtp/extract-secrets-from-dc-create-and-use-golden-tickets.md)
 * [🕷️ CBBH](certification-prep/cbbh.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
