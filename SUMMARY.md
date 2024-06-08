@@ -88,6 +88,7 @@
 ## 🏳️ Capture The Flags
 
 * [🪟 Windows](capture-the-flags/windows/README.md)
+  * [🎯 Bastard](capture-the-flags/windows/bastard.md)
   * [🦵 Legacy](capture-the-flags/windows/legacy.md)
   * [🧊 Arctic](capture-the-flags/windows/arctic.md)
   * [🧑‍⚖️ Authority](capture-the-flags/windows/authority.md)
