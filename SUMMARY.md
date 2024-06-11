@@ -82,6 +82,7 @@
   * [🐩 BloodHound, Identify Paths](certification-prep/crtp/bloodhound-identify-paths.md)
   * [🪜 Domain admin session in target domain -> escalate privileges](certification-prep/crtp/domain-admin-session-in-target-domain-greater-than-escalate-privileges.md)
   * [🎟️ Extract secrets from DC, Create and use Golden Tickets](certification-prep/crtp/extract-secrets-from-dc-create-and-use-golden-tickets.md)
+  * [🎫 Command execution on other DC via silver ticket on HTTP & WMI](certification-prep/crtp/command-execution-on-other-dc-via-silver-ticket-on-http-and-wmi.md)
 * [🕷️ CBBH](certification-prep/cbbh.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
