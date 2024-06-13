@@ -85,7 +85,4 @@ A third-year computer science student at [École 2600](https://ecole2600.com/cho
 ###
 
 <br clear="both">
-
-<img src="https://raw.githubusercontent.com/felixbillieres/felixbillieres/output/snake.svg" alt="Snake animation" />
-
 Let's secure the digital world together! 🔐✨
