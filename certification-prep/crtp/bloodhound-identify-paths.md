@@ -9,7 +9,7 @@ then i started the neo4j server like this:
 .\neo4j.bat start
 ```
 
-<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 I get on this page with simple password neo4j:neo4j
 

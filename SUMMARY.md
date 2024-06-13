@@ -85,7 +85,7 @@
   * [🎟️ Extract secrets from DC, Create and use Golden Tickets](certification-prep/crtp/extract-secrets-from-dc-create-and-use-golden-tickets.md)
   * [🎫 Command execution on other DC via silver ticket on HTTP & WMI](certification-prep/crtp/command-execution-on-other-dc-via-silver-ticket-on-http-and-wmi.md)
   * [💎 Diamond Ticket attack](certification-prep/crtp/diamond-ticket-attack.md)
-  * [Abuse the DSRM credential for persistence](certification-prep/crtp/abuse-the-dsrm-credential-for-persistence.md)
+  * [👽 Abuse the DSRM credential for persistence](certification-prep/crtp/abuse-the-dsrm-credential-for-persistence.md)
 * [🕷️ CBBH](certification-prep/cbbh.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
