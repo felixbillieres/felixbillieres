@@ -155,7 +155,7 @@ An example of using rpcclient from an unauthenticated standpoint would be:
 rpcclient -U "" -N 172.16.5.5
 ```
 
-<figure><img src="../../../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% embed url="https://www.akamai.com/fr/blog/security-research/msrpc-security-mechanisms" %}
 
@@ -205,7 +205,7 @@ To connect to a host with psexec.py, we need credentials for a user with local a
 psexec.py inlanefreight.local/wley:'transporter@4'@172.16.5.125  
 ```
 
-<figure><img src="../../../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 **wmiexec.py**
 
@@ -215,7 +215,7 @@ Wmiexec.py utilizes a semi-interactive shell where commands are executed through
 wmiexec.py inlanefreight.local/wley:'transporter@4'@172.16.5.5  
 ```
 
-<figure><img src="../../../../.gitbook/assets/image (6) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (6) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Windapsearch
 
@@ -277,7 +277,7 @@ We can either upload each JSON file one by one or zip them first with a command 
 
 To upload the files ->
 
-<figure><img src="../../../../.gitbook/assets/image (7) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (7) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Now that the data is loaded, we can use the Analysis tab to run queries against the database. There are many great cheat sheets to help us here.
 
@@ -565,13 +565,13 @@ Get-ADUser -Filter {ServicePrincipalName -ne "$null"} -Properties ServicePrincip
 
 _What PowerView function allows us to test if a user has administrative access to a local or remote host?_
 
-<figure><img src="../../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 _Run Snaffler and hunt for a readable web config file. What is the name of the user in the connection string within the file?_
 
 _What is the password for the database user?_
 
-<figure><img src="../../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Living Off the Land
 

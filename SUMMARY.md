@@ -86,6 +86,8 @@
   * [🎫 Command execution on other DC via silver ticket on HTTP & WMI](certification-prep/crtp/command-execution-on-other-dc-via-silver-ticket-on-http-and-wmi.md)
   * [💎 Diamond Ticket attack](certification-prep/crtp/diamond-ticket-attack.md)
   * [👽 Abuse the DSRM credential for persistence](certification-prep/crtp/abuse-the-dsrm-credential-for-persistence.md)
+  * [🪞 Check for DCSync rights, add them and pull hashes](certification-prep/crtp/check-for-dcsync-rights-add-them-and-pull-hashes.md)
+  * [⛑️ Modify security descriptors on DC & modify host security descriptors for WMI](certification-prep/crtp/modify-security-descriptors-on-dc-and-modify-host-security-descriptors-for-wmi.md)
 * [🕷️ CBBH](certification-prep/cbbh.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
