@@ -1,7 +1,6 @@
 # Table of contents
 
 * [❓ Whoami](README.md)
-* [❓ Whoami](<README (1).md>)
 
 ## 🌳 Active directory
 
