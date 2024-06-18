@@ -89,7 +89,7 @@
   * [⛑️ Modify security descriptors on DC & modify host security descriptors for WMI](certification-prep/crtp/modify-security-descriptors-on-dc-and-modify-host-security-descriptors-for-wmi.md)
   * [🧢 Crack SQL Server's password with Kerberoasting](certification-prep/crtp/crack-sql-servers-password-with-kerberoasting.md)
   * [🖨️ Unconstrained Delegation to DA to Entreprise Admin through printer bug](certification-prep/crtp/unconstrained-delegation-to-da-to-entreprise-admin-through-printer-bug.md)
-  * [Page](certification-prep/crtp/page.md)
+  * [👨‍✈️ Exploit Constrained Delegation and execute privileged operations](certification-prep/crtp/exploit-constrained-delegation-and-execute-privileged-operations.md)
 * [🕷️ CBBH](certification-prep/cbbh.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 

