@@ -90,6 +90,7 @@
   * [🧢 Crack SQL Server's password with Kerberoasting](certification-prep/crtp/crack-sql-servers-password-with-kerberoasting.md)
   * [🖨️ Unconstrained Delegation to DA to Entreprise Admin through printer bug](certification-prep/crtp/unconstrained-delegation-to-da-to-entreprise-admin-through-printer-bug.md)
   * [👨‍✈️ Exploit Constrained Delegation and execute privileged operations](certification-prep/crtp/exploit-constrained-delegation-and-execute-privileged-operations.md)
+  * [✍️ Find Computer in domain with Write permissions and access as Domain Admin](certification-prep/crtp/find-computer-in-domain-with-write-permissions-and-access-as-domain-admin.md)
 * [🕷️ CBBH](certification-prep/cbbh.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
