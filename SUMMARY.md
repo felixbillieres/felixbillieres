@@ -91,6 +91,7 @@
   * [🖨️ Unconstrained Delegation to DA to Entreprise Admin through printer bug](certification-prep/crtp/unconstrained-delegation-to-da-to-entreprise-admin-through-printer-bug.md)
   * [👨‍✈️ Exploit Constrained Delegation and execute privileged operations](certification-prep/crtp/exploit-constrained-delegation-and-execute-privileged-operations.md)
   * [✍️ Find Computer in domain with Write permissions and access as Domain Admin](certification-prep/crtp/find-computer-in-domain-with-write-permissions-and-access-as-domain-admin.md)
+  * [⚡ Using DA access to escalate to EA or DA to the parent domain using the domain trust key](certification-prep/crtp/using-da-access-to-escalate-to-ea-or-da-to-the-parent-domain-using-the-domain-trust-key.md)
 * [🕷️ CBBH](certification-prep/cbbh.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
