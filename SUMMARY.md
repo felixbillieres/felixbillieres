@@ -92,6 +92,9 @@
   * [👨‍✈️ Exploit Constrained Delegation and execute privileged operations](certification-prep/crtp/exploit-constrained-delegation-and-execute-privileged-operations.md)
   * [✍️ Find Computer in domain with Write permissions and access as Domain Admin](certification-prep/crtp/find-computer-in-domain-with-write-permissions-and-access-as-domain-admin.md)
   * [⚡ Using DA access to escalate to EA or DA to the parent domain using the domain trust key](certification-prep/crtp/using-da-access-to-escalate-to-ea-or-da-to-the-parent-domain-using-the-domain-trust-key.md)
+  * [🦭 Escalate privileges to Enterprise Admin or DA to the parent domain,  using krbtgt hash](certification-prep/crtp/escalate-privileges-to-enterprise-admin-or-da-to-the-parent-domain-using-krbtgt-hash.md)
+  * [🌡️ With DA privilege, get access to SharedwithDCorp share on the an other DC](certification-prep/crtp/with-da-privilege-get-access-to-sharedwithdcorp-share-on-the-an-other-dc.md)
+  * [🪜 Find vulnerable templates w/ AD CS  to escalate to DA and EA](certification-prep/crtp/find-vulnerable-templates-w-ad-cs-to-escalate-to-da-and-ea.md)
 * [🕷️ CBBH](certification-prep/cbbh.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 

