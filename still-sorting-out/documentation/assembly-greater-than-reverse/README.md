@@ -27,7 +27,7 @@ description: https://guyinatuxedo.github.io/01-intro_assembly/assembly/index.htm
 * Include general-purpose registers (e.g., EAX, EBX, ECX, EDX in x86 architecture) for arithmetic and data storage.
 * Special-purpose registers include the Instruction Pointer (EIP) which holds the address of the next instruction to execute, and the Stack Pointer (ESP) which points to the top of the stack.
 
-<figure><img src="../../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### What is the Stack?
 

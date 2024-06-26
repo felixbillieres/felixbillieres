@@ -150,7 +150,7 @@
   * [🐟 Resolute](capture-the-flags/active-directory-and-networks/resolute.md)
   * [🎣 Reel](capture-the-flags/active-directory-and-networks/reel.md)
 * [🧞‍♂️ Training For Jeopardy](capture-the-flags/training-for-jeopardy/README.md)
-  * [⏪ Pwn](capture-the-flags/training-for-jeopardy/pwn/README.md)
+  * [⏪ Pwn](capture-the-flags/training-for-jeopardy/pwn.md)
     * [🐈 Cryptocat PWN](capture-the-flags/training-for-jeopardy/pwn/cryptocat-pwn.md)
 
 ## 📽️ Programming

@@ -155,7 +155,7 @@ An example of using rpcclient from an unauthenticated standpoint would be:
 rpcclient -U "" -N 172.16.5.5
 ```
 
-<figure><img src="../../../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% embed url="https://www.akamai.com/fr/blog/security-research/msrpc-security-mechanisms" %}
 
@@ -205,7 +205,7 @@ To connect to a host with psexec.py, we need credentials for a user with local a
 psexec.py inlanefreight.local/wley:'transporter@4'@172.16.5.125  
 ```
 
-<figure><img src="../../../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 **wmiexec.py**
 
