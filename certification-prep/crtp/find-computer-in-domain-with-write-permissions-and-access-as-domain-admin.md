@@ -26,7 +26,7 @@ Set-DomainRBCD -Identity dcorp-mgmt -DelegateFrom 'dcorp-std613$' -Verbose
 Get-DomainRBCD
 ```
 
-<figure><img src="../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 SourceName                 : DCORP-MGMT$
