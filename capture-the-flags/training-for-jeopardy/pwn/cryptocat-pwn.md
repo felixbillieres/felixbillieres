@@ -95,3 +95,50 @@ Let's try to do our buffer overflow ->
 The trick here if i understand it well is that there is a buffer size of 16 allocated to the buffer and gets is very unsecure unlike fgets because it does not look at the size inputed so if we enter an input greater than 16 it will crash
 
 <figure><img src="../../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+
+Now if we try to open the file with gdb ->
+
+```
+gdb vuln
+```
+
+We can get some infos about the file and what it's doing:
+
+<figure><img src="../../../.gitbook/assets/image (1174).png" alt=""><figcaption></figcaption></figure>
+
+What is interesting is obviously the main function so let's disassemble it:
+
+```
+disassemble main
+```
+
+<figure><img src="../../../.gitbook/assets/image (1175).png" alt=""><figcaption></figcaption></figure>
+
+We could jump to different functions inside the debugger or set up a breakpoint
+
+{% embed url="https://learn.microsoft.com/en-us/visualstudio/debugger/using-breakpoints?view=vs-2022" %}
+
+Let's set up a breakpoint at main:
+
+```
+break main
+run
+```
+
+<figure><img src="../../../.gitbook/assets/image (1176).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (1177).png" alt=""><figcaption></figcaption></figure>
+
+If we want an info about the stack:
+
+```
+info stack
+```
+
+<figure><img src="../../../.gitbook/assets/image (1178).png" alt=""><figcaption></figcaption></figure>
+
+now let's just type c (continue), this will technically run the program and we will me able to see how it reacts ->
+
+<figure><img src="../../../.gitbook/assets/image (1179).png" alt=""><figcaption><p>no buffer overflow</p></figcaption></figure>
+
+dont forget to do a little `delete breakpoints` si it does not hit many times on it
