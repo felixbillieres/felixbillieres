@@ -23,6 +23,19 @@ We quickly see the SeviceName is AbyssWebServer:
 
 <figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
+#### Explanation of the Situation
+
+**Unquoted Service Path Vulnerability**
+
+In Windows, services can be configured to run executables. When the path to the executable contains spaces and is not enclosed in quotes, it can lead to a security vulnerability known as an "unquoted service path". This vulnerability allows an attacker to place a malicious executable in a path that the service may inadvertently execute.
+
+The command `Invoke-ServiceAbuse -Name 'AbyssWebServer' -UserName 'dcorp\student613' -Verbose` is used to exploit this vulnerability. Here's a breakdown of what the command does:
+
+* **Invoke-ServiceAbuse**: This is a PowerShell function from the PowerSploit framework, used to manipulate Windows services.
+* **-Name 'AbyssWebServer'**: Specifies the name of the service to manipulate.
+* **-UserName 'dcorp\student613'**: Specifies the user context under which the command will run. This user should have the necessary permissions to modify the service configuration or its executable path.
+* **-Verbose**: Provides detailed output of the actions being performed for debugging or informational purposes.
+
 With this information, we can use the abuse function for Invoke-ServiceAbuse and add our current domain user to the local Administrators group ->
 
 ```
@@ -30,6 +43,13 @@ Invoke-ServiceAbuse -Name 'AbyssWebServer' -UserName 'dcorp\student613' -Verbose
 ```
 
 <figure><img src="../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+
+The command exploits an unquoted service path vulnerability in the following way:
+
+* **Modifies the service path**: Changes the path to execute a system command instead of the service executable.
+* **Executes a privileged action**: Runs the command to add a specified user to the Administrators group, elevating the user’s privileges.
+* **Restores the service configuration**: Resets the service path to its original value to cover tracks and maintain normal operations.
+* **Maintains the service state**: Ensures the service remains in its initial state (stopped) to avoid detection.
 
 Now we are part of the local administrator group. If we just logoff and logon again, and we have local administrator privileges.
 

