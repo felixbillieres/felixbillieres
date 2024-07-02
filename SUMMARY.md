@@ -153,7 +153,9 @@
   * [🎣 Reel](capture-the-flags/active-directory-and-networks/reel.md)
 * [🧞‍♂️ Training For Jeopardy](capture-the-flags/training-for-jeopardy/README.md)
   * [⏪ Pwn](capture-the-flags/training-for-jeopardy/pwn.md)
-    * [🐈 Cryptocat PWN](capture-the-flags/training-for-jeopardy/pwn/cryptocat-pwn.md)
+    * [🎓 CryptoCat Tutorials](capture-the-flags/training-for-jeopardy/pwn/cryptocat-tutorials/README.md)
+      * [🐈 00-intro\_setup\_basics](capture-the-flags/training-for-jeopardy/pwn/cryptocat-tutorials/00-intro\_setup\_basics.md)
+      * [✍️ 01-overwriting\_stack\_variables\_part1](capture-the-flags/training-for-jeopardy/pwn/cryptocat-tutorials/01-overwriting\_stack\_variables\_part1.md)
 
 ## 📽️ Programming
 

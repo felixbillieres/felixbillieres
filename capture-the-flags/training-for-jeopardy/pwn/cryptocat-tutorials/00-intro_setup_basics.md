@@ -2,13 +2,13 @@
 description: https://github.com/Crypto-Cat/CTF/tree/main/pwn/binary_exploitation_101
 ---
 
-# 🐈 Cryptocat PWN
+# 🐈 00-intro\_setup\_basics
 
-### 00-intro\_setup\_basics
+###
 
 {% embed url="https://avinetworks.com/glossary/buffer-overflow/" %}
 
-<figure><img src="../../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
 
 You can obviously find thousands of definitions about what is a buffer overflow on internet but, here is my definition and how i understand it:
 
@@ -66,7 +66,7 @@ let's remember we have 2 files: `vuln` & `vuln.c`
 file vuln
 ```
 
-<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
 Let's explain:
 
@@ -84,17 +84,17 @@ gcc vuln.c -o vuln -fstack-protector-all
 
 And we get a warning:
 
-<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 this gives us a hint on what to do next
 
 Let's try to do our buffer overflow ->
 
-<figure><img src="../../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 The trick here if i understand it well is that there is a buffer size of 16 allocated to the buffer and gets is very unsecure unlike fgets because it does not look at the size inputed so if we enter an input greater than 16 it will crash
 
-<figure><img src="../../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 Now if we try to open the file with gdb ->
 
@@ -104,7 +104,7 @@ gdb vuln
 
 We can get some infos about the file and what it's doing:
 
-<figure><img src="../../../.gitbook/assets/image (1174).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (1174).png" alt=""><figcaption></figcaption></figure>
 
 What is interesting is obviously the main function so let's disassemble it:
 
@@ -112,7 +112,7 @@ What is interesting is obviously the main function so let's disassemble it:
 disassemble main
 ```
 
-<figure><img src="../../../.gitbook/assets/image (1175).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (1175).png" alt=""><figcaption></figcaption></figure>
 
 We could jump to different functions inside the debugger or set up a breakpoint
 
@@ -125,9 +125,9 @@ break main
 run
 ```
 
-<figure><img src="../../../.gitbook/assets/image (1176).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (1176).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (1177).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (1177).png" alt=""><figcaption></figcaption></figure>
 
 If we want an info about the stack:
 
@@ -135,10 +135,34 @@ If we want an info about the stack:
 info stack
 ```
 
-<figure><img src="../../../.gitbook/assets/image (1178).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (1178).png" alt=""><figcaption></figcaption></figure>
 
 now let's just type c (continue), this will technically run the program and we will me able to see how it reacts ->
 
-<figure><img src="../../../.gitbook/assets/image (1179).png" alt=""><figcaption><p>no buffer overflow</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (1179).png" alt=""><figcaption><p>no buffer overflow</p></figcaption></figure>
 
-dont forget to do a little `delete breakpoints` si it does not hit many times on it
+don't forget to do a little `delete breakpoints` si it does not hit many times on it
+
+
+
+### Ghidra methodology
+
+First create a new project and import the file you want:
+
+<figure><img src="../../../../.gitbook/assets/image (1183).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../../.gitbook/assets/image (1184).png" alt=""><figcaption></figcaption></figure>
+
+click on yes to analyze and then you're in:
+
+<figure><img src="../../../../.gitbook/assets/image (1185).png" alt=""><figcaption></figcaption></figure>
+
+We can start by looking at the main function and quickly see in the decompiler that this looks a lot like vuln.c program we had earlier:
+
+<figure><img src="../../../../.gitbook/assets/image (1186).png" alt=""><figcaption></figcaption></figure>
+
+if we select a function name and type L, we can globally modify it's value:
+
+<figure><img src="../../../../.gitbook/assets/image (1187).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../../.gitbook/assets/image (1188).png" alt=""><figcaption></figcaption></figure>

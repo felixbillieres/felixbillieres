@@ -108,3 +108,5 @@ For this task we'll use a [setspn](https://docs.microsoft.com/en-us/previous-ver
 ```
 C:\htb> setspn.exe -Q */*
 ```
+
+We will notice many different SPNs returned for the various hosts in the domain. We will focus on `user accounts` and ignore the computer accounts returned by the tool. Next, using PowerShell, we can request TGS tickets for an account in the shell above and load them into memory. Once they are loaded into memory, we can extract them using `Mimikatz`. Let's try this by targeting a single user:

