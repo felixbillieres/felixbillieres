@@ -71,3 +71,11 @@ python2 -c 'print 32 * "A" + "\xef\xbe\xad\xde"' > payload
 The last four characters are non-printable and represent the bytes `EF`, `BE`, `AD`, and `DE`.
 
 and since the string is reversed it overflows with deadbeef and validates the challenge
+
+Now let's open up ghidra&#x20;
+
+<figure><img src="../../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+We can start by changing some of the values to look more like what we had in our C program:
+
+<figure><img src="../../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
