@@ -96,6 +96,7 @@
   * [🌡️ With DA privilege, get access to SharedwithDCorp share on the an other DC](certification-prep/crtp/with-da-privilege-get-access-to-sharedwithdcorp-share-on-the-an-other-dc.md)
   * [🪜 Find vulnerable templates w/ AD CS  to escalate to DA and EA](certification-prep/crtp/find-vulnerable-templates-w-ad-cs-to-escalate-to-da-and-ea.md)
   * [🔗 Reverse shell on a SQL server by abusing database links](certification-prep/crtp/reverse-shell-on-a-sql-server-by-abusing-database-links.md)
+  * [Page](certification-prep/crtp/page.md)
 * [🕷️ CBBH](certification-prep/cbbh.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
