@@ -156,6 +156,7 @@
     * [🎓 CryptoCat Tutorials](capture-the-flags/training-for-jeopardy/pwn/cryptocat-tutorials/README.md)
       * [🐈 00-intro\_setup\_basics](capture-the-flags/training-for-jeopardy/pwn/cryptocat-tutorials/00-intro\_setup\_basics.md)
       * [✍️ 01-overwriting\_stack\_variables\_part1](capture-the-flags/training-for-jeopardy/pwn/cryptocat-tutorials/01-overwriting\_stack\_variables\_part1.md)
+      * [🫁 02-overwriting\_stack\_variables\_part2](capture-the-flags/training-for-jeopardy/pwn/cryptocat-tutorials/02-overwriting\_stack\_variables\_part2.md)
 
 ## 📽️ Programming
 
