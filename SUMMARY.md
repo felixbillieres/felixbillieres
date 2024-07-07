@@ -35,6 +35,7 @@
   * [🧙‍♀️ Abusing ZeroLogon](active-directory/attacking-vectors/abusing-zerologon.md)
   * [‼️ Abusing PrintNightmare](active-directory/attacking-vectors/abusing-printnightmare.md)
 * [🎆 Le Hack 2k24 NetExec Workshop](active-directory/le-hack-2k24-netexec-workshop.md)
+* [NetExec Training Lab](active-directory/netexec-training-lab.md)
 
 ## 🏫 Certification Prep
 
