@@ -342,3 +342,4 @@
     * [🪟 Windows User Activity Analysis](still-sorting-out/documentation/forensics/windows-user-activity-analysis.md)
   * [0️⃣ 0️⃣ Assembly -> Reverse](still-sorting-out/documentation/assembly-greater-than-reverse/README.md)
     * [⏪ Reversing ELF](still-sorting-out/documentation/assembly-greater-than-reverse/reversing-elf.md)
+* [👴 Junior to Senior Pentester Interview Prep](still-sorting-out/junior-to-senior-pentester-interview-prep.md)
