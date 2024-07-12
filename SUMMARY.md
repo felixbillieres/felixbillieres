@@ -98,7 +98,10 @@
   * [🪜 Find vulnerable templates w/ AD CS  to escalate to DA and EA](certification-prep/crtp/find-vulnerable-templates-w-ad-cs-to-escalate-to-da-and-ea.md)
   * [🔗 Reverse shell on a SQL server by abusing database links](certification-prep/crtp/reverse-shell-on-a-sql-server-by-abusing-database-links.md)
   * [Page](certification-prep/crtp/page.md)
-* [🕷️ CBBH](certification-prep/cbbh.md)
+* [🕷️ CBBH](certification-prep/cbbh/README.md)
+  * [🚿 Web Requests](certification-prep/cbbh/web-requests/README.md)
+    * [🐻 HTTP Fundamentals](certification-prep/cbbh/web-requests/http-fundamentals.md)
+    * [🐰 HTTP Methods](certification-prep/cbbh/web-requests/http-methods.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
 ## 🏳️ Capture The Flags

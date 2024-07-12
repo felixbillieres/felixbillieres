@@ -98,7 +98,7 @@ What we also need to do is enumerate SMB as an authd user ->
 smbmap -d megabank.local -u melanie -p 'Welcome123!' -H 10.129.218.158
 ```
 
-<figure><img src="../../.gitbook/assets/image (10) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Now we enumerate the session, we don't find anything in the home dir so we ho at root and run ls -force
 
