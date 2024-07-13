@@ -2,7 +2,7 @@
 
 Pass the hash (PtH) is a type of attack used in the context of Windows authentication. In this attack, an attacker captures the NTLM hash of a user's password and uses it to authenticate to a remote system without ever cracking or learning the plaintext password. This is possible because Windows systems use NTLM hashes for authentication in many situations, even when the original password is a plaintext string.
 
-<figure><img src="../../../../.gitbook/assets/image (24) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (24) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We are going to start with crackmapexec:
 

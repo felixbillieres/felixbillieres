@@ -18,7 +18,7 @@ Delegation refers to the process of granting permissions or access rights to a u
 
 Impersonation, on the other hand, refers to the process of a user or service pret to be another user or service in order to gain access to resources.&#x20;
 
-<figure><img src="../../../../.gitbook/assets/image (23) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (23) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can now impersonate this user
 

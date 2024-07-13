@@ -102,7 +102,9 @@
   * [🚿 Web Requests](certification-prep/cbbh/web-requests/README.md)
     * [🐻 HTTP Fundamentals](certification-prep/cbbh/web-requests/http-fundamentals.md)
     * [🐰 HTTP Methods](certification-prep/cbbh/web-requests/http-methods.md)
-  * [👶 Introduction to Web Applications](certification-prep/cbbh/introduction-to-web-applications.md)
+  * [👶 Introduction to Web Applications](certification-prep/cbbh/introduction-to-web-applications/README.md)
+    * [👯‍♀️ Front End Components](certification-prep/cbbh/introduction-to-web-applications/front-end-components.md)
+    * [Front End Vulnerabilities](certification-prep/cbbh/introduction-to-web-applications/front-end-vulnerabilities.md)
   * [Page 1](certification-prep/cbbh/page-1.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 

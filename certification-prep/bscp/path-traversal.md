@@ -30,13 +30,13 @@ The absolute path of my req bypassed their protection:
 
 captured the image again and doubled the args in the path ....//
 
-<figure><img src="../../.gitbook/assets/image (28).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (28) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Lab: File path traversal, traversal sequences stripped with superfluous URL-decode
 
 On this one we just had to double encode the request to bypass the filter:
 
-<figure><img src="../../.gitbook/assets/image (29).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (29) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% embed url="https://www.urlencoder.org/" %}
 

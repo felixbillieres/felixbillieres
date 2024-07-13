@@ -114,7 +114,7 @@ In the box description, we see that they talk about Azure Active Directory and t
 
 When used without additional parameters, "net user mhope" displays detailed information about the specified user account, such as the account's full name, description, whether the account is active or disabled, when the account was created, and when the account's password was last set
 
-<figure><img src="../../.gitbook/assets/image (26) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (26) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We see that mhope is part of the azure admins group
 

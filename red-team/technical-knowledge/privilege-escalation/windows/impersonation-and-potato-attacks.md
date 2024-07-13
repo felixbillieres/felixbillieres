@@ -12,7 +12,7 @@ One well-known example of a Potato Attack is the "Print Spooler Service" exploit
 
 Potato Attacks typically involve manipulating Windows services or components that run with elevated privileges, exploiting misconfigurations or vulnerabilities to execute arbitrary code with higher privileges than the attacker initially possessed.
 
-<figure><img src="../../../../.gitbook/assets/image (27) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (27) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -22,7 +22,7 @@ token =cookies for your computer, allows access to system/network without creden
 
 there is delegate tokens and impersonate tokens&#x20;
 
-<figure><img src="../../../../.gitbook/assets/image (28) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (28) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 impersonate token in meterpreter&#x20;
 

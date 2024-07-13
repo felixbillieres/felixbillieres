@@ -138,7 +138,7 @@ python -c "import pty;pty.spawn('/bin/bash')"
   * `import pty`: This imports the `pty` module, which provides functions for controlling pseudo-terminals.
   * `pty.spawn('/bin/bash')`: This line spawns a new interactive shell (`/bin/bash`). When this line is executed, it effectively starts a new shell session within the current terminal session. The `pty.spawn()` function creates a new pseudo-terminal and executes the specified command (`/bin/bash`) within it. This results in a fully interactive shell prompt, allowing the user to execute commands and interact with the system as if they were using a normal terminal.
 
-<figure><img src="../../.gitbook/assets/image (22) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (22) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% embed url="https://book.hacktricks.xyz/generic-methodologies-and-resources/shells/full-ttys" %}
 
@@ -146,11 +146,11 @@ python -c "import pty;pty.spawn('/bin/bash')"
 
 now let's look what we have in the root folder:&#x20;
 
-<figure><img src="../../.gitbook/assets/image (23) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (23) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 after looking through stuff we encounter:&#x20;
 
-<figure><img src="../../.gitbook/assets/image (24) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (24) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 that's a quick and easy win, let's try some other stuff
 
@@ -166,11 +166,11 @@ psexec.py administrator:'u6!4ZwgwOM#^OBf#Nwnh'@10.129.163.46
 * `administrator:'u6!4ZwgwOM#^OBf#Nwnh'`: This part of the command specifies the username and password to authenticate to the target system. In this case, the username is `administrator` and the password appears to be `'u6!4ZwgwOM#^OBf#Nwnh'`. The password is enclosed in single quotes to ensure that special characters within it are properly interpreted.
 * `@10.129.163.46`: This specifies the IP address or hostname of the target Windows system. The `psexec.py` script will attempt to connect to this system using the provided credentials and execute commands remotely.
 
-<figure><img src="../../.gitbook/assets/image (25) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (25) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 And just go and fetch the file
 
-<figure><img src="../../.gitbook/assets/image (26) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (26) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 If A/V is blocking psexec, you can use smbexec or winexe
 

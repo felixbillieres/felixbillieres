@@ -284,7 +284,7 @@ We see this ouput in the burp request:
 
 We have to modify a few things to read content:
 
-<figure><img src="../../.gitbook/assets/image (22).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (22) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Lab: Web shell upload via Content-Type restriction bypass
 
@@ -292,7 +292,7 @@ we start by uploading an image FP.png and putting our malicious php code in it -
 
 and everything works:
 
-<figure><img src="../../.gitbook/assets/image (23).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (23) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### OS command injection
 
@@ -304,7 +304,7 @@ We start by going on a product and checking the stock and sending it to burp:
 
 sending it to repeater and pipe whoami the storeID parameter:
 
-<figure><img src="../../.gitbook/assets/image (24).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (24) (1).png" alt=""><figcaption></figcaption></figure>
 
 and find the user just like that
 
@@ -318,7 +318,7 @@ In some situations, an attacker can escalate a SQL injection attack to compromis
 
 We simply input 'OR 1=1-- - in the category section:
 
-<figure><img src="../../.gitbook/assets/image (25).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (25) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Lab: SQL injection vulnerability allowing login bypass
 
@@ -326,6 +326,6 @@ This one was straightforward
 
 just had to input in the username field: wiener'0R 1=1-- -
 
-<figure><img src="../../.gitbook/assets/image (26).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (26) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/image (27).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (27) (1).png" alt=""><figcaption></figcaption></figure>
