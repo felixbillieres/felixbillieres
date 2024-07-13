@@ -10,7 +10,7 @@ If we target a specific groups like the Domain Admin Group, we could enumerate i
 Get-DomainObjectAcl -Identity "Domain Admins" -ResolveGUIDs -Verbose
 ```
 
-<figure><img src="../../.gitbook/assets/image (11) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (11) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Next is we want to check for modify rights/permissions for a specific user we can use FindInterestingDomainACL
 
@@ -32,7 +32,7 @@ Since we're a member of the RDP  Users group, let's check that out
 Find-InterestingDomainAcl -ResolveGUIDs | ?{$_.IdentityReferenceName -match "RDPUsers"}
 ```
 
-<figure><img src="../../.gitbook/assets/image (12) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (12) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The command is used to find and filter specific ACLs in a domain that relate to a group or user containing "RDPUsers" in their name. Here is a step-by-step explanation of what the command does:
 

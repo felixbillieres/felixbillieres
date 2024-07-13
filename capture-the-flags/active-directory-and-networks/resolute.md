@@ -98,7 +98,7 @@ What we also need to do is enumerate SMB as an authd user ->
 smbmap -d megabank.local -u melanie -p 'Welcome123!' -H 10.129.218.158
 ```
 
-<figure><img src="../../.gitbook/assets/image (10) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Now we enumerate the session, we don't find anything in the home dir so we ho at root and run ls -force
 
@@ -113,15 +113,15 @@ The command `ls -force` as written appears to be a mix of Unix/Linux and PowerSh
 
 We find the interesting file:
 
-<figure><img src="../../.gitbook/assets/image (11) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (11) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We continue our rabbit hole ->
 
-<figure><img src="../../.gitbook/assets/image (12) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>PowerShell_transcript.RESOLUTE.OJuoBGhU.20191203063201.txt</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (12) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>PowerShell_transcript.RESOLUTE.OJuoBGhU.20191203063201.txt</p></figcaption></figure>
 
 We look at the content of the file and we can see the creds for the ryan user:
 
-<figure><img src="../../.gitbook/assets/image (13) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>ryan Serv3r4Admin4cc123!</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (13) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>ryan Serv3r4Admin4cc123!</p></figcaption></figure>
 
 So obviously we pivot towards the ryan user using evil winrm ->
 
@@ -129,7 +129,7 @@ and look at the groups using `whoami /groups`
 
 {% embed url="https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups#dnsadmins" %}
 
-<figure><img src="../../.gitbook/assets/image (14) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (14) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Members of DNSAdmins group have access to network DNS information. The default permissions are as follows: Allow: Read, Write, Create All Child objects, Delete Child objects, Special Permissions.
@@ -201,6 +201,6 @@ sc.exe \\resolute start dns
 * During this process, when `dnscmd.exe` or the DNS service accesses the SMB share to retrieve the `privesc.dll`, the system may send NTLM authentication hashes to the SMB server.
 * These hashes can be captured by tools like `Responder` or directly observed in the output of `smbserver.py`.
 
-<figure><img src="../../.gitbook/assets/image (16) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (16) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/image (15) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (15) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
