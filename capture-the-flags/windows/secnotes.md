@@ -118,7 +118,7 @@ quick explanation on why we're doing this:
 
 after trying to get a bash shell by triggering bash.exe, we get some useful infos:
 
-<figure><img src="../../.gitbook/assets/image (21) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (21) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We are root but on a linux machine of secnotes, so not really what we are looking for
 

@@ -102,6 +102,8 @@
   * [🚿 Web Requests](certification-prep/cbbh/web-requests/README.md)
     * [🐻 HTTP Fundamentals](certification-prep/cbbh/web-requests/http-fundamentals.md)
     * [🐰 HTTP Methods](certification-prep/cbbh/web-requests/http-methods.md)
+  * [👶 Introduction to Web Applications](certification-prep/cbbh/introduction-to-web-applications.md)
+  * [Page 1](certification-prep/cbbh/page-1.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
 ## 🏳️ Capture The Flags

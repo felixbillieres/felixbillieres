@@ -6,7 +6,7 @@ Nice page about token impersonation with example:
 [impersonation-and-potato-attacks.md](../../../../red-team/technical-knowledge/privilege-escalation/windows/impersonation-and-potato-attacks.md)
 {% endcontent-ref %}
 
-<figure><img src="../../../../.gitbook/assets/image (21) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (21) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 This technique that allows an attacker to steal the access token of a logged-on user on the system without knowing their credentials and impersonate them to perform operations with their privileges.
 

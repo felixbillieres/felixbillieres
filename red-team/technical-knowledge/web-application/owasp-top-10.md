@@ -4,7 +4,7 @@ description: https://app.hackthebox.com/tracks/OWASP-Top-10
 
 # 🐝 OWASP Top 10
 
-<figure><img src="../../../.gitbook/assets/image (21) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (21) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Looking glass
 

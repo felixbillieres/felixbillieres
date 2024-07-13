@@ -134,7 +134,7 @@ We arrive on this dashboard:&#x20;
 
 after some enumeration, we find this:&#x20;
 
-<figure><img src="../../.gitbook/assets/image (21) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (21) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Top right of the screen there is a create item button, let's see:
 

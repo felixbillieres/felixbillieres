@@ -280,7 +280,7 @@ we start by uploading an image to the server:
 
 We see this ouput in the burp request:
 
-<figure><img src="../../.gitbook/assets/image (21) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (21) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We have to modify a few things to read content:
 
