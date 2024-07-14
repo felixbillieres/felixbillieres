@@ -111,7 +111,9 @@
       * [⚙️ Development Frameworks & APIs](certification-prep/cbbh/introduction-to-web-applications/back-end-components/development-frameworks-and-apis.md)
     * [🦓 Common Web Vulnerabilities](certification-prep/cbbh/introduction-to-web-applications/common-web-vulnerabilities.md)
   * [🌉 Using Web Proxies](certification-prep/cbbh/using-web-proxies/README.md)
-    * [Web Proxy](certification-prep/cbbh/using-web-proxies/web-proxy.md)
+    * [🍏 Web Proxy](certification-prep/cbbh/using-web-proxies/web-proxy.md)
+    * [🪢 Web Fuzzer & Scanner](certification-prep/cbbh/using-web-proxies/web-fuzzer-and-scanner.md)
+    * [💂 Skills Assessment - Using Web Proxies](certification-prep/cbbh/using-web-proxies/skills-assessment-using-web-proxies.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
 ## 🏳️ Capture The Flags
