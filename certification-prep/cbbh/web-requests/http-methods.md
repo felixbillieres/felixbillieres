@@ -31,7 +31,7 @@ When going for a ressource on a webserver HTTP status codes are used to tell the
 
 Let's say we have a login page where we had to login:
 
-<figure><img src="../../../.gitbook/assets/image (8) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (8) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 When we log in we have access to the following ip:
 
@@ -94,7 +94,7 @@ ElFelixio@htb[/htb]$ curl -v http://admin:admin@<SERVER_IP>:<PORT>/
 ...
 ```
 
-<figure><img src="../../../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (9) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### POST
 
@@ -235,15 +235,15 @@ In general, APIs perform 4 main operations on the requested database entity:
 curl -s http://83.136.254.58:46803/api.php/city/london
 ```
 
-<figure><img src="../../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
 
 For a better output, we can pipe jq at the end of our command:
 
-<figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10) (1).png" alt=""><figcaption></figcaption></figure>
 
 We quickly realise that we can see all of the cities that are in the api when we don't specify any city and pipe jq:
 
-<figure><img src="../../../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (11) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Create
 
@@ -253,7 +253,7 @@ curl -X POST http://83.136.254.58:46803/api.php/city/ -d '{"city_name":"ElFelixi
 
 We can craft our own city and post it to the api and check if it was succesfull:
 
-<figure><img src="../../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (12) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Update
 

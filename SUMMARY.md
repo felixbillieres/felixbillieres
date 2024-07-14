@@ -110,7 +110,8 @@
       * [📥 Databases](certification-prep/cbbh/introduction-to-web-applications/back-end-components/databases.md)
       * [⚙️ Development Frameworks & APIs](certification-prep/cbbh/introduction-to-web-applications/back-end-components/development-frameworks-and-apis.md)
     * [🦓 Common Web Vulnerabilities](certification-prep/cbbh/introduction-to-web-applications/common-web-vulnerabilities.md)
-  * [Page 1](certification-prep/cbbh/page-1.md)
+  * [🌉 Using Web Proxies](certification-prep/cbbh/using-web-proxies/README.md)
+    * [Web Proxy](certification-prep/cbbh/using-web-proxies/web-proxy.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
 ## 🏳️ Capture The Flags

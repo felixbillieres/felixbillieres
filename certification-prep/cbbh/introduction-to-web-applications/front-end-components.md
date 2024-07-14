@@ -6,7 +6,7 @@ HTML is at the very core of any web page we see on the internet.
 
 Here is a simple structure of what a web page could look like:
 
-<figure><img src="../../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (4) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### URL Encoding
 
