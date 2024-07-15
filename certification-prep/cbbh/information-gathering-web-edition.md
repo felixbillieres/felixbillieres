@@ -2,7 +2,7 @@
 
 We have to think about information gathering as the preparatory phase before delving into deeper analysis and potential exploitation.
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 The goal is to correctly:
 
@@ -13,7 +13,7 @@ The goal is to correctly:
 
 There are 2 main types of reconnaissance, active and passive&#x20;
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 When we start with passive recon, WHOIS is a nice way to start, it's a query and response protocol designed to access databases that store information about registered internet resources. It provide details about IP address blocks and autonomous systems.
 
