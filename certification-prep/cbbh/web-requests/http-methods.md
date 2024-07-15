@@ -276,3 +276,21 @@ curl -X DELETE http://83.136.254.58:46803/api.php/city/ElFelixioLand
 ```
 
 <figure><img src="../../../.gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (1272).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (1273).png" alt=""><figcaption></figcaption></figure>
+
+```
+curl http://94.237.59.63:34518/search.php?search=flag -u admin:admin
+```
+
+## POST
+
+whenever web applications need to transfer files or move the user parameters from the URL, they utilize `POST` requests
+
+`POST` places user parameters within the HTTP Request body.
+
+sO we get this login page:
+
+<figure><img src="../../../.gitbook/assets/image (1274).png" alt=""><figcaption></figcaption></figure>
