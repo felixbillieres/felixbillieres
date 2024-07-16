@@ -97,3 +97,86 @@ A DNS zone transfer is essentially a wholesale copy of all DNS records within a 
 * **Acknowledgement:** The secondary server confirms receipt and processing of the data, completing the zone transfer.
 
 **Exploiting Zone Transfers**
+
+{% embed url="https://book.hacktricks.xyz/network-services-pentesting/pentesting-dns#zone-transfer" %}
+
+{% embed url="https://yogesh-verma.medium.com/zone-transfer-attacks-a-practical-guide-to-detection-and-prevention-2e8346d0297e" %}
+
+If we wanted to exploit zone transfer, we could use the `dig` command to request a zone transfer:
+
+```shell-session
+dig axfr @nsztm1.digi.ninja zonetransfer.me
+```
+
+This would output:
+
+```shell-session
+ElFelixio@htb[/htb]$ dig axfr @nsztm1.digi.ninja zonetransfer.me
+
+; <<>> DiG 9.18.12-1~bpo11+1-Debian <<>> axfr @nsztm1.digi.ninja zonetransfer.me
+; (1 server found)
+;; global options: +cmd
+zonetransfer.me.	7200	IN	SOA	nsztm1.digi.ninja. robin.digi.ninja. 2019100801 172800 900 1209600 3600
+zonetransfer.me.	300	IN	HINFO	"Casio fx-700G" "Windows XP"
+zonetransfer.me.	301	IN	TXT	"google-site-verification=tyP28J7JAUHA9fw2sHXMgcCC0I6XBmmoVi04VlMewxA"
+zonetransfer.me.	7200	IN	MX	0 ASPMX.L.GOOGLE.COM.
+...
+zonetransfer.me.	7200	IN	A	5.196.105.14
+zonetransfer.me.	7200	IN	NS	nsztm1.digi.ninja.
+zonetransfer.me.	7200	IN	NS	nsztm2.digi.ninja.
+_acme-challenge.zonetransfer.me. 301 IN	TXT	"6Oa05hbUJ9xSsvYy7pApQvwCUSSGgxvrbdizjePEsZI"
+_sip._tcp.zonetransfer.me. 14000 IN	SRV	0 0 5060 www.zonetransfer.me.
+14.105.196.5.IN-ADDR.ARPA.zonetransfer.me. 7200	IN PTR www.zonetransfer.me.
+asfdbauthdns.zonetransfer.me. 7900 IN	AFSDB	1 asfdbbox.zonetransfer.me.
+asfdbbox.zonetransfer.me. 7200	IN	A	127.0.0.1
+asfdbvolume.zonetransfer.me. 7800 IN	AFSDB	1 asfdbbox.zonetransfer.me.
+canberra-office.zonetransfer.me. 7200 IN A	202.14.81.230
+...
+```
+
+_**After performing a zone transfer for the domain inlanefreight.htb on the target system, how many DNS records are retrieved from the target system's name server? Provide your answer as an integer, e.g, 123.**_
+
+```
+dig axfr @ACADEMY-INFOGATH-WEB-DNS inlanefreight.htb
+```
+
+<figure><img src="../../../.gitbook/assets/image (1275).png" alt=""><figcaption><p>22</p></figcaption></figure>
+
+## Virtual Hosts
+
+Web servers like Apache, Nginx, or IIS are designed to host multiple websites or applications on a single server. They achieve this through virtual hosting, which allows them to differentiate between domains, subdomains, or even separate websites with distinct content.
+
+At the core of `virtual hosting` is the ability of web servers to distinguish between multiple websites or applications sharing the same IP address. This is achieved by leveraging the `HTTP Host` header, a piece of information included in every `HTTP` request sent by a web browser.
+
+Here is an example of distinc domains hosted on the same webserver:
+
+```html
+# Example of name-based virtual host configuration in Apache
+<VirtualHost *:80>
+    ServerName www.example1.com
+    DocumentRoot /var/www/example1
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName www.example2.org
+    DocumentRoot /var/www/example2
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName www.another-example.net
+    DocumentRoot /var/www/another-example
+</VirtualHost>
+
+```
+
+The web server uses the `Host` header to serve the appropriate content based on the requested domain name.
+
+Here are the 3 primary types of virtual hosting:
+
+**Name-Based Virtual Hosting:** Uses the HTTP Host header to distinguish websites. It's common, flexible, cost-effective, easy to set up, and supported by most modern web servers. However, it needs web server support and has limitations with protocols like SSL/TLS.
+
+**IP-Based Virtual Hosting:** Assigns a unique IP address to each website, allowing the server to identify the website based on the request's IP address. It works with any protocol and offers better isolation but requires multiple IP addresses, making it expensive and less scalable.
+
+**Port-Based Virtual Hosting:** Associates different websites with different ports on the same IP address (e.g., port 80 for one site, port 8080 for another). Useful when IP addresses are limited but less common and user-friendly, often requiring users to specify the port in the URL.
+
+The main tools for `virtual host discovery tools` are gobuster, feroxbuster and ffuf
