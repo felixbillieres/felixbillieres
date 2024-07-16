@@ -114,7 +114,8 @@
     * [🍏 Web Proxy](certification-prep/cbbh/using-web-proxies/web-proxy.md)
     * [🪢 Web Fuzzer & Scanner](certification-prep/cbbh/using-web-proxies/web-fuzzer-and-scanner.md)
     * [💂 Skills Assessment - Using Web Proxies](certification-prep/cbbh/using-web-proxies/skills-assessment-using-web-proxies.md)
-  * [➿ Information Gathering - Web Edition](certification-prep/cbbh/information-gathering-web-edition.md)
+  * [➿ Information Gathering - Web Edition](certification-prep/cbbh/information-gathering-web-edition/README.md)
+    * [DNS & Subdomains](certification-prep/cbbh/information-gathering-web-edition/dns-and-subdomains.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
 ## 🏳️ Capture The Flags

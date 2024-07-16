@@ -46,7 +46,7 @@ An essential feature of web proxy tools is their web scanners. Burp Suite comes 
 
 To start a scan, we can right-click on it once we locate it in the history, and then select `Scan` to be able to configure the scan before we run it, or select `Passive/Active Scan` to quickly start a scan with the default configurations
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 If we go to (`Target>Site map`), it will show a listing of all directories and files burp has detected in various requests that went through its proxy
 

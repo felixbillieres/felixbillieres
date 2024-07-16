@@ -16,7 +16,7 @@ For the infrastructure part, web apps can choose different models such as:
 
 * `Client-Server`
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 * `One Server`
 
