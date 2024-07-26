@@ -1,4 +1,4 @@
-# DNS & Subdomains
+# 🦊 DNS & Subdomains
 
 ## DNS
 
@@ -180,3 +180,11 @@ Here are the 3 primary types of virtual hosting:
 **Port-Based Virtual Hosting:** Associates different websites with different ports on the same IP address (e.g., port 80 for one site, port 8080 for another). Useful when IP addresses are limited but less common and user-friendly, often requiring users to specify the port in the URL.
 
 The main tools for `virtual host discovery tools` are gobuster, feroxbuster and ffuf
+
+and for the questions, this is the command that finds everthing:
+
+```
+gobuster vhost -u http://inlanefreight.htb:44883 -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt --append-domain
+```
+
+<figure><img src="../../../.gitbook/assets/image (1276).png" alt=""><figcaption></figcaption></figure>
