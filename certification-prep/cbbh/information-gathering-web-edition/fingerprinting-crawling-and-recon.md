@@ -1,4 +1,4 @@
-# Fingerprinting, Crawling & recon
+# 🔑 Fingerprinting, Crawling & Recon
 
 Fingerprinting focuses on extracting technical details about the technologies powering a website or web application.
 
@@ -90,3 +90,57 @@ Sitemap: https://www.example.com/sitemap.xml
 * All user agents are allowed to access the `/public/` directory.
 * The `Googlebot` (Google's web crawler) is specifically instructed to wait 10 seconds between requests.
 * The sitemap, located at `https://www.example.com/sitemap.xml`, is provided for easier crawling and indexing.
+
+Here are some tools that can be used for automating recon:
+
+## FinalRecon
+
+```shell-session
+ElFelixi0@htb[/htb]$ git clone https://github.com/thewhiteh4t/FinalRecon.git
+ElFelixi0@htb[/htb]$ cd FinalRecon
+ElFelixi0@htb[/htb]$ pip3 install -r requirements.txt
+ElFelixi0@htb[/htb]$ chmod +x ./finalrecon.py
+```
+
+I'll let the person reading this go and check the help section of the tool
+
+if we want `FinalRecon` to gather header information and perform a Whois lookup for `inlanefreight.com`, we would use the corresponding flags (`--headers` and `--whois`), so the command would be:
+
+```shell-session
+./finalrecon.py --headers --whois --url http://inlanefreight.com
+```
+
+## Skills Assessment
+
+_**What is the IANA ID of the registrar of the inlanefreight.com domain?**_
+
+```
+whois inlanefreight.com
+```
+
+<figure><img src="../../../.gitbook/assets/image (1278).png" alt=""><figcaption></figcaption></figure>
+
+_**What http server software is powering the inlanefreight.htb site on the target system? Respond with the name of the software, not the version, e.g., Apache.**_
+
+<figure><img src="../../../.gitbook/assets/image (1277).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (1279).png" alt=""><figcaption></figcaption></figure>
+
+```
+gobuster vhost -u http://web1337.inlanefreight.htb:$PORT -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt --append-domain
+```
+
+<figure><img src="../../../.gitbook/assets/image (1280).png" alt=""><figcaption></figcaption></figure>
+
+
+
+_**After crawling the inlanefreight.htb domain on the target system, what is the email address you have found? Respond with the full email, e.g., mail@inlanefreight.htb.**_
+
+```
+python3 ReconSpider.py http://dev.web1337.inlanefreight.htb:$PORT
+```
+
+_**What is the API key the inlanefreight.htb developers will be changing too?**_
+
+<figure><img src="../../../.gitbook/assets/image (1281).png" alt=""><figcaption></figcaption></figure>
+

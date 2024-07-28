@@ -116,7 +116,8 @@
     * [💂 Skills Assessment - Using Web Proxies](certification-prep/cbbh/using-web-proxies/skills-assessment-using-web-proxies.md)
   * [➿ Information Gathering - Web Edition](certification-prep/cbbh/information-gathering-web-edition/README.md)
     * [🦊 DNS & Subdomains](certification-prep/cbbh/information-gathering-web-edition/dns-and-subdomains.md)
-    * [Fingerprinting, Crawling & recon](certification-prep/cbbh/information-gathering-web-edition/fingerprinting-crawling-and-recon.md)
+    * [🔑 Fingerprinting, Crawling & Recon](certification-prep/cbbh/information-gathering-web-edition/fingerprinting-crawling-and-recon.md)
+  * [☠️ JavaScript Deobfuscation](certification-prep/cbbh/javascript-deobfuscation.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
 ## 🏳️ Capture The Flags
