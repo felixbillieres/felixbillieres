@@ -118,6 +118,9 @@
     * [🦊 DNS & Subdomains](certification-prep/cbbh/information-gathering-web-edition/dns-and-subdomains.md)
     * [🔑 Fingerprinting, Crawling & Recon](certification-prep/cbbh/information-gathering-web-edition/fingerprinting-crawling-and-recon.md)
   * [☠️ JavaScript Deobfuscation](certification-prep/cbbh/javascript-deobfuscation.md)
+  * [🧜 SQL Injection Fundamentals](certification-prep/cbbh/sql-injection-fundamentals/README.md)
+    * [🚑 Basic injections:](certification-prep/cbbh/sql-injection-fundamentals/basic-injections.md)
+    * [💇 Exploitation](certification-prep/cbbh/sql-injection-fundamentals/exploitation.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
 ## 🏳️ Capture The Flags

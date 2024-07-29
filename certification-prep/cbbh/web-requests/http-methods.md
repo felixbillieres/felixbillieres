@@ -235,11 +235,11 @@ In general, APIs perform 4 main operations on the requested database entity:
 curl -s http://83.136.254.58:46803/api.php/city/london
 ```
 
-<figure><img src="../../../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (9) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 For a better output, we can pipe jq at the end of our command:
 
-<figure><img src="../../../.gitbook/assets/image (10) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 We quickly realise that we can see all of the cities that are in the api when we don't specify any city and pipe jq:
 
