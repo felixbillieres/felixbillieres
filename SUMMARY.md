@@ -121,7 +121,8 @@
   * [🧜 SQL Injection Fundamentals](certification-prep/cbbh/sql-injection-fundamentals/README.md)
     * [🚑 Basic injections:](certification-prep/cbbh/sql-injection-fundamentals/basic-injections.md)
     * [💇 Exploitation](certification-prep/cbbh/sql-injection-fundamentals/exploitation.md)
-    * [Skills Assessment - SQL Injection Fundamentals](certification-prep/cbbh/sql-injection-fundamentals/skills-assessment-sql-injection-fundamentals.md)
+    * [🏗️ Skills Assessment - SQL Injection Fundamentals](certification-prep/cbbh/sql-injection-fundamentals/skills-assessment-sql-injection-fundamentals.md)
+  * [🐡 SQLMap Essentials](certification-prep/cbbh/sqlmap-essentials.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
 ## 🏳️ Capture The Flags
