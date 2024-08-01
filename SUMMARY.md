@@ -127,6 +127,9 @@
     * [🌚 Advanced SQLMap](certification-prep/cbbh/sqlmap-essentials/advanced-sqlmap.md)
     * [🎡 OS Exploitation](certification-prep/cbbh/sqlmap-essentials/os-exploitation.md)
     * [Skill Assessment](certification-prep/cbbh/sqlmap-essentials/skill-assessment.md)
+  * [🍚 Command Injections](certification-prep/cbbh/command-injections/README.md)
+    * [🥚 Exploitation](certification-prep/cbbh/command-injections/exploitation.md)
+    * [🦹‍♂️ Filter Evasion](certification-prep/cbbh/command-injections/filter-evasion.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
 ## 🏳️ Capture The Flags

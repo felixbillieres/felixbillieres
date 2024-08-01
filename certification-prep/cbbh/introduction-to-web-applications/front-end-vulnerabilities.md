@@ -8,7 +8,7 @@ It can be utilized to gain access to sensitive functionality (i.e., an admin pan
 
 #### Example:
 
-<figure><img src="../../../.gitbook/assets/image (5) (1) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (5) (1) (1) (1) (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 And if we look at the page source:
 
@@ -43,7 +43,7 @@ When a user has complete control of how their input will be displayed, they can 
 
 Let's say we have this simple input page:
 
-<figure><img src="../../../.gitbook/assets/image (6) (1) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (6) (1) (1) (1) (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 If there is no sanitizing and we input this malicious code:
 
@@ -53,7 +53,7 @@ If there is no sanitizing and we input this malicious code:
 
 The website will look like this:
 
-<figure><img src="../../../.gitbook/assets/image (7) (1) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (7) (1) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Cross-Site Scripting (XSS)
 

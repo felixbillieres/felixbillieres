@@ -8,7 +8,7 @@ Here are some different types of databases:
 
 [Relational](https://en.wikipedia.org/wiki/Relational\_database) (SQL) databases store their data in tables, rows, and columns. Each table can have unique keys, which can link tables together and create relationships between tables.
 
-<figure><img src="../../../../.gitbook/assets/image (6) (1) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (6) (1) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can link the `id` from the `users` table to the `user_id` in the `posts` table to easily retrieve the user details for each post, without having to store all user details with each post.
 
@@ -29,7 +29,7 @@ There are 4 common storage models for `NoSQL` databases:
 
 Each of the above models has a different way of storing data. For example, the `Key-Value` model usually stores data in `JSON` or `XML`, and has a key for each pair, storing all of its data as its value:
 
-<figure><img src="../../../../.gitbook/assets/image (7) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (7) (1) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 Here are some common NoSql databses:
 
