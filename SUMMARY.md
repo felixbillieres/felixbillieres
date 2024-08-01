@@ -122,7 +122,11 @@
     * [🚑 Basic injections:](certification-prep/cbbh/sql-injection-fundamentals/basic-injections.md)
     * [💇 Exploitation](certification-prep/cbbh/sql-injection-fundamentals/exploitation.md)
     * [🏗️ Skills Assessment - SQL Injection Fundamentals](certification-prep/cbbh/sql-injection-fundamentals/skills-assessment-sql-injection-fundamentals.md)
-  * [🐡 SQLMap Essentials](certification-prep/cbbh/sqlmap-essentials.md)
+  * [🐡 SQLMap Essentials](certification-prep/cbbh/sqlmap-essentials/README.md)
+    * [🏇 Database Enumeration](certification-prep/cbbh/sqlmap-essentials/database-enumeration.md)
+    * [🌚 Advanced SQLMap](certification-prep/cbbh/sqlmap-essentials/advanced-sqlmap.md)
+    * [🎡 OS Exploitation](certification-prep/cbbh/sqlmap-essentials/os-exploitation.md)
+    * [Skill Assessment](certification-prep/cbbh/sqlmap-essentials/skill-assessment.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
 ## 🏳️ Capture The Flags
