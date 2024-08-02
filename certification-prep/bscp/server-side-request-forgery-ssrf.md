@@ -91,7 +91,7 @@ To bypass the fact that some applications block `127.0.0.1` and `localhost`, or 
 
 So we start by capturing the request of the check stock button and try to input a localhost bypass but fail:
 
-<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>note: URL encoded</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>note: URL encoded</p></figcaption></figure>
 
 Ok so we are able to bypass the input restriction with the shortened version of 127.0.0.1:
 
@@ -99,7 +99,7 @@ Ok so we are able to bypass the input restriction with the shortened version of 
 
 but /admin did not work, so i tried encoding a few times and it worked:
 
-<figure><img src="../../.gitbook/assets/image (10) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 1. **Encoded URL**: `http%3a//127.1/%2561dmin`
    * `%3a` represents the colon character `:` in URL encoding.

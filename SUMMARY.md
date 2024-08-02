@@ -131,6 +131,9 @@
     * [🥚 Exploitation](certification-prep/cbbh/command-injections/exploitation.md)
     * [🦹‍♂️ Filter Evasion](certification-prep/cbbh/command-injections/filter-evasion.md)
     * [😘 Evasion Tools](certification-prep/cbbh/command-injections/evasion-tools.md)
+    * [🎚️ Skills Assessment](certification-prep/cbbh/command-injections/skills-assessment.md)
+  * [🐌 File Upload Attacks](certification-prep/cbbh/file-upload-attacks/README.md)
+    * [🦘 Bypassing Filters](certification-prep/cbbh/file-upload-attacks/bypassing-filters.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
 ## 🏳️ Capture The Flags

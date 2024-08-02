@@ -84,7 +84,7 @@ smbclient -U SABatchJobs //10.129.69.81/users$ SABatchJobs
 
 in the XML file, there are credentials:
 
-<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 since the credentials are in mhope directory, it's a high prob it's his credentials ->
 
@@ -100,7 +100,7 @@ crackmapexec winrm 10.129.69.81 -u mhope -p '4n0therD4y@n0th3r$'
 4. `-u mhope`: This flag specifies the username (`mhope`) to be used for authentication when connecting to the WinRM service on the target system.
 5. `-p '4n0therD4y@n0th3r$'`: This flag specifies the password (`4n0therD4y@n0th3r$`) corresponding to the username provided with the `-u` flag. It's used for authentication purposes.
 
-<figure><img src="../../.gitbook/assets/image (10) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We also get the indication that winrm works for this account so let's go:
 

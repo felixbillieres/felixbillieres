@@ -94,7 +94,7 @@ ElFelixio@htb[/htb]$ curl -v http://admin:admin@<SERVER_IP>:<PORT>/
 ...
 ```
 
-<figure><img src="../../../.gitbook/assets/image (9) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (9) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### POST
 
@@ -243,7 +243,7 @@ For a better output, we can pipe jq at the end of our command:
 
 We quickly realise that we can see all of the cities that are in the api when we don't specify any city and pipe jq:
 
-<figure><img src="../../../.gitbook/assets/image (11) (1) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (11) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Create
 

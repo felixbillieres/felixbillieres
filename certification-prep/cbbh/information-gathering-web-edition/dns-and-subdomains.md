@@ -88,7 +88,7 @@ support.inlanefreight.com.               300      IN    A        134.209.24.248
 
 A DNS zone transfer is essentially a wholesale copy of all DNS records within a zone (a domain and its subdomains) from one name server to another. if not adequately secured, unauthorised parties can download the entire zone file, revealing a complete list of subdomains, their associated IP addresses, and other sensitive DNS data.
 
-<figure><img src="../../../.gitbook/assets/image (10) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 * **Request Initiation:** The secondary DNS server sends a zone transfer request (AXFR) to the primary server.
 * **SOA Record Transfer:** The primary server responds with its Start of Authority (SOA) record, including the serial number for version control.

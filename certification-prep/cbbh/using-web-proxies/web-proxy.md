@@ -4,7 +4,7 @@ I will not go on how to set up foxy proxy and capture a request, i'll hop right 
 
 Let's say we have this web app:
 
-<figure><img src="../../../.gitbook/assets/image (8) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (8) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We capture the request after sending inputting an IP:
 
@@ -38,11 +38,11 @@ Connection: close
 ip=;ls;
 ```
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (2) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 _**Try intercepting the ping request on the server shown above, and change the post data similarly to what we did in this section. Change the command to read 'flag.txt'**_
 
-<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Intercepting Responses
 
@@ -52,11 +52,11 @@ In our previous exercise, the `IP` field only allowed us to input numeric values
 
 In Burp, we can enable response interception by going to (`Proxy>Options`) and enabling `Intercept Response` under `Intercept Server Responses`:
 
-<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1) (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1) (2) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Here is the normal HTML of the web app we were exploiting:
 
-<figure><img src="../../../.gitbook/assets/image (4) (1) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (4) (1) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 Let's try changing the `type="number"` on line 27 to `type="text"` and change the input length to be able to type bigger commands:
 
@@ -68,17 +68,17 @@ Let's try changing the `type="number"` on line 27 to `type="text"` and change th
 
 After forwarding the request, we can now input some text and commands:
 
-<figure><img src="../../../.gitbook/assets/image (5) (1) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (5) (1) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Automatic Modification
 
 We can choose to match any text within our requests, either in the request header or request body, and then replace them with different text. We can go to (`Proxy>Options>Match and Replace`) and click on `Add` in Burp.
 
-<figure><img src="../../../.gitbook/assets/image (6) (1) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (6) (1) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 After clicking ok, this will start automatically replacing the `User-Agent` header in our requests with our new User-Agent. We can verify that by visiting any website using the pre-configured Burp browser and reviewing the intercepted request.
 
-<figure><img src="../../../.gitbook/assets/image (7) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (7) (1) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 ## Repeating Requests
 
@@ -88,7 +88,7 @@ To start, we can view the HTTP requests history in `Burp` at (`Proxy>HTTP Histor
 
 If we click on a previous request such as:
 
-<figure><img src="../../../.gitbook/assets/image (8) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (8) (1) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 We can now send it to the repeater (`CTRL+R),` edit our request and hit the send button
 
@@ -188,7 +188,7 @@ msf6 auxiliary(scanner/http/robots_txt) > run
 
 and then we can go back to our web proxy tool of choice and examine the proxy history to view all sent requests:
 
-<figure><img src="../../../.gitbook/assets/image (11) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (11) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 _**Try running 'auxiliary/scanner/http/http\_put' in Metasploit on any website, while routing the traffic through Burp. Once you view the requests sent, what is the last line in the request?**_
 

@@ -133,6 +133,6 @@ Now let's show another POV, let's run the binary and input 6 a's
 
 If we print out the value using `x $ebp - 0xc` look at what we see ->
 
-<figure><img src="../../../../.gitbook/assets/image (9) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (9) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The value is 61

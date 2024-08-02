@@ -77,5 +77,5 @@ And we are able to test for LFI:
 
 So maybe we can access to the supersecret file ->
 
-<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>admin:DBManagerLogin!</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>admin:DBManagerLogin!</p></figcaption></figure>
 

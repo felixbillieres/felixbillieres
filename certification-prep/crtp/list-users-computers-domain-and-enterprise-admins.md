@@ -116,4 +116,4 @@ Same as above, if we need to call a group that is not in our domain we need to q
 Get-ADGroupMember -Identity 'Domain Admins' -Server moneycorp.local
 ```
 
-<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>

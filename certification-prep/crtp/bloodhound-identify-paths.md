@@ -74,7 +74,7 @@ Then we can upload the JSON files to get a visual render with the GUI.&#x20;
 
 I can look for myself:
 
-<figure><img src="../../.gitbook/assets/image (10) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 In Node Info, scroll down to 'LOCAL ADMIN RIGHTS' and expand 'Derivative Local Admin Rights' to find if student613 has derivate local admin rights on any machine!
 
@@ -84,5 +84,5 @@ To complete the task we go on the Web UI of bloodhound provided by the course, l
 
 n the Web UI, click on Cypher -> Click on the Folder Icon -> Pre-Built Searches -> Active Directory -> (Scroll down) -> Shortest paths to Domain Admins
 
-<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 

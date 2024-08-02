@@ -56,7 +56,7 @@ After looking up a write-up to see how a pro would go quick to go through all of
 for f in *; do cat $f | grep -v 'php die'; echo; done | grep . | while read line; do echo $line | base64 -d; echo; done | grep '"pass"'
 ```
 
-<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 **explanation:**
 
@@ -99,7 +99,7 @@ for f in *; do cat $f | grep -v 'php die'; echo; done | grep . | while read line
 
 Since we looked at the home directory and saw a paul user, we could guess that this user is the pivoting path, so i added a grep "paul" to the oneliner as a part of contribution
 
-<figure><img src="../../.gitbook/assets/image (10) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 took this hash and looked it up and saw it was mode 1400 on hashcat ->
 
