@@ -53,7 +53,7 @@ If there is no sanitizing and we input this malicious code:
 
 The website will look like this:
 
-<figure><img src="../../../.gitbook/assets/image (7) (1) (1) (1) (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (7) (1) (1) (1) (2) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Cross-Site Scripting (XSS)
 

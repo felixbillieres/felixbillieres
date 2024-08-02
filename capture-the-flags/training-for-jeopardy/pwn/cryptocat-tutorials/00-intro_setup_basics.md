@@ -8,7 +8,7 @@ description: https://github.com/Crypto-Cat/CTF/tree/main/pwn/binary_exploitation
 
 {% embed url="https://avinetworks.com/glossary/buffer-overflow/" %}
 
-<figure><img src="../../../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 You can obviously find thousands of definitions about what is a buffer overflow on internet but, here is my definition and how i understand it:
 
@@ -84,7 +84,7 @@ gcc vuln.c -o vuln -fstack-protector-all
 
 And we get a warning:
 
-<figure><img src="../../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 this gives us a hint on what to do next
 
@@ -94,7 +94,7 @@ Let's try to do our buffer overflow ->
 
 The trick here if i understand it well is that there is a buffer size of 16 allocated to the buffer and gets is very unsecure unlike fgets because it does not look at the size inputed so if we enter an input greater than 16 it will crash
 
-<figure><img src="../../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Now if we try to open the file with gdb ->
 

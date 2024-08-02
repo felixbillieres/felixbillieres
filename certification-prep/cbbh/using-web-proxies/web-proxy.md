@@ -4,7 +4,7 @@ I will not go on how to set up foxy proxy and capture a request, i'll hop right 
 
 Let's say we have this web app:
 
-<figure><img src="../../../.gitbook/assets/image (8) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (8) (1) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 We capture the request after sending inputting an IP:
 
@@ -42,7 +42,7 @@ ip=;ls;
 
 _**Try intercepting the ping request on the server shown above, and change the post data similarly to what we did in this section. Change the command to read 'flag.txt'**_
 
-<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (2) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Intercepting Responses
 
@@ -78,7 +78,7 @@ We can choose to match any text within our requests, either in the request heade
 
 After clicking ok, this will start automatically replacing the `User-Agent` header in our requests with our new User-Agent. We can verify that by visiting any website using the pre-configured Burp browser and reviewing the intercepted request.
 
-<figure><img src="../../../.gitbook/assets/image (7) (1) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (7) (1) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Repeating Requests
 
@@ -88,7 +88,7 @@ To start, we can view the HTTP requests history in `Burp` at (`Proxy>HTTP Histor
 
 If we click on a previous request such as:
 
-<figure><img src="../../../.gitbook/assets/image (8) (1) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (8) (1) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can now send it to the repeater (`CTRL+R),` edit our request and hit the send button
 

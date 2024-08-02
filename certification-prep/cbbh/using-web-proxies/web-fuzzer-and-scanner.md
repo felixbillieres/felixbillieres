@@ -50,7 +50,7 @@ To start a scan, we can right-click on it once we locate it in the history, and 
 
 If we go to (`Target>Site map`), it will show a listing of all directories and files burp has detected in various requests that went through its proxy
 
-<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We saw that we could add to scope but we can also remove from scope
 
@@ -94,4 +94,4 @@ Once the scan is done, we can look at the `Issue activity` pane in the `Dashboar
 
 And for more details:
 
-<figure><img src="../../../.gitbook/assets/image (7) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (7) (1) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
