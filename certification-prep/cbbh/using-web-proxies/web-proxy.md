@@ -92,11 +92,11 @@ If we click on a previous request such as:
 
 We can now send it to the repeater (`CTRL+R),` edit our request and hit the send button
 
-<figure><img src="../../../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (9) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 _**Try using request repeating to be able to quickly test commands. With that, try looking for the other flag.**_
 
-<figure><img src="../../../.gitbook/assets/image (10) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 ## Encoding/Decoding
 
@@ -188,7 +188,7 @@ msf6 auxiliary(scanner/http/robots_txt) > run
 
 and then we can go back to our web proxy tool of choice and examine the proxy history to view all sent requests:
 
-<figure><img src="../../../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (11) (1).png" alt=""><figcaption></figcaption></figure>
 
 _**Try running 'auxiliary/scanner/http/http\_put' in Metasploit on any website, while routing the traffic through Burp. Once you view the requests sent, what is the last line in the request?**_
 

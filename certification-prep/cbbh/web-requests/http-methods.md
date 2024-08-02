@@ -100,7 +100,7 @@ ElFelixio@htb[/htb]$ curl -v http://admin:admin@<SERVER_IP>:<PORT>/
 
 So for this exercise we are going to look at what requests are made when we login with admin:admin ->
 
-<figure><img src="../../../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (15) (2).png" alt=""><figcaption></figcaption></figure>
 
 And when we login we can see some odd stuff:
 
@@ -235,15 +235,15 @@ In general, APIs perform 4 main operations on the requested database entity:
 curl -s http://83.136.254.58:46803/api.php/city/london
 ```
 
-<figure><img src="../../../.gitbook/assets/image (9) (1) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (9) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 For a better output, we can pipe jq at the end of our command:
 
-<figure><img src="../../../.gitbook/assets/image (10) (1) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 We quickly realise that we can see all of the cities that are in the api when we don't specify any city and pipe jq:
 
-<figure><img src="../../../.gitbook/assets/image (11) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (11) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 ### Create
 
@@ -253,7 +253,7 @@ curl -X POST http://83.136.254.58:46803/api.php/city/ -d '{"city_name":"ElFelixi
 
 We can craft our own city and post it to the api and check if it was succesfull:
 
-<figure><img src="../../../.gitbook/assets/image (12) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (12) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 ### Update
 
@@ -265,7 +265,7 @@ curl -X PUT http://83.136.254.58:46803/api.php/city/london -d '{"city_name":"ElL
 
 And check if it was really updated:
 
-<figure><img src="../../../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (13) (2).png" alt=""><figcaption></figcaption></figure>
 
 ### DELETE
 
@@ -275,7 +275,7 @@ This one is very simple and is just like a READ command:
 curl -X DELETE http://83.136.254.58:46803/api.php/city/ElFelixioLand
 ```
 
-<figure><img src="../../../.gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (14) (2).png" alt=""><figcaption></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (1272).png" alt=""><figcaption></figcaption></figure>
 

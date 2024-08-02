@@ -73,7 +73,7 @@ We saw earlier the HTML injection, from that input, we could've printed out the 
 #"><img src=/ onerror=alert(document.cookie)>
 ```
 
-<figure><img src="../../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (12) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Cross-Site Request Forgery (CSRF)
 

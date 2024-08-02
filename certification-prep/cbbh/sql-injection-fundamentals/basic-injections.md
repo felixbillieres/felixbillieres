@@ -147,4 +147,4 @@ _**Use a Union injection to get the result of 'user()'**_
 'UNION SELECT 1,user(),3,4-- -
 ```
 
-<figure><img src="../../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
