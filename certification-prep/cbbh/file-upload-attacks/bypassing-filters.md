@@ -71,3 +71,62 @@ We need to erase the check function:
 `if(validate()){upload()}` becomes `upload()`
 
 <figure><img src="../../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+
+## Blacklist Filters
+
+Here we are going to see why using a blacklist of common extensions may not be enough to prevent arbitrary file uploads and discuss several methods to bypass it.
+
+On our new website we tried to intercept an image upload request with Burp, replace the file content and filename with our PHP script's, and forward the request but it did not work
+
+<figure><img src="../../../.gitbook/assets/image (1315).png" alt=""><figcaption></figcaption></figure>
+
+So there is something on the back end retriciting our upload
+
+There are generally two common forms of validating a file extension on the back-end:
+
+1. Testing against a `blacklist` of types
+2. Testing against a `whitelist` of types
+
+We can also check the `file type` or the `file content` for type matching. The weakest form of validation amongst these is `testing the file extension against a blacklist of extension`
+
+To bypass a blacklist of web extensions `PayloadsAllTheThings` provides lists of extensions for [PHP](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Upload%20Insecure%20Files/Extension%20PHP/extensions.lst) and [.NET](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Upload%20Insecure%20Files/Extension%20ASP) web applications. We may also use `SecLists` list of common [Web Extensions](https://github.com/danielmiessler/SecLists/blob/master/Discovery/Web-Content/web-extensions.txt)
+
+Let's try for php:
+
+<figure><img src="../../../.gitbook/assets/image (1316).png" alt=""><figcaption></figcaption></figure>
+
+And they pretty much all work So if we go back in repeater and try modifying the extension with .phtml ->
+
+<figure><img src="../../../.gitbook/assets/image (1317).png" alt=""><figcaption></figcaption></figure>
+
+And to go and verify ->
+
+```
+http://SERVER_IP:PORT/profile_images/shell.phtml?cmd=id
+```
+
+<figure><img src="../../../.gitbook/assets/image (1318).png" alt=""><figcaption></figcaption></figure>
+
+_**Try to find an extension that is not blacklisted and can execute PHP code on the web server, and use it to read "/flag.txt"**_
+
+i start by uploading a photo and capturing the request:
+
+<figure><img src="../../../.gitbook/assets/image (1319).png" alt=""><figcaption></figcaption></figure>
+
+I input my webshell, send it to intruder and add the extension for a sniper attack:
+
+<figure><img src="../../../.gitbook/assets/image (1320).png" alt=""><figcaption></figcaption></figure>
+
+I add this little list:[https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Upload%20Insecure%20Files/Extension%20PHP/extensions.lst](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Upload%20Insecure%20Files/Extension%20PHP/extensions.lst)
+
+<figure><img src="../../../.gitbook/assets/image (1321).png" alt=""><figcaption></figcaption></figure>
+
+And it seems to work pretty well:
+
+<figure><img src="../../../.gitbook/assets/image (1322).png" alt=""><figcaption></figcaption></figure>
+
+We forward one of the successful request:
+
+<figure><img src="../../../.gitbook/assets/image (1323).png" alt=""><figcaption></figcaption></figure>
+
+Or we can&#x20;
