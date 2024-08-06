@@ -136,6 +136,7 @@
     * [🦘 Bypassing Filters](certification-prep/cbbh/file-upload-attacks/bypassing-filters.md)
   * [🦄 Server-side Attacks](certification-prep/cbbh/server-side-attacks/README.md)
     * [🏅 SSRF](certification-prep/cbbh/server-side-attacks/ssrf.md)
+    * [🧑‍🎤 SSTI](certification-prep/cbbh/server-side-attacks/ssti.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
 ## 🏳️ Capture The Flags
