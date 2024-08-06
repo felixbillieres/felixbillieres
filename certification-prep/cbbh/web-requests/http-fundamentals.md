@@ -8,13 +8,13 @@ HTTP's port is port 80 but it can change depending on the web server configurati
 
 The process to fetch an http ressource is the following: we enter a `Fully Qualified Domain Name` (`FQDN`) as a `Uniform Resource Locator` (`URL)`
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The main mandatory fields are the scheme and the host, without which the request would have no resource to request.
 
 Here is the anatomy of a HTTP request:
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### cURL
 
