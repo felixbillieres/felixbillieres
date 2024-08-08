@@ -140,6 +140,8 @@
     * [🦹‍♂️ SSI](certification-prep/cbbh/server-side-attacks/ssi.md)
     * [🤠 XSLT](certification-prep/cbbh/server-side-attacks/xslt.md)
     * [🫎 Skills Assessment](certification-prep/cbbh/server-side-attacks/skills-assessment.md)
+  * [🦩 Login Brute Forcing](certification-prep/cbbh/login-brute-forcing/README.md)
+    * [☄️ Basic HTTP Auth Brute Forcing](certification-prep/cbbh/login-brute-forcing/basic-http-auth-brute-forcing.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
 ## 🏳️ Capture The Flags

