@@ -138,6 +138,7 @@
     * [🏅 SSRF](certification-prep/cbbh/server-side-attacks/ssrf.md)
     * [🧑‍🎤 SSTI](certification-prep/cbbh/server-side-attacks/ssti.md)
     * [🦹‍♂️ SSI](certification-prep/cbbh/server-side-attacks/ssi.md)
+    * [🫎 Skills Assessment](certification-prep/cbbh/server-side-attacks/skills-assessment.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
 ## 🏳️ Capture The Flags

