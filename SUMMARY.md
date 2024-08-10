@@ -148,6 +148,7 @@
   * [🐫 Broken Authentication](certification-prep/cbbh/broken-authentication/README.md)
     * [🏍️ Brute-Force Attacks](certification-prep/cbbh/broken-authentication/brute-force-attacks.md)
     * [👩‍🦰 Password Attacks](certification-prep/cbbh/broken-authentication/password-attacks.md)
+    * [🛷 Authentication Bypasses](certification-prep/cbbh/broken-authentication/authentication-bypasses.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
 ## 🏳️ Capture The Flags
