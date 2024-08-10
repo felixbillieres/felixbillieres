@@ -147,6 +147,7 @@
     * [🧊 Skills Assessment](certification-prep/cbbh/login-brute-forcing/skills-assessment.md)
   * [🐫 Broken Authentication](certification-prep/cbbh/broken-authentication/README.md)
     * [🏍️ Brute-Force Attacks](certification-prep/cbbh/broken-authentication/brute-force-attacks.md)
+    * [👩‍🦰 Password Attacks](certification-prep/cbbh/broken-authentication/password-attacks.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
 ## 🏳️ Capture The Flags
