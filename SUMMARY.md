@@ -145,6 +145,8 @@
     * [👨‍⚖️ Web Forms Brute Forcing](certification-prep/cbbh/login-brute-forcing/web-forms-brute-forcing.md)
     * [🪖 Service Authentication Attacks](certification-prep/cbbh/login-brute-forcing/service-authentication-attacks.md)
     * [🧊 Skills Assessment](certification-prep/cbbh/login-brute-forcing/skills-assessment.md)
+  * [🐫 Broken Authentication](certification-prep/cbbh/broken-authentication/README.md)
+    * [🏍️ Brute-Force Attacks](certification-prep/cbbh/broken-authentication/brute-force-attacks.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
 ## 🏳️ Capture The Flags
