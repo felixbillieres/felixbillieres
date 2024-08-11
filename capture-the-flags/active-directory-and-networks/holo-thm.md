@@ -4,7 +4,7 @@ description: https://tryhackme.com/r/room/hololive
 
 # 👻 HOLO (thm)
 
-<figure><img src="../../.gitbook/assets/image (13) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (13) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 So first I look at the network
 

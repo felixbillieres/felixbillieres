@@ -239,7 +239,7 @@ We could try to do the same for the password and go from there but let's directl
 abcd'union select 1,concat(username,':',password),3,4,5,6 from users;-- -
 ```
 
-<figure><img src="../../.gitbook/assets/image (13) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (13) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 So you put the passwords in a txt file and start cracking them with haschat&#x20;
 
@@ -247,7 +247,7 @@ So you put the passwords in a txt file and start cracking them with haschat&#x20
 hashcat hashesStreamio.txt /usr/share/wordlists/rockyou.txt --user -m 0 --show
 ```
 
-<figure><img src="../../.gitbook/assets/image (14) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (14) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 * `--user` is an option that specifies that the attack mode is set to "user-mode", which is used for cracking hashes of user passwords.
 * `-m 0` is an option that specifies the hash type to be cracked. In this case, the hash type is set to 0, which is the default hash type for hashcat.
@@ -286,7 +286,7 @@ Unfortunately Everything fails
 
 But we still got valid creds so it's not too hard to guess where we need to go after that:
 
-<figure><img src="../../.gitbook/assets/image (15) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (15) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We could try all manual, but let's automatize:
 

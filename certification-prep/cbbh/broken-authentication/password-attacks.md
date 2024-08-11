@@ -8,7 +8,7 @@ Here are lists of default credentials for a wide variety of web applications: [C
 
 let's imagine the following web app:
 
-<figure><img src="../../../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
 
 We can spot it's a bookstack web app, we can then go and see if we can't find some default creds online ->
 

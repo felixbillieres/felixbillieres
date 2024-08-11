@@ -113,7 +113,7 @@ So now i simply look at the admin page and look for the Carlos delete user butto
 
 **Open redirection vulnerability**
 
-<figure><img src="../../.gitbook/assets/image (13) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (13) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Open redirection vulnerability occurs when a web application redirects users to a URL specified by user-supplied input, without proper validation. Attackers can exploit this vulnerability to redirect users to malicious websites, phishing pages, or other harmful destinations.
 
@@ -143,11 +143,11 @@ This SSRF exploit works because the application first validates that the supplie
 
 I got a bit stuck on the initial foothold of the machine, then I saw this odd "next item" button that could mean a redirection to another page:
 
-<figure><img src="../../.gitbook/assets/image (14) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (14) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Okay, so I found this redirection error:
 
-<figure><img src="../../.gitbook/assets/image (15) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (15) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 It seems to redirect just fine so we go back on the check stock API and throw in the inital payload to access the admin page:
 

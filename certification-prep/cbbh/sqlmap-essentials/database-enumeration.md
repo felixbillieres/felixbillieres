@@ -25,7 +25,7 @@ sqlmap -u "http://www.example.com/?id=1" --dump -T users -D testdb
 
 It will produce a .CSV file that we can use in SQLite:
 
-<figure><img src="../../../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (15) (1).png" alt=""><figcaption></figcaption></figure>
 
 If we want to do conditional enumeration and retrieve certain rows we can use the option `--where`, as follows
 

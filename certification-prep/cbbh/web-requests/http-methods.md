@@ -104,11 +104,11 @@ So for this exercise we are going to look at what requests are made when we logi
 
 And when we login we can see some odd stuff:
 
-<figure><img src="../../../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (16) (2).png" alt=""><figcaption></figcaption></figure>
 
 If we go in the Request tab and look at the raw data we can see our credentials:
 
-<figure><img src="../../../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (17) (2).png" alt=""><figcaption></figcaption></figure>
 
 If we wanted to look at it from our CLI we could just right click and copy as cURL:
 
@@ -253,7 +253,7 @@ curl -X POST http://83.136.254.58:46803/api.php/city/ -d '{"city_name":"ElFelixi
 
 We can craft our own city and post it to the api and check if it was succesfull:
 
-<figure><img src="../../../.gitbook/assets/image (12) (1) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (12) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Update
 

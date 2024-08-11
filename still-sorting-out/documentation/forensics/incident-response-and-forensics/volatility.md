@@ -53,7 +53,7 @@ python3 vol.py -f /Scenarios/Investigations/Investigation- 1.vmem windows.psscan
 
 _**What is the parent process of the suspicious process in Case 001?**_
 
-<figure><img src="../../../../.gitbook/assets/image (13) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (13) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 python3 vol.py -f /Scenarios/Investigations/Investigation-1.vmem -o /home/thmanalyst windows.memmap.Memmap — pid 1640 — dump
@@ -71,7 +71,7 @@ And then&#x20;
 strings /home/thmanalyst/*.dmp | grep -i "user-agent"
 ```
 
-<figure><img src="../../../../.gitbook/assets/image (14) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (14) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 _**Was Chase Bank one of the suspicious bank domains found in Case 001? (Y/N)**_
 
@@ -79,7 +79,7 @@ _**Was Chase Bank one of the suspicious bank domains found in Case 001? (Y/N)**_
 strings /home/thmanalyst/*.dmp | grep -i "chase"
 ```
 
-<figure><img src="../../../../.gitbook/assets/image (15) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (15) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 _**What suspicious process is running at PID 740 in Case 002?**_
 

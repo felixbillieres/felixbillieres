@@ -69,7 +69,7 @@ set username
 set computername
 ```
 
-<figure><img src="../../.gitbook/assets/image (13) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (13) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 * `winrs`: Stands for Windows Remote Shell, a command-line tool that allows you to execute commands on a remote machine.
 * `-r:dcorp-adminsrv`: Specifies the remote machine to connect to. In this case, `dcorp-adminsrv`.
@@ -89,7 +89,7 @@ Now let's try to have fun with a jenkins server without admin access. To do so, 
 
 We start by going to our Jenkins “People” page:
 
-<figure><img src="../../.gitbook/assets/image (15) (1).png" alt=""><figcaption><p>we can see the users present on the Jenkins instance</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (15) (1) (1).png" alt=""><figcaption><p>we can see the users present on the Jenkins instance</p></figcaption></figure>
 
 It's good to know that Jenkins does not have password policies, so admin:admin of felix:felix could be a valid set of credentials
 

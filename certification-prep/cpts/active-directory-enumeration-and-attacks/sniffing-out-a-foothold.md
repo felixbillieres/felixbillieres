@@ -94,7 +94,7 @@ Now we need to start Inveigh with LLMNR and NBNS spoofing, and output to the con
 PS C:\htb> Invoke-Inveigh Y -NBNS Y -ConsoleOutput Y -FileOutput Y
 ```
 
-<figure><img src="../../../.gitbook/assets/image (13) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (13) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 And we see some hits, the interface is very similar to Responder&#x20;
 
