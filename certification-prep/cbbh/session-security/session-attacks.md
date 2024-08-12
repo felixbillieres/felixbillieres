@@ -91,4 +91,25 @@ and when we find the packet we need we can copy the value like this:
 
 **Part 4: Hijack the victim's session**
 
-and now if we go back to the not prvate window
+and now if we go back to the not private window and change our current cookie value with the one we obtained through wireshark (remember to remove the `auth-session=` part)&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (1368).png" alt=""><figcaption></figcaption></figure>
+
+And if we refresh we are now loggid in as the victim
+
+### Post-Exploitation (Database Access)
+
+When we have access to a database via, for example, SQL injection or identified credentials, we should always check for any stored user sessions.
+
+<figure><img src="../../../.gitbook/assets/image (1369).png" alt=""><figcaption></figcaption></figure>
+
+We can try to crack the hashes, but we also see the interesting session table ->
+
+```sql
+select * from all_sessions;
+select * from all_sessions where id=3;
+```
+
+<figure><img src="../../../.gitbook/assets/image (1370).png" alt=""><figcaption><p>We could now authenticate as the user "Developer."</p></figcaption></figure>
+
+## Cross-Site Scripting (XSS)
