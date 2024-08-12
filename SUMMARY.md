@@ -151,6 +151,7 @@
     * [🛷 Authentication Bypasses](certification-prep/cbbh/broken-authentication/authentication-bypasses.md)
     * [🕶️ Session Attacks](certification-prep/cbbh/broken-authentication/session-attacks.md)
     * [🚘 Skills Assessment](certification-prep/cbbh/broken-authentication/skills-assessment.md)
+  * [Session Security](certification-prep/cbbh/session-security.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
 ## 🏳️ Capture The Flags
