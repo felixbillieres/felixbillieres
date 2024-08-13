@@ -151,6 +151,8 @@
     * [🛷 Authentication Bypasses](certification-prep/cbbh/broken-authentication/authentication-bypasses.md)
     * [🕶️ Session Attacks](certification-prep/cbbh/broken-authentication/session-attacks.md)
     * [🚘 Skills Assessment](certification-prep/cbbh/broken-authentication/skills-assessment.md)
+  * [3️ File Inclusion](certification-prep/cbbh/file-inclusion/README.md)
+    * [🤽‍♀️ File Disclosure](certification-prep/cbbh/file-inclusion/file-disclosure.md)
   * [☑️ Session Security](certification-prep/cbbh/session-security/README.md)
     * [📉 Session Attacks 1](certification-prep/cbbh/session-security/session-attacks-1.md)
     * [🪢 Session Attacks CSRF](certification-prep/cbbh/session-security/session-attacks-csrf.md)
