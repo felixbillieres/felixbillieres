@@ -2,7 +2,7 @@
 
 Good thing to know:
 
-<figure><img src="../../../.gitbook/assets/image (9) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (9) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The most widespread authentication method in web applications is `login forms`, where users enter their username and password to prove their identity.
 

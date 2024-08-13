@@ -154,6 +154,7 @@
   * [☑️ Session Security](certification-prep/cbbh/session-security/README.md)
     * [📉 Session Attacks 1](certification-prep/cbbh/session-security/session-attacks-1.md)
     * [🪢 Session Attacks CSRF](certification-prep/cbbh/session-security/session-attacks-csrf.md)
+    * [🇿🇲 Session Attacks 2](certification-prep/cbbh/session-security/session-attacks-2.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
 ## 🏳️ Capture The Flags

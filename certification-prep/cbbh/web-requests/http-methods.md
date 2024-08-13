@@ -31,7 +31,7 @@ When going for a ressource on a webserver HTTP status codes are used to tell the
 
 Let's say we have a login page where we had to login:
 
-<figure><img src="../../../.gitbook/assets/image (8) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (8) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 When we log in we have access to the following ip:
 
@@ -94,7 +94,7 @@ ElFelixio@htb[/htb]$ curl -v http://admin:admin@<SERVER_IP>:<PORT>/
 ...
 ```
 
-<figure><img src="../../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### POST
 
