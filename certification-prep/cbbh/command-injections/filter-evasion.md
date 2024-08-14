@@ -149,7 +149,7 @@ It's good to know that `'` and a double-quote `"`are usually ignored by command 
 The important things to remember are that `we cannot mix types of quotes` and `the number of quotes must be even`.
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Linux Only
 
