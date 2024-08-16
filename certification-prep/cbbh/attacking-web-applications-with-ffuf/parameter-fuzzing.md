@@ -45,3 +45,27 @@ curl http://admin.academy.htb:PORT/admin/admin.php -X POST -d 'id=key' -H 'Conte
 ```
 
 ## Value Fuzzing
+
+In order to create custom wordlists, we can use the following command for numbers&#x20;
+
+```shell-session
+for i in $(seq 1 1000); do echo $i >> ids.txt; done
+```
+
+And to launch our value attack with custom wordlist:
+
+```shell-session
+ffuf -w ids.txt:FUZZ -u http://admin.academy.htb:PORT/admin/admin.php -X POST -d 'id=FUZZ' -H 'Content-Type: application/x-www-form-urlencoded' -fs xxx
+```
+
+_**Try to create the 'ids.txt' wordlist, identify the accepted value with a fuzzing scan, and then use it in a 'POST' request with 'curl' to collect the flag. What is the content of the flag?**_
+
+```
+ffuf -w ids.txt:FUZZ -u http://admin.academy.htb:50581/admin/admin.php -X POST -d 'id=FUZZ' -H 'Content-Type: application/x-www-form-urlencoded' -fs 768
+```
+
+```
+curl http://admin.academy.htb:50581/admin/admin.php -X POST -d 'id=73' -H 'Content-Type: application/x-www-form-urlencoded'
+```
+
+<figure><img src="../../../.gitbook/assets/image (1395).png" alt=""><figcaption></figcaption></figure>
