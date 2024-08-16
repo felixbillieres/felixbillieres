@@ -145,11 +145,11 @@ When we save we gor nothing poping on our screen, that's because we need to call
 
 When we click on share:
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Now we need to check if _HTTPOnly_ is off
 
-<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 To steal a cookie in real world we can use [XSSHunter](https://xsshunter.com), [Burp Collaborator](https://portswigger.net/burp/documentation/collaborator) or webhook.site
 

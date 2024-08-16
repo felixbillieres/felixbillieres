@@ -6,7 +6,7 @@ a common flaw in apps that use session token and the main danger is if a session
 
 Now a bit more complex but as easy to break ->
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 This seems complex but let's say we send plenty of requests:
 
@@ -26,7 +26,7 @@ Some more realistic stuff would consist of session tokens that contains encoded 
 
 This seems very random:
 
-<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 But in fact ->
 
