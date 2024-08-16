@@ -117,6 +117,10 @@
   * [➿ Information Gathering - Web Edition](certification-prep/cbbh/information-gathering-web-edition/README.md)
     * [🦊 DNS & Subdomains](certification-prep/cbbh/information-gathering-web-edition/dns-and-subdomains.md)
     * [🔑 Fingerprinting, Crawling & Recon](certification-prep/cbbh/information-gathering-web-edition/fingerprinting-crawling-and-recon.md)
+  * [♨️ Attacking Web Applications with Ffuf](certification-prep/cbbh/attacking-web-applications-with-ffuf/README.md)
+    * [💎 Basic Fuzzing](certification-prep/cbbh/attacking-web-applications-with-ffuf/basic-fuzzing.md)
+    * [Domain Fuzzing](certification-prep/cbbh/attacking-web-applications-with-ffuf/domain-fuzzing.md)
+    * [🍚 Parameter Fuzzing](certification-prep/cbbh/attacking-web-applications-with-ffuf/parameter-fuzzing.md)
   * [☠️ JavaScript Deobfuscation](certification-prep/cbbh/javascript-deobfuscation.md)
   * [🧜 SQL Injection Fundamentals](certification-prep/cbbh/sql-injection-fundamentals/README.md)
     * [🚑 Basic injections:](certification-prep/cbbh/sql-injection-fundamentals/basic-injections.md)
@@ -159,6 +163,7 @@
     * [📉 Session Attacks 1](certification-prep/cbbh/session-security/session-attacks-1.md)
     * [🪢 Session Attacks CSRF](certification-prep/cbbh/session-security/session-attacks-csrf.md)
     * [🇿🇲 Session Attacks 2](certification-prep/cbbh/session-security/session-attacks-2.md)
+  * [Web Service & API Attacks](certification-prep/cbbh/web-service-and-api-attacks.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
 ## 🏳️ Capture The Flags
