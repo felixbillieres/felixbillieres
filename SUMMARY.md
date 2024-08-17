@@ -122,6 +122,8 @@
     * [Domain Fuzzing](certification-prep/cbbh/attacking-web-applications-with-ffuf/domain-fuzzing.md)
     * [🍚 Parameter Fuzzing](certification-prep/cbbh/attacking-web-applications-with-ffuf/parameter-fuzzing.md)
   * [☠️ JavaScript Deobfuscation](certification-prep/cbbh/javascript-deobfuscation.md)
+  * [🇾🇪 Cross-Site Scripting (XSS)](certification-prep/cbbh/cross-site-scripting-xss/README.md)
+    * [🧎‍♂️ XSS Basics](certification-prep/cbbh/cross-site-scripting-xss/xss-basics.md)
   * [🧜 SQL Injection Fundamentals](certification-prep/cbbh/sql-injection-fundamentals/README.md)
     * [🚑 Basic injections:](certification-prep/cbbh/sql-injection-fundamentals/basic-injections.md)
     * [💇 Exploitation](certification-prep/cbbh/sql-injection-fundamentals/exploitation.md)
@@ -164,6 +166,10 @@
     * [🪢 Session Attacks CSRF](certification-prep/cbbh/session-security/session-attacks-csrf.md)
     * [🇿🇲 Session Attacks 2](certification-prep/cbbh/session-security/session-attacks-2.md)
   * [Web Service & API Attacks](certification-prep/cbbh/web-service-and-api-attacks.md)
+  * [🔋 Bug Bounty Hunting Process](certification-prep/cbbh/bug-bounty-hunting-process/README.md)
+    * [Reporting Stored XSS](certification-prep/cbbh/bug-bounty-hunting-process/reporting-stored-xss.md)
+    * [Reporting CSRF](certification-prep/cbbh/bug-bounty-hunting-process/reporting-csrf.md)
+    * [Reporting RCE](certification-prep/cbbh/bug-bounty-hunting-process/reporting-rce.md)
 * [🔵 CDSA](certification-prep/cdsa.md)
 
 ## 🏳️ Capture The Flags
