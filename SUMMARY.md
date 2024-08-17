@@ -124,6 +124,7 @@
   * [☠️ JavaScript Deobfuscation](certification-prep/cbbh/javascript-deobfuscation.md)
   * [🇾🇪 Cross-Site Scripting (XSS)](certification-prep/cbbh/cross-site-scripting-xss/README.md)
     * [🧎‍♂️ XSS Basics](certification-prep/cbbh/cross-site-scripting-xss/xss-basics.md)
+    * [📿 XSS Attacks](certification-prep/cbbh/cross-site-scripting-xss/xss-attacks.md)
   * [🧜 SQL Injection Fundamentals](certification-prep/cbbh/sql-injection-fundamentals/README.md)
     * [🚑 Basic injections:](certification-prep/cbbh/sql-injection-fundamentals/basic-injections.md)
     * [💇 Exploitation](certification-prep/cbbh/sql-injection-fundamentals/exploitation.md)
