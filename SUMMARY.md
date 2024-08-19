@@ -160,6 +160,7 @@
     * [🚘 Skills Assessment](certification-prep/cbbh/broken-authentication/skills-assessment.md)
   * [🦷 Web Attacks](certification-prep/cbbh/web-attacks/README.md)
     * [🔗 HTTP Verb Tampering](certification-prep/cbbh/web-attacks/http-verb-tampering.md)
+    * [🎲 Insecure Direct Object References](certification-prep/cbbh/web-attacks/insecure-direct-object-references.md)
   * [3️ File Inclusion](certification-prep/cbbh/file-inclusion/README.md)
     * [🤽‍♀️ File Disclosure](certification-prep/cbbh/file-inclusion/file-disclosure.md)
     * [🍔 Remote Code Execution](certification-prep/cbbh/file-inclusion/remote-code-execution.md)
