@@ -20,7 +20,7 @@ ffuf -w /opt/useful/SecLists/Discovery/Web-Content/burp-parameter-names.txt:FUZZ
 
 Which will lead to this page once we find the good parameter:
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 _**Using what you learned in this section, run a parameter fuzzing scan on this page. what is the parameter accepted by this webpage?**_
 

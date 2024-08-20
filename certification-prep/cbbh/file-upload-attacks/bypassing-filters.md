@@ -6,23 +6,23 @@ we can easily bypass it by directly interacting with the server, skipping the fr
 
 Let's say we have an upload image form that blocks our .php file:
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Back-end Request Modification
 
 We start by sending the request to burp:
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 The important thing to look at is `filename="HTB.png"` and the file content at the end of the request. If we modify the `filename` to `shell.php` and modify the content to the web shell we used in the previous section; we would be uploading a `PHP` web shell instead of an image.
 
-<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p><code>File successfully uploaded</code></p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (2).png" alt=""><figcaption><p><code>File successfully uploaded</code></p></figcaption></figure>
 
 ### Disabling Front-end Validation
 
 Let's start by \[`CTRL+SHIFT+C`] to toggle the browser's `Page Inspector`, and then click on the profile image, which is where we trigger the file selector for the upload form:
 
-<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>(<code>.jpg,.jpeg,.png</code>) as the allowed file types</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (2).png" alt=""><figcaption><p>(<code>.jpg,.jpeg,.png</code>) as the allowed file types</p></figcaption></figure>
 
 To get the details of the function `checkFile`, we can go to the browser's `Console` by clicking \[`CTRL+SHIFT+K`], and then we can type the function's name (`checkFile`) to get its details
 
@@ -42,7 +42,7 @@ We can add `PHP` as one of the allowed extensions or modify the function to remo
 
 But We can also just remove this function from the HTML code since its primary use appears to be file type validation, and removing it should not break anything.
 
-<figure><img src="../../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (4) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 We can now upload our shell if the verification is on client side and if we did not refresh the page yet since it will not be persistent. If we inspect element and click on our pfp, we should see our web shell ->
 
@@ -137,4 +137,63 @@ the other type of file extension validation is by utilizing a `whitelist of allo
 
 Let's say we got the following message:
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+
+and after fuzzing we see this output:
+
+<figure><img src="../../../.gitbook/assets/image (1438).png" alt=""><figcaption></figcaption></figure>
+
+We can see that all variations of PHP extensions are blocked
+
+The problem with whitelists is that it checks whether the file name `contains` the extension and not if it actually `ends` with it.
+
+We can bypass this flaw by testing with double extensions (e.g. `shell.jpg.php`), in which case we should be able to pass the whitelist test, while still uploading a PHP script that can execute PHP code.
+
+<figure><img src="../../../.gitbook/assets/image (1439).png" alt=""><figcaption></figcaption></figure>
+
+And the following request would return a webshell:
+
+```
+http://SERVER_IP:PORT/profile_images/shell.jpg.php?cmd=id
+```
+
+In some cases where the regex would be less permissive, we can reverse the extensions (`shell.php.jpg`) ->
+
+<figure><img src="../../../.gitbook/assets/image (1440).png" alt=""><figcaption></figcaption></figure>
+
+And the web shell would be returned through this request:
+
+```
+http://SERVER_IP:PORT/profile_images/shell.php.jpg?cmd=id
+```
+
+Finally, let's discuss another method of bypassing a whitelist validation test through `Character Injection`. We can inject several characters before or after the final extension to cause the web application to misinterpret the filename and execute the uploaded file as a PHP script. Here are some of the chars worth trying:
+
+* `%20`
+* `%0a`
+* `%00`
+* `%0d0a`
+* `/`
+* `.\`
+* `.`
+* `…`
+* `:`
+
+This would look like `shell.php%00.jpg` or `shell.aspx:.jpg`, which should also write the file as (`shell.aspx`)
+
+Here is a small bash script to create a list of files worth trying to bypass the whitelist:
+
+```bash
+for char in '%20' '%0a' '%00' '%0d0a' '/' '.\\' '.' '…' ':'; do
+    for ext in '.php' '.phps'; do
+        echo "shell$char$ext.jpg" >> wordlist.txt
+        echo "shell$ext$char.jpg" >> wordlist.txt
+        echo "shell.jpg$char$ext" >> wordlist.txt
+        echo "shell.jpg$ext$char" >> wordlist.txt
+    done
+done
+```
+
+_**The above exercise employs a blacklist and a whitelist test to block unwanted extensions and only allow image extensions. Try to bypass both to upload a PHP script and execute code to read "/flag.txt"**_
+
+<figure><img src="../../../.gitbook/assets/image (1441).png" alt=""><figcaption></figcaption></figure>
