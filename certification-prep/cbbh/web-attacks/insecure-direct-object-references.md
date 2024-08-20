@@ -247,3 +247,96 @@ HTB{h45h1n6_1d5_w0n7_****}
 ```
 
 This one was hard :joy:
+
+## Insecure APIs
+
+`IDOR Insecure Function Calls` enable us to call APIs or execute functions as another user. Such functions and APIs can be used to change another user's private information, reset another user's password, or even buy items using another user's payment information.
+
+Let's imagine on the web app a **Edit profile** function ->
+
+<figure><img src="../../../.gitbook/assets/image (1413).png" alt=""><figcaption></figcaption></figure>
+
+and if we intercept it:
+
+<figure><img src="../../../.gitbook/assets/image (1414).png" alt=""><figcaption><p>hidden parameters, like <code>uid</code>, <code>uuid</code></p></figcaption></figure>
+
+`PUT` requests are usually used in APIs to update item details, while `POST` is used to create new items, `DELETE` to delete items, and `GET` to retrieve item details.
+
+`we should be able to set an arbitrary role for our user, which may grant us more privileges via the role parameter`
+
+We can try to plau around and look for parameters we can change:\
+
+
+1. Change our `uid` to another user's `uid`, such that we can take over their accounts\*
+
+<figure><img src="../../../.gitbook/assets/image (1415).png" alt=""><figcaption></figcaption></figure>
+
+1. Change another user's details, which may allow us to perform several web attacks
+
+* with a `POST` request to the API endpoint. We can change the request method to `POST`, change the `uid` to a new `uid`
+
+<figure><img src="../../../.gitbook/assets/image (1416).png" alt=""><figcaption><p>he same thing happens when we send a <code>Delete</code> request</p></figcaption></figure>
+
+1. Create new users with arbitrary details, or delete existing users
+2. Change our role to a more privileged role (e.g. `admin`) to be able to perform more actions
+
+<figure><img src="../../../.gitbook/assets/image (1417).png" alt=""><figcaption><p><code>admin</code>/<code>administrator</code> to gain higher privileges</p></figcaption></figure>
+
+Nothing worked for the moment, we have only been testing the `IDOR Insecure Function Calls`. However, we have not tested the API's `GET` request for `IDOR Information Disclosure Vulnerabilities`. If there was no robust access control system in place, we might be able to read other users' details
+
+_**Try to read the details of the user with 'uid=5'. What is their 'uuid' value?**_
+
+<figure><img src="../../../.gitbook/assets/image (1418).png" alt=""><figcaption></figcaption></figure>
+
+## Chaining IDOR Vulnerabilities
+
+Let's say we're able to GET another uid and get some informations about someone else:
+
+<figure><img src="../../../.gitbook/assets/image (1419).png" alt=""><figcaption></figcaption></figure>
+
+Now with the user's `uuid` at hand, we can change this user's details by sending a `PUT` request to `/profile/api.php/profile/2`
+
+<figure><img src="../../../.gitbook/assets/image (1420).png" alt=""><figcaption></figcaption></figure>
+
+One type of attack is `modifying a user's email address` and then requesting a password reset link, which will be sent to the email address we specified or `placing an XSS payload in the 'about' field`, which would get executed once the user visits their `Edit profile`
+
+To chain more vulnerabilities, we could `write a script to enumerate all users` and try to find the role we are looking for ->
+
+```json
+{
+    "uid": "X",
+    "uuid": "a36fa9e66e85f2dd6f5e13cad45248ae",
+    "role": "web_admin",
+    "full_name": "administrator",
+    "email": "webadmin@employees.htb",
+    "about": "HTB{FLAG}"
+}
+```
+
+With that new information we can upgrade our account to web\_admin and update our profile
+
+we can refresh the page to update our cookie, or manually set it as `Cookie: role=web_admin`, and then intercept the `Update` request to create a new user and see if we'd be allowed to do so and GET the new user to see if it works:
+
+<figure><img src="../../../.gitbook/assets/image (1421).png" alt=""><figcaption></figcaption></figure>
+
+_**Try to change the admin's email to 'flag@idor.htb', and you should get the flag on the 'edit profile' page.**_
+
+To find the web admin i filter out everything that is not admin, and remove every HTTP response that is 0 ->
+
+```
+ffuf -X GET -w num.txt -u http://94.237.59.199:52714/profile/api.php/profile/FUZZ -fr "admin" -fs 0
+```
+
+<figure><img src="../../../.gitbook/assets/image (1422).png" alt=""><figcaption></figcaption></figure>
+
+I get numbers from 1 to 9 even tho i test on 50 users so i test out user 10 and i find admin:
+
+<figure><img src="../../../.gitbook/assets/image (1423).png" alt=""><figcaption></figcaption></figure>
+
+I copy-paste the uuid and change the uid param and send a PUT request:
+
+<figure><img src="../../../.gitbook/assets/image (1424).png" alt=""><figcaption></figcaption></figure>
+
+I am able to change informations:
+
+<figure><img src="../../../.gitbook/assets/image (1425).png" alt=""><figcaption><p>and find the flag in my edit page</p></figcaption></figure>
