@@ -59,6 +59,8 @@
 * [📤 CPTS](certification-prep/cpts/README.md)
   * [⚒️ ToolKit](certification-prep/cpts/toolkit.md)
   * [📁 File Transfers](certification-prep/cpts/file-transfers.md)
+  * [💃 Pivoting, Tunneling, and Port Forwarding](certification-prep/cpts/pivoting-tunneling-and-port-forwarding/README.md)
+    * [🐮 Choosing The Dig Site & Starting Our Tunnels](certification-prep/cpts/pivoting-tunneling-and-port-forwarding/choosing-the-dig-site-and-starting-our-tunnels.md)
   * [🤠 Active Directory Enumeration & Attacks](certification-prep/cpts/active-directory-enumeration-and-attacks/README.md)
     * [🦹‍♂️ Initial Enumeration](certification-prep/cpts/active-directory-enumeration-and-attacks/initial-enumeration.md)
     * [👃 Sniffing out a Foothold](certification-prep/cpts/active-directory-enumeration-and-attacks/sniffing-out-a-foothold.md)
