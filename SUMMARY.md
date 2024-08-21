@@ -121,6 +121,7 @@
     * [💎 Basic Fuzzing](certification-prep/cbbh/attacking-web-applications-with-ffuf/basic-fuzzing.md)
     * [Domain Fuzzing](certification-prep/cbbh/attacking-web-applications-with-ffuf/domain-fuzzing.md)
     * [🍚 Parameter Fuzzing](certification-prep/cbbh/attacking-web-applications-with-ffuf/parameter-fuzzing.md)
+    * [Skills Assessment](certification-prep/cbbh/attacking-web-applications-with-ffuf/skills-assessment.md)
   * [☠️ JavaScript Deobfuscation](certification-prep/cbbh/javascript-deobfuscation.md)
   * [🇾🇪 Cross-Site Scripting (XSS)](certification-prep/cbbh/cross-site-scripting-xss/README.md)
     * [🧎‍♂️ XSS Basics](certification-prep/cbbh/cross-site-scripting-xss/xss-basics.md)
