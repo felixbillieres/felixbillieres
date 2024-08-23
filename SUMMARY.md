@@ -68,6 +68,8 @@
     * [🗣️ Spray Responsibly](certification-prep/cpts/active-directory-enumeration-and-attacks/spray-responsibly/README.md)
       * [🐇 Deeper Down the Rabbit Hole](certification-prep/cpts/active-directory-enumeration-and-attacks/spray-responsibly/deeper-down-the-rabbit-hole.md)
     * [🐕‍🦺 Kerberoasting](certification-prep/cpts/active-directory-enumeration-and-attacks/kerberoasting.md)
+  * [🦥 Linux Privilege Escalation](certification-prep/cpts/linux-privilege-escalation/README.md)
+    * [🍫 Information Gathering](certification-prep/cpts/linux-privilege-escalation/information-gathering.md)
 * [🌟 OSCP](certification-prep/oscp/README.md)
   * [🔂 @TJ\_Null’s OSCP Prep](certification-prep/oscp/tj\_nulls-oscp-prep/README.md)
     * [🤬 More Challenging than OSCP](certification-prep/oscp/tj\_nulls-oscp-prep/more-challenging-than-oscp/README.md)
