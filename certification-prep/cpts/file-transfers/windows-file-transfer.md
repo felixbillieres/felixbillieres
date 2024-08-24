@@ -1,4 +1,4 @@
-# 🪃 Windows File Transfer
+# 🗄️ Windows File Transfer
 
 To transfer, we can use different methods that do not require network communication.
 
@@ -274,3 +274,6 @@ ftp> USER anonymous
 ftp> PUT c:\windows\system32\drivers\etc\hosts
 ftp> bye
 ```
+
+_**Upload the attached file named upload\_win.zip to the target using the method of your choice. Once uploaded, unzip the archive, and run "hasher upload\_win.txt" from the command line. Submit the generated hash as your answer.**_
+
