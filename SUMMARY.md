@@ -67,6 +67,8 @@
     * [🟨 Catching Files over HTTP/S](certification-prep/cpts/file-transfers/catching-files-over-http-s.md)
     * [🏨 Living off The Land](certification-prep/cpts/file-transfers/living-off-the-land.md)
     * [🎢 Detect or Be Detected](certification-prep/cpts/file-transfers/detect-or-be-detected.md)
+  * [🍑 Shells & Payloads](certification-prep/cpts/shells-and-payloads/README.md)
+    * [🤹‍♂️ Shell Basics](certification-prep/cpts/shells-and-payloads/shell-basics.md)
   * [💃 Pivoting, Tunneling, and Port Forwarding](certification-prep/cpts/pivoting-tunneling-and-port-forwarding/README.md)
     * [🐮 Choosing The Dig Site & Starting Our Tunnels](certification-prep/cpts/pivoting-tunneling-and-port-forwarding/choosing-the-dig-site-and-starting-our-tunnels.md)
   * [🤠 Active Directory Enumeration & Attacks](certification-prep/cpts/active-directory-enumeration-and-attacks/README.md)
