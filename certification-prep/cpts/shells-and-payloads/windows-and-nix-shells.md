@@ -82,3 +82,66 @@ And if we ever want to spawn a full TTY shell ->
 ```shell-session
 python -c 'import pty; pty.spawn("/bin/sh")' 
 ```
+
+If Python is not installed, we will not be able to spawn a full TTY shells so we will have to use several different methods to spawn an interactive shell
+
+### Spawn shells
+
+Here is how to spawn an interactive shell with the interactive mode -i
+
+```shell-session
+/bin/sh -i
+sh: no job control in this shell
+sh-4.2$
+```
+
+If the programming language [Perl](https://www.perl.org) is present on the system:
+
+```shell-session
+perl —e 'exec "/bin/sh";'
+perl: exec "/bin/sh";
+```
+
+If the programming language [Ruby](https://www.ruby-lang.org/en/) is present on the system:
+
+```shell-session
+ruby: exec "/bin/sh"
+```
+
+If the programming language [Lua](https://www.lua.org) is present on the system
+
+```shell-session
+lua: os.execute('/bin/sh')
+```
+
+AWK can also be used to spawn an interactive shell:
+
+```shell-session
+awk 'BEGIN {system("/bin/sh")}'
+```
+
+[Find](https://man7.org/linux/man-pages/man1/find.1.html) is a command present on most Unix/Linux systems widely used to search for & through files and directories using various criteria. It can also be used to execute applications and invoke a shell interpreter
+
+```shell-session
+find / -name nameoffile -exec /bin/awk 'BEGIN {system("/bin/sh")}' \;
+```
+
+We can try and use exec with he find command ->
+
+```shell-session
+find . -exec /bin/sh \; -quit
+```
+
+We can try and spawn a shell with vim. This is a very niche situation we would find ourselves in to need to use this method, but it is good to know just in case
+
+```shell-session
+vim -c ':!/bin/sh'
+```
+
+and to escape VIM
+
+```shell-session
+vim
+:set shell=/bin/sh
+:shell
+```
