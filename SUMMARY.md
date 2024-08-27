@@ -69,6 +69,8 @@
     * [🎢 Detect or Be Detected](certification-prep/cpts/file-transfers/detect-or-be-detected.md)
   * [🍑 Shells & Payloads](certification-prep/cpts/shells-and-payloads/README.md)
     * [🤹‍♂️ Shell Basics](certification-prep/cpts/shells-and-payloads/shell-basics.md)
+    * [🤹‍♂️ Payloads](certification-prep/cpts/shells-and-payloads/payloads.md)
+    * [🇨🇿 Windows and NIX shells](certification-prep/cpts/shells-and-payloads/windows-and-nix-shells.md)
   * [💃 Pivoting, Tunneling, and Port Forwarding](certification-prep/cpts/pivoting-tunneling-and-port-forwarding/README.md)
     * [🐮 Choosing The Dig Site & Starting Our Tunnels](certification-prep/cpts/pivoting-tunneling-and-port-forwarding/choosing-the-dig-site-and-starting-our-tunnels.md)
   * [🤠 Active Directory Enumeration & Attacks](certification-prep/cpts/active-directory-enumeration-and-attacks/README.md)
