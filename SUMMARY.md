@@ -72,6 +72,7 @@
     * [🤹‍♂️ Payloads](certification-prep/cpts/shells-and-payloads/payloads.md)
     * [🇨🇿 Windows and NIX shells](certification-prep/cpts/shells-and-payloads/windows-and-nix-shells.md)
     * [✨ Web Shells](certification-prep/cpts/shells-and-payloads/web-shells.md)
+    * [🍶 Skills Assessment](certification-prep/cpts/shells-and-payloads/skills-assessment.md)
   * [💃 Pivoting, Tunneling, and Port Forwarding](certification-prep/cpts/pivoting-tunneling-and-port-forwarding/README.md)
     * [🐮 Choosing The Dig Site & Starting Our Tunnels](certification-prep/cpts/pivoting-tunneling-and-port-forwarding/choosing-the-dig-site-and-starting-our-tunnels.md)
   * [🤠 Active Directory Enumeration & Attacks](certification-prep/cpts/active-directory-enumeration-and-attacks/README.md)
