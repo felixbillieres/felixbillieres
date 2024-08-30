@@ -64,13 +64,13 @@ ElFelixi0@htb[/htb]$ crackmapexec smb 10.129.42.198 --local-auth -u bob -p HTB_@
 
 _**Apply the concepts taught in this section to obtain the password to the ITbackdoor user account on the target. Submit the clear-text password as the answer.**_
 
-<figure><img src="../../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
 
 ```
 hashcat -m 1000 realnthash.txt /usr/share/wordlists/rockyou.txt.gz
 ```
 
-<figure><img src="../../../../.gitbook/assets/image (1).png" alt=""><figcaption><p>c02478537b9727d391bc80011c2e2321:matrix</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption><p>c02478537b9727d391bc80011c2e2321:matrix</p></figcaption></figure>
 
 _**Dump the LSA secrets on the target and discover the credentials stored. Submit the username and password as the answer.**_
 
@@ -78,13 +78,13 @@ _**Dump the LSA secrets on the target and discover the credentials stored. Submi
 crackmapexec smb 10.129.202.137 --local-auth -u Bob -p HTB_@cademy_stdnt! --lsa
 ```
 
-<figure><img src="../../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Attacking LSASS
 
 LSASS is a critical service that plays a central role in credential management and the authentication processes in all Windows operating systems.
 
-<figure><img src="../../../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 LSASS will:
 
@@ -95,7 +95,7 @@ LSASS will:
 
 With access to an interactive graphical session with the target, we can use task manager to create a memory dump.
 
-<figure><img src="../../../../.gitbook/assets/image (4).png" alt=""><figcaption><p><code>Open Task Manager</code> > <code>Select the Processes tab</code> > <code>Find &#x26; right click the Local Security Authority Process</code> > <code>Select Create dump file</code></p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (4) (1).png" alt=""><figcaption><p><code>Open Task Manager</code> > <code>Select the Processes tab</code> > <code>Find &#x26; right click the Local Security Authority Process</code> > <code>Select Create dump file</code></p></figcaption></figure>
 
 And a file will be created here ->
 
