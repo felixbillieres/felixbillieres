@@ -78,6 +78,7 @@
     * [🪅 Windows Local Password Attacks](certification-prep/cpts/password-attacks/windows-local-password-attacks/README.md)
       * [Attacking SAM & LSASS](certification-prep/cpts/password-attacks/windows-local-password-attacks/attacking-sam-and-lsass.md)
       * [Attacking Active Directory & NTDS.dit](certification-prep/cpts/password-attacks/windows-local-password-attacks/attacking-active-directory-and-ntds.dit.md)
+      * [Credential Hunting in Windows](certification-prep/cpts/password-attacks/windows-local-password-attacks/credential-hunting-in-windows.md)
   * [🏹 Metasploit Framework](certification-prep/cpts/metasploit-framework.md)
   * [💃 Pivoting, Tunneling, and Port Forwarding](certification-prep/cpts/pivoting-tunneling-and-port-forwarding/README.md)
     * [🐮 Choosing The Dig Site & Starting Our Tunnels](certification-prep/cpts/pivoting-tunneling-and-port-forwarding/choosing-the-dig-site-and-starting-our-tunnels.md)
