@@ -6,7 +6,7 @@ if the app is vulnerable, let's imagine the application redirects users to the `
 
 ## Authentication Bypass via Direct Access
 
-<figure><img src="../../../.gitbook/assets/image (6) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (6) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 However, if  the browser follows the redirect and displays the login prompt instead of admin page. We can trick the browser into displaying the admin page by intercepting the response and changing the status code from `302` to `200`
 

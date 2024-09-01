@@ -177,13 +177,13 @@ hashcat --force kira.list -r custom.rule --stdout | sort -u > mut_pass.list
 hydra -l kira -P mut_pass.list ssh://10.129.199.132 -t 64
 ```
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 So i download it on my local machine, transfer the python file on the target machine and launch my attack ->
 
-<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption><p>TUqr7QfLTLhruhVbCP</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1).png" alt=""><figcaption><p>TUqr7QfLTLhruhVbCP</p></figcaption></figure>
 
 ## Passwd, Shadow & Opasswd
 
@@ -273,3 +273,9 @@ And if we have md5 hashes ->
 ```shell-session
 hashcat -m 500 -a 0 md5-hashes.list rockyou.txt
 ```
+
+_**Examine the target using the credentials from the user Will and find out the password of the "root" user. Then, submit the password as the answer.**_
+
+I find old backup files containing everything i need to try and unshadow the content of /etc/shadow
+
+<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
