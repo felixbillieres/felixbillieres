@@ -71,6 +71,6 @@ SysKey : 11b5033b62a3d2d6bb80a0d45ea88bfb
 
 _**Retrieve the NTLM password hash for the "htb-student" user. Submit the hash as the answer.**_
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
