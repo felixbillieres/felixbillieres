@@ -98,6 +98,8 @@
       * [🌲 Enumeration](certification-prep/cpts/active-directory-enumeration-and-attacks/acl-exploitation/enumeration.md)
       * [🦘 Abuse Tactics](certification-prep/cpts/active-directory-enumeration-and-attacks/acl-exploitation/abuse-tactics.md)
       * [DCSync](certification-prep/cpts/active-directory-enumeration-and-attacks/acl-exploitation/dcsync.md)
+    * [🟣 Stacking The Deck](certification-prep/cpts/active-directory-enumeration-and-attacks/stacking-the-deck/README.md)
+      * [🦑 Privileged Access](certification-prep/cpts/active-directory-enumeration-and-attacks/stacking-the-deck/privileged-access.md)
   * [🦥 Linux Privilege Escalation](certification-prep/cpts/linux-privilege-escalation/README.md)
     * [🍫 Information Gathering](certification-prep/cpts/linux-privilege-escalation/information-gathering.md)
 * [🌟 OSCP](certification-prep/oscp/README.md)
