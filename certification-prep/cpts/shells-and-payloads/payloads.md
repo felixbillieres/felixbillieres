@@ -183,7 +183,7 @@ ElFelixi0@htb[/htb]$ sudo nc -lvnp 443
 
 And wait for our target to trigger the file we juste sent ->
 
-<figure><img src="../../../.gitbook/assets/image (7) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (7) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 And when the file is executed&#x20;
 
@@ -210,7 +210,7 @@ The command syntax can be broken down in the same way we did above. The only dif
 
 Let's say our target downloaded the file ->
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 If the AV was disabled all the user would need to do is double click on the file to execute and we would have a shell session.
 
