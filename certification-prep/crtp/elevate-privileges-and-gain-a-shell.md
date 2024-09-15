@@ -15,6 +15,8 @@ For this path we'll use Powerup from PowerSploit module to check for any privile
 ```
 . C:\AD\Tools\PowerUp.ps1
 Invoke-AllChecks
+#if we want to look only for unquoted path ->
+Get-ServiceUnquoted
 ```
 
 <figure><img src="../../.gitbook/assets/image (8) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>This is a snip</p></figcaption></figure>
@@ -23,13 +25,23 @@ We quickly see the SeviceName is AbyssWebServer:
 
 <figure><img src="../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
+We can then check and enumerate services where the current user can make changes to service binary ->
+
+```
+Get-ModifiableServiceFile -Verbose
+```
+
+<figure><img src="../../.gitbook/assets/image (1473).png" alt=""><figcaption></figcaption></figure>
+
 #### Explanation of the Situation
 
 **Unquoted Service Path Vulnerability**
 
 In Windows, services can be configured to run executables. When the path to the executable contains spaces and is not enclosed in quotes, it can lead to a security vulnerability known as an "unquoted service path". This vulnerability allows an attacker to place a malicious executable in a path that the service may inadvertently execute.
 
-The command `Invoke-ServiceAbuse -Name 'AbyssWebServer' -UserName 'dcorp\student613' -Verbose` is used to exploit this vulnerability. Here's a breakdown of what the command does:
+The command `In`
+
+`voke-ServiceAbuse -Name 'AbyssWebServer' -UserName 'dcorp\student613' -Verbose` is used to exploit this vulnerability. Here's a breakdown of what the command does:
 
 * **Invoke-ServiceAbuse**: This is a PowerShell function from the PowerSploit framework, used to manipulate Windows services.
 * **-Name 'AbyssWebServer'**: Specifies the name of the service to manipulate.
@@ -61,7 +73,18 @@ Next, a good thing to do could be to identify a machine in the domain where the 
 
 <figure><img src="../../.gitbook/assets/image (12) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-So we see that we have Admin access on the dcorp-adminsrv and on the student machine. We can connect to dcorp-adminsrv using winrs as the student user
+So we see that we have Admin access on the dcorp-adminsrv and on the student machine. We need to identify a machine in the domain where we can have local admin access (dcorp-adminsrv) and after that we can connect to dcorp-adminsrv using winrs as the student user
+
+Identify machine:
+
+```
+. C:\Ad\Tools\Find-PSRemotingLocalAdminAccess.ps1
+Find-PSRemotingLocalAdminAccess
+```
+
+<figure><img src="../../.gitbook/assets/image (1474).png" alt=""><figcaption></figcaption></figure>
+
+Now we can connect:
 
 ```
 winrs -r:dcorp-adminsrv cmd 
