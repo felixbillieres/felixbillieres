@@ -110,6 +110,7 @@
       * [🐶 Cerberus](certification-prep/oscp/tj\_nulls-oscp-prep/more-challenging-than-oscp/cerberus.md)
   * [📈 Endgames](certification-prep/oscp/endgames/README.md)
     * [✈️ Ascension](certification-prep/oscp/endgames/ascension.md)
+    * [RPG](certification-prep/oscp/endgames/rpg.md)
 * [🔴 CRTP](certification-prep/crtp/README.md)
   * [🍂 Labs Methodology](certification-prep/crtp/labs-methodology.md)
   * [🌭 List users, computers, domain, and enterprise admins](certification-prep/crtp/list-users-computers-domain-and-enterprise-admins.md)

@@ -122,7 +122,7 @@ msf6 exploit(windows/smb/ms17_010_eternalblue) > show encoders
 
 If we can to have a payload generation and Encoding schemes, it will be picked up by Virus Total
 
-<figure><img src="../../../.gitbook/assets/image (7) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (7) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 One better option would be to try running it through multiple iterations of the same Encoding scheme:
 
