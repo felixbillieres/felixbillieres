@@ -137,7 +137,7 @@ Find-PSRemotingLocalAdminAccess
 
 We see that we have local admin on the dcorp-adminsrv. You will notice that any attempt to run Loader.exe (**to run SafetKatz from memory**) results in error 'This program is blocked by group policy.'
 
-This could be because of an application allolist on dcorp-adminsrv and we drop into a Constrained Language Mode (CLM) when using PSRemoting.
+This could be because of an application allowlist on dcorp-adminsrv and we drop into a Constrained Language Mode (CLM) when using PSRemoting.
 
 Let's check if Applocker is configured on dcorp-adminsrv by querying registry keys.
 
