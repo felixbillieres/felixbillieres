@@ -145,7 +145,7 @@ mimikatz # kerberos::list /export
 
 If we do not specify the `base64 /out:true` command, Mimikatz will extract the tickets and write them to `.kirbi` files.
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Next, we can take the base64 blob and remove new lines and white spaces since the output is column wrapped, and we need it all on one line for the next step.
 
@@ -320,7 +320,7 @@ ElFelixi0@htb[/htb]$ hashcat -m 13100 rc4_to_crack /usr/share/wordlists/rockyou.
 
 Let's assume that our client has set SPN accounts to support AES 128/256 encryption.
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 If we check this with PowerView, we'll see that the `msDS-SupportedEncryptionTypes attribute` is set to `24`, meaning that AES 128/256 encryption types are the only ones supported.
 
@@ -351,7 +351,7 @@ ElFelixi0@htb[/htb]$ hashcat -m 19700 aes_to_crack /usr/share/wordlists/rockyou.
 
 We can use Rubeus with the `/tgtdeleg` flag to specify that we want only RC4 encryption when requesting a new service ticket.
 
-<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Practical example
 

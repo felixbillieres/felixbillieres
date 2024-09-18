@@ -179,11 +179,11 @@ hydra -l kira -P mut_pass.list ssh://10.129.199.132 -t 64
 
 <figure><img src="../../../.gitbook/assets/image (6) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 So i download it on my local machine, transfer the python file on the target machine and launch my attack ->
 
-<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>TUqr7QfLTLhruhVbCP</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>TUqr7QfLTLhruhVbCP</p></figcaption></figure>
 
 ## Passwd, Shadow & Opasswd
 

