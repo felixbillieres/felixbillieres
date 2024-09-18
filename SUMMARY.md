@@ -102,6 +102,7 @@
       * [🦑 Privileged Access](certification-prep/cpts/active-directory-enumeration-and-attacks/stacking-the-deck/privileged-access.md)
       * [🌭 Kerberos "Double Hop" Problem](certification-prep/cpts/active-directory-enumeration-and-attacks/stacking-the-deck/kerberos-double-hop-problem.md)
       * [🩸 Bleeding Edge Vulnerabilities](certification-prep/cpts/active-directory-enumeration-and-attacks/stacking-the-deck/bleeding-edge-vulnerabilities.md)
+      * [🎤 Miscellaneous Misconfigurations](certification-prep/cpts/active-directory-enumeration-and-attacks/stacking-the-deck/miscellaneous-misconfigurations.md)
   * [🦥 Linux Privilege Escalation](certification-prep/cpts/linux-privilege-escalation/README.md)
     * [🍫 Information Gathering](certification-prep/cpts/linux-privilege-escalation/information-gathering.md)
 * [🌟 OSCP](certification-prep/oscp/README.md)
