@@ -1,6 +1,6 @@
 # 🪞 Check for DCSync rights, add them and pull hashes
 
-First let's launch Powervew and look if we have replication rights
+First let's launch Powerview and look if we have replication rights
 
 {% hint style="info" %}
 Replication rights in Active Directory (AD) refer to the permissions that control which users or groups can replicate directory information between domain controllers. These rights are crucial for ensuring the integrity and security of the replication process within an AD environment.

