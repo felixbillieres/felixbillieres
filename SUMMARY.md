@@ -108,6 +108,7 @@
     * [🍯 Environment-based Privilege Escalation](certification-prep/cpts/linux-privilege-escalation/environment-based-privilege-escalation.md)
     * [🛩️ Permissions-based Privilege Escalation](certification-prep/cpts/linux-privilege-escalation/permissions-based-privilege-escalation.md)
     * [🍑 Service-based Privilege Escalation](certification-prep/cpts/linux-privilege-escalation/service-based-privilege-escalation.md)
+    * [☄️ Linux Internals-based Privilege Escalation](certification-prep/cpts/linux-privilege-escalation/linux-internals-based-privilege-escalation.md)
 * [🌟 OSCP](certification-prep/oscp/README.md)
   * [🔂 @TJ\_Null’s OSCP Prep](certification-prep/oscp/tj\_nulls-oscp-prep/README.md)
     * [🤬 More Challenging than OSCP](certification-prep/oscp/tj\_nulls-oscp-prep/more-challenging-than-oscp/README.md)
