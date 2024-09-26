@@ -278,6 +278,8 @@ drwxr-xrwx 30 root root  20480 Dec 14 16:26 .
 
 &#x20;`/usr/lib/python3.8` path is misconfigured in a way to allow any user to write to it. Cross-checking with values from the `PYTHONPATH` variable, we can see that this path is higher on the list than the path in which `psutil` is installed in. Let us try abusing this misconfiguration to create our own `psutil` module containing our own malicious `virtual_memory()` function within the `/usr/lib/python3.8` directory.
 
+we need to create a file called `psutil.py ->`
+
 ```python
 #!/usr/bin/env python3
 import os
@@ -294,4 +296,31 @@ uid=0(root) gid=0(root) groups=0(root)
 
 ### PYTHONPATH Environment Variable
 
-\
+`PYTHONPATH` is an environment variable that indicates what directory (or directories) Python can search for modules to import. This is important as if a user is allowed to manipulate and set this variable while running the python binary, they can effectively redirect Python's search functionality to a `user-defined` location when it comes time to import modules.
+
+```shell-session
+htb-student@lpenix:~$ sudo -l 
+<SNIP>
+  (ALL : ALL) SETENV: NOPASSWD: /usr/bin/python3
+```
+
+&#x20;we are allowed to run `/usr/bin/python3` under the trusted permissions of `sudo` and are therefore allowed to set environment variables for use with this binary by the `SETENV:` flag being set.
+
+&#x20;This means that using the `/usr/bin/python3` binary, we can effectively set any environment variables under the context of our running program. Let's try to do so now using the `psutil.py` script
+
+```shell-session
+htb-student@lpenix:~$ sudo PYTHONPATH=/tmp/ /usr/bin/python3 ./mem_status.py
+
+uid=0(root) gid=0(root) groups=0(root)
+```
+
+&#x20;we moved the previous python script from the `/usr/lib/python3.8` directory to `/tmp`. From here we once again call `/usr/bin/python3` to run `mem_stats.py`, however, we specify that the `PYTHONPATH` variable contain the `/tmp` directory so that it forces Python to search that directory looking for the `psutil` module to import.
+
+_**Follow along with the examples in this section to escalate privileges. Try to practice hijacking python libraries through the various methods discussed. Submit the contents of flag.txt under the root user as the answer.**_
+
+for this one i had a hard time, we need to write the psutil.py in the same directory as mem\_status.py and run it using this command ->
+
+```
+sudo /usr/bin/python3 ~/mem_status.py
+HTB{3xpl0i7iNG_Py7h0n_lI8R4ry_HIjiNX}
+```
