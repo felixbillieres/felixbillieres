@@ -140,4 +140,4 @@ ElFelixi0@htb[/htb]$ xfreerdp /v:10.10.10.132 /d:HTB /u:administrator /p:'Passwo
 
 To access the directory, we can connect to `\\tsclient\`, allowing us to transfer files to and from the RDP session.
 
-<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>

@@ -202,6 +202,71 @@ C:\htb> net accounts
 
 _**What service is listening on port 8080 (service name not the executable)?**_
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
 ## Communication with Processes
+
+The most common example of privesc through running services is discovering a web server like IIS or XAMPP running on the box, placing an `aspx/php` shell on the box, and gaining a shell as the user running the web server and hopefully have the `SeImpersonate` token, allowing for `Rogue/Juicy/Lonely Potato` to provide SYSTEM permissions.
+
+**Display Active Network Connections**
+
+```cmd-session
+C:\htb> netstat -ano
+```
+
+The main thing to look for with Active Network Connections are entries listening on loopback addresses (`127.0.0.1` and `::1`) that are not listening on the IP Address (`10.129.43.8`) or broadcast (`0.0.0.0`, `::/0`). The reason for this is network sockets on localhost are often insecure due to the thought that "they aren't accessible to the network."&#x20;
+
+a common local privilege escalation vector is the `Erlang Port` (25672) -> [Erlang-arce blogpost from Mubix](https://malicious.link/post/2018/erlang-arce/)
+
+### Named Pipes
+
+The other way processes communicate with each other is through Named Pipes. Pipes are essentially files stored in memory that get cleared out after being read.
+
+the workflow looks like this:
+
+1. Beacon starts a named pipe of \\.\pipe\msagent\_12
+2. Beacon starts a new process and injects command into that process directing output to \\.\pipe\msagent\_12
+3. Server displays what was written into \\.\pipe\msagent\_12
+
+We can use the tool [PipeList](https://docs.microsoft.com/en-us/sysinternals/downloads/pipelist) from the Sysinternals Suite to enumerate instances of named pipes.
+
+**Listing Named Pipes with Pipelist**
+
+```cmd-session
+C:\htb> pipelist.exe /accepteula
+```
+
+PowerShell ->
+
+```powershell-session
+PS C:\htb>  gci \\.\pipe\
+```
+
+&#x20;we can use [Accesschk](https://docs.microsoft.com/en-us/sysinternals/downloads/accesschk) to enumerate the permissions assigned to a specific named pipe by reviewing the Discretionary Access List (DACL), which shows us who has the permissions to modify, write, read, or execute a resource.
+
+**Reviewing LSASS Named Pipe Permissions**
+
+```cmd-session
+C:\htb> accesschk.exe /accepteula \\.\Pipe\lsass -v
+```
+
+### Named Pipes Attack Example
+
+This [WindscribeService Named Pipe Privilege Escalation](https://www.exploit-db.com/exploits/48021) is a great example. Using `accesschk` we can search for all named pipes that allow write access with a command such as `accesschk.exe -w \pipe\* -v` and notice that the `WindscribeService` named pipe allows `READ` and `WRITE` access to the `Everyone` group
+
+```cmd-session
+C:\htb> accesschk.exe -accepteula -w \pipe\WindscribeService -v
+
+\\.\Pipe\WindscribeService
+  Medium Mandatory Level (Default) [No-Write-Up]
+  RW Everyone
+        FILE_ALL_ACCESS
+```
+
+Then we could leverage these lax permissions to escalate privileges on the host to SYSTEM.
+
+_**Which account has WRITE\_DAC privileges over the \pipe\SQLLocal\SQLEXPRESS01 named pipe?**_
+
+```
+PS C:\Tools\AccessChk> .\accesschk.exe /accepteula \pipe\SQLLocal\SQLEXPRESS01 -v
+```
