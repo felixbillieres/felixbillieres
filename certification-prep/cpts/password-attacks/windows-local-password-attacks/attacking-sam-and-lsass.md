@@ -70,7 +70,7 @@ _**Apply the concepts taught in this section to obtain the password to the ITbac
 hashcat -m 1000 realnthash.txt /usr/share/wordlists/rockyou.txt.gz
 ```
 
-<figure><img src="../../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>c02478537b9727d391bc80011c2e2321:matrix</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>c02478537b9727d391bc80011c2e2321:matrix</p></figcaption></figure>
 
 _**Dump the LSA secrets on the target and discover the credentials stored. Submit the username and password as the answer.**_
 

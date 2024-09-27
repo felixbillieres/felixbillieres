@@ -111,6 +111,8 @@
     * [☄️ Linux Internals-based Privilege Escalation](certification-prep/cpts/linux-privilege-escalation/linux-internals-based-privilege-escalation.md)
     * [🏃‍♂️ Recent 0-Days](certification-prep/cpts/linux-privilege-escalation/recent-0-days.md)
     * [🌠 Skills Assessment](certification-prep/cpts/linux-privilege-escalation/skills-assessment.md)
+  * [🫨 Windows Privilege Escalation](certification-prep/cpts/windows-privilege-escalation/README.md)
+    * [🪂 Getting the Lay of the Land](certification-prep/cpts/windows-privilege-escalation/getting-the-lay-of-the-land.md)
 * [🌟 OSCP](certification-prep/oscp/README.md)
   * [🔂 @TJ\_Null’s OSCP Prep](certification-prep/oscp/tj\_nulls-oscp-prep/README.md)
     * [🤬 More Challenging than OSCP](certification-prep/oscp/tj\_nulls-oscp-prep/more-challenging-than-oscp/README.md)
