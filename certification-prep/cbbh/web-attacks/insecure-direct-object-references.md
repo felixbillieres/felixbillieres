@@ -150,7 +150,7 @@ In some cases, web applications make hashes or encode their object references, m
 
 Let's imagine the `Employment_contract.pdf` file ->
 
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can see a `POST` request to `download.php`, it's a common practice to avoid directly linking to files, as that may be exploitable with multiple web attacks.
 

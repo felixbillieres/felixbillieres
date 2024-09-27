@@ -146,7 +146,7 @@ Members of the adm group are able to read all logs stored in `/var/log`. This do
 
 _**Use the privileged group rights of the secaudit user to locate a flag.**_
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Went and found the /var/log file and looked at every adm group until i found one log file with the flag in it
 

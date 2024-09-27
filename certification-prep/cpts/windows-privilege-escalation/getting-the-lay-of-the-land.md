@@ -116,4 +116,92 @@ We can do this with PowerShell as well
 PS C:\htb> Get-HotFix | ft -AutoSize
 ```
 
-\
+**Installed Programs**
+
+WMI can also be used to display installed software and after that  Run `LaZagne` to check if stored credentials for those applications are installed
+
+```cmd-session
+C:\htb> wmic product get name
+```
+
+with PowerShell:
+
+```powershell-session
+PS C:\htb> Get-WmiObject -Class Win32_Product |  select Name, Version
+```
+
+**Display Running Processes**
+
+The [netstat](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/netstat) command will display active TCP and UDP connections which will give us a better idea of what services are listening on which port(s) both locally and accessible to the outside.
+
+```cmd-session
+PS C:\htb> netstat -ano
+```
+
+### User & Group Information
+
+**Logged-In Users**
+
+It is always important to determine what users are logged into a system
+
+```cmd-session
+C:\htb> query user
+<SNIP>
+>administrator         rdp-tcp#2           1  Active          .  3/25/2021 9:27 AM
+```
+
+**Current User**
+
+We always need to check what user context our account is running under first. Suppose we gain access as a service account. In that case, we may have privileges such as `SeImpersonatePrivilege`, which can often be easily abused to escalate privileges using a tool such as [Juicy Potato](https://github.com/ohpe/juicy-potato).
+
+```cmd-session
+C:\htb> echo %USERNAME%
+```
+
+**Current User Privileges**
+
+```cmd-session
+C:\htb> whoami /priv
+```
+
+**Current User Group Information**
+
+important to check if our user inherited any rights through their group membership? Are they privileged in the Active Directory domain environment
+
+```cmd-session
+C:\htb> whoami /groups
+```
+
+**Get All Users**
+
+Knowing what other users are on the system is important as well. If we captured for a user `bob`, and see a `bob_adm` user in the local administrators group, it is worth checking for credential re-use
+
+```cmd-session
+C:\htb> net user
+```
+
+**Get All Groups**
+
+```cmd-session
+C:\htb> net localgroup
+```
+
+**Details About a Group**
+
+we may find a password or other interesting information stored in the group's description
+
+```cmd-session
+C:\htb> net localgroup administrators
+```
+
+**Get Password Policy & Other Account Information**
+
+```cmd-session
+C:\htb> net accounts
+```
+
+_**What service is listening on port 8080 (service name not the executable)?**_
+
+<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+## Communication with Processes
