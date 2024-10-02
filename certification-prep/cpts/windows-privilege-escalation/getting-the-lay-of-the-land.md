@@ -202,7 +202,7 @@ C:\htb> net accounts
 
 _**What service is listening on port 8080 (service name not the executable)?**_
 
-<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Communication with Processes
 

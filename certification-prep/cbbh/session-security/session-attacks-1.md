@@ -177,7 +177,7 @@ Then we launch netcat on port 8000
 
 now we simulate what the victim would do and navigate to `http://xss.htb.net/profile?email=ela.stienen@example.com` since we control this public profile hosting a cookie-stealing payload
 
-<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (2) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (2) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 We can use `fetch()`, which can fetch data (cookies) and send it to our server without any redirects.
 
